@@ -1,8 +1,8 @@
 make allreduce
-MESS_SIZE=256
+MESS_SIZE=32
 MESS_NUM=2
-ALGO="ntt_shd" #"ntt_shd" #"lr" 
-NODE=32
+ALGO="lr" #"ntt_shd" #"lr" 
+NODE=16
 NODESIZE=4
 LOG_DIR="logs"
 for MESS_SIZE in  32 #1 2 4 #8 16 32 #  # 64 128 #256  #1 2 4  #1 2 4 # 1#512 #
