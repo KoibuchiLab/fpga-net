@@ -1,0 +1,6 @@
+2lvfcconfig:
+    latency: 50us
+    bandwidth: 1GBps
+    hostspeed: 1Gf
+
+
