@@ -1,0 +1,75 @@
+<?xml version='1.0'?>
+<!DOCTYPE platform SYSTEM "https://simgrid.org/simgrid.dtd">
+<platform version="4.1">
+	<zone  id="AS0"  routing="Full">
+		<host id="0-0" speed="1Gf"/>
+		<host id="0-1" speed="1Gf"/>
+		<host id="0-2" speed="1Gf"/>
+		<host id="1-0" speed="1Gf"/>
+		<host id="1-1" speed="1Gf"/>
+		<host id="1-2" speed="1Gf"/>
+		<host id="2-0" speed="1Gf"/>
+		<host id="2-1" speed="1Gf"/>
+		<host id="2-2" speed="1Gf"/>
+		<link id="0-0_to_0-1" bandwidth="1GBps" latency="50us"/>
+		<link id="0-0_to_0-2" bandwidth="1GBps" latency="50us"/>
+		<link id="0-1_to_0-2" bandwidth="1GBps" latency="50us"/>
+		<link id="1-0_to_1-1" bandwidth="1GBps" latency="50us"/>
+		<link id="1-0_to_1-2" bandwidth="1GBps" latency="50us"/>
+		<link id="1-1_to_1-2" bandwidth="1GBps" latency="50us"/>
+		<link id="2-0_to_2-1" bandwidth="1GBps" latency="50us"/>
+		<link id="2-0_to_2-2" bandwidth="1GBps" latency="50us"/>
+		<link id="2-1_to_2-2" bandwidth="1GBps" latency="50us"/>
+		<link id="0-0_to_1-0" bandwidth="1GBps" latency="50us"/>
+		<link id="0-0_to_2-0" bandwidth="1GBps" latency="50us"/>
+		<link id="0-1_to_1-1" bandwidth="1GBps" latency="50us"/>
+		<link id="0-1_to_2-1" bandwidth="1GBps" latency="50us"/>
+		<link id="0-2_to_1-2" bandwidth="1GBps" latency="50us"/>
+		<link id="0-2_to_2-2" bandwidth="1GBps" latency="50us"/>
+		<route src="0-0" dst="0-1">
+			<link_ctn id="0-0_to_0-1"/>
+		</route>
+		<route src="0-0" dst="0-2">
+			<link_ctn id="0-0_to_0-2"/>
+		</route>
+		<route src="0-1" dst="0-2">
+			<link_ctn id="0-1_to_0-2"/>
+		</route>
+		<route src="1-0" dst="1-1">
+			<link_ctn id="1-0_to_1-1"/>
+		</route>
+		<route src="1-0" dst="1-2">
+			<link_ctn id="1-0_to_1-2"/>
+		</route>
+		<route src="1-1" dst="1-2">
+			<link_ctn id="1-1_to_1-2"/>
+		</route>
+		<route src="2-0" dst="2-1">
+			<link_ctn id="2-0_to_2-1"/>
+		</route>
+		<route src="2-0" dst="2-2">
+			<link_ctn id="2-0_to_2-2"/>
+		</route>
+		<route src="2-1" dst="2-2">
+			<link_ctn id="2-1_to_2-2"/>
+		</route>
+		<route src="0-0" dst="1-0">
+			<link_ctn id="0-0_to_1-0"/>
+		</route>
+		<route src="0-0" dst="2-0">
+			<link_ctn id="0-0_to_2-0"/>
+		</route>
+		<route src="0-1" dst="1-1">
+			<link_ctn id="0-1_to_1-1"/>
+		</route>
+		<route src="0-1" dst="2-1">
+			<link_ctn id="0-1_to_2-1"/>
+		</route>
+		<route src="0-2" dst="1-2">
+			<link_ctn id="0-2_to_1-2"/>
+		</route>
+		<route src="0-2" dst="2-2">
+			<link_ctn id="0-2_to_2-2"/>
+		</route>
+	</zone>
+</platform>

@@ -1,0 +1,89 @@
+Performing C SOURCE FILE Test HAVE_C_STACK_CLEANER failed with the following output:
+Change Dir: /home/aaa10078nj/optelectric_simulate/SimGrid-3.21/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec1806543969/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec1806543969.dir/build.make CMakeFiles/cmTryCompileExec1806543969.dir/build
+gmake[1]: Entering directory `/home/aaa10078nj/optelectric_simulate/SimGrid-3.21/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/aaa10078nj/optelectric_simulate/SimGrid-3.21/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1806543969.dir/src.c.o
+/usr/bin/cc   -DHAVE_C_STACK_CLEANER   -fstack-cleaner -o CMakeFiles/cmTryCompileExec1806543969.dir/src.c.o   -c /home/aaa10078nj/optelectric_simulate/SimGrid-3.21/CMakeFiles/CMakeTmp/src.c
+cc: error: unrecognized command line option '-fstack-cleaner'
+gmake[1]: *** [CMakeFiles/cmTryCompileExec1806543969.dir/src.c.o] Error 1
+gmake[1]: Leaving directory `/home/aaa10078nj/optelectric_simulate/SimGrid-3.21/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec1806543969/fast] Error 2
+
+Source file was:
+int main(void) { return 0; }
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /home/aaa10078nj/optelectric_simulate/SimGrid-3.21/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2122746246/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2122746246.dir/build.make CMakeFiles/cmTryCompileExec2122746246.dir/build
+gmake[1]: Entering directory `/home/aaa10078nj/optelectric_simulate/SimGrid-3.21/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/aaa10078nj/optelectric_simulate/SimGrid-3.21/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2122746246.dir/CheckSymbolExists.c.o
+/usr/bin/cc   -g3 -std=gnu11    -o CMakeFiles/cmTryCompileExec2122746246.dir/CheckSymbolExists.c.o   -c /home/aaa10078nj/optelectric_simulate/SimGrid-3.21/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTryCompileExec2122746246
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2122746246.dir/link.txt --verbose=1
+/usr/bin/cc   -g3 -std=gnu11     CMakeFiles/cmTryCompileExec2122746246.dir/CheckSymbolExists.c.o  -o cmTryCompileExec2122746246 -rdynamic 
+CMakeFiles/cmTryCompileExec2122746246.dir/CheckSymbolExists.c.o: In function `main':
+/home/aaa10078nj/optelectric_simulate/SimGrid-3.21/CMakeFiles/CMakeTmp/CheckSymbolExists.c:8: undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+gmake[1]: *** [cmTryCompileExec2122746246] Error 1
+gmake[1]: Leaving directory `/home/aaa10078nj/optelectric_simulate/SimGrid-3.21/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec2122746246/fast] Error 2
+
+File /home/aaa10078nj/optelectric_simulate/SimGrid-3.21/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/aaa10078nj/optelectric_simulate/SimGrid-3.21/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2805064751/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2805064751.dir/build.make CMakeFiles/cmTryCompileExec2805064751.dir/build
+gmake[1]: Entering directory `/home/aaa10078nj/optelectric_simulate/SimGrid-3.21/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/aaa10078nj/optelectric_simulate/SimGrid-3.21/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2805064751.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -g3 -std=gnu11 -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTryCompileExec2805064751.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec2805064751
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2805064751.dir/link.txt --verbose=1
+/usr/bin/cc   -g3 -std=gnu11 -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTryCompileExec2805064751.dir/CheckFunctionExists.c.o  -o cmTryCompileExec2805064751 -rdynamic -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+gmake[1]: *** [cmTryCompileExec2805064751] Error 1
+gmake[1]: Leaving directory `/home/aaa10078nj/optelectric_simulate/SimGrid-3.21/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec2805064751/fast] Error 2
+
+
+Determining if the function dlfunc exists failed with the following output:
+Change Dir: /home/aaa10078nj/optelectric_simulate/SimGrid-3.21/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3173291817/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3173291817.dir/build.make CMakeFiles/cmTryCompileExec3173291817.dir/build
+gmake[1]: Entering directory `/home/aaa10078nj/optelectric_simulate/SimGrid-3.21/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/aaa10078nj/optelectric_simulate/SimGrid-3.21/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3173291817.dir/CheckFunctionExists.c.o
+/usr/bin/cc  -D_GNU_SOURCE -g3 -std=gnu11 -DCHECK_FUNCTION_EXISTS=dlfunc   -o CMakeFiles/cmTryCompileExec3173291817.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec3173291817
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3173291817.dir/link.txt --verbose=1
+/usr/bin/cc   -g3 -std=gnu11 -DCHECK_FUNCTION_EXISTS=dlfunc    CMakeFiles/cmTryCompileExec3173291817.dir/CheckFunctionExists.c.o  -o cmTryCompileExec3173291817 -rdynamic 
+CMakeFiles/cmTryCompileExec3173291817.dir/CheckFunctionExists.c.o: In function `main':
+/usr/share/cmake/Modules/CheckFunctionExists.c:11: undefined reference to `dlfunc'
+collect2: error: ld returned 1 exit status
+gmake[1]: *** [cmTryCompileExec3173291817] Error 1
+gmake[1]: Leaving directory `/home/aaa10078nj/optelectric_simulate/SimGrid-3.21/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec3173291817/fast] Error 2
+
+
