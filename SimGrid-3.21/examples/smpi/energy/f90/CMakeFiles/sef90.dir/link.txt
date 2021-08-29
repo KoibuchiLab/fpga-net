@@ -1,1 +1,0 @@
-/home/aaa10078nj/fpga_network/SimGrid-3.21/smpi_script/bin/smpif90      -g CMakeFiles/sef90.dir/sef90.f90.o  -o sef90 -rdynamic ../../../../lib/libsimgrid.so.3.21 -lm /usr/lib64/libboost_context-mt.so -lpthread -lrt /usr/lib64/libdl.so -lgfortran   -Wl,--as-needed -latomic -Wl,--no-as-needed -Wl,-rpath,/home/aaa10078nj/fpga_network/SimGrid-3.21/lib 
