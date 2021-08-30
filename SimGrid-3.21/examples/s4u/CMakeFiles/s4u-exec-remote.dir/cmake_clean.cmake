@@ -1,10 +1,10 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/s4u-exec-remote.dir/exec-remote/s4u-exec-remote.cpp.o"
-  "exec-remote/s4u-exec-remote.pdb"
   "exec-remote/s4u-exec-remote"
+  "exec-remote/s4u-exec-remote.pdb"
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang CXX)
-  INCLUDE(CMakeFiles/s4u-exec-remote.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang CXX)
+  include(CMakeFiles/s4u-exec-remote.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

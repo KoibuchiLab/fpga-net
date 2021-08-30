@@ -1,10 +1,10 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/availability.dir/availability/availability.c.o"
-  "availability/availability.pdb"
   "availability/availability"
+  "availability/availability.pdb"
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang C)
-  INCLUDE(CMakeFiles/availability.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang C)
+  include(CMakeFiles/availability.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

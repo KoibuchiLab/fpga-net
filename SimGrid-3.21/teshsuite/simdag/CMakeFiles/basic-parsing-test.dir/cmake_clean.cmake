@@ -1,10 +1,10 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/basic-parsing-test.dir/basic-parsing-test/basic-parsing-test.c.o"
-  "basic-parsing-test/basic-parsing-test.pdb"
   "basic-parsing-test/basic-parsing-test"
+  "basic-parsing-test/basic-parsing-test.pdb"
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang C)
-  INCLUDE(CMakeFiles/basic-parsing-test.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang C)
+  include(CMakeFiles/basic-parsing-test.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

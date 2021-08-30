@@ -1,10 +1,10 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/coll-alltoall.dir/coll-alltoall/coll-alltoall.c.o"
-  "coll-alltoall/coll-alltoall.pdb"
   "coll-alltoall/coll-alltoall"
+  "coll-alltoall/coll-alltoall.pdb"
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang C)
-  INCLUDE(CMakeFiles/coll-alltoall.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang C)
+  include(CMakeFiles/coll-alltoall.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

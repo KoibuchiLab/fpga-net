@@ -1,10 +1,10 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/s4u-plugin-hostload.dir/plugin-hostload/s4u-plugin-hostload.cpp.o"
-  "plugin-hostload/s4u-plugin-hostload.pdb"
   "plugin-hostload/s4u-plugin-hostload"
+  "plugin-hostload/s4u-plugin-hostload.pdb"
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang CXX)
-  INCLUDE(CMakeFiles/s4u-plugin-hostload.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang CXX)
+  include(CMakeFiles/s4u-plugin-hostload.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

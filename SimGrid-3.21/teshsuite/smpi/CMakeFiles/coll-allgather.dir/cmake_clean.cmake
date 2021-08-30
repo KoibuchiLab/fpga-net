@@ -1,10 +1,10 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/coll-allgather.dir/coll-allgather/coll-allgather.c.o"
-  "coll-allgather/coll-allgather.pdb"
   "coll-allgather/coll-allgather"
+  "coll-allgather/coll-allgather.pdb"
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang C)
-  INCLUDE(CMakeFiles/coll-allgather.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang C)
+  include(CMakeFiles/coll-allgather.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

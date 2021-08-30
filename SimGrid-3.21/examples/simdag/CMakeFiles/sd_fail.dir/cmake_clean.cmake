@@ -1,10 +1,10 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/sd_fail.dir/fail/sd_fail.c.o"
-  "fail/sd_fail.pdb"
   "fail/sd_fail"
+  "fail/sd_fail.pdb"
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang C)
-  INCLUDE(CMakeFiles/sd_fail.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang C)
+  include(CMakeFiles/sd_fail.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

@@ -1,10 +1,10 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/basic5.dir/basic5/basic5.c.o"
-  "basic5/basic5.pdb"
   "basic5/basic5"
+  "basic5/basic5.pdb"
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang C)
-  INCLUDE(CMakeFiles/basic5.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang C)
+  include(CMakeFiles/basic5.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

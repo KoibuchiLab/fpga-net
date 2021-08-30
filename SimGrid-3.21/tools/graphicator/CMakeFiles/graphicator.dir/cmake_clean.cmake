@@ -1,11 +1,11 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
+  "../../bin/graphicator"
+  "../../bin/graphicator.pdb"
   "simgrid.trace"
   "CMakeFiles/graphicator.dir/graphicator.c.o"
-  "../../bin/graphicator.pdb"
-  "../../bin/graphicator"
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang C)
-  INCLUDE(CMakeFiles/graphicator.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang C)
+  include(CMakeFiles/graphicator.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

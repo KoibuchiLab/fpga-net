@@ -1,10 +1,10 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/platform-failures.dir/platform-failures/platform-failures.c.o"
-  "platform-failures/platform-failures.pdb"
   "platform-failures/platform-failures"
+  "platform-failures/platform-failures.pdb"
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang C)
-  INCLUDE(CMakeFiles/platform-failures.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang C)
+  include(CMakeFiles/platform-failures.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

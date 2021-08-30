@@ -1,10 +1,10 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/lmm_usage.dir/lmm_usage/lmm_usage.cpp.o"
-  "lmm_usage/lmm_usage.pdb"
   "lmm_usage/lmm_usage"
+  "lmm_usage/lmm_usage.pdb"
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang CXX)
-  INCLUDE(CMakeFiles/lmm_usage.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang CXX)
+  include(CMakeFiles/lmm_usage.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

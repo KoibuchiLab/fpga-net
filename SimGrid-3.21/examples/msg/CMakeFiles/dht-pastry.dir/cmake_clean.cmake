@@ -1,10 +1,10 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/dht-pastry.dir/dht-pastry/dht-pastry.c.o"
-  "dht-pastry/dht-pastry.pdb"
   "dht-pastry/dht-pastry"
+  "dht-pastry/dht-pastry.pdb"
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang C)
-  INCLUDE(CMakeFiles/dht-pastry.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang C)
+  include(CMakeFiles/dht-pastry.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

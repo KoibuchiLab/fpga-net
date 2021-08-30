@@ -1,11 +1,11 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/is.dir/is.c.o"
   "CMakeFiles/is.dir/nas_common.c.o"
-  "is.pdb"
   "is"
+  "is.pdb"
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang C)
-  INCLUDE(CMakeFiles/is.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang C)
+  include(CMakeFiles/is.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

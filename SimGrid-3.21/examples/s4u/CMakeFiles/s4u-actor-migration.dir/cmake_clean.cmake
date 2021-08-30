@@ -1,10 +1,10 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/s4u-actor-migration.dir/actor-migration/s4u-actor-migration.cpp.o"
-  "actor-migration/s4u-actor-migration.pdb"
   "actor-migration/s4u-actor-migration"
+  "actor-migration/s4u-actor-migration.pdb"
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang CXX)
-  INCLUDE(CMakeFiles/s4u-actor-migration.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang CXX)
+  include(CMakeFiles/s4u-actor-migration.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

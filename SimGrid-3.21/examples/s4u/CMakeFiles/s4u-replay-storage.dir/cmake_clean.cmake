@@ -1,10 +1,10 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/s4u-replay-storage.dir/replay-storage/s4u-replay-storage.cpp.o"
-  "replay-storage/s4u-replay-storage.pdb"
   "replay-storage/s4u-replay-storage"
+  "replay-storage/s4u-replay-storage.pdb"
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang CXX)
-  INCLUDE(CMakeFiles/s4u-replay-storage.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang CXX)
+  include(CMakeFiles/s4u-replay-storage.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

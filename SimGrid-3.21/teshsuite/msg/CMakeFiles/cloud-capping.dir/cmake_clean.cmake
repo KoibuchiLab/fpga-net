@@ -1,10 +1,10 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/cloud-capping.dir/cloud-capping/cloud-capping.c.o"
-  "cloud-capping/cloud-capping.pdb"
   "cloud-capping/cloud-capping"
+  "cloud-capping/cloud-capping.pdb"
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang C)
-  INCLUDE(CMakeFiles/cloud-capping.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang C)
+  include(CMakeFiles/cloud-capping.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

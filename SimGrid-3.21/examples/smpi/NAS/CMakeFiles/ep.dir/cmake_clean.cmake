@@ -1,11 +1,11 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/ep.dir/ep.c.o"
   "CMakeFiles/ep.dir/nas_common.c.o"
-  "ep.pdb"
   "ep"
+  "ep.pdb"
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang C)
-  INCLUDE(CMakeFiles/ep.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang C)
+  include(CMakeFiles/ep.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

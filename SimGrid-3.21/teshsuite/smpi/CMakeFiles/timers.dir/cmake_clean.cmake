@@ -1,10 +1,10 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/timers.dir/timers/timers.c.o"
-  "timers/timers.pdb"
   "timers/timers"
+  "timers/timers.pdb"
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang C)
-  INCLUDE(CMakeFiles/timers.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang C)
+  include(CMakeFiles/timers.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

@@ -1,10 +1,10 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/process-migration.dir/process-migration/process-migration.c.o"
-  "process-migration/process-migration.pdb"
   "process-migration/process-migration"
+  "process-migration/process-migration.pdb"
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang C)
-  INCLUDE(CMakeFiles/process-migration.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang C)
+  include(CMakeFiles/process-migration.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

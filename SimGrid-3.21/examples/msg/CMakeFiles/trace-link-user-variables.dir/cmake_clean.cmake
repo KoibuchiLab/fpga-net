@@ -1,10 +1,10 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/trace-link-user-variables.dir/trace-link-user-variables/trace-link-user-variables.c.o"
-  "trace-link-user-variables/trace-link-user-variables.pdb"
   "trace-link-user-variables/trace-link-user-variables"
+  "trace-link-user-variables/trace-link-user-variables.pdb"
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang C)
-  INCLUDE(CMakeFiles/trace-link-user-variables.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang C)
+  include(CMakeFiles/trace-link-user-variables.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

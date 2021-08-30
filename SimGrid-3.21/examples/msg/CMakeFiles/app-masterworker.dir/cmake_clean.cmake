@@ -1,10 +1,10 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/app-masterworker.dir/app-masterworker/app-masterworker.c.o"
-  "app-masterworker/app-masterworker.pdb"
   "app-masterworker/app-masterworker"
+  "app-masterworker/app-masterworker.pdb"
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang C)
-  INCLUDE(CMakeFiles/app-masterworker.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang C)
+  include(CMakeFiles/app-masterworker.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

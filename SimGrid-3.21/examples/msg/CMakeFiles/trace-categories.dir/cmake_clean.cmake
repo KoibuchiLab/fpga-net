@@ -1,10 +1,10 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CMakeFiles/trace-categories.dir/trace-categories/trace-categories.c.o"
-  "trace-categories/trace-categories.pdb"
   "trace-categories/trace-categories"
+  "trace-categories/trace-categories.pdb"
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang C)
-  INCLUDE(CMakeFiles/trace-categories.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang C)
+  include(CMakeFiles/trace-categories.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()
