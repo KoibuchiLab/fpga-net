@@ -29,10 +29,10 @@ def route_disjoint(src, dst):
 	src_b = src.split('_')[1]
 	dst_a = dst.split('_')[0]
 	int_node = dst_a + "," + src_b
-	result =  "\t\t<route src=\"host%s\" dst=\"host%s\">\n \
-		\t\t\t<link_ctn id=\"host%s_to_host%s\"/>\n\
-		\t\t\t<link_ctn id=\"host%s_to_host%s\"/>\n\
-		\t\t</route>\n" % (src, dst, src, int_node, int_node, dst)
+	result =  "\t\t<route src=\"%s\" dst=\"%s\">\n \
+		\t<link_ctn id=\"%s_to_%s\"/>\n\
+		\t<link_ctn id=\"%s_to_%s\"/>\n\
+		</route>\n" % (src, dst, src, int_node, int_node, dst)
 	return result
 
 def edge2linkid(edge):
@@ -79,6 +79,8 @@ for node in range(NUM_OF_NODES_IN_GROUP):
 		routelist.append(route_directlink(cur_hostname, target_hostname, linkID))
 
 assert(len(linklist) == NUM_OF_LINKS)
+
+#Add disjoint link
 for src in hostIDlist:
 	for dst in hostIDlist:
 		src_a = src.split('_')[0]
