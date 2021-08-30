@@ -22,13 +22,23 @@ def host(hostname, speed = DEFAULT_SPEED):
 def link(id, bandwidth = DEFAULT_BANDWIDTH, latency = DEFAULT_LATENCY):
 	return "\t\t<link id=\"%s\" bandwidth=\"%s\" latency=\"%s\"/>\n" % (id, bandwidth, latency)	
 
-def route(src, dest, _link):
+def route_directlink(src, dest, _link):
 	return "\t\t<route src=\"%s\" dst=\"%s\">\n\t\t\t<link_ctn id=\"%s\"/>\n\t\t</route>\n"% (src, dest, _link)
+
+def route_disjoint(src, dst):  
+	src_b = src.split('_')[1]
+	dst_a = dst.split('_')[0]
+	int_node = dst_a + "," + src_b
+	result =  "\t\t<route src=\"host%s\" dst=\"host%s\">\n \
+		\t\t\t<link_ctn id=\"host%s_to_host%s\"/>\n\
+		\t\t\t<link_ctn id=\"host%s_to_host%s\"/>\n\
+		\t\t</route>\n" % (src, dst, src, int_node, int_node, dst)
+	return result
 
 def edge2linkid(edge):
 	return "%d_to_%d" % (edge[0], edge[1])
 
-
+hostIDlist = []
 hostlist = []
 linklist = []
 routelist = []
@@ -37,6 +47,7 @@ routelist = []
 for group in range(NUM_OF_GROUPS):
 	for node in range(NUM_OF_NODES_IN_GROUP):
 		cur_hostname = "%d_%d" %(group, node)
+		hostIDlist.append(cur_hostname)
 		hostlist.append(host(cur_hostname))
 	
 assert(len(hostlist) == NUM_OF_NODES)
@@ -53,7 +64,7 @@ for group in range(NUM_OF_GROUPS):
 			#print(linkID)
 
 			#add route
-			routelist.append(route(cur_hostname, target_hostname, linkID))
+			routelist.append(route_directlink(cur_hostname, target_hostname, linkID))
 
 #Add links for external connections
 for node in range(NUM_OF_NODES_IN_GROUP):
@@ -64,10 +75,20 @@ for node in range(NUM_OF_NODES_IN_GROUP):
 		linklist.append(link(linkID))
 		#print(linkID)
 
-		#add route
-		routelist.append(route(cur_hostname, target_hostname, linkID))
+		#add route (direct link)
+		routelist.append(route_directlink(cur_hostname, target_hostname, linkID))
 
 assert(len(linklist) == NUM_OF_LINKS)
+for src in hostIDlist:
+	for dst in hostIDlist:
+		src_a = src.split('_')[0]
+		src_b = src.split('_')[1]
+		dst_a = dst.split('_')[0]
+		dst_b = dst.split('_')[1]
+		if src_a != dst_a and src_b != dst_b: #not a direct path
+			routelist.append(route_disjoint(src, dst))
+
+
 		
 
 f = open(OUTPUT_FILENAME, "w")
@@ -79,7 +100,9 @@ header = 	["<?xml version='1.0'?>\n",
 f.writelines(header)
 f.write("\t<zone  id=\"AS0\"  routing=\"Full\">\n")
 f.writelines(hostlist)
+f.writelines("\n")
 f.writelines(linklist)
+f.writelines("\n")
 f.writelines(routelist)
 f.write("\t</zone>\n")
 f.write("</platform>")

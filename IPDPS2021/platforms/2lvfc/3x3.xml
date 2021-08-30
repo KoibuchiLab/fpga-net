@@ -1,5 +1,5 @@
 <?xml version='1.0'?>
-<!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid/simgrid.dtd">
+<!DOCTYPE platform SYSTEM "https://simgrid.org/simgrid.dtd">
 <platform version="4.1">
 	<zone  id="AS0"  routing="Full">
 		<host id="0_0" speed="1Gf"/>
@@ -11,6 +11,7 @@
 		<host id="2_0" speed="1Gf"/>
 		<host id="2_1" speed="1Gf"/>
 		<host id="2_2" speed="1Gf"/>
+
 		<link id="0_0_to_0_1" bandwidth="1GBps" latency="50us"/>
 		<link id="0_0_to_0_2" bandwidth="1GBps" latency="50us"/>
 		<link id="0_1_to_0_2" bandwidth="1GBps" latency="50us"/>
@@ -26,6 +27,7 @@
 		<link id="0_1_to_2_1" bandwidth="1GBps" latency="50us"/>
 		<link id="0_2_to_1_2" bandwidth="1GBps" latency="50us"/>
 		<link id="0_2_to_2_2" bandwidth="1GBps" latency="50us"/>
+
 		<route src="0_0" dst="0_1">
 			<link_ctn id="0_0_to_0_1"/>
 		</route>
@@ -71,5 +73,149 @@
 		<route src="0_2" dst="2_2">
 			<link_ctn id="0_2_to_2_2"/>
 		</route>
+		<route src="host0_0" dst="host1_1">
+ 					<link_ctn id="host0_0_to_host1,0"/>
+					<link_ctn id="host1,0_to_host1_1"/>
+				</route>
+		<route src="host0_0" dst="host1_2">
+ 					<link_ctn id="host0_0_to_host1,0"/>
+					<link_ctn id="host1,0_to_host1_2"/>
+				</route>
+		<route src="host0_0" dst="host2_1">
+ 					<link_ctn id="host0_0_to_host2,0"/>
+					<link_ctn id="host2,0_to_host2_1"/>
+				</route>
+		<route src="host0_0" dst="host2_2">
+ 					<link_ctn id="host0_0_to_host2,0"/>
+					<link_ctn id="host2,0_to_host2_2"/>
+				</route>
+		<route src="host0_1" dst="host1_0">
+ 					<link_ctn id="host0_1_to_host1,1"/>
+					<link_ctn id="host1,1_to_host1_0"/>
+				</route>
+		<route src="host0_1" dst="host1_2">
+ 					<link_ctn id="host0_1_to_host1,1"/>
+					<link_ctn id="host1,1_to_host1_2"/>
+				</route>
+		<route src="host0_1" dst="host2_0">
+ 					<link_ctn id="host0_1_to_host2,1"/>
+					<link_ctn id="host2,1_to_host2_0"/>
+				</route>
+		<route src="host0_1" dst="host2_2">
+ 					<link_ctn id="host0_1_to_host2,1"/>
+					<link_ctn id="host2,1_to_host2_2"/>
+				</route>
+		<route src="host0_2" dst="host1_0">
+ 					<link_ctn id="host0_2_to_host1,2"/>
+					<link_ctn id="host1,2_to_host1_0"/>
+				</route>
+		<route src="host0_2" dst="host1_1">
+ 					<link_ctn id="host0_2_to_host1,2"/>
+					<link_ctn id="host1,2_to_host1_1"/>
+				</route>
+		<route src="host0_2" dst="host2_0">
+ 					<link_ctn id="host0_2_to_host2,2"/>
+					<link_ctn id="host2,2_to_host2_0"/>
+				</route>
+		<route src="host0_2" dst="host2_1">
+ 					<link_ctn id="host0_2_to_host2,2"/>
+					<link_ctn id="host2,2_to_host2_1"/>
+				</route>
+		<route src="host1_0" dst="host0_1">
+ 					<link_ctn id="host1_0_to_host0,0"/>
+					<link_ctn id="host0,0_to_host0_1"/>
+				</route>
+		<route src="host1_0" dst="host0_2">
+ 					<link_ctn id="host1_0_to_host0,0"/>
+					<link_ctn id="host0,0_to_host0_2"/>
+				</route>
+		<route src="host1_0" dst="host2_1">
+ 					<link_ctn id="host1_0_to_host2,0"/>
+					<link_ctn id="host2,0_to_host2_1"/>
+				</route>
+		<route src="host1_0" dst="host2_2">
+ 					<link_ctn id="host1_0_to_host2,0"/>
+					<link_ctn id="host2,0_to_host2_2"/>
+				</route>
+		<route src="host1_1" dst="host0_0">
+ 					<link_ctn id="host1_1_to_host0,1"/>
+					<link_ctn id="host0,1_to_host0_0"/>
+				</route>
+		<route src="host1_1" dst="host0_2">
+ 					<link_ctn id="host1_1_to_host0,1"/>
+					<link_ctn id="host0,1_to_host0_2"/>
+				</route>
+		<route src="host1_1" dst="host2_0">
+ 					<link_ctn id="host1_1_to_host2,1"/>
+					<link_ctn id="host2,1_to_host2_0"/>
+				</route>
+		<route src="host1_1" dst="host2_2">
+ 					<link_ctn id="host1_1_to_host2,1"/>
+					<link_ctn id="host2,1_to_host2_2"/>
+				</route>
+		<route src="host1_2" dst="host0_0">
+ 					<link_ctn id="host1_2_to_host0,2"/>
+					<link_ctn id="host0,2_to_host0_0"/>
+				</route>
+		<route src="host1_2" dst="host0_1">
+ 					<link_ctn id="host1_2_to_host0,2"/>
+					<link_ctn id="host0,2_to_host0_1"/>
+				</route>
+		<route src="host1_2" dst="host2_0">
+ 					<link_ctn id="host1_2_to_host2,2"/>
+					<link_ctn id="host2,2_to_host2_0"/>
+				</route>
+		<route src="host1_2" dst="host2_1">
+ 					<link_ctn id="host1_2_to_host2,2"/>
+					<link_ctn id="host2,2_to_host2_1"/>
+				</route>
+		<route src="host2_0" dst="host0_1">
+ 					<link_ctn id="host2_0_to_host0,0"/>
+					<link_ctn id="host0,0_to_host0_1"/>
+				</route>
+		<route src="host2_0" dst="host0_2">
+ 					<link_ctn id="host2_0_to_host0,0"/>
+					<link_ctn id="host0,0_to_host0_2"/>
+				</route>
+		<route src="host2_0" dst="host1_1">
+ 					<link_ctn id="host2_0_to_host1,0"/>
+					<link_ctn id="host1,0_to_host1_1"/>
+				</route>
+		<route src="host2_0" dst="host1_2">
+ 					<link_ctn id="host2_0_to_host1,0"/>
+					<link_ctn id="host1,0_to_host1_2"/>
+				</route>
+		<route src="host2_1" dst="host0_0">
+ 					<link_ctn id="host2_1_to_host0,1"/>
+					<link_ctn id="host0,1_to_host0_0"/>
+				</route>
+		<route src="host2_1" dst="host0_2">
+ 					<link_ctn id="host2_1_to_host0,1"/>
+					<link_ctn id="host0,1_to_host0_2"/>
+				</route>
+		<route src="host2_1" dst="host1_0">
+ 					<link_ctn id="host2_1_to_host1,1"/>
+					<link_ctn id="host1,1_to_host1_0"/>
+				</route>
+		<route src="host2_1" dst="host1_2">
+ 					<link_ctn id="host2_1_to_host1,1"/>
+					<link_ctn id="host1,1_to_host1_2"/>
+				</route>
+		<route src="host2_2" dst="host0_0">
+ 					<link_ctn id="host2_2_to_host0,2"/>
+					<link_ctn id="host0,2_to_host0_0"/>
+				</route>
+		<route src="host2_2" dst="host0_1">
+ 					<link_ctn id="host2_2_to_host0,2"/>
+					<link_ctn id="host0,2_to_host0_1"/>
+				</route>
+		<route src="host2_2" dst="host1_0">
+ 					<link_ctn id="host2_2_to_host1,2"/>
+					<link_ctn id="host1,2_to_host1_0"/>
+				</route>
+		<route src="host2_2" dst="host1_1">
+ 					<link_ctn id="host2_2_to_host1,2"/>
+					<link_ctn id="host1,2_to_host1_1"/>
+				</route>
 	</zone>
 </platform>
