@@ -28,7 +28,7 @@ def route_directlink(src, dest, _link):
 def route_disjoint(src, dst):  
 	src_b = src.split('_')[1]
 	dst_a = dst.split('_')[0]
-	int_node = dst_a + "," + src_b
+	int_node = dst_a + "_" + src_b
 	result =  "\t\t<route src=\"%s\" dst=\"%s\">\n \
 		\t<link_ctn id=\"%s_to_%s\"/>\n\
 		\t<link_ctn id=\"%s_to_%s\"/>\n\
