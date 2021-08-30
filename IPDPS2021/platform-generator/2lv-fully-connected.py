@@ -95,7 +95,7 @@ for src in hostIDlist:
 
 f = open(OUTPUT_FILENAME, "w")
 header = 	["<?xml version='1.0'?>\n", 
-			"<!DOCTYPE platform SYSTEM \"https://simgrid.org/simgrid.dtd\">\n",
+			"<!DOCTYPE platform SYSTEM \'http://simgrid.gforge.inria.fr/simgrid/simgrid.dtd\'>\n",
 			"<platform version=\"4.1\">\n", 
 			]
 
