@@ -36,7 +36,7 @@ routelist = []
 #Add hostname to host list
 for group in range(NUM_OF_GROUPS):
 	for node in range(NUM_OF_NODES_IN_GROUP):
-		cur_hostname = "%d-%d" %(group, node)
+		cur_hostname = "%d_%d" %(group, node)
 		hostlist.append(host(cur_hostname))
 	
 assert(len(hostlist) == NUM_OF_NODES)
@@ -44,10 +44,10 @@ assert(len(hostlist) == NUM_OF_NODES)
 #Add links for internal connections
 for group in range(NUM_OF_GROUPS):
 	for node in range(NUM_OF_NODES_IN_GROUP):
-		cur_hostname = "%d-%d" %(group, node)
+		cur_hostname = "%d_%d" %(group, node)
 		for target in range(node + 1, NUM_OF_NODES_IN_GROUP):
 			#link from node group-node to all other
-			target_hostname = "%d-%d" % (group, target)
+			target_hostname = "%d_%d" % (group, target)
 			linkID = "%s_to_%s" % (cur_hostname, target_hostname)
 			linklist.append(link(linkID))
 			#print(linkID)
@@ -57,9 +57,9 @@ for group in range(NUM_OF_GROUPS):
 
 #Add links for external connections
 for node in range(NUM_OF_NODES_IN_GROUP):
-	cur_hostname = "%d-%d" %(0, node)
+	cur_hostname = "%d_%d" %(0, node)
 	for group in range(1, NUM_OF_GROUPS):
-		target_hostname = "%d-%d" % (group, node)
+		target_hostname = "%d_%d" % (group, node)
 		linkID = "%s_to_%s" % (cur_hostname, target_hostname)
 		linklist.append(link(linkID))
 		#print(linkID)
