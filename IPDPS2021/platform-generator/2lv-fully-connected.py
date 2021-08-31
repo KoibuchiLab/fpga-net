@@ -105,8 +105,10 @@ for node in range(NUM_OF_NODES_IN_GROUP):
 assert(len(linklist) == NUM_OF_LINKS)
 
 #Add disjoint link
-for src in hostIDlist:
-	for dst in hostIDlist:
+for i in range(len(hostIDlist)):
+	for j in range(i, len(hostIDlist), 1):
+		src = hostIDlist[i]
+		dst = hostIDlist[j]
 		src_a = src.split('_')[0]
 		src_b = src.split('_')[1]
 		dst_a = dst.split('_')[0]
