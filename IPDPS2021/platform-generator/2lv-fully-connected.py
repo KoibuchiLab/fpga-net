@@ -25,14 +25,38 @@ def link(id, bandwidth = DEFAULT_BANDWIDTH, latency = DEFAULT_LATENCY):
 def route_directlink(src, dest, _link):
 	return "\t\t<route src=\"%s\" dst=\"%s\">\n\t\t\t<link_ctn id=\"%s\"/>\n\t\t</route>\n"% (src, dest, _link)
 
+def isgreater(src, dst):
+	src_a = int(src.split('_')[0])
+	src_b = int(src.split('_')[1])
+	dst_a = int(dst.split('_')[0])
+	dst_b = int(dst.split('_')[1])
+	if src_a > dst_a :
+		return True
+	elif src_a == dst_a and src_b > dst_b:
+		return True
+	else:
+		return False
+
 def route_disjoint(src, dst):  
 	src_b = src.split('_')[1]
 	dst_a = dst.split('_')[0]
 	int_node = dst_a + "_" + src_b
+	link1 = ""
+	link2 =""
+	if isgreater(src, int_node):
+		link1 = "%s_to_%s" % (int_node, src)
+	else:
+		link1 = "%s_to_%s" % (src, int_node)
+	
+	if isgreater(int_node, dst):
+		link2 = "%s_to_%s" % (dst, int_node)
+	else:
+		link2 = "%s_to_%s" % (int_node, dst)
+
 	result =  "\t\t<route src=\"%s\" dst=\"%s\">\n \
-		\t<link_ctn id=\"%s_to_%s\"/>\n\
-		\t<link_ctn id=\"%s_to_%s\"/>\n\
-		</route>\n" % (src, dst, src, int_node, int_node, dst)
+		\t<link_ctn id=\"%s\"/>\n\
+		\t<link_ctn id=\"%s\"/>\n\
+		</route>\n" % (src, dst, link1, link2)
 	return result
 
 def edge2linkid(edge):
