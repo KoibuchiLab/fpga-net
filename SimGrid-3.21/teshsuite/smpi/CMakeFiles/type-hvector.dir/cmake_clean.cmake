@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/type-hvector.dir/type-hvector/type-hvector.c.o"
-  "type-hvector/type-hvector"
   "type-hvector/type-hvector.pdb"
+  "type-hvector/type-hvector"
 )
 
 # Per-language clean rules from dependency scanning.

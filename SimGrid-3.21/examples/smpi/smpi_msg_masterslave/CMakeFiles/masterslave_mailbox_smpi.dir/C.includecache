@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/smpi/smpi_msg_masterslave/masterslave_mailbox_smpi.c
+/home/kien/project/fpga_network/SimGrid-3.21/examples/smpi/smpi_msg_masterslave/masterslave_mailbox_smpi.c
 simgrid/msg.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/smpi/smpi_msg_masterslave/simgrid/msg.h
+/home/kien/project/fpga_network/SimGrid-3.21/examples/smpi/smpi_msg_masterslave/simgrid/msg.h
 mpi.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/smpi/smpi_msg_masterslave/mpi.h
+/home/kien/project/fpga_network/SimGrid-3.21/examples/smpi/smpi_msg_masterslave/mpi.h
 stdio.h
 -
 

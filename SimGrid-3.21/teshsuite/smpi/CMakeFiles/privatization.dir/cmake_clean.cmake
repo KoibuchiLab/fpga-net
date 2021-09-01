@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/privatization.dir/privatization/privatization.c.o"
-  "privatization/privatization"
   "privatization/privatization.pdb"
+  "privatization/privatization"
 )
 
 # Per-language clean rules from dependency scanning.

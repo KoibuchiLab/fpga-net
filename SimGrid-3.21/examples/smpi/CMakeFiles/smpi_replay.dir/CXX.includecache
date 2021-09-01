@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/smpi/replay/replay.cpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/smpi/replay/replay.cpp
 xbt/replay.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/smpi/replay/xbt/replay.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/smpi/replay/xbt/replay.hpp
 smpi/smpi.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/smpi/replay/smpi/smpi.h
+/home/kien/project/fpga_network/SimGrid-3.21/examples/smpi/replay/smpi/smpi.h
 
 include/simgrid/config.h
 xbt/base.h

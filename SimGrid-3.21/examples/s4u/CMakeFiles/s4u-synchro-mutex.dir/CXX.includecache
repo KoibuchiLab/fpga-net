@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/synchro-mutex/s4u-synchro-mutex.cpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/synchro-mutex/s4u-synchro-mutex.cpp
 mutex
 -
 simgrid/s4u.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/synchro-mutex/simgrid/s4u.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/synchro-mutex/simgrid/s4u.hpp
 
 include/simgrid/Exception.hpp
 xbt/backtrace.hpp

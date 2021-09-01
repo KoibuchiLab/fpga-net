@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/smpi/coll-alltoallv/coll-alltoallv.c
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/smpi/coll-alltoallv/coll-alltoallv.c
 string.h
 -
 stdlib.h
@@ -14,7 +14,7 @@ stdlib.h
 stdio.h
 -
 mpi.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/smpi/coll-alltoallv/mpi.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/smpi/coll-alltoallv/mpi.h
 
 include/simgrid/config.h
 xbt/base.h

@@ -22,7 +22,7 @@
 /* <ucontext.h> */
 #define HAVE_UCONTEXT_H 1
 /* <valgrind/valgrind.h> */
-#define HAVE_VALGRIND_H 1
+#define HAVE_VALGRIND_H 0
 
 /* Address Sanitizer */
 #define HAVE_SANITIZER_THREAD 0

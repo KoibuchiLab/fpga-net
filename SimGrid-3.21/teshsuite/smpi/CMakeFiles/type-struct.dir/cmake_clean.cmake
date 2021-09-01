@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/type-struct.dir/type-struct/type-struct.c.o"
-  "type-struct/type-struct"
   "type-struct/type-struct.pdb"
+  "type-struct/type-struct"
 )
 
 # Per-language clean rules from dependency scanning.

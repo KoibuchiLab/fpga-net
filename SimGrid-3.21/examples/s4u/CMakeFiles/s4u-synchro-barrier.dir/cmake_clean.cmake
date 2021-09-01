@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/s4u-synchro-barrier.dir/synchro-barrier/s4u-synchro-barrier.cpp.o"
-  "synchro-barrier/s4u-synchro-barrier"
   "synchro-barrier/s4u-synchro-barrier.pdb"
+  "synchro-barrier/s4u-synchro-barrier"
 )
 
 # Per-language clean rules from dependency scanning.

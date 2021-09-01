@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/s4u/storage_client_server/storage_client_server.cpp
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/s4u/storage_client_server/storage_client_server.cpp
 simgrid/plugins/file_system.h
 -
 simgrid/s4u.hpp

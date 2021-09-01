@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/energy-ptask.dir/energy-ptask/energy-ptask.c.o"
-  "energy-ptask/energy-ptask"
   "energy-ptask/energy-ptask.pdb"
+  "energy-ptask/energy-ptask"
 )
 
 # Per-language clean rules from dependency scanning.

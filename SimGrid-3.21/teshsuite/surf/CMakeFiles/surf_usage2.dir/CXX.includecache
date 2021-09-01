@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,19 +6,19 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/surf/surf_usage2/surf_usage2.cpp
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/surf/surf_usage2/surf_usage2.cpp
 simgrid/host.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/surf/surf_usage2/simgrid/host.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/surf/surf_usage2/simgrid/host.h
 src/surf/cpu_interface.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/surf/surf_usage2/src/surf/cpu_interface.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/surf/surf_usage2/src/surf/cpu_interface.hpp
 src/surf/network_interface.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/surf/surf_usage2/src/surf/network_interface.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/surf/surf_usage2/src/surf/network_interface.hpp
 src/surf/surf_interface.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/surf/surf_usage2/src/surf/surf_interface.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/surf/surf_usage2/src/surf/surf_interface.hpp
 surf/surf.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/surf/surf_usage2/surf/surf.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/surf/surf_usage2/surf/surf.hpp
 xbt/config.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/surf/surf_usage2/xbt/config.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/surf/surf_usage2/xbt/config.hpp
 
 include/simgrid/config.h
 xbt/base.h

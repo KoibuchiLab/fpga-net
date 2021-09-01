@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,13 +6,13 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/smpi/ampi/ampi.cpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/smpi/ampi/ampi.cpp
 simgrid/s4u/Actor.hpp
 -
 smpi/smpi.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/smpi/ampi/smpi/smpi.h
+/home/kien/project/fpga_network/SimGrid-3.21/examples/smpi/ampi/smpi/smpi.h
 smpi/sampi.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/smpi/ampi/smpi/sampi.h
+/home/kien/project/fpga_network/SimGrid-3.21/examples/smpi/ampi/smpi/sampi.h
 
 include/simgrid/chrono.hpp
 chrono

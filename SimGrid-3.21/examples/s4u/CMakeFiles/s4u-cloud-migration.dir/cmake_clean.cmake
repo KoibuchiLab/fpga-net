@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/s4u-cloud-migration.dir/cloud-migration/s4u-cloud-migration.cpp.o"
-  "cloud-migration/s4u-cloud-migration"
   "cloud-migration/s4u-cloud-migration.pdb"
+  "cloud-migration/s4u-cloud-migration"
 )
 
 # Per-language clean rules from dependency scanning.

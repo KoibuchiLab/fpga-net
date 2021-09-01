@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,15 +6,15 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/simdag/scheduling/sd_scheduling.c
+/home/kien/project/fpga_network/SimGrid-3.21/examples/simdag/scheduling/sd_scheduling.c
 simgrid/simdag.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/simdag/scheduling/simgrid/simdag.h
+/home/kien/project/fpga_network/SimGrid-3.21/examples/simdag/scheduling/simgrid/simdag.h
 math.h
 -
 string.h
 -
 simgrid/jedule/jedule_sd_binding.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/simdag/scheduling/simgrid/jedule/jedule_sd_binding.h
+/home/kien/project/fpga_network/SimGrid-3.21/examples/simdag/scheduling/simgrid/jedule/jedule_sd_binding.h
 
 include/simgrid/config.h
 xbt/base.h

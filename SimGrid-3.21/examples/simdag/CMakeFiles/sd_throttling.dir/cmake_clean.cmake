@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/sd_throttling.dir/throttling/sd_throttling.c.o"
-  "throttling/sd_throttling"
   "throttling/sd_throttling.pdb"
+  "throttling/sd_throttling"
 )
 
 # Per-language clean rules from dependency scanning.

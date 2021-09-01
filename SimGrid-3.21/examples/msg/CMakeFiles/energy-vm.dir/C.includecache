@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/msg/energy-vm/energy-vm.c
+/home/kien/project/fpga_network/SimGrid-3.21/examples/msg/energy-vm/energy-vm.c
 simgrid/msg.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/msg/energy-vm/simgrid/msg.h
+/home/kien/project/fpga_network/SimGrid-3.21/examples/msg/energy-vm/simgrid/msg.h
 simgrid/plugins/energy.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/msg/energy-vm/simgrid/plugins/energy.h
+/home/kien/project/fpga_network/SimGrid-3.21/examples/msg/energy-vm/simgrid/plugins/energy.h
 
 include/simgrid/actor.h
 simgrid/forward.h

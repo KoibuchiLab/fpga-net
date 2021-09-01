@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/comm-mxn-independent.dir/comm-mxn-independent/comm-mxn-independent.c.o"
-  "comm-mxn-independent/comm-mxn-independent"
   "comm-mxn-independent/comm-mxn-independent.pdb"
+  "comm-mxn-independent/comm-mxn-independent"
 )
 
 # Per-language clean rules from dependency scanning.

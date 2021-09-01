@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/parmap_bench.dir/parmap_bench/parmap_bench.cpp.o"
-  "parmap_bench/parmap_bench"
   "parmap_bench/parmap_bench.pdb"
+  "parmap_bench/parmap_bench"
 )
 
 # Per-language clean rules from dependency scanning.

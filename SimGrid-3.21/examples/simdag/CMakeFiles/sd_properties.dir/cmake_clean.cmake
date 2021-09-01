@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/sd_properties.dir/properties/sd_properties.c.o"
-  "properties/sd_properties"
   "properties/sd_properties.pdb"
+  "properties/sd_properties"
 )
 
 # Per-language clean rules from dependency scanning.

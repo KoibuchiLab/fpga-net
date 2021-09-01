@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,9 +6,9 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/simdag/properties/sd_properties.c
+/home/kien/project/fpga_network/SimGrid-3.21/examples/simdag/properties/sd_properties.c
 simgrid/simdag.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/simdag/properties/simgrid/simdag.h
+/home/kien/project/fpga_network/SimGrid-3.21/examples/simdag/properties/simgrid/simdag.h
 
 include/simgrid/config.h
 xbt/base.h

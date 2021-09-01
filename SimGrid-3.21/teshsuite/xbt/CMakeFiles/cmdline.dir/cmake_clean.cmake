@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/cmdline.dir/cmdline/cmdline.c.o"
-  "cmdline/cmdline"
   "cmdline/cmdline.pdb"
+  "cmdline/cmdline"
 )
 
 # Per-language clean rules from dependency scanning.

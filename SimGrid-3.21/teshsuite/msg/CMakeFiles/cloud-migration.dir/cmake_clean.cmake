@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/cloud-migration.dir/cloud-migration/cloud-migration.c.o"
-  "cloud-migration/cloud-migration"
   "cloud-migration/cloud-migration.pdb"
+  "cloud-migration/cloud-migration"
 )
 
 # Per-language clean rules from dependency scanning.

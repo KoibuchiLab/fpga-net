@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/cloud-capping.dir/cloud-capping/cloud-capping.c.o"
-  "cloud-capping/cloud-capping"
   "cloud-capping/cloud-capping.pdb"
+  "cloud-capping/cloud-capping"
 )
 
 # Per-language clean rules from dependency scanning.

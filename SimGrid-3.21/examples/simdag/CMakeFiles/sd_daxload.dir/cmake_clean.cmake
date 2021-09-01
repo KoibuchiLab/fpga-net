@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/sd_daxload.dir/daxload/sd_daxload.c.o"
-  "daxload/sd_daxload"
   "daxload/sd_daxload.pdb"
+  "daxload/sd_daxload"
 )
 
 # Per-language clean rules from dependency scanning.

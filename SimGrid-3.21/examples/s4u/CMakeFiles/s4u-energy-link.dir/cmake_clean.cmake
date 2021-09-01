@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/s4u-energy-link.dir/energy-link/s4u-energy-link.cpp.o"
-  "energy-link/s4u-energy-link"
   "energy-link/s4u-energy-link.pdb"
+  "energy-link/s4u-energy-link"
 )
 
 # Per-language clean rules from dependency scanning.

@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/simdag/test/sd_test.cpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/simdag/test/sd_test.cpp
 simgrid/s4u.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/simdag/test/simgrid/s4u.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/simdag/test/simgrid/s4u.hpp
 simgrid/simdag.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/simdag/test/simgrid/simdag.h
+/home/kien/project/fpga_network/SimGrid-3.21/examples/simdag/test/simgrid/simdag.h
 cmath
 -
 set

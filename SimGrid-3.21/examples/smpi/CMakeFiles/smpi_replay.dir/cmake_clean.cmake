@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/smpi_replay.dir/replay/replay.cpp.o"
-  "replay/smpi_replay"
   "replay/smpi_replay.pdb"
+  "replay/smpi_replay"
 )
 
 # Per-language clean rules from dependency scanning.

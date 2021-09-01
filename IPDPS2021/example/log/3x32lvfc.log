@@ -1,3 +1,21 @@
 ./allreduce --cfg=smpi/privatization:1 --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/host-speed:100000000000 --cfg=smpi/display-timing:1 --cfg=smpi/allreduce: --cfg=smpi/process_of_switch: --log=smpi_coll.:critical ../platforms/2lvfc/3x3.xml smpitmp-appKmRKMH
 Generated hostfile smpitmp-hostfxRtLLp kept.
 Execution failed with code 127.
+./allreduce --cfg=smpi/privatization:1 --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/host-speed:100000000000 --cfg=smpi/display-timing:1 --cfg=smpi/allreduce: --cfg=smpi/process_of_switch: --log=smpi_coll.:critical ../platforms/2lvfc/3x3.xml smpitmp-appjFGpGY
+Generated hostfile smpitmp-hostfo1gKxs kept.
+Execution failed with code 134.
+./allreduce --cfg=smpi/privatization:1 --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/host-speed:100000000000 --cfg=smpi/display-timing:1 --cfg=smpi/allreduce: --cfg=smpi/process_of_switch: --log=smpi_coll.:critical ../platforms/2lvfc/3x3.xml smpitmp-appdsDzBL
+Generated hostfile smpitmp-hostf3j5TVD kept.
+Execution failed with code 134.
+./allreduce --cfg=smpi/privatization:1 --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/host-speed:100000000000 --cfg=smpi/display-timing:1 --cfg=smpi/allreduce: --cfg=smpi/process_of_switch: --log=smpi_coll.:critical ../platforms/2lvfc/3x3.xml smpitmp-appKRTUiq
+Generated hostfile smpitmp-hostfU0cOIQ kept.
+Execution failed with code 134.
+./allreduce --cfg=smpi/privatization:1 --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/host-speed:100000000000 --cfg=smpi/display-timing:1 --cfg=smpi/allreduce:lr --cfg=smpi/process_of_switch:4 --log=smpi_coll.:critical ../platforms/2lvfc/3x3.xml smpitmp-appEgxYxE
+Generated hostfile smpitmp-hostf7o8RaU kept.
+Execution failed with code 134.
+./allreduce --cfg=smpi/privatization:1 --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/host-speed:100000000000 --cfg=smpi/display-timing:1 --cfg=smpi/allreduce:lr --log=smpi_coll.:critical ../platforms/2lvfc/3x3.xml smpitmp-app7n4Hgn
+Generated hostfile smpitmp-hostfFa2yue kept.
+Execution failed with code 134.
+./allreduce --cfg=smpi/privatization:1 --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/host-speed:100000000000 --cfg=smpi/display-timing:1 --cfg=smpi/allreduce:lr --log=smpi_coll.:critical ../platforms/2lvfc/3x3.xml smpitmp-appxBJnrO
+Generated hostfile smpitmp-hostfKsk8wK kept.
+Execution failed with code 134.

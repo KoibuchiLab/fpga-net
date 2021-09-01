@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/synchro-semaphore.dir/synchro-semaphore/synchro-semaphore.c.o"
-  "synchro-semaphore/synchro-semaphore"
   "synchro-semaphore/synchro-semaphore.pdb"
+  "synchro-semaphore/synchro-semaphore"
 )
 
 # Per-language clean rules from dependency scanning.

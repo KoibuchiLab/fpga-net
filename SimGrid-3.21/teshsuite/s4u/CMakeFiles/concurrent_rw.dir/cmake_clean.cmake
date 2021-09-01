@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/concurrent_rw.dir/concurrent_rw/concurrent_rw.cpp.o"
-  "concurrent_rw/concurrent_rw"
   "concurrent_rw/concurrent_rw.pdb"
+  "concurrent_rw/concurrent_rw"
 )
 
 # Per-language clean rules from dependency scanning.

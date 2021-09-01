@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/coll-bcast.dir/coll-bcast/coll-bcast.c.o"
-  "coll-bcast/coll-bcast"
   "coll-bcast/coll-bcast.pdb"
+  "coll-bcast/coll-bcast"
 )
 
 # Per-language clean rules from dependency scanning.

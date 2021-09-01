@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/mc/mutex-handling/mutex-handling.c
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/mc/mutex-handling/mutex-handling.c
 simgrid/modelchecker.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/mc/mutex-handling/simgrid/modelchecker.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/mc/mutex-handling/simgrid/modelchecker.h
 simgrid/msg.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/mc/mutex-handling/simgrid/msg.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/mc/mutex-handling/simgrid/msg.h
 xbt/synchro.h
 -
 

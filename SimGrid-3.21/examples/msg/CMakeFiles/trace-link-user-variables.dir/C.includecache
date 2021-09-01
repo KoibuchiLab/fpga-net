@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/msg/trace-link-user-variables/trace-link-user-variables.c
+/home/kien/project/fpga_network/SimGrid-3.21/examples/msg/trace-link-user-variables/trace-link-user-variables.c
 simgrid/msg.h
 -
 

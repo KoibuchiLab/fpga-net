@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,13 +6,13 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/smpi/trace/trace.c
+/home/kien/project/fpga_network/SimGrid-3.21/examples/smpi/trace/trace.c
 stdio.h
 -
 mpi.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/smpi/trace/mpi.h
+/home/kien/project/fpga_network/SimGrid-3.21/examples/smpi/trace/mpi.h
 simgrid/instr.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/smpi/trace/simgrid/instr.h
+/home/kien/project/fpga_network/SimGrid-3.21/examples/smpi/trace/simgrid/instr.h
 unistd.h
 -
 

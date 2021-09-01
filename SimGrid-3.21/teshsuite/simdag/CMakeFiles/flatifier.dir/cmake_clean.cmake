@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/flatifier.dir/flatifier/flatifier.cpp.o"
-  "flatifier/flatifier"
   "flatifier/flatifier.pdb"
+  "flatifier/flatifier"
 )
 
 # Per-language clean rules from dependency scanning.

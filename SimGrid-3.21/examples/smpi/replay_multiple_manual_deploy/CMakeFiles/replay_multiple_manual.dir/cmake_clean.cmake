@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/replay_multiple_manual.dir/replay_multiple_manual.cpp.o"
-  "replay_multiple_manual"
   "replay_multiple_manual.pdb"
+  "replay_multiple_manual"
 )
 
 # Per-language clean rules from dependency scanning.

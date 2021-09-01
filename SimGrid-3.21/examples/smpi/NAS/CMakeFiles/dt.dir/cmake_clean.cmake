@@ -1,9 +1,9 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/dt.dir/DGraph.c.o"
   "CMakeFiles/dt.dir/dt.c.o"
   "CMakeFiles/dt.dir/nas_common.c.o"
-  "dt"
+  "CMakeFiles/dt.dir/DGraph.c.o"
   "dt.pdb"
+  "dt"
 )
 
 # Per-language clean rules from dependency scanning.

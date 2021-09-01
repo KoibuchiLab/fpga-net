@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/msg/cloud-migration/cloud-migration.c
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/msg/cloud-migration/cloud-migration.c
 simgrid/msg.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/msg/cloud-migration/simgrid/msg.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/msg/cloud-migration/simgrid/msg.h
 simgrid/plugins/live_migration.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/msg/cloud-migration/simgrid/plugins/live_migration.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/msg/cloud-migration/simgrid/plugins/live_migration.h
 
 include/simgrid/actor.h
 simgrid/forward.h

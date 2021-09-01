@@ -1,8 +1,8 @@
 file(REMOVE_RECURSE
-  "../../bin/graphicator"
-  "../../bin/graphicator.pdb"
   "simgrid.trace"
   "CMakeFiles/graphicator.dir/graphicator.c.o"
+  "../../bin/graphicator.pdb"
+  "../../bin/graphicator"
 )
 
 # Per-language clean rules from dependency scanning.

@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/simdag/comm-p2p-latency-bound/comm-p2p-latency-bound.c
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/simdag/comm-p2p-latency-bound/comm-p2p-latency-bound.c
 stdio.h
 -
 simgrid/simdag.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/simdag/comm-p2p-latency-bound/simgrid/simdag.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/simdag/comm-p2p-latency-bound/simgrid/simdag.h
 
 include/simgrid/config.h
 xbt/base.h

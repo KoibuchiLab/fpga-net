@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,13 +6,13 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/s4u/cloud-interrupt-migration/cloud-interrupt-migration.cpp
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/s4u/cloud-interrupt-migration/cloud-interrupt-migration.cpp
 simgrid/plugins/live_migration.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/s4u/cloud-interrupt-migration/simgrid/plugins/live_migration.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/s4u/cloud-interrupt-migration/simgrid/plugins/live_migration.h
 simgrid/s4u.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/s4u/cloud-interrupt-migration/simgrid/s4u.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/s4u/cloud-interrupt-migration/simgrid/s4u.hpp
 simgrid/s4u/VirtualMachine.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/s4u/cloud-interrupt-migration/simgrid/s4u/VirtualMachine.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/s4u/cloud-interrupt-migration/simgrid/s4u/VirtualMachine.hpp
 
 include/simgrid/Exception.hpp
 xbt/backtrace.hpp

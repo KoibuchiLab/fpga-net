@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,17 +6,17 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-chord/s4u-dht-chord-node.cpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-chord/s4u-dht-chord-node.cpp
 s4u-dht-chord.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-chord/s4u-dht-chord.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-chord/s4u-dht-chord.hpp
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-chord/s4u-dht-chord.cpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-chord/s4u-dht-chord.cpp
 s4u-dht-chord.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-chord/s4u-dht-chord.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-chord/s4u-dht-chord.hpp
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-chord/s4u-dht-chord.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-chord/s4u-dht-chord.hpp
 simgrid/s4u.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-chord/simgrid/s4u.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-chord/simgrid/s4u.hpp
 string
 -
 xbt/RngStream.h

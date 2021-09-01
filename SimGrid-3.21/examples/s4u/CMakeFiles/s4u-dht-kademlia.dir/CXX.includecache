@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,63 +6,63 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/answer.cpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/answer.cpp
 answer.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/answer.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/answer.hpp
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/answer.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/answer.hpp
 node.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/node.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/node.hpp
 routing_table.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/routing_table.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/routing_table.hpp
 set
 -
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/message.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/message.hpp
 s4u-dht-kademlia.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/s4u-dht-kademlia.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/s4u-dht-kademlia.hpp
 simgrid/s4u.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/simgrid/s4u.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/simgrid/s4u.hpp
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/node.cpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/node.cpp
 node.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/node.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/node.hpp
 routing_table.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/routing_table.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/routing_table.hpp
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/node.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/node.hpp
 answer.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/answer.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/answer.hpp
 message.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/message.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/message.hpp
 routing_table.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/routing_table.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/routing_table.hpp
 s4u-dht-kademlia.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/s4u-dht-kademlia.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/s4u-dht-kademlia.hpp
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/routing_table.cpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/routing_table.cpp
 routing_table.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/routing_table.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/routing_table.hpp
 node.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/node.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/node.hpp
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/routing_table.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/routing_table.hpp
 s4u-dht-kademlia.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/s4u-dht-kademlia.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/s4u-dht-kademlia.hpp
 deque
 -
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/s4u-dht-kademlia.cpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/s4u-dht-kademlia.cpp
 s4u-dht-kademlia.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/s4u-dht-kademlia.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/s4u-dht-kademlia.hpp
 message.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/message.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/message.hpp
 node.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/node.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/node.hpp
 simgrid/s4u.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/simgrid/s4u.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/simgrid/s4u.hpp
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/s4u-dht-kademlia.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/dht-kademlia/s4u-dht-kademlia.hpp
 algorithm
 -
 simgrid/s4u.hpp

@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/mallocator.dir/mallocator/mallocator.c.o"
-  "mallocator/mallocator"
   "mallocator/mallocator.pdb"
+  "mallocator/mallocator"
 )
 
 # Per-language clean rules from dependency scanning.

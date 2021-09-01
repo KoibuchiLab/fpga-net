@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/comm-mxn-all2all.dir/comm-mxn-all2all/comm-mxn-all2all.c.o"
-  "comm-mxn-all2all/comm-mxn-all2all"
   "comm-mxn-all2all/comm-mxn-all2all.pdb"
+  "comm-mxn-all2all/comm-mxn-all2all"
 )
 
 # Per-language clean rules from dependency scanning.

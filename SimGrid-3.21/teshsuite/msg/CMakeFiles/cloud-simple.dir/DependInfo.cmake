@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/kienpham/project/fpga_network/SimGrid-3.21/teshsuite/msg/cloud-simple/cloud-simple.c" "/home/kienpham/project/fpga_network/SimGrid-3.21/teshsuite/msg/CMakeFiles/cloud-simple.dir/cloud-simple/cloud-simple.c.o"
+  "/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/msg/cloud-simple/cloud-simple.c" "/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/msg/CMakeFiles/cloud-simple.dir/cloud-simple/cloud-simple.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 
@@ -15,8 +15,8 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/kienpham/project/fpga_network/SimGrid-3.21/CMakeFiles/simgrid.dir/DependInfo.cmake"
+  "/home/kien/project/fpga_network/SimGrid-3.21/CMakeFiles/simgrid.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.
-set(CMAKE_Fortran_TARGET_MODULE_DIR "/home/kienpham/project/fpga_network/SimGrid-3.21/include/smpi")
+set(CMAKE_Fortran_TARGET_MODULE_DIR "/home/kien/project/fpga_network/SimGrid-3.21/include/smpi")

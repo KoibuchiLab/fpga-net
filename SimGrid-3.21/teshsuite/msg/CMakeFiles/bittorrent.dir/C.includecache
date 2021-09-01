@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,27 +6,27 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/bittorrent-messages.c
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/bittorrent-messages.c
 bittorrent-messages.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/bittorrent-messages.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/bittorrent-messages.h
 bittorrent.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/bittorrent.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/bittorrent.h
 stdio.h
 -
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/bittorrent-messages.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/bittorrent-messages.h
 simgrid/msg.h
 -
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/bittorrent-peer.c
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/bittorrent-peer.c
 bittorrent-peer.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/bittorrent-peer.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/bittorrent-peer.h
 bittorrent-messages.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/bittorrent-messages.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/bittorrent-messages.h
 connection.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/connection.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/connection.h
 tracker.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/tracker.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/tracker.h
 simgrid/msg.h
 -
 xbt/RngStream.h
@@ -36,11 +36,11 @@ limits.h
 stdio.h
 -
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/bittorrent-peer.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/bittorrent-peer.h
 bittorrent.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/bittorrent.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/bittorrent.h
 connection.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/connection.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/connection.h
 simgrid/msg.h
 -
 xbt/RngStream.h
@@ -50,13 +50,13 @@ xbt/dict.h
 xbt/dynar.h
 -
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/bittorrent.c
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/bittorrent.c
 bittorrent.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/bittorrent.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/bittorrent.h
 bittorrent-peer.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/bittorrent-peer.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/bittorrent-peer.h
 tracker.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/tracker.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/tracker.h
 simgrid/msg.h
 -
 xbt/RngStream.h
@@ -64,29 +64,29 @@ xbt/RngStream.h
 stdio.h
 -
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/bittorrent.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/bittorrent.h
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/connection.c
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/connection.c
 connection.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/connection.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/connection.h
 bittorrent.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/bittorrent.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/bittorrent.h
 xbt/sysdep.h
 -
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/connection.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/connection.h
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/tracker.c
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/tracker.c
 tracker.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/tracker.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/tracker.h
 simgrid/msg.h
 -
 xbt/RngStream.h
 -
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/tracker.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/tracker.h
 bittorrent.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/bittorrent.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/msg/app-bittorrent/bittorrent.h
 xbt/dynar.h
 -
 

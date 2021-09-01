@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/process-lifetime.dir/process-lifetime/process-lifetime.c.o"
-  "process-lifetime/process-lifetime"
   "process-lifetime/process-lifetime.pdb"
+  "process-lifetime/process-lifetime"
 )
 
 # Per-language clean rules from dependency scanning.

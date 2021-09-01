@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/log_usage.dir/log_usage/log_usage.c.o"
-  "log_usage/log_usage"
   "log_usage/log_usage.pdb"
+  "log_usage/log_usage"
 )
 
 # Per-language clean rules from dependency scanning.

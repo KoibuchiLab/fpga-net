@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/smpi_trace_call_location.dir/trace_call_location/trace_call_location.c.o"
-  "trace_call_location/smpi_trace_call_location"
   "trace_call_location/smpi_trace_call_location.pdb"
+  "trace_call_location/smpi_trace_call_location"
 )
 
 # Per-language clean rules from dependency scanning.

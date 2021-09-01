@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/smpi/NAS/ep.c
+/home/kien/project/fpga_network/SimGrid-3.21/examples/smpi/NAS/ep.c
 stdlib.h
 -
 stdio.h
@@ -16,17 +16,17 @@ string.h
 math.h
 -
 smpi/mpi.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/smpi/NAS/smpi/mpi.h
+/home/kien/project/fpga_network/SimGrid-3.21/examples/smpi/NAS/smpi/mpi.h
 nas_common.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/smpi/NAS/nas_common.h
+/home/kien/project/fpga_network/SimGrid-3.21/examples/smpi/NAS/nas_common.h
 simgrid/instr.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/smpi/NAS/simgrid/instr.h
+/home/kien/project/fpga_network/SimGrid-3.21/examples/smpi/NAS/simgrid/instr.h
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/smpi/NAS/nas_common.c
+/home/kien/project/fpga_network/SimGrid-3.21/examples/smpi/NAS/nas_common.c
 nas_common.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/smpi/NAS/nas_common.h
+/home/kien/project/fpga_network/SimGrid-3.21/examples/smpi/NAS/nas_common.h
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/smpi/NAS/nas_common.h
+/home/kien/project/fpga_network/SimGrid-3.21/examples/smpi/NAS/nas_common.h
 stdlib.h
 -
 stdio.h
@@ -36,7 +36,7 @@ stdint.h
 math.h
 -
 mpi.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/smpi/NAS/mpi.h
+/home/kien/project/fpga_network/SimGrid-3.21/examples/smpi/NAS/mpi.h
 
 include/simgrid/actor.h
 simgrid/forward.h

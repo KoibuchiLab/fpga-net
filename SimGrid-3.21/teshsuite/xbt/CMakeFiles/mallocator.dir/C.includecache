@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/xbt/mallocator/mallocator.c
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/xbt/mallocator/mallocator.c
 xbt/mallocator.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/xbt/mallocator/xbt/mallocator.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/xbt/mallocator/xbt/mallocator.h
 xbt.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/xbt/mallocator/xbt.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/xbt/mallocator/xbt.h
 stdio.h
 -
 

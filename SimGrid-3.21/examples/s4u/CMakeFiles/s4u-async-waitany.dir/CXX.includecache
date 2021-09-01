@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,9 +6,9 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/async-waitany/s4u-async-waitany.cpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/async-waitany/s4u-async-waitany.cpp
 simgrid/s4u.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/async-waitany/simgrid/s4u.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/async-waitany/simgrid/s4u.hpp
 cstdlib
 -
 iostream

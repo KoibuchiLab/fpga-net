@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/process-daemon.dir/process-daemon/process-daemon.c.o"
-  "process-daemon/process-daemon"
   "process-daemon/process-daemon.pdb"
+  "process-daemon/process-daemon"
 )
 
 # Per-language clean rules from dependency scanning.

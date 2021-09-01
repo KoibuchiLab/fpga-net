@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/s4u-async-waitall.dir/async-waitall/s4u-async-waitall.cpp.o"
-  "async-waitall/s4u-async-waitall"
   "async-waitall/s4u-async-waitall.pdb"
+  "async-waitall/s4u-async-waitall"
 )
 
 # Per-language clean rules from dependency scanning.

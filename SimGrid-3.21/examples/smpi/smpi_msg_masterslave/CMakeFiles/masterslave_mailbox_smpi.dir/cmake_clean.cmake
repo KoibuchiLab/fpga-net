@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/masterslave_mailbox_smpi.dir/masterslave_mailbox_smpi.c.o"
-  "masterslave_mailbox_smpi"
   "masterslave_mailbox_smpi.pdb"
+  "masterslave_mailbox_smpi"
 )
 
 # Per-language clean rules from dependency scanning.

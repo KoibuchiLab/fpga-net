@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/timers.dir/timers/timers.c.o"
-  "timers/timers"
   "timers/timers.pdb"
+  "timers/timers"
 )
 
 # Per-language clean rules from dependency scanning.

@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,13 +6,13 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/simdag/evaluate-parse-time/evaluate-parse-time.c
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/simdag/evaluate-parse-time/evaluate-parse-time.c
 stdio.h
 -
 simgrid/simdag.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/simdag/evaluate-parse-time/simgrid/simdag.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/simdag/evaluate-parse-time/simgrid/simdag.h
 xbt/xbt_os_time.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/simdag/evaluate-parse-time/xbt/xbt_os_time.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/simdag/evaluate-parse-time/xbt/xbt_os_time.h
 
 include/simgrid/config.h
 xbt/base.h

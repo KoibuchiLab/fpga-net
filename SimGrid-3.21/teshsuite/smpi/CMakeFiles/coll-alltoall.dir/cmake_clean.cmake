@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/coll-alltoall.dir/coll-alltoall/coll-alltoall.c.o"
-  "coll-alltoall/coll-alltoall"
   "coll-alltoall/coll-alltoall.pdb"
+  "coll-alltoall/coll-alltoall"
 )
 
 # Per-language clean rules from dependency scanning.

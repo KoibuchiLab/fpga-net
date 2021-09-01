@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/smpi/load_balancer_replay/load_balancer_replay.cpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/smpi/load_balancer_replay/load_balancer_replay.cpp
 smpi/smpi.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/smpi/load_balancer_replay/smpi/smpi.h
+/home/kien/project/fpga_network/SimGrid-3.21/examples/smpi/load_balancer_replay/smpi/smpi.h
 smpi/sampi.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/smpi/load_balancer_replay/smpi/sampi.h
+/home/kien/project/fpga_network/SimGrid-3.21/examples/smpi/load_balancer_replay/smpi/sampi.h
 simgrid/s4u.hpp
 -
 simgrid/plugins/load_balancer.h

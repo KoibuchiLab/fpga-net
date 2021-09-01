@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/xbt/cmdline/cmdline.c
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/xbt/cmdline/cmdline.c
 simgrid/engine.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/xbt/cmdline/simgrid/engine.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/xbt/cmdline/simgrid/engine.h
 simgrid/simix.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/xbt/cmdline/simgrid/simix.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/xbt/cmdline/simgrid/simix.h
 xbt.h
 -
 

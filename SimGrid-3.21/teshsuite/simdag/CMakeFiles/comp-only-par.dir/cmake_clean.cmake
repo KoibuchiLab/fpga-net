@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/comp-only-par.dir/comp-only-par/comp-only-par.c.o"
-  "comp-only-par/comp-only-par"
   "comp-only-par/comp-only-par.pdb"
+  "comp-only-par/comp-only-par"
 )
 
 # Per-language clean rules from dependency scanning.

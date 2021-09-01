@@ -15,7 +15,7 @@
 #define SIMGRID_VERSION_MINOR 21
 #define SIMGRID_VERSION_PATCH 0
 #define SIMGRID_GIT_VERSION   "e011a997e0"
-#define SIMGRID_INSTALL_PREFIX "/home/kienpham/project/fpga_network/SimGrid-3.21/build"
+#define SIMGRID_INSTALL_PREFIX "/home/kien/project/fpga_network/SimGrid-3.21/build"
 
 SG_BEGIN_DECL()
 /** Retrieves the version numbers of the used dynamic library (so, DLL or dynlib), while

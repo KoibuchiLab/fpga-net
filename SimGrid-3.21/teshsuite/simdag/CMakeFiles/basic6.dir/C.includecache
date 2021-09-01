@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,13 +6,13 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/simdag/basic6/basic6.c
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/simdag/basic6/basic6.c
 simgrid/simdag.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/simdag/basic6/simgrid/simdag.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/simdag/basic6/simgrid/simdag.h
 xbt/asserts.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/simdag/basic6/xbt/asserts.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/simdag/basic6/xbt/asserts.h
 xbt/log.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/simdag/basic6/xbt/log.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/simdag/basic6/xbt/log.h
 
 include/simgrid/config.h
 xbt/base.h

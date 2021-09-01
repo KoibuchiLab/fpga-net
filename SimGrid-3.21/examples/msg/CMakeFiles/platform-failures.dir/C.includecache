@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,9 +6,9 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/msg/platform-failures/platform-failures.c
+/home/kien/project/fpga_network/SimGrid-3.21/examples/msg/platform-failures/platform-failures.c
 simgrid/msg.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/msg/platform-failures/simgrid/msg.h
+/home/kien/project/fpga_network/SimGrid-3.21/examples/msg/platform-failures/simgrid/msg.h
 stdio.h
 -
 

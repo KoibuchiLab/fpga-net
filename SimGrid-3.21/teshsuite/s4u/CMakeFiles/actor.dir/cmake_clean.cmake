@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/actor.dir/actor/actor.cpp.o"
-  "actor/actor"
   "actor/actor.pdb"
+  "actor/actor"
 )
 
 # Per-language clean rules from dependency scanning.

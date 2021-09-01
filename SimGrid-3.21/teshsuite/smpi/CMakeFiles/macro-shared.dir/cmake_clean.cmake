@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/macro-shared.dir/macro-shared/macro-shared.c.o"
-  "macro-shared/macro-shared"
   "macro-shared/macro-shared.pdb"
+  "macro-shared/macro-shared"
 )
 
 # Per-language clean rules from dependency scanning.

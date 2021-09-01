@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/coll-scatter.dir/coll-scatter/coll-scatter.c.o"
-  "coll-scatter/coll-scatter"
   "coll-scatter/coll-scatter.pdb"
+  "coll-scatter/coll-scatter"
 )
 
 # Per-language clean rules from dependency scanning.

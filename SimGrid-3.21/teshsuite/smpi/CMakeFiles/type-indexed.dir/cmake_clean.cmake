@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/type-indexed.dir/type-indexed/type-indexed.c.o"
-  "type-indexed/type-indexed"
   "type-indexed/type-indexed.pdb"
+  "type-indexed/type-indexed"
 )
 
 # Per-language clean rules from dependency scanning.

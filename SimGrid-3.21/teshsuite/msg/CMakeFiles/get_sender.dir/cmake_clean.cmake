@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/get_sender.dir/get_sender/get_sender.c.o"
-  "get_sender/get_sender"
   "get_sender/get_sender.pdb"
+  "get_sender/get_sender"
 )
 
 # Per-language clean rules from dependency scanning.

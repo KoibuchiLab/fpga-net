@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,13 +6,13 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/replay-comm/s4u-replay-comm.cpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/replay-comm/s4u-replay-comm.cpp
 simgrid/s4u.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/replay-comm/simgrid/s4u.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/replay-comm/simgrid/s4u.hpp
 xbt/replay.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/replay-comm/xbt/replay.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/replay-comm/xbt/replay.hpp
 xbt/str.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/replay-comm/xbt/str.h
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/replay-comm/xbt/str.h
 boost/algorithm/string/join.hpp
 -
 string

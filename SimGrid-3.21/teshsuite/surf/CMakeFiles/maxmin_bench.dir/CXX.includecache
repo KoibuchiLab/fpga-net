@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,17 +6,17 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/surf/maxmin_bench/maxmin_bench.cpp
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/surf/maxmin_bench/maxmin_bench.cpp
 src/kernel/lmm/maxmin.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/surf/maxmin_bench/src/kernel/lmm/maxmin.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/surf/maxmin_bench/src/kernel/lmm/maxmin.hpp
 simgrid/msg.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/surf/maxmin_bench/simgrid/msg.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/surf/maxmin_bench/simgrid/msg.h
 xbt/module.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/surf/maxmin_bench/xbt/module.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/surf/maxmin_bench/xbt/module.h
 xbt/sysdep.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/surf/maxmin_bench/xbt/sysdep.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/surf/maxmin_bench/xbt/sysdep.h
 xbt/xbt_os_time.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/teshsuite/surf/maxmin_bench/xbt/xbt_os_time.h
+/home/kien/project/fpga_network/SimGrid-3.21/teshsuite/surf/maxmin_bench/xbt/xbt_os_time.h
 cstdint
 -
 cstdio

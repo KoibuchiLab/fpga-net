@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/s4u-app-token-ring.dir/app-token-ring/s4u-app-token-ring.cpp.o"
-  "app-token-ring/s4u-app-token-ring"
   "app-token-ring/s4u-app-token-ring.pdb"
+  "app-token-ring/s4u-app-token-ring"
 )
 
 # Per-language clean rules from dependency scanning.

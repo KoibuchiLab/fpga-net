@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,13 +6,13 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/routing-get-clusters/s4u-routing-get-clusters.cpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/routing-get-clusters/s4u-routing-get-clusters.cpp
 simgrid/kernel/routing/ClusterZone.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/routing-get-clusters/simgrid/kernel/routing/ClusterZone.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/routing-get-clusters/simgrid/kernel/routing/ClusterZone.hpp
 simgrid/kernel/routing/DragonflyZone.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/routing-get-clusters/simgrid/kernel/routing/DragonflyZone.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/routing-get-clusters/simgrid/kernel/routing/DragonflyZone.hpp
 simgrid/s4u.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/routing-get-clusters/simgrid/s4u.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/routing-get-clusters/simgrid/s4u.hpp
 
 include/simgrid/Exception.hpp
 xbt/backtrace.hpp

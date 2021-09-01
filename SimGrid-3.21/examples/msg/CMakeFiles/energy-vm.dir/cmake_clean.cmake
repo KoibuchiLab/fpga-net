@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/energy-vm.dir/energy-vm/energy-vm.c.o"
-  "energy-vm/energy-vm"
   "energy-vm/energy-vm.pdb"
+  "energy-vm/energy-vm"
 )
 
 # Per-language clean rules from dependency scanning.

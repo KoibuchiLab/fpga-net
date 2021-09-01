@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/msg/trace-host-user-variables/trace-host-user-variables.c
+/home/kien/project/fpga_network/SimGrid-3.21/examples/msg/trace-host-user-variables/trace-host-user-variables.c
 stdio.h
 -
 simgrid/msg.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/msg/trace-host-user-variables/simgrid/msg.h
+/home/kien/project/fpga_network/SimGrid-3.21/examples/msg/trace-host-user-variables/simgrid/msg.h
 
 include/simgrid/actor.h
 simgrid/forward.h

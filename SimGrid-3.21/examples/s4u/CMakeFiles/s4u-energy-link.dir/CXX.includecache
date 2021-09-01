@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/energy-link/s4u-energy-link.cpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/energy-link/s4u-energy-link.cpp
 simgrid/plugins/energy.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/energy-link/simgrid/plugins/energy.h
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/energy-link/simgrid/plugins/energy.h
 xbt/log.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/energy-link/xbt/log.h
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/energy-link/xbt/log.h
 simgrid/s4u.hpp
 -
 random

@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/platform-failures/s4u-platform-failures.cpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/platform-failures/s4u-platform-failures.cpp
 simgrid/s4u.hpp
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/platform-failures/simgrid/s4u.hpp
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/platform-failures/simgrid/s4u.hpp
 xbt/str.h
-/home/aaa10078nj/fpga_network/SimGrid-3.21/examples/s4u/platform-failures/xbt/str.h
+/home/kien/project/fpga_network/SimGrid-3.21/examples/s4u/platform-failures/xbt/str.h
 
 include/simgrid/Exception.hpp
 xbt/backtrace.hpp

@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/load_balancer_replay.dir/load_balancer_replay.cpp.o"
-  "load_balancer_replay"
   "load_balancer_replay.pdb"
+  "load_balancer_replay"
 )
 
 # Per-language clean rules from dependency scanning.

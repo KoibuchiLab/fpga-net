@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/parmap_test.dir/parmap_test/parmap_test.cpp.o"
-  "parmap_test/parmap_test"
   "parmap_test/parmap_test.pdb"
+  "parmap_test/parmap_test"
 )
 
 # Per-language clean rules from dependency scanning.

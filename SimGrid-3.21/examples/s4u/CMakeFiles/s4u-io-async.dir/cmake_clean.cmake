@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/s4u-io-async.dir/io-async/s4u-io-async.cpp.o"
-  "io-async/s4u-io-async"
   "io-async/s4u-io-async.pdb"
+  "io-async/s4u-io-async"
 )
 
 # Per-language clean rules from dependency scanning.

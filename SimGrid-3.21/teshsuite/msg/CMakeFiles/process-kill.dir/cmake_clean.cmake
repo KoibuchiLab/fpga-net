@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/process-kill.dir/process-kill/process-kill.c.o"
-  "process-kill/process-kill"
   "process-kill/process-kill.pdb"
+  "process-kill/process-kill"
 )
 
 # Per-language clean rules from dependency scanning.

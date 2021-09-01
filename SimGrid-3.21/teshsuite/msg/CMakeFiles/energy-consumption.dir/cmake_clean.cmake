@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/energy-consumption.dir/energy-consumption/energy-consumption.c.o"
-  "energy-consumption/energy-consumption"
   "energy-consumption/energy-consumption.pdb"
+  "energy-consumption/energy-consumption"
 )
 
 # Per-language clean rules from dependency scanning.

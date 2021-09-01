@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/type-vector.dir/type-vector/type-vector.c.o"
-  "type-vector/type-vector"
   "type-vector/type-vector.pdb"
+  "type-vector/type-vector"
 )
 
 # Per-language clean rules from dependency scanning.
