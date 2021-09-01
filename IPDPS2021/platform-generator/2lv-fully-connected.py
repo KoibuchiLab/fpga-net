@@ -76,44 +76,49 @@ for group in range(NUM_OF_GROUPS):
 	
 assert(len(hostlist) == NUM_OF_NODES)
 
-#Add links for internal connections
-for group in range(NUM_OF_GROUPS):
-	for node in range(NUM_OF_NODES_IN_GROUP):
-		cur_hostname = "%d_%d" %(group, node)
-		for target in range(node + 1, NUM_OF_NODES_IN_GROUP):
-			#link from node group-node to all other
-			target_hostname = "%d_%d" % (group, target)
-			linkID = "%s_to_%s" % (cur_hostname, target_hostname)
-			linklist.append(link(linkID))
-			#print(linkID)
-
-			#add route
-			routelist.append(route_directlink(cur_hostname, target_hostname, linkID))
-
-#Add links for external connections
-for node in range(NUM_OF_NODES_IN_GROUP):
-	cur_hostname = "%d_%d" %(0, node)
-	for group in range(1, NUM_OF_GROUPS):
-		target_hostname = "%d_%d" % (group, node)
-		linkID = "%s_to_%s" % (cur_hostname, target_hostname)
-		linklist.append(link(linkID))
-		#print(linkID)
-
-		#add route (direct link)
-		routelist.append(route_directlink(cur_hostname, target_hostname, linkID))
-
-assert(len(linklist) == NUM_OF_LINKS)
+# #Add links for internal connections
+# for group in range(NUM_OF_GROUPS):
+# 	for node in range(NUM_OF_NODES_IN_GROUP):
+# 		cur_hostname = "%d_%d" %(group, node)
+# 		for target in range(node + 1, NUM_OF_NODES_IN_GROUP):
+# 			#link from node group-node to all other
+# 			target_hostname = "%d_%d" % (group, target)
+# 			linkID = "%s_to_%s" % (cur_hostname, target_hostname)
+# 			linklist.append(link(linkID))
+# 			#print(linkID)
+#
+# 			#add route
+# 			routelist.append(route_directlink(cur_hostname, target_hostname, linkID))
+#
+# #Add links for external connections
+# for node in range(NUM_OF_NODES_IN_GROUP):
+# 	cur_hostname = "%d_%d" %(0, node)
+# 	for group in range(1, NUM_OF_GROUPS):
+# 		target_hostname = "%d_%d" % (group, node)
+# 		linkID = "%s_to_%s" % (cur_hostname, target_hostname)
+# 		linklist.append(link(linkID))
+# 		#print(linkID)
+#
+# 		#add route (direct link)
+# 		routelist.append(route_directlink(cur_hostname, target_hostname, linkID))
+#
+# assert(len(linklist) == NUM_OF_LINKS)
 
 #Add disjoint link
 for i in range(len(hostIDlist)):
-	for j in range(i, len(hostIDlist), 1):
+	for j in range(i + 1, len(hostIDlist), 1):
 		src = hostIDlist[i]
 		dst = hostIDlist[j]
 		src_a = src.split('_')[0]
 		src_b = src.split('_')[1]
 		dst_a = dst.split('_')[0]
 		dst_b = dst.split('_')[1]
-		if src_a != dst_a and src_b != dst_b: #not a direct path
+		if src_a == dst_a or src_b == dst_b: #internal group #external group direct path
+			linkID = "%s_to_%s" % (src, dst)
+			linklist.append(link(linkID))
+			
+			routelist.append(route_directlink(src, dst, linkID))
+		else:
 			routelist.append(route_disjoint(src, dst))
 
 
