@@ -1,8 +1,8 @@
-# Install script for directory: /home/kien/project/fpga_network/SimGrid-3.21/examples/smpi/load_balancer_replay
+# Install script for directory: /home/kien/project/ipdps2022/fpga_network/SimGrid-3.21/examples/smpi/load_balancer_replay
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/kien/project/fpga_network/SimGrid-3.21/build")
+  set(CMAKE_INSTALL_PREFIX "/home/kien/project/ipdps2022/fpga_network/SimGrid-3.21/build")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
