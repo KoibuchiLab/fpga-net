@@ -484,6 +484,10 @@ SimGrid-3.21/unit-tmgr
 
 IPDPS2021/example/smpitmp-*
 
+simgrid-3.28/build/
+simgrid-3.28/install/
+
+
 .metadata
 bin/
 tmp/
