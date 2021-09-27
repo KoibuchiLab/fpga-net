@@ -11,20 +11,15 @@
 #include <string.h>
 
 //#define DEBUG 0
-#define DEBUG1
+//#define DEBUG1
+#define DEBUG2
 
-#define NUM_ITEMS 6//
+#define NUM_ITEMS 18//
 
-#define RAND_SEED 72131
+#define RAND_SEED 721311
 
 static void program_abort(char * message) {
-	int my_rank;
-	MPI_Comm_rank(MPI_COMM_WORLD, & my_rank);
-	if (my_rank == 0) {
-		if (message) {
-			fprintf(stderr, "Error: %s", message);
-		}
-	}
+	fprintf(stderr, "Error: %s", message);
 }
 
 int h2r(char *hostname_r, char *networkshape_r){ //host name to rank for 2lvfc
@@ -51,6 +46,14 @@ void r2h(int rank, char* networkshape_r, int *groupnumber, int *nodenumber){ // 
 	*groupnumber = rank / networkshape_b;
 	*nodenumber = rank % networkshape_b;
 	return;
+}
+
+float reduce(float a, float b, const char *op){
+	if (strcmp(op, "sum") == 0){
+		return a + b;
+	} else {
+		return 0;
+	}
 }
 
 int main(int argc, char *argv[])
@@ -91,7 +94,7 @@ int main(int argc, char *argv[])
 #if defined(DEBUG1)
 	printf("Data from rank %d: ", rank);
 	for (int i = 0; i < NUM_ITEMS; i++){
-		printf("%.1f\t", data[i]);
+		printf("%.0f\t", data[i]);
 	}
 	printf("\n");
 	MPI_Barrier(MPI_COMM_WORLD);
@@ -110,45 +113,43 @@ int main(int argc, char *argv[])
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	int groupnumber, nodenumber; // Hostname define in xml is groupnumber_nodenumber
 	r2h(rank, networkshape, &groupnumber, &nodenumber);
+#if defined(DEBUG0)
 	printf("Host name %s \t| rank %d \t| rank computed %d\t| %d_%d\n", hostname, rank, h2r(hostname, networkshape), \
 			groupnumber, nodenumber);
+#endif
 	if (rank != h2r(hostname, networkshape))
 		program_abort("Computed rank must equal to real rank\n");
 
 	char networkshapetmp[256];
 	strcpy(networkshapetmp, networkshape);
 	char *token = strtok(networkshapetmp, "_");
-	int numofgroup = atoi(token) + 1;
+	int numofgroups = atoi(token) + 1;
 	token = strtok(NULL, "_");
 	int numofnodesingroup = atoi(token) + 1;
-	//Step 1: Intra group exchange
+
+	//Step 1: Intra group exchange  /////////////////////////////////////////////////////////////////
 
 	int numofitemsineachchunk = NUM_ITEMS / numofnodesingroup;
 
 	//Prepare buffer to receive data
-	float* intragroupbuffer = (float*)malloc(sizeof(float)*numofnodesingroup*numofitemsineachchunk);
-	for(int i = 0; i < numofnodesingroup*numofitemsineachchunk; i++){
-		intragroupbuffer[i] = 0;
+	float ** intragroupbuffer = (float**)malloc(sizeof(float*)*numofnodesingroup);
+	for (int i = 0; i < numofnodesingroup; i++){
+		intragroupbuffer[i] = (float*)malloc(sizeof(float)*numofitemsineachchunk);
+		for(int j = 0; j < numofitemsineachchunk; j++){
+			intragroupbuffer[i][j] = 0;
+		}
 	}
 
 	MPI_Request * reqsends = (MPI_Request*) malloc(sizeof(MPI_Request)*numofnodesingroup);
 	MPI_Request * reqrecvs = (MPI_Request*) malloc(sizeof(MPI_Request)*numofnodesingroup);
-#if defined(DEBUG1)
-	MPI_Barrier(MPI_COMM_WORLD);
-	for (int i = 0; i <1000000; i++);
-	printf("Initial buffer from rank %d: ", rank);
-	for (int i = 0; i < numofnodesingroup*numofitemsineachchunk; i++){
-		printf("%.1f\t", intragroupbuffer[i]);
-	}
-	printf("\n");
-#endif
+
 
 	// Place MPI_Irecv
 	for (int i = 0; i < numofnodesingroup; i++){
 		// Compute source
 		int source = numofnodesingroup*groupnumber + i;
 		if (source != rank){
-			MPI_Irecv(&intragroupbuffer[i*numofitemsineachchunk], numofitemsineachchunk, MPI_FLOAT, source, 0, MPI_COMM_WORLD, &reqrecvs[i]);
+			MPI_Irecv(intragroupbuffer[i], numofitemsineachchunk, MPI_FLOAT, source, 0, MPI_COMM_WORLD, &reqrecvs[i]);
 		}
 	}
 	// Place MPI_Isend
@@ -157,6 +158,11 @@ int main(int argc, char *argv[])
 		int destination = numofnodesingroup*groupnumber + i;
 		if (destination != rank){
 			MPI_Isend(&data[i*numofitemsineachchunk], numofitemsineachchunk, MPI_FLOAT, destination, 0, MPI_COMM_WORLD, &reqsends[i]);
+		} else {
+			// copy data reduction buffer (intragroupbuffer)
+			for (int j = 0; j < numofitemsineachchunk; j++){
+				intragroupbuffer[i][j] = data[i*numofitemsineachchunk + j];
+			}
 		}
 	}
 
@@ -176,26 +182,153 @@ int main(int argc, char *argv[])
 			MPI_Wait(&reqsends[i], MPI_STATUS_IGNORE);
 		}
 	}
+
 #if defined(DEBUG1)
 	printf("Data from rank %d: ", rank);
 	for (int i = 0; i < NUM_ITEMS; i++){
-		printf("%.1f\t", data[i]);
+		printf("%.0f\t", data[i]);
 	}
 	printf("\n");
 	MPI_Barrier(MPI_COMM_WORLD);
 	for (int i = 0; i <1000000; i++);
-	printf("Reduce scatter from rank %d: ", rank);
-	for (int i = 0; i < numofnodesingroup*numofitemsineachchunk; i++){
-		printf("%.1f\t", intragroupbuffer[i]);
+	printf("Intra group Reduce scatter from rank %d: \n", rank);
+	for (int i = 0; i < numofnodesingroup; i++){
+		printf("\t\t");
+		for (int j = 0; j < numofitemsineachchunk; j++){
+			printf("%.0f\t", intragroupbuffer[i][j]);
+		}
+		printf("\n");
 	}
 	printf("\n");
 #endif
+
+	// execute the reduction operation
+	float *intragroupreductionresult = (float*)malloc(sizeof(float)*numofitemsineachchunk);
+	for (int i = 0; i < numofitemsineachchunk; i++){
+		intragroupreductionresult[i] = 0;
+	}
+	for (int i = 0; i < numofnodesingroup; i++){
+		for (int j = 0; j < numofitemsineachchunk; j++){
+			intragroupreductionresult[j] = reduce(intragroupreductionresult[j], intragroupbuffer[i][j], "sum");
+		}
+	}
+#if defined(DEBUG2)
+	printf("From rank %d | Intra group reduction result:\t", rank);
+	for (int i = 0; i < numofitemsineachchunk; i++){
+		printf("%.0f\t", intragroupreductionresult[i]);
+	}
+	printf("\n");
+#endif
+#if defined(DEBUG1)
+	printf("Intra group reduction result:\t");
+	for (int i = 0; i < numofitemsineachchunk; i++){
+		printf("%.0f\t", intragroupreductionresult[i]);
+	}
+	printf("\n");
+#endif
+
+	// free memory
+	for(int i = 0; i < numofnodesingroup; i++){
+		free(intragroupbuffer[i]);
+	}
 	free(intragroupbuffer);
 	free(reqsends);
 	free(reqrecvs);
-	//Step 2: Inter group exchange
 
 
+
+	//Step 2: Inter group exchange  /////////////////////////////////////////////////////////////////
+	//Prepare buffer to receive data
+	int numofitemsinsecondreduction = NUM_ITEMS / size;
+	float * intergroupbuffer = (float*)malloc(sizeof(float)*numofgroups*numofitemsinsecondreduction);
+
+	reqsends = (MPI_Request*) malloc(sizeof(MPI_Request)*numofgroups*numofitemsinsecondreduction);
+	reqrecvs = (MPI_Request*) malloc(sizeof(MPI_Request)*numofgroups*numofitemsinsecondreduction);
+
+	// Place MPI_Irecv
+	for (int i = 0; i < numofgroups; i++){
+		// Compute source
+		int source = numofnodesingroup*i + nodenumber;
+		for (int j = 0; j < numofitemsinsecondreduction; j++){
+			if (source != rank){
+				MPI_Irecv(&intergroupbuffer[j*numofgroups + i], 1, \
+						MPI_FLOAT, source, 0, MPI_COMM_WORLD, &reqrecvs[j*numofgroups + i]);
+			}
+		}
+
+	}
+	// Place MPI_Isend
+	for (int i = 0; i < numofgroups; i++){
+		// Compute destination
+		int destination = numofnodesingroup*i + nodenumber;
+		for (int j = 0; j < numofitemsinsecondreduction; j++){
+			if (destination != rank){
+				MPI_Isend(&intragroupreductionresult[j*numofgroups + i], \
+						1, MPI_FLOAT, destination, 0, MPI_COMM_WORLD, &reqsends[j*numofgroups + i]);
+			} else {
+				// copy data reduction buffer (intragroupbuffer)
+				intergroupbuffer[j*numofgroups + i] \
+						= intragroupreductionresult[j*numofgroups + i];
+			}
+		}
+
+	}
+
+	// Wait for MPI_Irecv to complete
+	for (int i = 0; i < numofgroups; i++){
+		// Compute source
+		int source = numofnodesingroup*i + nodenumber;
+		for (int j = 0; j < numofitemsinsecondreduction; j++){
+			if(source != rank){
+				MPI_Wait(&reqrecvs[j*numofgroups + i], MPI_STATUS_IGNORE);
+			}
+		}
+	}
+
+	// Wait for MPI_Isend to complete
+	for (int i = 0; i < numofgroups; i++){
+		// Compute source
+		int destination = numofnodesingroup*i + nodenumber;
+		for (int j = 0; j < numofitemsinsecondreduction; j++){
+			if(destination != rank){
+				MPI_Wait(&reqsends[j*numofgroups + i], MPI_STATUS_IGNORE);
+			}
+		}
+	}
+#if defined(DEBUG2)
+	printf("From rank %d | Inter group buffer: ", rank);
+	for (int i = 0; i < numofgroups*numofitemsinsecondreduction; i++){
+		printf("\t%.0f", intergroupbuffer[i]);
+	}
+	printf("\n");
+#endif
+	//Execute reduction
+	float *intergroupreductionresult = (float*)malloc(sizeof(float)*numofitemsinsecondreduction);
+	for (int i = 0; i < numofitemsinsecondreduction; i++){
+		intergroupreductionresult[i] = 0; // Should careful for reduction operation = multiply
+	}
+	for (int i = 0; i < numofgroups; i++){
+		for (int j = 0; j < numofitemsinsecondreduction; j++){
+			intergroupreductionresult[j] = reduce( intergroupbuffer[j*numofgroups + i],\
+					intergroupreductionresult[j], "sum");
+		}
+	}
+
+#if defined(DEBUG2)
+	MPI_Barrier(MPI_COMM_WORLD);
+	for(int i = 0; i < 1000000; i++);
+	printf("From rank %d, inter group reduction result: ", rank);
+	for (int i = 0; i < numofitemsinsecondreduction; i++){
+		printf("\t%.0f", intergroupreductionresult[i]);
+	}
+	printf("\n");
+#endif
+
+	free(intergroupbuffer);
+	free(intragroupreductionresult);
+	free(intergroupreductionresult);
+	free(reqsends);
+	free(reqrecvs);
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////   REDUCE - SCATTER : END    ////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////
