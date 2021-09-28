@@ -13,10 +13,11 @@
 //#define DEBUG 0
 //#define DEBUG1 // Intra group reduscatter
 //#define DEBUG2   // Inter group reducescatter
-#define DEBUG3   // Inter group allgather
-#define DEBUG4   // Intra group allgather
+//#define DEBUG3   // Inter group allgather
+//#define DEBUG4   // Intra group allgather
 
-#define NUM_ITEMS 18//
+//#define NUM_ITEMS 180000//
+#define CHUNK_SIZE 100
 
 #define RAND_SEED 721311
 
@@ -65,6 +66,7 @@ int main(int argc, char *argv[])
 	char hostname[256];
 	int hostname_len;
 
+
 	MPI_Init(&argc, &argv);
 
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -72,6 +74,7 @@ int main(int argc, char *argv[])
 	MPI_Get_processor_name(hostname,&hostname_len);
 
 //	if (rank == 0) printf("Chunksize: %d\n", chunksize);
+	int NUM_ITEMS = CHUNK_SIZE * size;
 	float * data;
 	if ((data = malloc(sizeof(float) * NUM_ITEMS)) == NULL) {
 		program_abort("Out of memory!");
@@ -490,59 +493,8 @@ int main(int argc, char *argv[])
 	/// Stop timer
 	MPI_Barrier(MPI_COMM_WORLD);
 	if ((0 == rank)) {
-		fprintf(stdout, "time: %.3lf seconds\n",
-			MPI_Wtime() - start_time);
+		fprintf(stdout, "%.7lf\n", MPI_Wtime() - start_time);
 	}
-	// Check the result
-	int chunksize = NUM_ITEMS/size;
-	// MPI Lib result
-	int *libresult = (int*) malloc(sizeof(int) * chunksize);
-	int *counts = (int*) malloc(sizeof(int) * size);
-	for (int i = 0; i < size; i++){
-		counts[i] = (int)chunksize;
-	}
-	MPI_Reduce_scatter(data, libresult, counts, MPI_FLOAT, MPI_SUM, MPI_COMM_WORLD);
-#if defined(DEBUG)
-	printf("Data from rank %d: ", rank);
-	for (int i = 0; i < NUM_ITEMS; i++){
-		printf("%d\t", data[i]);
-	}
-	printf("\n");
-	MPI_Barrier(MPI_COMM_WORLD);
-	for(int i = 0; i < 1000000; i++);
-	fflush(stdout);
-
-	printf("Reduce result from rank %d: ", rank);
-	for(int i = 0; i < chunksize; i++){
-		printf("%d\t", libresult[i]);
-	}
-	printf("\n");
-#endif
-
-/*	int libresult = -1;
-	int *counts = (int*)malloc(sizeof(int) * NUM_ITEMS);
-	for (int i = 0; i < NUM_ITEMS; i++){
-		counts[i] = 1;
-	}
-	MPI_Reduce_scatter(data, &libresult, counts, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
-#if defined(DEBUG)
-	printf("Data from rank %d: ", rank);
-	for (int i = 0; i < NUM_ITEMS; i++){
-		printf("%d\t", data[i]);
-	}
-	printf("\n");
-	fflush(stdout);
-	MPI_Barrier(MPI_COMM_WORLD);
-	printf("Reduce result from rank %d: %d\n", rank, libresult);
-
-#endif*/
-
-	free(libresult);
-	free(counts);
-	free(data);
-	MPI_Barrier(MPI_COMM_WORLD);
-	for(int i = 0; i < 1000000; i++);
-	if (rank == 0){ printf("\n");printf("\n");}
 	MPI_Finalize();
 	return 0;
 }

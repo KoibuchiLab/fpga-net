@@ -2,17 +2,16 @@ import numpy as np
 import sys
 
 if len(sys.argv) == 3: 
-	DEGREE=int(sys.argv[1])
-	DEGREE_OUT=int(sys.argv[2])
+	NUM_OF_GROUPS=int(sys.argv[1])
+	NUM_OF_NODES_IN_GROUP=int(sys.argv[2])
 else:
-	DEGREE=4
-	DEGREE_OUT=2
-NUM_OF_GROUPS=DEGREE_OUT + 1
-NUM_OF_NODES_IN_GROUP=DEGREE - DEGREE_OUT + 1
-NUM_OF_NODES=NUM_OF_GROUPS * NUM_OF_NODES_IN_GROUP
-NUM_OF_LINKS=int(NUM_OF_GROUPS * NUM_OF_NODES_IN_GROUP*(NUM_OF_NODES_IN_GROUP - 1)/2 + DEGREE_OUT*(DEGREE_OUT + 1))
+	NUM_OF_GROUPS=3
+	NUM_OF_NODES_IN_GROUP=3
 
-OUTPUT_FILENAME = "test.xml"
+NUM_OF_NODES=NUM_OF_GROUPS * NUM_OF_NODES_IN_GROUP
+NUM_OF_LINKS=int(NUM_OF_GROUPS * NUM_OF_NODES_IN_GROUP*(NUM_OF_NODES_IN_GROUP - 1)/2 + NUM_OF_GROUPS*(NUM_OF_GROUPS - 1))
+
+OUTPUT_FILENAME = "2lvfc/%dx%d.xml" % (NUM_OF_GROUPS, NUM_OF_NODES_IN_GROUP)
 DEFAULT_BANDWIDTH = "1GBps"
 DEFAULT_LATENCY = "50us"
 DEFAULT_SPEED = "1Gf"
@@ -93,8 +92,6 @@ for i in range(len(hostIDlist)):
 			routelist.append(route_disjoint(src, dst))
 
 
-		
-
 f = open(OUTPUT_FILENAME, "w")
 header = 	["<?xml version='1.0'?>\n", 
 			"<!DOCTYPE platform SYSTEM \'http://simgrid.gforge.inria.fr/simgrid/simgrid.dtd\'>\n",
@@ -111,4 +108,11 @@ f.writelines(routelist)
 f.write("\t</zone>\n")
 f.write("</platform>")
 
+f.close()
+
+OUTPUT_FILENAME_H = "hostfile/%dx%d.txt" % (NUM_OF_GROUPS, NUM_OF_NODES_IN_GROUP)
+f = open(OUTPUT_FILENAME_H, "w")
+for i in range(len(hostIDlist)):
+	f.writelines(hostIDlist[i])
+	f.writelines("\n")
 f.close()
