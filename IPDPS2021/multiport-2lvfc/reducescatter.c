@@ -11,9 +11,10 @@
 #include <string.h>
 
 //#define DEBUG 0
-//#define DEBUG1
-#define DEBUG2
-#define DEBUG3
+//#define DEBUG1 // Intra group reduscatter
+//#define DEBUG2   // Inter group reducescatter
+#define DEBUG3   // Inter group allgather
+#define DEGUB4   // Intra group allgather
 
 #define NUM_ITEMS 18//
 
@@ -340,20 +341,21 @@ int main(int argc, char *argv[])
 	// send inter group reduction result to other groups
 	reqsends = (MPI_Request*)malloc(sizeof(MPI_Request)*numofgroups);
 	reqrecvs = (MPI_Request*)malloc(sizeof(MPI_Request)*numofgroups);
-	float **intergroupbuffer_ = (float**)malloc(sizeof(float*)*numofgroups);
+	/*float **intergroupbuffer_ = (float**)malloc(sizeof(float*)*numofgroups);
 	for (int i = 0; i < numofgroups; i++){
 		intergroupbuffer_[i] = (float*) malloc(sizeof(float)*numofitemsinsecondreduction);
 		for (int j = 0; j < numofitemsinsecondreduction; j++){
 			intergroupbuffer_[i][j] = 0; // Should careful for reduction operation = multiply
 		}
-	}
+	}*/
+	float *intergroupbuffer_ = (float*)malloc(sizeof(float)*numofgroups*numofitemsinsecondreduction);
 
 	for (int i = 0; i < numofgroups; i++){
 		// Compute source
 		int source = numofnodesingroup*i + nodenumber;
 		if (source != rank){
-			MPI_Irecv(intergroupbuffer_[i], numofitemsinsecondreduction, MPI_FLOAT, source, 1, \
-					MPI_COMM_WORLD, &reqrecvs[i]);
+			MPI_Irecv(&intergroupbuffer_[i*numofitemsinsecondreduction], numofitemsinsecondreduction, \
+					MPI_FLOAT, source, 1, MPI_COMM_WORLD, &reqrecvs[i]);
 		}
 	}
 
@@ -366,18 +368,18 @@ int main(int argc, char *argv[])
 		} else {
 			//intergroupbuffer_[i] <- intergroupreductionresult (data is on a process so dont need to send)
 			for (int j = 0; j < numofitemsinsecondreduction; j++){
-				intergroupbuffer_[i][j] = intergroupreductionresult[j];
+				intergroupbuffer_[i*numofitemsinsecondreduction + j] = intergroupreductionresult[j];
 			}
 		}
 	}
 
 	for (int i = 0; i < numofgroups; i++){
-			// Compute source
-			int source = numofnodesingroup*i + nodenumber;
-			if (source != rank){
-				MPI_Wait(&reqrecvs[i], MPI_STATUS_IGNORE);
-			}
+		// Compute source
+		int source = numofnodesingroup*i + nodenumber;
+		if (source != rank){
+			MPI_Wait(&reqrecvs[i], MPI_STATUS_IGNORE);
 		}
+	}
 	for (int i = 0; i < numofgroups; i++){
 		// Compute destination
 		int destination = numofnodesingroup*i + nodenumber;
@@ -387,21 +389,27 @@ int main(int argc, char *argv[])
 	}
 
 #if defined(DEBUG3)
-	printf("From rank: %d|\t intergroubuffer_ (intergroup buffer for allgather)\n", rank);
-	for(int i = 0; i < numofgroups; i++){
-		printf("\t\t");
-		for (int j = 0; j < numofitemsinsecondreduction; j++){
-			printf("\t%.0f", intergroupbuffer_[i][j]);
-		}
-		printf("\n");
+	printf("From rank: %d|\t intergroubuffer_ (intergroup buffer for allgather)\n\t\t", rank);
+	for(int i = 0; i < numofgroups*numofitemsinsecondreduction; i++){
+		printf("\t%.0f", intergroupbuffer_[i]);
 	}
+	printf("\n");
 #endif
 
 	free(intergroupreductionresult);
 	// Step 2: Intra group gather  //////////////////////////////////////////////////////////////////
-
-	for (int i = 0; i < numofitemsinsecondreduction; i++){
-		free(intergroupbuffer_[i]);
+	//Final result
+	float *allreduceresult = (float*)malloc(sizeof(float)*NUM_ITEMS);
+	for (int i = 0; i < NUM_ITEMS; i++){
+		allreduceresult[i] = 0;
+	}
+	//Allocate buffer for intra group
+	float **intragroupbuffer_ = (float**)malloc(sizeof(float*)*numofnodesingroup);
+	for (int i = 0; i < numofnodesingroup; i++){
+		intragroupbuffer_[i] = (float*)malloc(sizeof(float)*numofgroups*numofitemsinsecondreduction);
+		for (int j = 0; j < numofgroups*numofitemsinsecondreduction; j++){
+			intragroupbuffer_[i][j] = 0; // Should careful for other reduce op
+		}
 	}
 	free(intergroupbuffer_);
 	/////////////////////////////////////////////////////////////////////////////////////////////////
