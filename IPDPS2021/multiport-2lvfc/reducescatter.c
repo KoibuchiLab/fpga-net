@@ -2,7 +2,7 @@
  * reducescatter.c
  *
  *  Created on: Sep 25, 2021
- *      Author: kienpham
+ *	  Author: kienpham
  */
 
 #include <stdio.h>
@@ -16,8 +16,6 @@
 //#define DEBUG3   // Inter group allgather
 //#define DEBUG4   // Intra group allgather
 
-//#define NUM_ITEMS 180000//
-#define CHUNK_SIZE 100
 
 #define RAND_SEED 721311
 
@@ -51,6 +49,15 @@ void r2h(int rank, char* networkshape_r, int *groupnumber, int *nodenumber){ // 
 	return;
 }
 
+void r2h_r(int rank, char* topo, char* hostname){ // rank to host name for 2lvfc
+	char networkshape[256];
+	strcpy(networkshape, topo);
+	char * token = strtok(networkshape, "x");
+	token = strtok(NULL, "_");
+	int networkshape_b = atoi(token) + 1;
+	sprintf(hostname, "%d_%d", rank / networkshape_b, rank % networkshape_b);
+	return;
+}
 float reduce(float a, float b, const char *op){
 	if (strcmp(op, "sum") == 0){
 		return a + b;
@@ -61,9 +68,10 @@ float reduce(float a, float b, const char *op){
 
 int main(int argc, char *argv[])
 {
-	int size, rank;
+	int size, rank, NUM_ITEMS;
 	struct timeval start, end;
 	char hostname[256];
+	char topo[256];//for real MPICH test
 	int hostname_len;
 
 
@@ -72,33 +80,56 @@ int main(int argc, char *argv[])
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 	MPI_Comm_size(MPI_COMM_WORLD, &size);
 	MPI_Get_processor_name(hostname,&hostname_len);
+	NUM_ITEMS = 500; //default numitems
+
+	// Topology optional argument
+	for (int i = 1; i < argc; i++) {
+		if (!strcmp(argv[i], "--topo")) {
+			if ((i + 1 >= argc) || (sscanf(argv[i + 1], "%s", topo) != 1)) {
+				program_abort("Invalid <topology> argument\n");
+			} else { // prepare fake hostname for testing
+				int g, n;
+				r2h_r(rank, topo, hostname);
+				hostname_len = strlen(hostname) + 1;
+				//printf("Rank: %d | Host name: %s | Length: %d\n", rank, hostname, hostname_len);
+			}
+		}
+		if (!strcmp(argv[i], "--num-item")) {
+			if ((i + 1 >= argc) || (sscanf(argv[i + 1], "%d", &NUM_ITEMS) != 1)) {
+				program_abort("Invalid <topology> argument\n");
+			}
+		}
+
+	}
 
 //	if (rank == 0) printf("Chunksize: %d\n", chunksize);
-	int NUM_ITEMS = CHUNK_SIZE * size;
+	int NUM_ITEMS_ROUND = NUM_ITEMS - NUM_ITEMS%size;
 	float * data;
-	if ((data = malloc(sizeof(float) * NUM_ITEMS)) == NULL) {
+	if ((data = malloc(sizeof(float) * NUM_ITEMS_ROUND)) == NULL) {
 		program_abort("Out of memory!");
 	}
 	char networkshape[256];
 	if (rank == size - 1){
 		strcpy(networkshape, hostname);
 	}
+
 	// Send the shape of the topology to all node
 	if (MPI_SUCCESS != MPI_Bcast(networkshape, hostname_len, MPI_CHAR, size - 1, MPI_COMM_WORLD)){
 		program_abort("Broadcast networkshape fail\n");
 	}
 
+	//printf("%s\n", networkshape);
 
 
 	// All rank fill the buffer with random data
 	srandom(RAND_SEED + rank);
-	for (int j = 0; j < NUM_ITEMS; j++) {
-		data[j] = (float)(1 + 1.0 * (random() % 8));
+	for (int j = 0; j < NUM_ITEMS_ROUND; j++) {
+		data[j] = (float)(1 + 1.0 * (random() % 100));
 	}
 
 #if defined(DEBUG1)
 	printf("Data from rank %d: ", rank);
-	for (int i = 0; i < NUM_ITEMS; i++){
+	for (int i = 0; i < NUM_ITEMS_ROUND; i++){
 		printf("%.0f\t", data[i]);
 	}
 	printf("\n");
@@ -134,7 +165,7 @@ int main(int argc, char *argv[])
 
 	//Step 1: Intra group exchange  /////////////////////////////////////////////////////////////////
 
-	int numofitemsineachchunk = NUM_ITEMS / numofnodesingroup;
+	int numofitemsineachchunk = NUM_ITEMS_ROUND / numofnodesingroup;
 
 	//Prepare buffer to receive data
 	float ** intragroupbuffer = (float**)malloc(sizeof(float*)*numofnodesingroup);
@@ -190,7 +221,7 @@ int main(int argc, char *argv[])
 
 #if defined(DEBUG1)
 	printf("Data from rank %d: ", rank);
-	for (int i = 0; i < NUM_ITEMS; i++){
+	for (int i = 0; i < NUM_ITEMS_ROUND; i++){
 		printf("%.0f\t", data[i]);
 	}
 	printf("\n");
@@ -244,7 +275,7 @@ int main(int argc, char *argv[])
 
 	//Step 2: Inter group exchange  /////////////////////////////////////////////////////////////////
 	//Prepare buffer to receive data
-	int numofitemsinsecondreduction = NUM_ITEMS / size;
+	int numofitemsinsecondreduction = NUM_ITEMS_ROUND / size;
 	float * intergroupbuffer = (float*)malloc(sizeof(float)*numofgroups*numofitemsinsecondreduction);
 
 	reqsends = (MPI_Request*) malloc(sizeof(MPI_Request)*numofgroups*numofitemsinsecondreduction);
@@ -334,11 +365,11 @@ int main(int argc, char *argv[])
 	free(reqsends);
 	free(reqrecvs);
 	/////////////////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////   REDUCE - SCATTER : END    ////////////////////////////////////////
+	////////////////////////////   REDUCE - SCATTER : END	////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////      ALLGATHER : START      ////////////////////////////////////////
+	////////////////////////////	  ALLGATHER : START	  ////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	// Step 1: Inter group gather  //////////////////////////////////////////////////////////////////
 	// send inter group reduction result to other groups
@@ -402,12 +433,12 @@ int main(int argc, char *argv[])
 	free(intergroupreductionresult);
 	// Step 2: Intra group gather  //////////////////////////////////////////////////////////////////
 	//Final result
-	float *allreduceresult = (float*)malloc(sizeof(float)*NUM_ITEMS);
+	float *allreduceresult = (float*)malloc(sizeof(float)*NUM_ITEMS_ROUND);
 
 	reqsends = (MPI_Request*)malloc(sizeof(MPI_Request)*numofnodesingroup);
 	reqrecvs = (MPI_Request*)malloc(sizeof(MPI_Request)*numofnodesingroup);
 
-	for (int i = 0; i < NUM_ITEMS; i++){
+	for (int i = 0; i < NUM_ITEMS_ROUND; i++){
 		allreduceresult[i] = 0;
 	}
 	//Allocate buffer for intra group
@@ -443,17 +474,24 @@ int main(int argc, char *argv[])
 		int source = groupnumber*numofnodesingroup + i;
 		if (rank != source){
 			MPI_Wait(&reqrecvs[i], MPI_STATUS_IGNORE);
-			for (int j = 0; j < numofitemsinsecondreduction; j++){
+			/*for (int j = 0; j < numofitemsinsecondreduction; j++){
 				for(int k = 0; k < numofgroups; k++){
 					allreduceresult[i*numofgroups + j*size + k] = intragroupbuffer_[i][j*numofgroups + k];
 				}
+			}*/
+			int m = numofitemsinsecondreduction*numofgroups;
+			int a = numofitemsinsecondreduction;
+			for (int j = 0; j < m; j++){
+				int index = (j-j%a + m*(j%a))/a + i*m;
+				allreduceresult[index] = intragroupbuffer_[i][j];
 			}
 
 		} else { //copy from local buffer -> intergroupbuffer_
-			for (int j = 0; j < numofitemsinsecondreduction; j++){
-				for(int k = 0; k < numofgroups; k++){
-					allreduceresult[i*numofgroups + j*size + k] = intergroupbuffer_[j*numofgroups + k];
-				}
+			int m = numofitemsinsecondreduction*numofgroups;
+			int a = numofitemsinsecondreduction;
+			for (int j = 0; j < m; j++){
+				int index = (j-j%a + m*(j%a))/a + i*m;
+				allreduceresult[index] = intragroupbuffer_[i][j];
 			}
 		}
 	}
@@ -476,25 +514,48 @@ int main(int argc, char *argv[])
 	MPI_Barrier(MPI_COMM_WORLD);
 	for(int i = 0; i < 100000; i++);
 	printf("From rank %d, allreduce result\n\t", rank);
-	for(int i = 0; i < NUM_ITEMS; i++){
+	for(int i = 0; i < NUM_ITEMS_ROUND; i++){
 		printf("\t%.0f", allreduceresult[i]);
 	}
 	printf("\n");
 #endif
+
+	/// Stop timer
 	free(intergroupbuffer_);
 	free(reqrecvs);
 	free(reqsends);
 	free(intragroupbuffer_);
-	free(allreduceresult);
-	/////////////////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////       ALLGATHER : END       ////////////////////////////////////////
-	/////////////////////////////////////////////////////////////////////////////////////////////////
-
-	/// Stop timer
 	MPI_Barrier(MPI_COMM_WORLD);
 	if ((0 == rank)) {
-		fprintf(stdout, "%.7lf\n", MPI_Wtime() - start_time);
+		fprintf(stdout, "%s,%.7lf,%d\n", networkshape, MPI_Wtime() - start_time, NUM_ITEMS);
 	}
+	float *allreduceresultlib = (float*)malloc(sizeof(float)*NUM_ITEMS_ROUND);
+	MPI_Allreduce(data, allreduceresultlib, NUM_ITEMS_ROUND, MPI_FLOAT, MPI_SUM, MPI_COMM_WORLD);
+
+	if (rank == 0){
+		for (int i = 0; i < NUM_ITEMS_ROUND; i++){
+			if (allreduceresult[i] != allreduceresultlib[i]){
+				fprintf(stdout, "%s, %s\n", networkshape, "Allreduce wrong");
+			}
+		}
+		printf("Kim allreduce: \n");
+		for (int i = 0; i < NUM_ITEMS_ROUND; i++){
+			printf(" %.0f", allreduceresult[i]);
+		}
+		printf("\nLib Allreduce\n");
+		for (int i = 0; i < NUM_ITEMS_ROUND; i++){
+			printf(" %.0f", allreduceresultlib[i]);
+		}
+		printf("\n");
+	}
+
+	free(allreduceresultlib);
+	free(allreduceresult);
+	/////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////	   ALLGATHER : END	   ////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 	MPI_Finalize();
 	return 0;
 }
