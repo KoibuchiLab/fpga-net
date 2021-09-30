@@ -10,11 +10,12 @@
 #include <mpi.h>
 #include <string.h>
 
-//#define DEBUG 0
+//#define DEBUG0
 //#define DEBUG1 // Intra group reduscatter
 //#define DEBUG2   // Inter group reducescatter
 //#define DEBUG3   // Inter group allgather
 //#define DEBUG4   // Intra group allgather
+//#define DEBUG5   // Print compare with buildin mpi result
 
 
 #define RAND_SEED 721311
@@ -23,39 +24,29 @@ static void program_abort(char * message) {
 	fprintf(stderr, "Error: %s", message);
 }
 
-int h2r(char *hostname_r, char *networkshape_r){ //host name to rank for 2lvfc
-	char hostname[256], networkshape[256];
-	strcpy(hostname, hostname_r);
-	strcpy(networkshape, networkshape_r);
-	char *token = strtok(hostname, "_");
-	int groupnumber = atoi(token);
-	token = strtok(NULL, "_");
-	int nodenumber = atoi(token);
+int h2r(char *hostname, char *networkshape){ //host name to rank for 2lvfc
+	int groupnumber, nodenumber;
+	int networkshape_a, networkshape_b;
 
-	token = strtok(networkshape, "_");
-	token = strtok(NULL, "_");
-	int networkshape_b = atoi(token) + 1;
+	sscanf(hostname, "%d_%d", &groupnumber, &nodenumber);
+	sscanf(networkshape, "%d_%d", &networkshape_a, &networkshape_b);
+	networkshape_b += 1;
 	return groupnumber * networkshape_b + nodenumber;
 }
 
-void r2h(int rank, char* networkshape_r, int *groupnumber, int *nodenumber){ // rank to host name for 2lvfc
-	char networkshape[256];
-	strcpy(networkshape, networkshape_r);
-	char * token = strtok(networkshape, "_");
-	token = strtok(NULL, "_");
-	int networkshape_b = atoi(token) + 1;
+void r2h(int rank, char* networkshape, int *groupnumber, int *nodenumber){ // rank to host name for 2lvfc
+	int networkshape_a, networkshape_b;
+	sscanf(networkshape, "%d_%d", &networkshape_a, &networkshape_b);
+	networkshape_b += 1;
 	*groupnumber = rank / networkshape_b;
 	*nodenumber = rank % networkshape_b;
 	return;
 }
 
 void r2h_r(int rank, char* topo, char* hostname){ // rank to host name for 2lvfc
-	char networkshape[256];
-	strcpy(networkshape, topo);
-	char * token = strtok(networkshape, "x");
-	token = strtok(NULL, "_");
-	int networkshape_b = atoi(token) + 1;
-	sprintf(hostname, "%d_%d", rank / networkshape_b, rank % networkshape_b);
+	int numofgroups, numofnodes;
+	sscanf(topo, "%dx%d", &numofgroups, &numofnodes);
+	sprintf(hostname, "%d_%d", rank / numofnodes, rank % numofnodes);
 	return;
 }
 float reduce(float a, float b, const char *op){
@@ -88,10 +79,11 @@ int main(int argc, char *argv[])
 			if ((i + 1 >= argc) || (sscanf(argv[i + 1], "%s", topo) != 1)) {
 				program_abort("Invalid <topology> argument\n");
 			} else { // prepare fake hostname for testing
-				int g, n;
 				r2h_r(rank, topo, hostname);
 				hostname_len = strlen(hostname) + 1;
-				//printf("Rank: %d | Host name: %s | Length: %d\n", rank, hostname, hostname_len);
+#if defined(DEBUG0)
+				printf("Rank: %d | Host name: %s | Length: %d\n", rank, hostname, hostname_len);
+#endif
 			}
 		}
 		if (!strcmp(argv[i], "--num-item")) {
@@ -109,17 +101,22 @@ int main(int argc, char *argv[])
 		program_abort("Out of memory!");
 	}
 	char networkshape[256];
+	int networkshape_len;
 	if (rank == size - 1){
 		strcpy(networkshape, hostname);
+		networkshape_len = hostname_len + 1;
+		networkshape[networkshape_len] = '\0';
 	}
-
+	MPI_Bcast(&networkshape_len, 1, MPI_INT, size - 1, MPI_COMM_WORLD);
 	// Send the shape of the topology to all node
-	if (MPI_SUCCESS != MPI_Bcast(networkshape, hostname_len, MPI_CHAR, size - 1, MPI_COMM_WORLD)){
+	if (MPI_SUCCESS != MPI_Bcast(networkshape, networkshape_len, MPI_CHAR, size - 1, MPI_COMM_WORLD)){
 		program_abort("Broadcast networkshape fail\n");
 	}
-
-	//printf("%s\n", networkshape);
-
+#if defined(DEBUG0)
+	if (rank == 0){
+		printf("Network shape 1: %s\n", networkshape);
+	}
+#endif
 
 	// All rank fill the buffer with random data
 	srandom(RAND_SEED + rank);
@@ -149,19 +146,21 @@ int main(int argc, char *argv[])
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	int groupnumber, nodenumber; // Hostname define in xml is groupnumber_nodenumber
 	r2h(rank, networkshape, &groupnumber, &nodenumber);
+
+	if (rank != h2r(hostname, networkshape))
+		program_abort("Computed rank must equal to real rank\n");
+	int numofgroups, numofnodesingroup;
+	sscanf(networkshape, "%d_%d", &numofgroups, &numofnodesingroup);
+	numofgroups++;
+	numofnodesingroup++;
+
 #if defined(DEBUG0)
 	printf("Host name %s \t| rank %d \t| rank computed %d\t| %d_%d\n", hostname, rank, h2r(hostname, networkshape), \
 			groupnumber, nodenumber);
+	if(rank == 0){
+		printf("Network shape: %s\n", networkshape);
+	}
 #endif
-	if (rank != h2r(hostname, networkshape))
-		program_abort("Computed rank must equal to real rank\n");
-
-	char networkshapetmp[256];
-	strcpy(networkshapetmp, networkshape);
-	char *token = strtok(networkshapetmp, "_");
-	int numofgroups = atoi(token) + 1;
-	token = strtok(NULL, "_");
-	int numofnodesingroup = atoi(token) + 1;
 
 	//Step 1: Intra group exchange  /////////////////////////////////////////////////////////////////
 
@@ -533,11 +532,12 @@ int main(int argc, char *argv[])
 	MPI_Allreduce(data, allreduceresultlib, NUM_ITEMS_ROUND, MPI_FLOAT, MPI_SUM, MPI_COMM_WORLD);
 
 	if (rank == 0){
-		for (int i = 0; i < NUM_ITEMS_ROUND; i++){
-			if (allreduceresult[i] != allreduceresultlib[i]){
-				fprintf(stdout, "%s, %s\n", networkshape, "Allreduce wrong");
-			}
+	for (int i = 0; i < NUM_ITEMS_ROUND; i++){
+		if (allreduceresult[i] != allreduceresultlib[i]){
+			fprintf(stdout, "%s, %s\n", networkshape, "Allreduce wrong");
 		}
+	}
+#if defined(DEBUG5)
 		printf("Kim allreduce: \n");
 		for (int i = 0; i < NUM_ITEMS_ROUND; i++){
 			printf(" %.0f", allreduceresult[i]);
@@ -547,6 +547,7 @@ int main(int argc, char *argv[])
 			printf(" %.0f", allreduceresultlib[i]);
 		}
 		printf("\n");
+#endif
 	}
 
 	free(allreduceresultlib);
