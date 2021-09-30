@@ -11,11 +11,12 @@
 #include <string.h>
 
 //#define DEBUG0
-//#define DEBUG1 // Intra group reduscatter
-//#define DEBUG2   // Inter group reducescatter
+#define DEBUG1 	// Intra group reduscatter
+#define DEBUG2   // Inter group reducescatter
 //#define DEBUG3   // Inter group allgather
 //#define DEBUG4   // Intra group allgather
 //#define DEBUG5   // Print compare with buildin mpi result
+//#define TIME_FOR_EACH_STEP
 
 
 #define RAND_SEED 721311
@@ -78,7 +79,7 @@ int main(int argc, char *argv[])
 		if (!strcmp(argv[i], "--topo")) {
 			if ((i + 1 >= argc) || (sscanf(argv[i + 1], "%s", topo) != 1)) {
 				program_abort("Invalid <topology> argument\n");
-			} else { // prepare fake hostname for testing
+			} else { // prepare fake hostname for testing on MPICH (without simulation
 				r2h_r(rank, topo, hostname);
 				hostname_len = strlen(hostname) + 1;
 #if defined(DEBUG0)
@@ -121,7 +122,7 @@ int main(int argc, char *argv[])
 	// All rank fill the buffer with random data
 	srandom(RAND_SEED + rank);
 	for (int j = 0; j < NUM_ITEMS_ROUND; j++) {
-		data[j] = (float)(1 + 1.0 * (random() % 100));
+		data[j] = (float)(1 + 1.0 * (random() % 9));
 	}
 
 #if defined(DEBUG1)
@@ -163,7 +164,10 @@ int main(int argc, char *argv[])
 #endif
 
 	//Step 1: Intra group exchange  /////////////////////////////////////////////////////////////////
-
+#if defined(TIME_FOR_EACH_STEP)
+	MPI_Barrier(MPI_COMM_WORLD);
+	double dblasttimer = MPI_Wtime();
+#endif
 	int numofitemsineachchunk = NUM_ITEMS_ROUND / numofnodesingroup;
 
 	//Prepare buffer to receive data
@@ -266,6 +270,12 @@ int main(int argc, char *argv[])
 	for(int i = 0; i < numofnodesingroup; i++){
 		free(intragroupbuffer[i]);
 	}
+#if defined(TIME_FOR_EACH_STEP)
+	MPI_Barrier(MPI_COMM_WORLD);
+	if (rank == 0){
+		fprintf(stdout, "%.7lf\tTime for intra-group reduce scatter\n", MPI_Wtime() - dblasttimer);
+	}
+#endif
 	free(intragroupbuffer);
 	free(reqsends);
 	free(reqrecvs);
@@ -279,7 +289,10 @@ int main(int argc, char *argv[])
 
 	reqsends = (MPI_Request*) malloc(sizeof(MPI_Request)*numofgroups*numofitemsinsecondreduction);
 	reqrecvs = (MPI_Request*) malloc(sizeof(MPI_Request)*numofgroups*numofitemsinsecondreduction);
-
+#if defined(TIME_FOR_EACH_STEP)
+	MPI_Barrier(MPI_COMM_WORLD);
+	dblasttimer = MPI_Wtime();
+#endif
 	// Place MPI_Irecv
 	for (int i = 0; i < numofgroups; i++){
 		// Compute source
@@ -306,7 +319,6 @@ int main(int argc, char *argv[])
 						= intragroupreductionresult[j*numofgroups + i];
 			}
 		}
-
 	}
 
 	// Wait for MPI_Irecv to complete
@@ -348,6 +360,12 @@ int main(int argc, char *argv[])
 					intergroupreductionresult[j], "sum");
 		}
 	}
+#if defined(TIME_FOR_EACH_STEP)
+	MPI_Barrier(MPI_COMM_WORLD);
+	if (rank == 0){
+		fprintf(stdout, "%.7lf\tTime for inter-group reduce scatter\n", MPI_Wtime() - dblasttimer);
+	}
+#endif
 
 #if defined(DEBUG2)
 	MPI_Barrier(MPI_COMM_WORLD);
@@ -374,15 +392,11 @@ int main(int argc, char *argv[])
 	// send inter group reduction result to other groups
 	reqsends = (MPI_Request*)malloc(sizeof(MPI_Request)*numofgroups);
 	reqrecvs = (MPI_Request*)malloc(sizeof(MPI_Request)*numofgroups);
-	/*float **intergroupbuffer_ = (float**)malloc(sizeof(float*)*numofgroups);
-	for (int i = 0; i < numofgroups; i++){
-		intergroupbuffer_[i] = (float*) malloc(sizeof(float)*numofitemsinsecondreduction);
-		for (int j = 0; j < numofitemsinsecondreduction; j++){
-			intergroupbuffer_[i][j] = 0; // Should careful for reduction operation = multiply
-		}
-	}*/
 	float *intergroupbuffer_ = (float*)malloc(sizeof(float)*numofgroups*numofitemsinsecondreduction);
-
+#if defined(TIME_FOR_EACH_STEP)
+	MPI_Barrier(MPI_COMM_WORLD);
+	dblasttimer = MPI_Wtime();
+#endif
 	for (int i = 0; i < numofgroups; i++){
 		// Compute source
 		int source = numofnodesingroup*i + nodenumber;
@@ -428,6 +442,12 @@ int main(int argc, char *argv[])
 	}
 	printf("\n");
 #endif
+#if defined(TIME_FOR_EACH_STEP)
+	MPI_Barrier(MPI_COMM_WORLD);
+	if (rank == 0){
+		fprintf(stdout, "%.7lf\tTime for inter-group all-gather\n", MPI_Wtime() - dblasttimer);
+	}
+#endif
 
 	free(intergroupreductionresult);
 	// Step 2: Intra group gather  //////////////////////////////////////////////////////////////////
@@ -436,6 +456,10 @@ int main(int argc, char *argv[])
 
 	reqsends = (MPI_Request*)malloc(sizeof(MPI_Request)*numofnodesingroup);
 	reqrecvs = (MPI_Request*)malloc(sizeof(MPI_Request)*numofnodesingroup);
+#if defined(TIME_FOR_EACH_STEP)
+	MPI_Barrier(MPI_COMM_WORLD);
+	dblasttimer = MPI_Wtime();
+#endif
 
 	for (int i = 0; i < NUM_ITEMS_ROUND; i++){
 		allreduceresult[i] = 0;
@@ -500,6 +524,12 @@ int main(int argc, char *argv[])
 			MPI_Wait(&reqsends[i], MPI_STATUS_IGNORE);
 		}
 	}
+#if defined(TIME_FOR_EACH_STEP)
+	MPI_Barrier(MPI_COMM_WORLD);
+	if (rank == 0){
+		fprintf(stdout, "%.7lf\tTime for intra-group allgather\n", MPI_Wtime() - dblasttimer);
+	}
+#endif
 #if defined(DEBUG4)
 	printf("From rank %d|\t, intra group buffer_\n", rank);
 	for (int i = 0; i < numofnodesingroup; i++){
@@ -535,14 +565,14 @@ int main(int argc, char *argv[])
 	if ((0 == rank)) {
 		fprintf(stdout, "%s,%.7lf,%.7lf,%d\n", networkshape, kimrdtime, MPI_Wtime() - start_time, NUM_ITEMS);
 	}
+
+	// Compare the result
 	if (rank == 0){
 	for (int i = 0; i < NUM_ITEMS_ROUND; i++){
 		if (allreduceresult[i] != allreduceresultlib[i]){
 			fprintf(stdout, "%s, %s\n", networkshape, "Allreduce wrong");
 		}
 	}
-
-
 
 #if defined(DEBUG5)
 		printf("Kim allreduce: \n");
