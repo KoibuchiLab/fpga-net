@@ -39,25 +39,54 @@ int main(int argc, char *argv[])
 	MPI_Comm_size(MPI_COMM_WORLD, &size);
 	MPI_Get_processor_name(hostname,&hostname_len);
 	NUM_ITEMS = 500; //default numitems
+	int numofgroups = 3;
+	int numofnodesingroup = 4;
+	int nodenumber = 0;
+	int numofitemsinsecondreduction = 2;
+	MPI_Request *reqsends = (MPI_Request*)malloc(sizeof(MPI_Request)*numofgroups);
+	MPI_Request *reqrecvs = (MPI_Request*)malloc(sizeof(MPI_Request)*numofgroups);
+	float *intergroupreductionresult = (float*)malloc(sizeof(float)*numofitemsinsecondreduction);
+	float *intergroupbuffer_ = (float*)malloc(sizeof(float)*numofgroups*numofitemsinsecondreduction);
 
-	// Topology optional argument
-	for (int i = 1; i < argc; i++) {
-		if (!strcmp(argv[i], "--topo")) {
-			if ((i + 1 >= argc) || (sscanf(argv[i + 1], "%s", topo) != 1)) {
-				program_abort("Invalid <topology> argument\n");
-			} else { // prepare fake hostname for testing
-				int g, n;
-				r2h_r(rank, topo, hostname);
-				hostname_len = strlen(hostname);
-				printf("Rank: %d | Host name: %s | Length: %d\n", rank, hostname, hostname_len);
-			}
+	for (int i = 0; i < numofgroups; i++){
+		// Compute source
+		int source = numofnodesingroup*i + nodenumber;
+		if (source != rank){
+			MPI_Irecv(&intergroupbuffer_[i*numofitemsinsecondreduction], numofitemsinsecondreduction, \
+					MPI_FLOAT, source, 1, MPI_COMM_WORLD, &reqrecvs[i]);
 		}
-		if (!strcmp(argv[i], "--num-item")) {
-			if ((i + 1 >= argc) || (sscanf(argv[i + 1], "%d", &NUM_ITEMS) != 1)) {
-				program_abort("Invalid <topology> argument\n");
-			}
-		}
-
 	}
+
+	for (int i = 0; i < numofgroups; i++){
+		// Compute destination
+		int destination = numofnodesingroup*i + nodenumber;
+		if (destination != rank){
+			MPI_Isend(intergroupreductionresult, numofitemsinsecondreduction, MPI_FLOAT, destination, 1, \
+					MPI_COMM_WORLD, &reqsends[i]);
+		} else {
+			//intergroupbuffer_[i] <- intergroupreductionresult (data is on a process so dont need to send)
+			for (int j = 0; j < numofitemsinsecondreduction; j++){
+				intergroupbuffer_[i*numofitemsinsecondreduction + j] = intergroupreductionresult[j];
+			}
+		}
+	}
+
+	for (int i = 0; i < numofgroups; i++){
+		// Compute source
+		int source = numofnodesingroup*i + nodenumber;
+		if (source != rank){
+			MPI_Wait(&reqrecvs[i], MPI_STATUS_IGNORE);
+		}
+	}
+	for (int i = 0; i < numofgroups; i++){
+		// Compute destination
+		int destination = numofnodesingroup*i + nodenumber;
+		if (destination != rank){
+			MPI_Wait(&reqsends[i], MPI_STATUS_IGNORE);
+		}
+	}
+	free(reqsends);
+	free(reqrecvs);
+
 	MPI_Finalize();
 }
