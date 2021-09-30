@@ -11,12 +11,12 @@
 #include <string.h>
 
 //#define DEBUG0
-#define DEBUG1 	// Intra group reduscatter
-#define DEBUG2   // Inter group reducescatter
+//#define DEBUG1 	// Intra group reduscatter
+//#define DEBUG2   // Inter group reducescatter
 //#define DEBUG3   // Inter group allgather
 //#define DEBUG4   // Intra group allgather
 //#define DEBUG5   // Print compare with buildin mpi result
-//#define TIME_FOR_EACH_STEP
+#define TIME_FOR_EACH_STEP
 
 
 #define RAND_SEED 721311
@@ -241,6 +241,18 @@ int main(int argc, char *argv[])
 	printf("\n");
 #endif
 
+#if defined(TIME_FOR_EACH_STEP)
+	MPI_Barrier(MPI_COMM_WORLD);
+	if (rank == 0){
+		fprintf(stdout, "%.7lf\tTime for intra-group reduce scatter communication time\n", MPI_Wtime() - dblasttimer);
+	}
+#endif
+
+#if defined(TIME_FOR_EACH_STEP)
+	MPI_Barrier(MPI_COMM_WORLD);
+	dblasttimer = MPI_Wtime();
+#endif
+
 	// execute the reduction operation
 	float *intragroupreductionresult = (float*)malloc(sizeof(float)*numofitemsineachchunk);
 	for (int i = 0; i < numofitemsineachchunk; i++){
@@ -251,6 +263,9 @@ int main(int argc, char *argv[])
 			intragroupreductionresult[j] = reduce(intragroupreductionresult[j], intragroupbuffer[i][j], "sum");
 		}
 	}
+
+
+
 #if defined(DEBUG2)
 	printf("From rank %d | Intra group reduction result:\t", rank);
 	for (int i = 0; i < numofitemsineachchunk; i++){
@@ -273,7 +288,7 @@ int main(int argc, char *argv[])
 #if defined(TIME_FOR_EACH_STEP)
 	MPI_Barrier(MPI_COMM_WORLD);
 	if (rank == 0){
-		fprintf(stdout, "%.7lf\tTime for intra-group reduce scatter\n", MPI_Wtime() - dblasttimer);
+		fprintf(stdout, "%.7lf\tTime for intra-group reduce scatter computation time\n", MPI_Wtime() - dblasttimer);
 	}
 #endif
 	free(intragroupbuffer);
@@ -349,6 +364,18 @@ int main(int argc, char *argv[])
 	}
 	printf("\n");
 #endif
+
+#if defined(TIME_FOR_EACH_STEP)
+	MPI_Barrier(MPI_COMM_WORLD);
+	if (rank == 0){
+		fprintf(stdout, "%.7lf\tTime for inter-group reduce scatter communication time\n", MPI_Wtime() - dblasttimer);
+	}
+#endif
+
+#if defined(TIME_FOR_EACH_STEP)
+	MPI_Barrier(MPI_COMM_WORLD);
+	dblasttimer = MPI_Wtime();
+#endif
 	//Execute reduction
 	float *intergroupreductionresult = (float*)malloc(sizeof(float)*numofitemsinsecondreduction);
 	for (int i = 0; i < numofitemsinsecondreduction; i++){
@@ -363,7 +390,7 @@ int main(int argc, char *argv[])
 #if defined(TIME_FOR_EACH_STEP)
 	MPI_Barrier(MPI_COMM_WORLD);
 	if (rank == 0){
-		fprintf(stdout, "%.7lf\tTime for inter-group reduce scatter\n", MPI_Wtime() - dblasttimer);
+		fprintf(stdout, "%.7lf\tTime for inter-group reduce scatter computation time\n", MPI_Wtime() - dblasttimer);
 	}
 #endif
 
