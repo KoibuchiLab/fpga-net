@@ -179,7 +179,9 @@ int main(int argc, char *argv[])
 			}
 		}
 	}
-
+#if !defined(COMPARE_BUILDIN)
+	free(data);
+#endif
 	for (int i = 0; i < numofgroups; i++){
 		// Compute source
 		int source = numofnodesingroup*i + nodenumber;
@@ -209,7 +211,8 @@ int main(int argc, char *argv[])
 	}
 #endif
 
-
+	free(reqsends);
+	free(reqrecvs);
 	// Step 2: Intra group gather  //////////////////////////////////////////////////////////////////
 	//Final result
 	float *allgatherresult = (float*)malloc(sizeof(float)*NUM_ITEMS*size);
@@ -225,7 +228,7 @@ int main(int argc, char *argv[])
 		allgatherresult[i] = 0;
 	}
 	// Allocate buffer for intra group
-	// Size = [numofnodesingroup][numofgroup*numofitemkim
+	// Size = [numofnodesingroup][numofgroup*NUM_ITEMS]
 	float **intragroupbuffer_ = (float**)malloc(sizeof(float*)*numofnodesingroup);
 	for (int i = 0; i < numofnodesingroup; i++){
 		intragroupbuffer_[i] = (float*)malloc(sizeof(float)*numofgroups*NUM_ITEMS);
@@ -270,6 +273,9 @@ int main(int argc, char *argv[])
 			MPI_Wait(&reqsends[i], MPI_STATUS_IGNORE);
 		}
 	}
+
+	free(intergroupbuffer_);
+
 #if defined(TIME_FOR_EACH_STEP)
 	MPI_Barrier(MPI_COMM_WORLD);
 	if (rank == 0){
@@ -299,11 +305,14 @@ int main(int argc, char *argv[])
 	MPI_Barrier(MPI_COMM_WORLD);
 	double kimrdtime = MPI_Wtime() - start_time;
 
-
-	free(intergroupbuffer_);
+	for (int i = 0; i < numofnodesingroup; i++){
+		free(intragroupbuffer_[i]);
+	}
+	free(intragroupbuffer_);
 	free(reqrecvs);
 	free(reqsends);
-	free(intragroupbuffer_);
+
+#if defined(COMPARE_BUILDIN)
 	start_time = MPI_Wtime();
 	float *allgatherresultlib = (float*)malloc(sizeof(float)*NUM_ITEMS*size);
 	MPI_Allgather(data, NUM_ITEMS, MPI_FLOAT, allgatherresultlib, NUM_ITEMS, MPI_FLOAT, MPI_COMM_WORLD);
@@ -320,6 +329,8 @@ int main(int argc, char *argv[])
 			//exit(1);
 		}
 	}
+	free(data);
+#endif
 
 #if defined(DEBUG5)
 		printf("Kim allgather: \n");
@@ -332,9 +343,11 @@ int main(int argc, char *argv[])
 		}
 		printf("\n");
 #endif
-	}
 
+#if defined(COMPARE_BUILDIN)
+	}
 	free(allgatherresultlib);
+#endif
 	free(allgatherresult);
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////	   ALLGATHER : END	   ////////////////////////////////////////
