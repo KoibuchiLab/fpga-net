@@ -1,5 +1,5 @@
 /*
- * reducescatter.c
+ * allreduce.c
  *
  *  Created on: Sep 25, 2021
  *	  Author: kienpham
