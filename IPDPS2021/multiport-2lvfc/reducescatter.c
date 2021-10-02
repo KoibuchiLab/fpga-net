@@ -246,6 +246,7 @@ int main(int argc, char *argv[])
 #endif
 
 	// execute the reduction operation
+	// Could reduce time by pipeline with receiveing data
 	float *intragroupreductionresult = (float*)malloc(sizeof(float)*numofitemsineachchunk);
 	for (int i = 0; i < numofitemsineachchunk; i++){
 		intragroupreductionresult[i] = 0;
@@ -292,7 +293,59 @@ int main(int argc, char *argv[])
 	//Step 2: Inter group exchange  /////////////////////////////////////////////////////////////////
 	//Prepare buffer to receive data
 	int numofitemsinsecondreduction = NUM_ITEMS_ROUND / size;
-	float * intergroupbuffer = (float*)malloc(sizeof(float)*numofgroups*numofitemsinsecondreduction);
+	float **intergroupbuffer = (float**)malloc(sizeof(float*)*numofgroups);
+	for (int i = 0; i < numofgroups; i++){
+		intergroupbuffer[i] = (float*)malloc(sizeof(float)*numofitemsinsecondreduction);
+		for (int j = 0; j < numofitemsinsecondreduction; j++){
+			intergroupbuffer[i][j] = 0; // should carefull for other reduce operation
+		}
+	}
+	reqsends = (MPI_Request*)malloc(sizeof(MPI_Request)*numofgroups);
+	reqrecvs = (MPI_Request*)malloc(sizeof(MPI_Request)*numofgroups);
+#if defined(TIME_FOR_EACH_STEP)
+	MPI_Barrier(MPI_COMM_WORLD);
+	dblasttimer = MPI_Wtime();
+#endif
+	// Receive data
+	for (int i = 0; i < numofgroups; i++){
+		int source = i*numofnodesingroup + nodenumber;
+		MPI_Irecv(intergroupbuffer[i], numofitemsinsecondreduction, MPI_FLOAT, source, 0, MPI_COMM_WORLD, &reqrecvs[i]);
+	}
+
+
+	// Send data
+	float *sendbuf = (float*)malloc(sizeof(float)*numofitemsinsecondreduction);
+	for (int i = 0; i < numofgroups; i++){
+		int destination = i * numofnodesingroup + nodenumber;
+
+		//prepare data for sendbuf
+		for (int j = 0; j < numofitemsinsecondreduction; j++){
+			//read data from intragroupreductionresult
+			sendbuf[j] = intragroupreductionresult[j*numofgroups + i];
+		}
+		if (destination != rank){
+			MPI_Isend(sendbuf, numofitemsinsecondreduction, MPI_FLOAT, destination, 0, MPI_COMM_WORLD, &reqsends[i]);
+		} else { //copy from buffer
+			for (int j = 0; j < numofitemsinsecondreduction; j++){
+				intergroupbuffer[i][j] = sendbuf[j];
+			}
+		}
+	}
+
+	for (int i = 0; i < numofgroups; i++){
+		int source = i * numofnodesingroup + nodenumber;
+		if(rank != source){
+			MPI_Wait(&reqrecvs[i], MPI_STATUS_IGNORE);
+		}
+	}
+	for (int i = 0; i < numofgroups; i++){
+		int destination = i * numofnodesingroup + nodenumber;
+		if (rank != destination){
+			MPI_Wait(&reqsends[i], MPI_STATUSES_IGNORE);
+		}
+	}
+
+	/*float *intergroupbuffer = (float*)malloc(sizeof(float)*numofgroups);
 
 	reqsends = (MPI_Request*) malloc(sizeof(MPI_Request)*numofgroups*numofitemsinsecondreduction);
 	reqrecvs = (MPI_Request*) malloc(sizeof(MPI_Request)*numofgroups*numofitemsinsecondreduction);
@@ -348,8 +401,12 @@ int main(int argc, char *argv[])
 				MPI_Wait(&reqsends[j*numofgroups + i], MPI_STATUS_IGNORE);
 			}
 		}
-	}
-#if defined(DEBUG2)
+	}*/
+
+	free(sendbuf);
+	free(reqsends);
+	free(reqrecvs);
+#if defined(DEBUG2) // ######################################### Fix this
 	printf("From rank %d | Inter group buffer: ", rank);
 	for (int i = 0; i < numofgroups*numofitemsinsecondreduction; i++){
 		printf("\t%.0f", intergroupbuffer[i]);
@@ -371,6 +428,14 @@ int main(int argc, char *argv[])
 	//Execute reduction
 	float *intergroupreductionresult = (float*)malloc(sizeof(float)*numofitemsinsecondreduction);
 	for (int i = 0; i < numofitemsinsecondreduction; i++){
+		intergroupreductionresult[i] = 0;
+	}
+	for (int i = 0; i < numofgroups; i++){
+		for (int j = 0; j < numofitemsinsecondreduction; j++){
+			intergroupreductionresult[j] += intergroupbuffer[i][j];
+		}
+	}
+	/*for (int i = 0; i < numofitemsinsecondreduction; i++){
 		intergroupreductionresult[i] = 0; // Should careful for reduction operation = multiply
 	}
 	for (int i = 0; i < numofgroups; i++){
@@ -378,7 +443,7 @@ int main(int argc, char *argv[])
 			intergroupreductionresult[j] = reduce( intergroupbuffer[j*numofgroups + i],\
 					intergroupreductionresult[j], "sum");
 		}
-	}
+	}*/
 #if defined(TIME_FOR_EACH_STEP)
 	MPI_Barrier(MPI_COMM_WORLD);
 	if (rank == 0){
@@ -396,10 +461,8 @@ int main(int argc, char *argv[])
 	printf("\n");
 #endif
 
-	free(intergroupbuffer);
+	//free(intergroupbuffer);
 	free(intragroupreductionresult);
-	free(reqsends);
-	free(reqrecvs);
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////   REDUCE - SCATTER : END	////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////
@@ -590,7 +653,7 @@ int main(int argc, char *argv[])
 	for (int i = 0; i < NUM_ITEMS_ROUND; i++){
 		if (allreduceresult[i] != allreduceresultlib[i]){
 			fprintf(stdout, "%s, %s\n", networkshape, "Allreduce wrong");
-			exit(1);
+			//exit(1);
 		}
 	}
 
