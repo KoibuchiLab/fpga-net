@@ -51,6 +51,12 @@ void r2h_r(int rank, char* topo, char* hostname){ // rank to host name for 2lvfc
 	sprintf(hostname, "%d_%d", rank / numofnodes, rank % numofnodes);
 	return;
 }
+static inline void swap(float *arr, int a, int b){
+	float tmp = arr[a];
+	arr[a] = arr[b];
+	arr[b] = tmp;
+	return;
+}
 
 
 int main(int argc, char *argv[])
@@ -115,7 +121,7 @@ int main(int argc, char *argv[])
 	// All rank fill the buffer with random data
 	srandom(RAND_SEED + rank);
 	for (int j = 0; j < NUM_ITEMS; j++) {
-		data[j] = (float)(1 + 1.0 * (random() % 9));
+		data[j] = (float)(1 + 1.0 * (random() % 100));
 	}
 
 #if defined(DEBUG1)
@@ -229,18 +235,18 @@ int main(int argc, char *argv[])
 	}
 	// Allocate buffer for intra group
 	// Size = [numofnodesingroup][numofgroup*NUM_ITEMS]
-	float **intragroupbuffer_ = (float**)malloc(sizeof(float*)*numofnodesingroup);
+	/*float **intragroupbuffer_ = (float**)malloc(sizeof(float*)*numofnodesingroup);
 	for (int i = 0; i < numofnodesingroup; i++){
 		intragroupbuffer_[i] = (float*)malloc(sizeof(float)*numofgroups*NUM_ITEMS);
 		for (int j = 0; j < numofgroups*NUM_ITEMS; j++){
 			intragroupbuffer_[i][j] = 0; // Should careful for other gather op
 		}
-	}
+	}*/
 
 	for (int i = 0; i < numofnodesingroup; i++){
 		int source = groupnumber*numofnodesingroup + i;
 		if (rank != source){
-			MPI_Irecv(intragroupbuffer_[i], numofgroups*NUM_ITEMS, MPI_FLOAT, \
+			MPI_Irecv(&allgatherresult[i*numofgroups*NUM_ITEMS], numofgroups*NUM_ITEMS, MPI_FLOAT, \
 					source, 1, MPI_COMM_WORLD, &reqrecvs[i]);
 		}
 	}
@@ -252,7 +258,7 @@ int main(int argc, char *argv[])
 					destination, 1, MPI_COMM_WORLD, &reqsends[i]);
 		} else {
 			for (int j = 0; j < numofgroups*NUM_ITEMS; j++){
-				intragroupbuffer_[i][j] = intergroupbuffer_[j];
+				allgatherresult[i*numofgroups*NUM_ITEMS + j] = intergroupbuffer_[j];
 			}
 		}
 	}
@@ -262,10 +268,6 @@ int main(int argc, char *argv[])
 		if (rank != source){
 			MPI_Wait(&reqrecvs[i], MPI_STATUS_IGNORE);
 		}
-		for (int j = 0; j < NUM_ITEMS*numofgroups; j++){
-			int index = j%NUM_ITEMS + i*NUM_ITEMS + (j/NUM_ITEMS)*numofnodesingroup*NUM_ITEMS;
-			allgatherresult[index] = intragroupbuffer_[i][j];
-		}
 	}
 	for (int i = 0; i < numofnodesingroup; i++){
 		int destination = groupnumber*numofnodesingroup + i;
@@ -273,7 +275,98 @@ int main(int argc, char *argv[])
 			MPI_Wait(&reqsends[i], MPI_STATUS_IGNORE);
 		}
 	}
+#if defined(DEBUG4)
+	MPI_Barrier(MPI_COMM_WORLD);
+	for(int i = 0; i < 100000; i++);
+	if(rank == 0){
+		printf("From rank %d, allgather buffer\n\t", rank);
+		for(int i = 0; i < NUM_ITEMS*size; i++){
+			printf("\t%.0f", allgatherresult[i]);
+		}
+	}
 
+	printf("\n");
+#endif
+	int m = NUM_ITEMS*numofgroups;
+	int a = NUM_ITEMS;
+	int k = numofnodesingroup;
+	char * checkingarr = (char*) malloc(sizeof(char)*NUM_ITEMS*size);
+	for (int i = 0; i < NUM_ITEMS*size; i++){
+		checkingarr[i] = 0;
+	}
+	/*float *cp = (float*)malloc(sizeof(float)*NUM_ITEMS*size);
+	for (int i = 0; i < NUM_ITEMS*size; i++){
+		checkingarr[i] = 0;
+		cp[i] = allgatherresult[i];
+	}
+	if (rank == 0){
+		printf("Recieve buffer: \n\t");
+		for (int i = 0; i < NUM_ITEMS*size; i++){
+			printf("\t%.0f", cp[i]);
+		}
+		printf("\n");
+	}
+
+	int idx = 0;
+	for (int i = 0; i < NUM_ITEMS*size; i++){
+		idx = (i-(i/m)*m)%a + (i/m)*a + ((i-(i/m)*m)/a)*k *a;
+		if(rank == 0){
+			printf("i: %d | idx: %d\n", i, idx);
+		}
+		allgatherresult[idx] = cp[i];
+	}*/
+
+	int idx = 0, idxn = 0;
+	/*for (int i = 0; i < numofnodesingroup; i++){
+		for (int j = 0; j < NUM_ITEMS*numofgroups; j++){
+			if(checkingarr[i*NUM_ITEMS*numofgroups + j] == 0){
+				idx = j%NUM_ITEMS + i*NUM_ITEMS + (j/NUM_ITEMS)*numofnodesingroup*NUM_ITEMS;
+				checkingarr[i] = 1;
+				checkingarr[idx] = 1;
+				swap(allgatherresult, i*NUM_ITEMS*numofgroups + j, idx);
+				while(idx != i*NUM_ITEMS*numofgroups + j){
+					int a = idx/(NUM_ITEMS*numofgroups);
+					int b = idx%(NUM_ITEMS*numofgroups);
+					idxn = b%NUM_ITEMS + a*NUM_ITEMS + (b/NUM_ITEMS)*numofnodesingroup*NUM_ITEMS;
+					checkingarr[idx] = 1;
+					checkingarr[idxn] = 1;
+					swap(allgatherresult, idx, idxn);
+					idx = idxn;
+				}
+			}
+		}
+	}*/
+	for (int i = 0; i < NUM_ITEMS*size; i++){
+		idx = (i-(i/m)*m)%a + (i/m)*a + ((i-(i/m)*m)/a)*k *a;
+		if(rank == 0){
+			printf("i: %d | idx: %d\n", i, idx);
+		}
+	}
+
+	if (rank ==0) printf("\n\n");
+	for (int i = 0; i < NUM_ITEMS*size; i++){
+	    if(checkingarr[i] == 0){
+	    	idx=i;
+	    	idxn = (i-(i/m)*m)%a + (i/m)*a + ((i-(i/m)*m)/a)*k *a;
+	    	if (rank ==0) printf("i: %d\n", i);
+	    	float tmp = 0;
+	    	do {
+	    		tmp = allgatherresult[idxn];
+	    		allgatherresult[idxn] = allgatherresult[idx];
+				if(rank == 0){
+					printf("    i: %d | idx: %d | idxn: %d\n", i, idx, idxn);
+				}
+				if(checkingarr[idx] ==1) break;
+				checkingarr[idx] = 1;
+				if (rank ==0) printf("     swap(idx: %d, idxn: %d)\n", idx, idxn);
+	    		idx=idxn;
+				idxn = (idx-(idx/m)*m)%a + (idx/m)*a + ((idx-(idx/m)*m)/a)*k *a;
+				allgatherresult[idx] = tmp;
+
+	    	}while(idx!= i);
+	    }
+	}
+	free(checkingarr);
 	free(intergroupbuffer_);
 
 #if defined(TIME_FOR_EACH_STEP)
@@ -283,15 +376,6 @@ int main(int argc, char *argv[])
 	}
 #endif
 #if defined(DEBUG4)
-	printf("From rank %d|\t, intra group buffer_\n", rank);
-	for (int i = 0; i < numofnodesingroup; i++){
-		printf("\t\t");
-		for (int j = 0; j < numofgroups*NUM_ITEMS; j ++){
-			printf("\t%.0f", intragroupbuffer_[i][j]);
-		}
-		printf("\n");
-	}
-	printf("\n");
 	MPI_Barrier(MPI_COMM_WORLD);
 	for(int i = 0; i < 100000; i++);
 	printf("From rank %d, allgather result\n\t", rank);
@@ -305,10 +389,6 @@ int main(int argc, char *argv[])
 	MPI_Barrier(MPI_COMM_WORLD);
 	double kimrdtime = MPI_Wtime() - start_time;
 
-	for (int i = 0; i < numofnodesingroup; i++){
-		free(intragroupbuffer_[i]);
-	}
-	free(intragroupbuffer_);
 	free(reqrecvs);
 	free(reqsends);
 
@@ -326,7 +406,7 @@ int main(int argc, char *argv[])
 	for (int i = 0; i < NUM_ITEMS*size; i++){
 		if (allgatherresult[i] != allgatherresultlib[i]){
 			fprintf(stdout, "%s, %s\n", networkshape, "Allgather wrong");
-			//exit(1);
+			break;
 		}
 	}
 	free(data);
