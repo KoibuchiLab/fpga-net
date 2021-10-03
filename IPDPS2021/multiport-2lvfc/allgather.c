@@ -366,7 +366,7 @@ int main(int argc, char *argv[])
 	MPI_Allgather(data, NUM_ITEMS, MPI_FLOAT, allgatherresultlib, NUM_ITEMS, MPI_FLOAT, MPI_COMM_WORLD);
 	MPI_Barrier(MPI_COMM_WORLD);
 	if ((0 == rank)) {
-		fprintf(stdout, "%s,%.7lf,%.7lf,%d\n", networkshape, kimrdtime, MPI_Wtime() - start_time, NUM_ITEMS);
+		fprintf(stdout, "%dx%d,%.7lf,%.7lf,%d\n", numofgroups, numofnodesingroup, kimrdtime, MPI_Wtime() - start_time, NUM_ITEMS);
 	}
 
 	// Compare the result

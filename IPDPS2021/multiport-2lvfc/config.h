@@ -14,6 +14,9 @@
 //#define DEBUG3   // Inter group allgather
 //#define DEBUG4   // Intra group allgather
 //#define DEBUG5   // Print compare with buildin mpi result
+
+
+#define COMPARE_BUILDIN
 //#define TIME_FOR_EACH_STEP
 
 

@@ -31,7 +31,12 @@ test:
 	
 allgather:
 	mpicc allgather.c -o allgather
-	../../simgrid-3.28/install/bin/smpicc allrgather.c -o allgathersmpi
-	mpirun -np 6 ./a.out --topo 3x2 --num-item 2000000 
-	../../simgrid-3.28/install/bin/smpirun --cfg=smpi/bcast:mpich --cfg=smpi/host-speed:1Gf -np 6 -hostfile ../hostfiles/2lvfc/3x2.txt -platform ../platforms/2lvfc/3x2.xml --log=smpi_coll.:critical ./allgathersmpi --num-item 512
+	../../simgrid-3.28/install/bin/smpicc allgather.c  -o allgathersmpi
+	mpirun -np 6 ./allgather --topo 3x2 --num-item 2
+	../../simgrid-3.28/install/bin/smpirun --cfg=smpi/bcast:mpich --cfg=smpi/host-speed:1Gf -np 6 -hostfile ../hostfiles/2lvfc/3x2.txt -platform ../platforms/2lvfc/3x2.xml --log=smpi_coll.:critical ./allgathersmpi --num-item 2
+	
+	
+	
+	
+.PHONY: all test allgather realmpi compare
 	

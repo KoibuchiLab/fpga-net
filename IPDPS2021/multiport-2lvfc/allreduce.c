@@ -645,15 +645,15 @@ int main(int argc, char *argv[])
 	MPI_Allreduce(data, allreduceresultlib, NUM_ITEMS_ROUND, MPI_FLOAT, MPI_SUM, MPI_COMM_WORLD);
 	MPI_Barrier(MPI_COMM_WORLD);
 	if ((0 == rank)) {
-		fprintf(stdout, "%s,%.7lf,%.7lf,%d\n", networkshape, kimrdtime, MPI_Wtime() - start_time, NUM_ITEMS);
+		fprintf(stdout, "%dx%d,%.7lf,%.7lf,%d\n", numofgroups, numofnodesingroup, kimrdtime, MPI_Wtime() - start_time, NUM_ITEMS);
 	}
 
 	// Compare the result
 	if (rank == 0){
 	for (int i = 0; i < NUM_ITEMS_ROUND; i++){
 		if (allreduceresult[i] != allreduceresultlib[i]){
-			fprintf(stdout, "%s, %s\n", networkshape, "Allreduce wrong");
-			//exit(1);
+			fprintf(stdout, "%dx%d, %s\n", numofgroups, numofnodesingroup, "Allreduce wrong");
+			break;
 		}
 	}
 

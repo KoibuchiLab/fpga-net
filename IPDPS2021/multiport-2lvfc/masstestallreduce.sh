@@ -8,7 +8,7 @@ do
           hostfile="../hostfiles/2lvfc/$((${j} + 1))x$(($i - $j)).txt"
           platform="../platforms/2lvfc/$((${j} + 1))x$(($i - $j)).xml"
           numproc=$(($(($i - $j))*$((${j} + 1))))
-          for k in 512 1024 4096 8192 16384
+          for k in 512 1024 4096 8192 16384 32768 65536 131072 262144
           do
             echo "../../simgrid-3.28/install/bin/smpirun --cfg=smpi/bcast:mpich --cfg=smpi/host-speed:1Gf -np $numproc -hostfile $hostfile -platform $platform --log=smpi_coll.:critical ./allreduce --num-item $k >> result"
           	../../simgrid-3.28/install/bin/smpirun --cfg=smpi/bcast:mpich --cfg=smpi/host-speed:1Gf -np $numproc -hostfile $hostfile -platform $platform --log=smpi_coll.:critical ./allreduce --num-item $k >> result
