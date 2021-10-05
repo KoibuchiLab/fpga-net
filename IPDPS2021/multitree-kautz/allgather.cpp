@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-10-05 14:47:46
+ * @ Modified time: 2021-10-05 15:56:53
  * @ Description:
  */
 
@@ -70,6 +70,51 @@ int main ( int argc, char *argv[] ){
     if (size != d*(d+1)){
         program_abort("Number of process must equal to # node Kautz graph diameter 2\n");
     }
+
+    // Allocate memory for data
+    float * data;
+	if ((data = new float[NUM_ITEMS]) == NULL) {
+		program_abort("Out of memory!");
+	}
+
+    // All rank fill the buffer with random data
+	srandom(RAND_SEED + rank);
+	for (int i = 0; i < NUM_ITEMS; i++) {
+		data[i] = (float)(1 + 1.0 * (random() % 9));
+	}
+
+#if defined(DEBUG1)
+    printf("Data from rank %d: ", rank);
+    for (int i = 0; i < NUM_ITEMS; i++){
+        printf("%.0f\t", data[i]);
+    }
+    printf("\n");
+    MPI_Barrier(MPI_COMM_WORLD);
+#endif
+
+    // Start the timer
+	double start_time;
+	MPI_Barrier(MPI_COMM_WORLD);
+	if (rank == 0) {
+		start_time = MPI_Wtime();
+	}
+	int groupnumber, nodenumber;
+    r2h(rank, d, groupnumber, nodenumber);
+    if (rank != h2r(hostname, d))
+		program_abort("Computed rank must equal to real rank\n");
+
+    int numofgroups = size/d;
+    int numofnodesingroup = d;
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////	  ALLGATHER : START	  ////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////	   ALLGATHER : END	   ////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////
+
 
     MPI_Finalize();
     return 0;

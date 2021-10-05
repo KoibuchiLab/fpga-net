@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 12:02:49
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-10-05 14:47:38
+ * @ Modified time: 2021-10-05 15:53:04
  * @ Description:
  */
 
@@ -13,8 +13,10 @@ int h2r(char *hostname, int degree){
     return 0;
 }
 
-void r2h(int rank, int degree, int &a, int &b){
-
+void r2h(int rank, int degree, int &groupnumber, int &nodenumber){
+    groupnumber = rank/degree;
+    nodenumber = rank%degree;
+    if (nodenumber >= groupnumber) nodenumber++;
     return;
 }
 
