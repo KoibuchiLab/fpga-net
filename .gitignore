@@ -497,6 +497,9 @@ IPDPS2021/multiport-2lvfc/a.out
 IPDPS2021/multiport-2lvfc/test1.c
 IPDPS2021/multiport-2lvfc/trace/
 
+IPDPS2021/platform-generator/hostfiles/
+IPDPS2021/platform-generator/platforms/
+
 
 .metadata
 bin/

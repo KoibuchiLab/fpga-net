@@ -1,5 +1,6 @@
 import numpy as np
 import sys
+import os
 
 if len(sys.argv) == 3: 
 	NUM_OF_GROUPS=int(sys.argv[1])
@@ -11,7 +12,12 @@ else:
 NUM_OF_NODES=NUM_OF_GROUPS * NUM_OF_NODES_IN_GROUP
 NUM_OF_LINKS=int(NUM_OF_GROUPS * NUM_OF_NODES_IN_GROUP*(NUM_OF_NODES_IN_GROUP - 1)/2 + NUM_OF_GROUPS*(NUM_OF_GROUPS - 1))
 
-OUTPUT_FILENAME = "2lvfc/%dx%d.xml" % (NUM_OF_GROUPS, NUM_OF_NODES_IN_GROUP)
+path = "platforms/2lvfc/"
+OUTPUT_FILENAME = "%s%dx%d.xml" % (path, NUM_OF_GROUPS, NUM_OF_NODES_IN_GROUP)
+
+if not os.path.exists(path):
+    os.makedirs(path)
+
 DEFAULT_BANDWIDTH = "1GBps"
 DEFAULT_LATENCY = "50us"
 DEFAULT_SPEED = "1Gf"
@@ -109,8 +115,12 @@ f.write("\t</zone>\n")
 f.write("</platform>")
 
 f.close()
+path = "hostfiles/2lvfc/"
+OUTPUT_FILENAME_H = "%s%dx%d.txt" % (path, NUM_OF_GROUPS, NUM_OF_NODES_IN_GROUP)
+if not os.path.exists(path):
+    os.makedirs(path)
 
-OUTPUT_FILENAME_H = "hostfile/%dx%d.txt" % (NUM_OF_GROUPS, NUM_OF_NODES_IN_GROUP)
+
 f = open(OUTPUT_FILENAME_H, "w")
 for i in range(len(hostIDlist)):
 	f.writelines(hostIDlist[i])

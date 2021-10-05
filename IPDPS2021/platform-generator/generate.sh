@@ -8,3 +8,8 @@ do
           echo "$((${j} + 1)) $(($i - $j))"
     done
 done
+
+for (( k = 2; k <= 13; k++ ))
+do
+    python3 kautz.py --degree $k
+done
