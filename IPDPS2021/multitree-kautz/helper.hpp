@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:49:20
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-10-05 14:47:40
+ * @ Modified time: 2021-10-06 11:19:05
  * @ Description:
  */
 
@@ -11,7 +11,8 @@
 #include <iostream>
 # include <cstdlib>
 
-int h2r(char *hostname, int degree);
+int h2r(const char *hostname, int degree);
+int hidx2r(const int a, const int b, int degree);
 void r2h(int rank, int degree, int &a, int &b);
 void r2h_r(int rank, int degree, char *hostname);
 void program_abort(const char * message);
