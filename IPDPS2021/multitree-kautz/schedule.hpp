@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 20:25:23
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-10-06 15:19:07
+ * @ Modified time: 2021-10-07 17:38:58
  * @ Description:
  */
 
@@ -12,6 +12,8 @@
 #include <iostream>
 #include <list>
 #include <algorithm>
+#include <vector>
+#include "helper.hpp"
 
 using namespace std;
 
@@ -20,6 +22,8 @@ class Kautz {
     string inout;
 	int numVertices;
 	list<int>* adjLists;
+    vector<int>* bfs;
+    vector<Int3>* scheduleTable;
 	bool* visited;
 	void rotateLeft(list<int> &aList, int offset){
 		list<int>::iterator middle = aList.begin();
@@ -36,6 +40,8 @@ class Kautz {
 		void addEdgeName(const char *src,const char * dest);
 		void BFS(int startVertex);
 		void printAdjList();
+        void printSchedTable();
+        void schedule();
 		int getNumVertices(){
 			return numVertices;
 		}
