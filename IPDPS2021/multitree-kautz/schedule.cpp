@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 20:25:10
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-10-07 19:41:15
+ * @ Modified time: 2021-10-07 20:53:10
  * @ Description:
  */
 
@@ -134,7 +134,7 @@ void Kautz::printSchedTable(){
 	//cout << "Schedule table: \n";
 	for (int i = 0; i < numVertices; i++){
 		for(auto j: scheduleTable[i]){
-			cout << j.dst << "," << j.src << "," << j.dtaIndex << "\t";
+			cout << j.dst << "," << j.src << "," << j.sendidx << "," << j.recvidx << "\t";
 		}
 		cout << endl;
 	}
@@ -178,7 +178,8 @@ void Kautz::schedule(){
                 aSchedule.dtaIndex=  i;
                 aSchedule.src = -1;*/
 				scheduleTable[i][j - 1].dst = bfs[i][j];
-                scheduleTable[i][j - 1].dtaIndex =  i;
+                scheduleTable[i][j - 1].sendidx =  i;
+                scheduleTable[bfs[i][j]][j - 1].recvidx = i;
                 scheduleTable[bfs[i][j]][j - 1].src = i;
 			}
 		}
@@ -191,7 +192,8 @@ void Kautz::schedule(){
 				scheduleTable[bfs[i][1]].push_back(aSchedule);*/
 
                 scheduleTable[bfs[i][1]][d + j].dst = bfs[i][j + d + 1];
-                scheduleTable[bfs[i][1]][d + j].dtaIndex =  i;
+                scheduleTable[bfs[i][1]][d + j].sendidx =  i;
+                scheduleTable[bfs[i][j + d + 1]][d + j].recvidx = i;
                 scheduleTable[bfs[i][j + d + 1]][d + j].src = bfs[i][1];
 			}
 		}
@@ -205,7 +207,8 @@ void Kautz::schedule(){
 					scheduleTable[bfs[i][step]].push_back(aSchedule);*/
 
                     scheduleTable[bfs[i][step]][d*step + j - 1].dst = bfs[i][d*step + j];
-                    scheduleTable[bfs[i][step]][d*step + j - 1].dtaIndex =  i;
+                    scheduleTable[bfs[i][step]][d*step + j - 1].sendidx =  i;
+                    scheduleTable[bfs[i][d*step + j]][d*step + j - 1].recvidx = i;
                     scheduleTable[bfs[i][d*step + j]][d*step + j - 1].src = bfs[i][step];
 				}
 			}

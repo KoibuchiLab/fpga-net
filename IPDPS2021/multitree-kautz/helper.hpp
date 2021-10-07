@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:49:20
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-10-07 17:25:21
+ * @ Modified time: 2021-10-07 20:41:51
  * @ Description:
  */
 
@@ -14,7 +14,8 @@
 struct Int3 {
   unsigned short int dst;
   unsigned short int src;
-  unsigned short int dtaIndex;
+  int sendidx;
+  int recvidx;
 };
 
 int h2r(const char *hostname, int degree);

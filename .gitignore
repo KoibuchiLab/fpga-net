@@ -500,6 +500,10 @@ IPDPS2021/multiport-2lvfc/trace/
 IPDPS2021/platform-generator/hostfiles/
 IPDPS2021/platform-generator/platforms/
 
+IPDPS2021/multitree-kautz/allgather
+IPDPS2021/multitree-kautz/allgathersmpi
+IPDPS2021/multitree-kautz/a.out
+
 
 .metadata
 bin/
