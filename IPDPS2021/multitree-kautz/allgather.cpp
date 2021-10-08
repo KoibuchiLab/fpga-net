@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-10-07 23:33:34
+ * @ Modified time: 2021-10-08 16:48:11
  * @ Description:
  */
 #include <iostream>
@@ -37,7 +37,7 @@ int main ( int argc, char *argv[] ){
 	MPI_Init(&argc, &argv);
 	MPI_Comm_size(MPI_COMM_WORLD, &size);
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-	
+	char algo = CONGESTION;
 
 	// Calculate degree
 	int d = (1 + sqrt(-1 + 4*size))/2;
@@ -46,8 +46,8 @@ int main ( int argc, char *argv[] ){
 	MPI_Get_processor_name(hostname, &hostname_len);
 	char topo[256];
 	// Topology optional argument
-	for (int i = 1; i < argc; i++) {
-		if (!strcmp(argv[i], "--topo")) {
+	for (int i = 1; i < argc; i++){
+		if (!strcmp(argv[i], "--topo")){
 			if ((i + 1 >= argc) || (sscanf(argv[i + 1], "%s", topo) != 1)) {
 				program_abort("Invalid <topology> argument\n");
 			} else { // prepare fake hostname for testing on MPICH (without simulation
@@ -64,9 +64,21 @@ int main ( int argc, char *argv[] ){
 #endif
 			}
 		}
-		if (!strcmp(argv[i], "--num-item")) {
+		if (!strcmp(argv[i], "--num-item")){
 			if ((i + 1 >= argc) || (sscanf(argv[i + 1], "%d", &NUM_ITEMS) != 1)) {
 				program_abort("Invalid num of items.\n");
+			}
+		}
+		if (!strcmp(argv[i], "--algorithm")){
+			if (i + 1 <= argc) {
+				if (!strcmp(argv[i + 1], "mttree")){
+					algo = MULTITREE;
+				}
+				if (!strcmp(argv[i + 1], "conges")){
+					algo = CONGESTION;
+				}
+			} else {
+				program_abort("Enter algorithm.\n");
 			}
 		}
 	}
@@ -155,17 +167,123 @@ int main ( int argc, char *argv[] ){
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////	  ALLGATHER : START	     ////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////
-	int numOfStep = d + 1;
-	MPI_Request *reqrecvs;
-	MPI_Request *reqsends;
-	
-	for (int step = 0; step < numOfStep; step++){
-		if (step == 0){ // Step == 0 send to d nodes
-			// Read schedule table first d collumn, process rank i read line i
-
-			// a cell in schetable contain dst destination, dtaIndex place of data
-			// See scheduletable.txt
+	switch(algo) {
+		case MULTITREE  :{ // Allgather algorithm is multi tree
+			int numOfStep = d + 1;
+			MPI_Request *reqrecvs;
+			MPI_Request *reqsends;
 			
+			for (int step = 0; step < numOfStep; step++){
+				if (step == 0){ // Step == 0 send to d nodes
+					// Read schedule table first d collumn, process rank i read line i
+
+					// a cell in schetable contain dst destination, dtaIndex place of data
+					// See scheduletable.txt
+					
+					reqrecvs = new MPI_Request[d];
+					reqsends = new MPI_Request[d];
+					
+					for (int i = 0; i < d; i++){
+						int destination = scheduleTable[rank][i].dst; 
+						int source = scheduleTable[rank][i].src;
+						int sendIdx = scheduleTable[rank][i].sendidx*NUM_ITEMS;
+						int recvIdx = scheduleTable[rank][i].src*NUM_ITEMS;
+						//cout << "From rank " << rank << " destination: " << destination \
+								<< " data index: " << sendIdx << endl;
+						MPI_Irecv(&allGatherResult[recvIdx], NUM_ITEMS, MPI_FLOAT, source, \
+							0, MPI_COMM_WORLD, &reqrecvs[i]);
+						MPI_Isend(&allGatherResult[sendIdx], NUM_ITEMS, MPI_FLOAT, destination, \
+							0, MPI_COMM_WORLD, &reqsends[i]);
+					}
+
+					for (int i = 0; i < d; i++){
+						MPI_Wait(&reqrecvs[i], MPI_STATUS_IGNORE);
+					}
+					for (int i = 0; i < d; i++){
+						MPI_Wait(&reqsends[i], MPI_STATUS_IGNORE);
+					}
+					
+	#if defined(PRINT_STEP_0)
+		// Print allgather result after step 0
+		cout << "From rank " << rank << " allgatherresult after step 0:\n\t";
+		for (int i = 0; i < NUM_ITEMS*size; i++){
+			cout << allGatherResult[i] << "\t";
+		}
+		cout << endl;
+	#endif
+					delete reqrecvs;
+					delete reqsends;
+				} else if (step == 1){ //step = 1, then send to d - 1 node
+					reqrecvs = new MPI_Request[d - 1];
+					reqsends = new MPI_Request[d - 1];
+
+					for (int i = 0; i < d - 1; i++){
+						int source = scheduleTable[rank][d + i].src;
+						int destination = scheduleTable[rank][d + i].dst;
+						int sendIdx = scheduleTable[rank][d + i].sendidx*NUM_ITEMS;
+						int recvIdx = scheduleTable[rank][d + i].recvidx*NUM_ITEMS;
+						//printf("->> From rank %d, source: %d, dest: %d, sendidx: %d, recvidx: %d\n",\
+								rank, source, destination, sendIdx, recvIdx);
+						MPI_Irecv(&allGatherResult[recvIdx], NUM_ITEMS, MPI_FLOAT, 
+								source, 0, MPI_COMM_WORLD, &reqsends[i]);
+						MPI_Isend(&allGatherResult[sendIdx], NUM_ITEMS, MPI_FLOAT, \
+								destination, 0, MPI_COMM_WORLD, &reqrecvs[i]);
+					}
+
+					for(int i = 0; i < d - 1; i++){
+						MPI_Wait(&reqrecvs[i], MPI_STATUS_IGNORE);
+					}
+					for(int i = 0; i < d - 1; i++){
+						MPI_Wait(&reqsends[i], MPI_STATUS_IGNORE);
+					}
+					delete reqsends;
+					delete reqrecvs;
+	#if defined(PRINT_STEP_1)
+		// Print allgather result after step 1
+		cout << "From rank " << rank << " allgatherresult after step 1 :\n\t";
+		for (int i = 0; i < NUM_ITEMS*size; i++){
+			cout << allGatherResult[i] << "\t";
+		}
+		cout << endl;
+	#endif
+				} else { // send to d nodes with different index
+					reqrecvs = new MPI_Request[d];
+					reqsends = new MPI_Request[d];
+
+					for (int i = 0; i < d; i++){
+						int source = scheduleTable[rank][step*d + i - 1].src;
+						int destination = scheduleTable[rank][step*d + i - 1].dst;
+						int sendIdx = scheduleTable[rank][step*d + i - 1].sendidx*NUM_ITEMS;
+						int recvIdx = scheduleTable[rank][step*d + i - 1].recvidx*NUM_ITEMS;
+
+						MPI_Irecv(&allGatherResult[recvIdx], NUM_ITEMS, MPI_FLOAT, source, \
+								0, MPI_COMM_WORLD, &reqrecvs[i]);
+						MPI_Isend(&allGatherResult[sendIdx], NUM_ITEMS, MPI_FLOAT, destination,\
+								0, MPI_COMM_WORLD, &reqsends[i]);
+					}
+					
+					for(int i = 0; i < d; i++){
+						MPI_Wait(&reqrecvs[i], MPI_STATUS_IGNORE);
+					}
+					for (int i = 0; i < d; i++){
+						MPI_Wait(&reqsends[i], MPI_STATUS_IGNORE);
+					}
+					delete reqrecvs;
+					delete reqsends;
+				}
+			}
+			break; //optional
+		
+		} case CONGESTION: {
+			MPI_Request *reqrecvs;
+			MPI_Request *reqsends;
+			
+			// Step == 0 send to d nodes
+				// Read schedule table first d collumn, process rank i read line i
+
+				// a cell in schetable contain dst destination, dtaIndex place of data
+				// See scheduletable.txt
+				
 			reqrecvs = new MPI_Request[d];
 			reqsends = new MPI_Request[d];
 			
@@ -188,7 +306,9 @@ int main ( int argc, char *argv[] ){
 			for (int i = 0; i < d; i++){
 				MPI_Wait(&reqsends[i], MPI_STATUS_IGNORE);
 			}
-			
+			delete reqrecvs;
+			delete reqsends;
+				
 #if defined(PRINT_STEP_0)
 	// Print allgather result after step 0
 	cout << "From rank " << rank << " allgatherresult after step 0:\n\t";
@@ -197,69 +317,39 @@ int main ( int argc, char *argv[] ){
 	}
 	cout << endl;
 #endif
-			delete reqrecvs;
-			delete reqsends;
-		} else if (step == 1){ //step = 1, then send to d - 1 node
-			reqrecvs = new MPI_Request[d - 1];
-			reqsends = new MPI_Request[d - 1];
+				
+				// step 1: the remaining nodes
+			reqrecvs = new MPI_Request[size + 1 - d];
+			reqsends = new MPI_Request[size + 1 - d];
 
-			for (int i = 0; i < d - 1; i++){
-				int source = scheduleTable[rank][d + i].src;
-				int destination = scheduleTable[rank][d + i].dst;
-				int sendIdx = scheduleTable[rank][d + i].sendidx*NUM_ITEMS;
-				int recvIdx = scheduleTable[rank][d + i].recvidx*NUM_ITEMS;
-				//printf("->> From rank %d, source: %d, dest: %d, sendidx: %d, recvidx: %d\n",\
-						rank, source, destination, sendIdx, recvIdx);
-				MPI_Irecv(&allGatherResult[recvIdx], NUM_ITEMS, MPI_FLOAT, 
-						source, 0, MPI_COMM_WORLD, &reqsends[i]);
-				MPI_Isend(&allGatherResult[sendIdx], NUM_ITEMS, MPI_FLOAT, \
-						destination, 0, MPI_COMM_WORLD, &reqrecvs[i]);
+			for (int i = d; i < size - 1; i++){
+				int source = scheduleTable[rank][i].src;
+				int destination = scheduleTable[rank][i].dst;
+				int sendIdx = scheduleTable[rank][i].sendidx*NUM_ITEMS;
+				int recvIdx = scheduleTable[rank][i].recvidx*NUM_ITEMS;
+
+				MPI_Irecv(&allGatherResult[recvIdx], NUM_ITEMS, MPI_FLOAT, source, \
+						0, MPI_COMM_WORLD, &reqrecvs[i]);
+				MPI_Isend(&allGatherResult[sendIdx], NUM_ITEMS, MPI_FLOAT, destination,\
+						0, MPI_COMM_WORLD, &reqsends[i]);
 			}
-
-			for(int i = 0; i < d - 1; i++){
+			
+			for (int i = d; i < size - 1; i++){
 				MPI_Wait(&reqrecvs[i], MPI_STATUS_IGNORE);
 			}
-			for(int i = 0; i < d - 1; i++){
+			for (int i = d; i < size - 1; i++){
 				MPI_Wait(&reqsends[i], MPI_STATUS_IGNORE);
 			}
-			delete reqsends;
 			delete reqrecvs;
-#if defined(PRINT_STEP_1)
-	// Print allgather result after step 1
-	cout << "From rank " << rank << " allgatherresult after step 1 :\n\t";
-	for (int i = 0; i < NUM_ITEMS*size; i++){
-		cout << allGatherResult[i] << "\t";
-	}
-	cout << endl;
-#endif
-		} else { // send to d nodes with different index
-			for (int step = 2; step <= d; step++){
-				reqrecvs = new MPI_Request[d];
-				reqsends = new MPI_Request[d];
-
-				for (int i = 0; i < d; i++){
-					int source = scheduleTable[rank][step*d + i - 1].src;
-					int destination = scheduleTable[rank][step*d + i - 1].dst;
-					int sendIdx = scheduleTable[rank][step*d + i - 1].sendidx*NUM_ITEMS;
-					int recvIdx = scheduleTable[rank][step*d + i - 1].recvidx*NUM_ITEMS;
-
-					MPI_Irecv(&allGatherResult[recvIdx], NUM_ITEMS, MPI_FLOAT, source, \
-							0, MPI_COMM_WORLD, &reqrecvs[i]);
-					MPI_Isend(&allGatherResult[sendIdx], NUM_ITEMS, MPI_FLOAT, destination,\
-							0, MPI_COMM_WORLD, &reqsends[i]);
-				}
+			delete reqsends;
 				
-				for(int i = 0; i < d; i++){
-					MPI_Wait(&reqrecvs[i], MPI_STATUS_IGNORE);
-				}
-				for (int i = 0; i < d; i++){
-					MPI_Wait(&reqsends[i], MPI_STATUS_IGNORE);
-				}
-				delete reqrecvs;
-				delete reqsends;
-			}
-		}
+			break; //optional
+		} case COMBINE:{
+
+		} default : //Optional
+			break;											
 	}
+	
 #if defined(PRINT_RESULT)
 	// Print allgather result after step 
 	if (rank == 0){
@@ -296,26 +386,9 @@ int main ( int argc, char *argv[] ){
 				break;
 			}
 		}
-		free(data);
 	}
 #endif
-	/*float * allGatherResultLib = new float[NUM_ITEMS*size];
-	MPI_Allgather(data, NUM_ITEMS, MPI_FLOAT, allGatherResultLib, NUM_ITEMS, MPI_FLOAT, MPI_COMM_WORLD);
-	// if (rank ==0 ){
-	// 	cout << "lib result:\n";
-	// 	for (int i = 0; i < NUM_ITEMS*size; i++){
-	// 		cout << allGatherResultLib[i] << "\t";
-	// 	}
-	// 	cout << endl;
-	// }
-	
-	for (int i = 0; i < NUM_ITEMS*size; i++){
-		if (allGatherResultLib[i] != allGatherResult[i]){
-			cout << "Allgather wrong\n";
-			exit(1);
-		}
-	}*/
-
+	delete data;
 	delete allGatherResult;
 	MPI_Finalize();
 	return 0;

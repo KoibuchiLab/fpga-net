@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:49:20
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-10-07 20:41:51
+ * @ Modified time: 2021-10-08 12:06:06
  * @ Description:
  */
 
@@ -18,6 +18,9 @@ struct Int3 {
   int recvidx;
 };
 
+#define MULTITREE	0
+#define CONGESTION	1
+#define COMBINE		2
 int h2r(const char *hostname, int degree);
 int hidx2r(const int a, const int b, int degree);
 void r2h(int rank, int degree, int &a, int &b);
