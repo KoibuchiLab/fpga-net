@@ -1,72 +1,34 @@
 #include <iostream>
-#include <list>
-#include <iterator>
-#include <algorithm>
-#include <cstdlib>
-#include <iomanip>
-#include <iostream>
-#include <fstream>
-#include <iterator>
-#include <sstream>
-#include <cmath>
-#include <vector>
-#include <string>
 
-using namespace std;
-  
-//function for printing the elements in a list
-void showlist(list <int> g)
-{
-	list <int> :: iterator it;
-	for(it = g.begin(); it != g.end(); ++it)
-		cout << '\t' << *it;
-	cout << '\n';
-}
-void showvec(vector <int> g)
-{
-	vector <int> :: iterator it;
-	for(it = g.begin(); it != g.end(); ++it)
-		cout << '\t' << *it;
-	cout << '\n';
-}
-void rotateLeft(list<int> &aList, int offset){
-	list<int>::iterator middle = aList.begin();
-	for(int i = 0; i < offset; i++){
-		middle = next(middle);
-	}
-	rotate(aList.begin(), middle, aList.end());
-}
+int main() {
 
-int main()
-{
+    //Hey, pointers have a finite size, no matter the indirection level!
+    std::cout << "sizeof(int*): " << sizeof(int*) << std::endl;
+    std::cout << "sizeof(int**): " << sizeof(int**) << std::endl;
+    std::cout << "sizeof(int***): " << sizeof(int***) << std::endl;
+    int d  = 5;
+    //Create an array of pointers that points to more arrays
+    int** matrix = new int*[d];
+    for (int i = 0; i < 5; ++i) {
+        matrix[i] = new int[d];
+        for (int j = 0; j < 5; ++j) {
+            matrix[i][j] = i*5 + j;
+        }
+    }
 
-	std::string firstlevel ("com");
-	std::string secondlevel ("cplusplus");
-	std::string scheme ("http://");
-	std::string hostname;
-	std::string url;
+    //Print out the matrix to verify we have created the matrix
+    for (int j = 0; j < 5; ++j) {
+        for (int i = 0; i < 5; ++i) {
+            std::cout << matrix[j][i] << std::endl;
+        }
+    }
 
-	hostname = "www." + secondlevel + '.' + firstlevel;
-	url = scheme + hostname;
+    //Free each sub-array
+    for(int i = 0; i < 5; ++i) {
+        delete matrix[i];   
+    }
+    //Free the array of pointers
+    delete matrix;
 
-	std::cout << url << '\n';
-  
-	int size = 6, ii = 3;
-	// Load schedule table
-	ifstream file;
-	std::string filename = "scheduleTable/kin" + to_string(ii);
-	cout << filename << endl;
-	file.open (filename);
-	string line;
-	vector <int>*scheduleTable = new vector<int> [size];
-	for (int i = 0; i < size; i++){
-		getline(file, line);
-		istringstream iss(line);
-		int node;
-		while (iss >> node) { scheduleTable[i].push_back(node); }
-		showvec(scheduleTable[i]);
-	}
-  
-	return 0;
-  
+    return 0;
 }

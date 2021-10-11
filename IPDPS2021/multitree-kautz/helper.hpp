@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:49:20
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-10-08 12:06:06
+ * @ Modified time: 2021-10-11 10:59:18
  * @ Description:
  */
 
@@ -12,10 +12,10 @@
 #include <cstdlib>
 
 struct Int3 {
-  unsigned short int dst;
-  unsigned short int src;
-  int sendidx;
-  int recvidx;
+	int dst;
+	int src;
+	int sendidx;
+	int recvidx;
 };
 
 #define MULTITREE	0

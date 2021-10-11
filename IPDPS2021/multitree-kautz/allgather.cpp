@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-10-08 16:48:11
+ * @ Modified time: 2021-10-11 15:46:22
  * @ Description:
  */
 #include <iostream>
@@ -38,7 +38,7 @@ int main ( int argc, char *argv[] ){
 	MPI_Comm_size(MPI_COMM_WORLD, &size);
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 	char algo = CONGESTION;
-
+	double dblasttimer;
 	// Calculate degree
 	int d = (1 + sqrt(-1 + 4*size))/2;
 	
@@ -76,6 +76,9 @@ int main ( int argc, char *argv[] ){
 				}
 				if (!strcmp(argv[i + 1], "conges")){
 					algo = CONGESTION;
+				}
+				if (!strcmp(argv[i + 1], "cmb")){
+					algo = COMBINE;
 				}
 			} else {
 				program_abort("Enter algorithm.\n");
@@ -123,23 +126,44 @@ int main ( int argc, char *argv[] ){
 	int numofgroups = size/d;
 	int numofnodesingroup = d;
 
-	// Load schedule table
-	ifstream file;
-	std::string filename = "scheduleTable/kout" + to_string(d);
-	file.open (filename);
-
-
-	// reduce memory used: each process hold one line of this table
-	string line;
-	vector <Int3>*scheduleTable = new vector<Int3> [size];
-	for (int i = 0; i < size; i++){
-		getline(file, line);
-		istringstream iss(line);
-		string schedule;
-		while (iss >> schedule) { 
-			Int3 tmp;
-			sscanf(schedule.c_str(), "%hu,%hu,%d,%d", &(tmp.dst), &tmp.src, &(tmp.sendidx), &tmp.recvidx);
-			scheduleTable[i].push_back(tmp); 
+	vector <Int3>*scheduleTable;
+	vector <int>*childParent;
+	if (algo == COMBINE){
+		// Open file
+		ifstream file;
+		string line;
+		std::string filename = "scheduleTable/kcmb" + to_string(d);
+		file.open (filename);
+		int tmp;
+		childParent = new vector <int> [size];
+		for (int i = 0; i < size; i++){
+			getline(file, line);
+			istringstream iss(line);
+			string alist;
+			for(int j = 0; j < 2*d + 1; j++){
+				iss >> tmp;
+				childParent[i].push_back(tmp);
+			}
+		}
+		file.close();
+	} else {
+		// Load schedule table
+		ifstream file;
+		std::string filename = "scheduleTable/kout" + to_string(d);
+		file.open (filename);
+		// reduce memory used: each process hold one line of this table
+		string line;
+		
+		scheduleTable = new vector<Int3> [size];
+		for (int i = 0; i < size; i++){
+			getline(file, line);
+			istringstream iss(line);
+			string schedule;
+			while (iss >> schedule) { 
+				Int3 tmp;
+				sscanf(schedule.c_str(), "%d,%d,%d,%d", &(tmp.dst), &tmp.src, &(tmp.sendidx), &tmp.recvidx);
+				scheduleTable[i].push_back(tmp); 
+			}
 		}
 	}
 
@@ -160,6 +184,17 @@ int main ( int argc, char *argv[] ){
 	for (int i = 0; i < NUM_ITEMS; i++){
 		allGatherResult[rank*NUM_ITEMS + i] = data[i];
 	}
+	float **recvbuf;
+	float *sendbuf;
+	if(algo == COMBINE){
+		recvbuf = new float*[d];
+		for (int i = 0; i < d; i++){
+			recvbuf[i] = new float[d*NUM_ITEMS];
+		}
+		sendbuf = new float[d*NUM_ITEMS];
+	}
+	MPI_Request *reqrecvs;
+	MPI_Request *reqsends;
 	MPI_Barrier(MPI_COMM_WORLD);
 	if (rank == 0) {
 		start_time = MPI_Wtime();
@@ -170,8 +205,6 @@ int main ( int argc, char *argv[] ){
 	switch(algo) {
 		case MULTITREE  :{ // Allgather algorithm is multi tree
 			int numOfStep = d + 1;
-			MPI_Request *reqrecvs;
-			MPI_Request *reqsends;
 			
 			for (int step = 0; step < numOfStep; step++){
 				if (step == 0){ // Step == 0 send to d nodes
@@ -275,8 +308,6 @@ int main ( int argc, char *argv[] ){
 			break; //optional
 		
 		} case CONGESTION: {
-			MPI_Request *reqrecvs;
-			MPI_Request *reqsends;
 			
 			// Step == 0 send to d nodes
 				// Read schedule table first d collumn, process rank i read line i
@@ -345,7 +376,181 @@ int main ( int argc, char *argv[] ){
 				
 			break; //optional
 		} case COMBINE:{
+			// Step o send data of this node to all child nodes
+#if defined(TIME_FOR_EACH_STEP)
+	MPI_Barrier(MPI_COMM_WORLD);
+	if (rank == 0){
+		dblasttimer = MPI_Wtime();
+	}
+#endif
+			reqrecvs = new MPI_Request[d];
+			reqsends = new MPI_Request[d];
+			int source, destination, sendidx, recvidx;
+			for(int i = 0; i < d; i++){
+				destination  = childParent[rank][i];
+				source = childParent[rank][d + i];
+				sendidx = rank*NUM_ITEMS;
+				recvidx = childParent[rank][d + i]*NUM_ITEMS;
+				MPI_Irecv(&allGatherResult[recvidx], NUM_ITEMS, MPI_FLOAT, source, 0, \
+						MPI_COMM_WORLD, &reqrecvs[i]);
+				MPI_Isend(&allGatherResult[sendidx], NUM_ITEMS, MPI_FLOAT, destination, 0, \
+						MPI_COMM_WORLD, &reqsends[i]);
+			}
+			for (int i = 0; i < d; i++){
+				MPI_Wait(&reqrecvs[i], MPI_STATUS_IGNORE);
+			}
+			for (int i = 0; i < d; i++){
+				MPI_Wait(&reqsends[i], MPI_STATUS_IGNORE);
+			}
+			delete reqsends;
+			delete reqrecvs;
+#if defined(TIME_FOR_EACH_STEP)
+	MPI_Barrier(MPI_COMM_WORLD);
+	if (rank == 0){
+		fprintf(stdout, "%.7lf\tTime for step 0\n", MPI_Wtime() - dblasttimer);
+	}
+#endif
+			
+#if defined(PRINT_STEP_0)
+	// Print allgather result after step 0
+	cout << "From rank " << rank << " allgatherresult after step 0:\n\t";
+	for (int i = 0; i < NUM_ITEMS*size; i++){
+		cout << allGatherResult[i] << "\t";
+	}
+	cout << endl;
+#endif
+			// Step 1 send receives informantion to all child node
+			reqrecvs = new MPI_Request[d];
+			reqsends = new MPI_Request[d];
+			
+			int duplicateIdx = childParent[rank][2*d];
+#if defined(TIME_FOR_EACH_STEP)
+	MPI_Barrier(MPI_COMM_WORLD);
+	if (rank == 0){
+		dblasttimer = MPI_Wtime();
+	}
+#endif
+			//prepare sendbuf
+			for (int j = 0; j < d; j++){
+				for (int k = 0; k < NUM_ITEMS; k++){
+					sendbuf[j*NUM_ITEMS + k] = allGatherResult[childParent[rank][d + j]*NUM_ITEMS + k];
+				}
+			}
+			int tmpi;
+#if defined(TIME_FOR_EACH_STEP)
+	MPI_Barrier(MPI_COMM_WORLD);
+	if (rank == 0){
+		fprintf(stdout, "%.7lf\tCopy to send buf\n", MPI_Wtime() - dblasttimer);
+		dblasttimer = MPI_Wtime();
+	}
+#endif
 
+			// send and receive message
+			for(int i = 0; i < d; i++){
+				source = childParent[rank][d + i];
+				if (source == duplicateIdx){
+					MPI_Irecv(recvbuf[i], NUM_ITEMS*(d - 1), MPI_FLOAT, source, 0, MPI_COMM_WORLD, &reqrecvs[i]);
+				} else {
+					MPI_Irecv(recvbuf[i], NUM_ITEMS*d, MPI_FLOAT, source, 0, MPI_COMM_WORLD, &reqrecvs[i]);
+				}
+
+				destination  = childParent[rank][i];
+				if(destination != duplicateIdx){
+					MPI_Isend(sendbuf, NUM_ITEMS*d, MPI_FLOAT, destination, 0, MPI_COMM_WORLD, &reqsends[i]);					
+				} else {
+					tmpi = i;
+				}
+			}
+			float *nsendbuf = new float[(d - 1)*NUM_ITEMS];
+			
+			// send the message at the duplicate index
+			bool detectduplicate = false;
+			for (int j = 0; j < d; j++){
+				if (!detectduplicate){
+					if(childParent[rank][d + j] == duplicateIdx){
+						detectduplicate = true;
+						continue;
+					}
+					for (int k = 0; k < NUM_ITEMS; k++)
+						nsendbuf[j*NUM_ITEMS + k] = allGatherResult[childParent[rank][d + j]*NUM_ITEMS + k];
+				} else {
+					for (int k = 0; k < NUM_ITEMS; k++)
+						nsendbuf[(j - 1)*NUM_ITEMS + k] = allGatherResult[childParent[rank][d + j]*NUM_ITEMS + k];
+				}
+			}
+			MPI_Isend(nsendbuf, NUM_ITEMS*(d - 1), MPI_FLOAT, duplicateIdx, 0, MPI_COMM_WORLD, &reqsends[tmpi]);
+
+			
+			int *whichData = new int[d];
+			// wait for send and reseive complete and copy buffer to final result
+			for (int i = 0; i < d; i++){
+				MPI_Wait(&reqrecvs[i], MPI_STATUS_IGNORE);
+			}
+			
+			
+			for (int i = 0; i < d; i++){
+				MPI_Wait(&reqsends[i], MPI_STATUS_IGNORE);
+			}
+#if defined(TIME_FOR_EACH_STEP)
+	MPI_Barrier(MPI_COMM_WORLD);
+	if (rank == 0){
+		fprintf(stdout, "%.7lf\tSend receive done\n", MPI_Wtime() - dblasttimer);
+		dblasttimer = MPI_Wtime();
+	}
+#endif
+			for (int i = 0; i < d; i++){
+				// copy buffer to final result
+				// find the data source
+				
+				// copy the source of data from its schedule 
+				for (int j = 0; j < d; j++){
+					whichData[j] = childParent[childParent[rank][d + i]][d + j];
+				}
+				if(childParent[rank][d + i] != duplicateIdx){
+					for (int j = 0; j < d; j++){
+						for (int k = 0; k < NUM_ITEMS; k++){
+							allGatherResult[whichData[j]*NUM_ITEMS + k] = recvbuf[i][j*NUM_ITEMS + k];
+						}
+					}
+				} else {
+					detectduplicate = false;
+					for (int j = 0; j < d; j++){
+						if (whichData[j] == childParent[duplicateIdx][2*d]){
+							detectduplicate = true;
+							continue;
+						}
+						
+						if (!detectduplicate){//Normal copy							
+							for (int k = 0; k < NUM_ITEMS; k++){
+								allGatherResult[whichData[j]*NUM_ITEMS + k] = recvbuf[i][(j)*NUM_ITEMS + k];
+								
+							}
+						} else { // copy data with adjust index
+							for (int k = 0; k < NUM_ITEMS; k++){
+								allGatherResult[whichData[j]*NUM_ITEMS + k] = recvbuf[i][(j - 1)*NUM_ITEMS + k];
+								
+							}
+						}
+					}
+					
+				}
+			}
+
+
+#if defined(TIME_FOR_EACH_STEP)
+	MPI_Barrier(MPI_COMM_WORLD);
+	if (rank == 0){
+		fprintf(stdout, "%.7lf\tCopy to final result\n", MPI_Wtime() - dblasttimer);
+		dblasttimer = MPI_Wtime();
+	}
+#endif
+			for (int i = 0; i < d; i++){
+				delete recvbuf[i];
+			}
+			delete nsendbuf;
+			delete sendbuf;
+			delete whichData;
+	
 		} default : //Optional
 			break;											
 	}
@@ -375,7 +580,7 @@ int main ( int argc, char *argv[] ){
 	MPI_Allgather(data, NUM_ITEMS, MPI_FLOAT, allgatherresultlib, NUM_ITEMS, MPI_FLOAT, MPI_COMM_WORLD);
 	MPI_Barrier(MPI_COMM_WORLD);
 	if ((0 == rank)) {
-		fprintf(stdout, "%dx%d,%.7lf,%.7lf,%d\n", numofgroups, numofnodesingroup, kimrdtime, MPI_Wtime() - start_time, NUM_ITEMS);
+		fprintf(stdout, "k%d,%.7lf,%.7lf,%d\n", d, kimrdtime, MPI_Wtime() - start_time, NUM_ITEMS);
 	}
 
 	// Compare the result

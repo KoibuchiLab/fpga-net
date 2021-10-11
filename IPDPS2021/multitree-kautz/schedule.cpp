@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 20:25:10
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-10-07 20:53:10
+ * @ Modified time: 2021-10-10 20:54:02
  * @ Description:
  */
 
@@ -21,17 +21,19 @@ Kautz::Kautz(int degree, string inout) {
 	bfs = new vector<int>[numVertices];
 	scheduleTable = new vector<Int3>[numVertices];
 	adjLists = new list <int> [numVertices]; // Dont need to delete. Why??
-	if(inout == "out"){ //Outgoing tree
+    adjListParent = new list <int> [numVertices];
+	if(inout == "out" || inout == "cmb"){ //Outgoing tree
 		for (int i = 0; i <= d; i ++){
 			for (int j = 0; j <= d; j ++){
 				if(i != j){ // host ij
 					int source = hidx2r(i, j, d);
 					for (int k = 0; k <= d; k++){
-						if (k != j){ //host jk
+						if(k != j){ //host jk
 							// add host jk to adj list
 							int destination = hidx2r(j, k, d);
 							addEdge(source, destination);
-						}
+                            addParent(destination, source);
+ 						}
 					}
 				}
 			}
@@ -56,6 +58,7 @@ Kautz::Kautz(int degree, string inout) {
 						if(k != j){ // Host kj
 							int src = hidx2r(k, j, d);
 							addEdge(dest, src);
+                            addParent(src, dest);
 						}
 					}
 				}
@@ -92,6 +95,10 @@ void Kautz::addEdge(const int src, const int dst){
 	adjLists[src].push_back(dst);
 }
 
+void Kautz::addParent(const int src, const int dst){
+	adjListParent[src].push_back(dst);
+}
+
 // BFS algorithm
 void Kautz::BFS(int startVertex) {
 	visited = new bool[numVertices];
@@ -121,10 +128,30 @@ void Kautz::BFS(int startVertex) {
 	}
 	//cout << endl;
 }
+
+void Kautz::printAdjAndParentList(){
+    for (int i = 0; i < numVertices; i++){
+        for (list<int>::iterator it = adjLists[i].begin(); it != adjLists[i].end(); it++){
+			cout << *it << " ";
+		}
+        for (list<int>::iterator it = adjListParent[i].begin(); it != adjListParent[i].end(); it++){
+            cout << *it << " ";
+        }
+        for (list<int>::iterator it = adjLists[i].begin(); it != adjLists[i].end(); it++){
+            for (list<int>::iterator jt = adjListParent[i].begin(); jt != adjListParent[i].end(); jt++){
+                if (*it == *jt){
+                    cout << *it;
+                    break;
+                }
+            }
+        }
+		cout << endl;
+    }
+}
 void Kautz::printAdjList(){
 	for (int i = 0; i < numVertices; i++){
 		cout << i << ":\t";
-		for(list<int>::iterator it = adjLists[i].begin(); it != adjLists[i].end(); it++){
+		for (list<int>::iterator it = adjLists[i].begin(); it != adjLists[i].end(); it++){
 			cout << *it << " ";
 		}
 		cout << endl;
@@ -226,6 +253,10 @@ int main(int argc, char *argv[]) {
 		g.BFS(i);
 	}
 	g.schedule();
-	g.printSchedTable();
+    if (string(argv[2]) == "cmb"){
+        g.printAdjAndParentList();
+    } else {
+	    g.printSchedTable();
+    }
 	return 0;
 }
