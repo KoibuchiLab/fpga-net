@@ -12,15 +12,15 @@ else:
 NUM_OF_NODES=NUM_OF_GROUPS * NUM_OF_NODES_IN_GROUP
 NUM_OF_LINKS=int(NUM_OF_GROUPS * NUM_OF_NODES_IN_GROUP*(NUM_OF_NODES_IN_GROUP - 1)/2 + NUM_OF_GROUPS*(NUM_OF_GROUPS - 1))
 
-path = "platforms/2lvfc/"
+path = "../platforms/2lvfc/"
 OUTPUT_FILENAME = "%s%dx%d.xml" % (path, NUM_OF_GROUPS, NUM_OF_NODES_IN_GROUP)
 
 if not os.path.exists(path):
     os.makedirs(path)
 
-DEFAULT_BANDWIDTH = "1GBps"
-DEFAULT_LATENCY = "50us"
-DEFAULT_SPEED = "1Gf"
+DEFAULT_BANDWIDTH = "12.5GBps"
+DEFAULT_LATENCY = "1us"
+DEFAULT_SPEED = "100Gf"
 def host(hostname, speed = DEFAULT_SPEED):
 	return "\t\t<host id=\"%s\" speed=\"%s\"/>\n" % (hostname, speed)
 

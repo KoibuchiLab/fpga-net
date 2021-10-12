@@ -170,9 +170,18 @@ int main(int argc, char *argv[])
 			MPI_Irecv(&intergroupbuffer_[i*NUM_ITEMS], NUM_ITEMS, \
 					MPI_FLOAT, source, 1, MPI_COMM_WORLD, &reqrecvs[i]);
 		}
+        int destination = numofnodesingroup*i + nodenumber;
+		if (destination != rank){
+			MPI_Isend(data, NUM_ITEMS, MPI_FLOAT, destination, 1, \
+					MPI_COMM_WORLD, &reqsends[i]);
+		} else {
+			//intergroupbuffer_[i] <- data (data is on a process so dont need to send)
+			for (int j = 0; j < NUM_ITEMS; j++){
+				intergroupbuffer_[i*NUM_ITEMS + j] = data[j];
+			}
+		}
 	}
-
-	for (int i = 0; i < numofgroups; i++){
+	/*for (int i = 0; i < numofgroups; i++){
 		// Compute destination
 		int destination = numofnodesingroup*i + nodenumber;
 		if (destination != rank){
@@ -184,7 +193,7 @@ int main(int argc, char *argv[])
 				intergroupbuffer_[i*NUM_ITEMS + j] = data[j];
 			}
 		}
-	}
+	}*/
 
 	for (int i = 0; i < numofgroups; i++){
 		// Compute source
@@ -250,10 +259,8 @@ int main(int argc, char *argv[])
 			MPI_Irecv(&allgatherresult[i*numofgroups*NUM_ITEMS], numofgroups*NUM_ITEMS, MPI_FLOAT, \
 					source, 1, MPI_COMM_WORLD, &reqrecvs[i]);
 		}
-	}
 
-	for (int i = 0; i < numofnodesingroup; i++){
-		int destination = groupnumber*numofnodesingroup + i;
+        int destination = groupnumber*numofnodesingroup + i;
 		if(rank != destination){
 			MPI_Isend(intergroupbuffer_, numofgroups*NUM_ITEMS, MPI_FLOAT, \
 					destination, 1, MPI_COMM_WORLD, &reqsends[i]);
@@ -263,6 +270,18 @@ int main(int argc, char *argv[])
 			}
 		}
 	}
+
+	/*for (int i = 0; i < numofnodesingroup; i++){
+		int destination = groupnumber*numofnodesingroup + i;
+		if(rank != destination){
+			MPI_Isend(intergroupbuffer_, numofgroups*NUM_ITEMS, MPI_FLOAT, \
+					destination, 1, MPI_COMM_WORLD, &reqsends[i]);
+		} else {
+			for (int j = 0; j < numofgroups*NUM_ITEMS; j++){
+				allgatherresult[i*numofgroups*NUM_ITEMS + j] = intergroupbuffer_[j];
+			}
+		}
+	}*/
 
 	for (int i = 0; i < numofnodesingroup; i++){
 		int source = groupnumber*numofnodesingroup + i;
@@ -305,10 +324,7 @@ int main(int argc, char *argv[])
 			MPI_Irecv(intragroupbuffer_[i], numofgroups*NUM_ITEMS, MPI_FLOAT, \
 					source, 1, MPI_COMM_WORLD, &reqrecvs[i]);
 		}
-	}
-
-	for (int i = 0; i < numofnodesingroup; i++){
-		int destination = groupnumber*numofnodesingroup + i;
+        int destination = groupnumber*numofnodesingroup + i;
 		if(rank != destination){
 			MPI_Isend(intergroupbuffer_, numofgroups*NUM_ITEMS, MPI_FLOAT, \
 					destination, 1, MPI_COMM_WORLD, &reqsends[i]);
@@ -318,6 +334,18 @@ int main(int argc, char *argv[])
 			}
 		}
 	}
+
+	/*for (int i = 0; i < numofnodesingroup; i++){
+		int destination = groupnumber*numofnodesingroup + i;
+		if(rank != destination){
+			MPI_Isend(intergroupbuffer_, numofgroups*NUM_ITEMS, MPI_FLOAT, \
+					destination, 1, MPI_COMM_WORLD, &reqsends[i]);
+		} else {
+			for (int j = 0; j < numofgroups*NUM_ITEMS; j++){
+				intragroupbuffer_[i][j] = intergroupbuffer_[j];
+			}
+		}
+	}*/
 
 	for (int i = 0; i < numofnodesingroup; i++){
 		int source = groupnumber*numofnodesingroup + i;
@@ -359,6 +387,9 @@ int main(int argc, char *argv[])
 
 	free(reqrecvs);
 	free(reqsends);
+    if ((0 == rank)) {
+		fprintf(stdout, "%dx%d,%.7lf,%d\n", numofgroups, numofnodesingroup, kimrdtime, NUM_ITEMS);
+	}
 
 #if defined(COMPARE_BUILDIN)
 	start_time = MPI_Wtime();

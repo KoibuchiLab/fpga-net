@@ -2,161 +2,161 @@
 <!DOCTYPE platform SYSTEM 'http://simgrid.gforge.inria.fr/simgrid/simgrid.dtd'>
 <platform version="4.1">
 	<zone  id="AS0"  routing="Full">
-		<host id="0_0" speed="1Gf"/>
-		<host id="0_1" speed="1Gf"/>
-		<host id="0_2" speed="1Gf"/>
-		<host id="0_3" speed="1Gf"/>
-		<host id="0_4" speed="1Gf"/>
-		<host id="0_5" speed="1Gf"/>
-		<host id="0_6" speed="1Gf"/>
-		<host id="1_0" speed="1Gf"/>
-		<host id="1_1" speed="1Gf"/>
-		<host id="1_2" speed="1Gf"/>
-		<host id="1_3" speed="1Gf"/>
-		<host id="1_4" speed="1Gf"/>
-		<host id="1_5" speed="1Gf"/>
-		<host id="1_6" speed="1Gf"/>
-		<host id="2_0" speed="1Gf"/>
-		<host id="2_1" speed="1Gf"/>
-		<host id="2_2" speed="1Gf"/>
-		<host id="2_3" speed="1Gf"/>
-		<host id="2_4" speed="1Gf"/>
-		<host id="2_5" speed="1Gf"/>
-		<host id="2_6" speed="1Gf"/>
-		<host id="3_0" speed="1Gf"/>
-		<host id="3_1" speed="1Gf"/>
-		<host id="3_2" speed="1Gf"/>
-		<host id="3_3" speed="1Gf"/>
-		<host id="3_4" speed="1Gf"/>
-		<host id="3_5" speed="1Gf"/>
-		<host id="3_6" speed="1Gf"/>
+		<host id="0_0" speed="100Gf"/>
+		<host id="0_1" speed="100Gf"/>
+		<host id="0_2" speed="100Gf"/>
+		<host id="0_3" speed="100Gf"/>
+		<host id="0_4" speed="100Gf"/>
+		<host id="0_5" speed="100Gf"/>
+		<host id="0_6" speed="100Gf"/>
+		<host id="1_0" speed="100Gf"/>
+		<host id="1_1" speed="100Gf"/>
+		<host id="1_2" speed="100Gf"/>
+		<host id="1_3" speed="100Gf"/>
+		<host id="1_4" speed="100Gf"/>
+		<host id="1_5" speed="100Gf"/>
+		<host id="1_6" speed="100Gf"/>
+		<host id="2_0" speed="100Gf"/>
+		<host id="2_1" speed="100Gf"/>
+		<host id="2_2" speed="100Gf"/>
+		<host id="2_3" speed="100Gf"/>
+		<host id="2_4" speed="100Gf"/>
+		<host id="2_5" speed="100Gf"/>
+		<host id="2_6" speed="100Gf"/>
+		<host id="3_0" speed="100Gf"/>
+		<host id="3_1" speed="100Gf"/>
+		<host id="3_2" speed="100Gf"/>
+		<host id="3_3" speed="100Gf"/>
+		<host id="3_4" speed="100Gf"/>
+		<host id="3_5" speed="100Gf"/>
+		<host id="3_6" speed="100Gf"/>
 
-		<link id="0_0_to_0_1" bandwidth="1GBps" latency="50us"/>
-		<link id="0_0_to_0_2" bandwidth="1GBps" latency="50us"/>
-		<link id="0_0_to_0_3" bandwidth="1GBps" latency="50us"/>
-		<link id="0_0_to_0_4" bandwidth="1GBps" latency="50us"/>
-		<link id="0_0_to_0_5" bandwidth="1GBps" latency="50us"/>
-		<link id="0_0_to_0_6" bandwidth="1GBps" latency="50us"/>
-		<link id="0_0_to_1_0" bandwidth="1GBps" latency="50us"/>
-		<link id="0_0_to_2_0" bandwidth="1GBps" latency="50us"/>
-		<link id="0_0_to_3_0" bandwidth="1GBps" latency="50us"/>
-		<link id="0_1_to_0_2" bandwidth="1GBps" latency="50us"/>
-		<link id="0_1_to_0_3" bandwidth="1GBps" latency="50us"/>
-		<link id="0_1_to_0_4" bandwidth="1GBps" latency="50us"/>
-		<link id="0_1_to_0_5" bandwidth="1GBps" latency="50us"/>
-		<link id="0_1_to_0_6" bandwidth="1GBps" latency="50us"/>
-		<link id="0_1_to_1_1" bandwidth="1GBps" latency="50us"/>
-		<link id="0_1_to_2_1" bandwidth="1GBps" latency="50us"/>
-		<link id="0_1_to_3_1" bandwidth="1GBps" latency="50us"/>
-		<link id="0_2_to_0_3" bandwidth="1GBps" latency="50us"/>
-		<link id="0_2_to_0_4" bandwidth="1GBps" latency="50us"/>
-		<link id="0_2_to_0_5" bandwidth="1GBps" latency="50us"/>
-		<link id="0_2_to_0_6" bandwidth="1GBps" latency="50us"/>
-		<link id="0_2_to_1_2" bandwidth="1GBps" latency="50us"/>
-		<link id="0_2_to_2_2" bandwidth="1GBps" latency="50us"/>
-		<link id="0_2_to_3_2" bandwidth="1GBps" latency="50us"/>
-		<link id="0_3_to_0_4" bandwidth="1GBps" latency="50us"/>
-		<link id="0_3_to_0_5" bandwidth="1GBps" latency="50us"/>
-		<link id="0_3_to_0_6" bandwidth="1GBps" latency="50us"/>
-		<link id="0_3_to_1_3" bandwidth="1GBps" latency="50us"/>
-		<link id="0_3_to_2_3" bandwidth="1GBps" latency="50us"/>
-		<link id="0_3_to_3_3" bandwidth="1GBps" latency="50us"/>
-		<link id="0_4_to_0_5" bandwidth="1GBps" latency="50us"/>
-		<link id="0_4_to_0_6" bandwidth="1GBps" latency="50us"/>
-		<link id="0_4_to_1_4" bandwidth="1GBps" latency="50us"/>
-		<link id="0_4_to_2_4" bandwidth="1GBps" latency="50us"/>
-		<link id="0_4_to_3_4" bandwidth="1GBps" latency="50us"/>
-		<link id="0_5_to_0_6" bandwidth="1GBps" latency="50us"/>
-		<link id="0_5_to_1_5" bandwidth="1GBps" latency="50us"/>
-		<link id="0_5_to_2_5" bandwidth="1GBps" latency="50us"/>
-		<link id="0_5_to_3_5" bandwidth="1GBps" latency="50us"/>
-		<link id="0_6_to_1_6" bandwidth="1GBps" latency="50us"/>
-		<link id="0_6_to_2_6" bandwidth="1GBps" latency="50us"/>
-		<link id="0_6_to_3_6" bandwidth="1GBps" latency="50us"/>
-		<link id="1_0_to_1_1" bandwidth="1GBps" latency="50us"/>
-		<link id="1_0_to_1_2" bandwidth="1GBps" latency="50us"/>
-		<link id="1_0_to_1_3" bandwidth="1GBps" latency="50us"/>
-		<link id="1_0_to_1_4" bandwidth="1GBps" latency="50us"/>
-		<link id="1_0_to_1_5" bandwidth="1GBps" latency="50us"/>
-		<link id="1_0_to_1_6" bandwidth="1GBps" latency="50us"/>
-		<link id="1_0_to_2_0" bandwidth="1GBps" latency="50us"/>
-		<link id="1_0_to_3_0" bandwidth="1GBps" latency="50us"/>
-		<link id="1_1_to_1_2" bandwidth="1GBps" latency="50us"/>
-		<link id="1_1_to_1_3" bandwidth="1GBps" latency="50us"/>
-		<link id="1_1_to_1_4" bandwidth="1GBps" latency="50us"/>
-		<link id="1_1_to_1_5" bandwidth="1GBps" latency="50us"/>
-		<link id="1_1_to_1_6" bandwidth="1GBps" latency="50us"/>
-		<link id="1_1_to_2_1" bandwidth="1GBps" latency="50us"/>
-		<link id="1_1_to_3_1" bandwidth="1GBps" latency="50us"/>
-		<link id="1_2_to_1_3" bandwidth="1GBps" latency="50us"/>
-		<link id="1_2_to_1_4" bandwidth="1GBps" latency="50us"/>
-		<link id="1_2_to_1_5" bandwidth="1GBps" latency="50us"/>
-		<link id="1_2_to_1_6" bandwidth="1GBps" latency="50us"/>
-		<link id="1_2_to_2_2" bandwidth="1GBps" latency="50us"/>
-		<link id="1_2_to_3_2" bandwidth="1GBps" latency="50us"/>
-		<link id="1_3_to_1_4" bandwidth="1GBps" latency="50us"/>
-		<link id="1_3_to_1_5" bandwidth="1GBps" latency="50us"/>
-		<link id="1_3_to_1_6" bandwidth="1GBps" latency="50us"/>
-		<link id="1_3_to_2_3" bandwidth="1GBps" latency="50us"/>
-		<link id="1_3_to_3_3" bandwidth="1GBps" latency="50us"/>
-		<link id="1_4_to_1_5" bandwidth="1GBps" latency="50us"/>
-		<link id="1_4_to_1_6" bandwidth="1GBps" latency="50us"/>
-		<link id="1_4_to_2_4" bandwidth="1GBps" latency="50us"/>
-		<link id="1_4_to_3_4" bandwidth="1GBps" latency="50us"/>
-		<link id="1_5_to_1_6" bandwidth="1GBps" latency="50us"/>
-		<link id="1_5_to_2_5" bandwidth="1GBps" latency="50us"/>
-		<link id="1_5_to_3_5" bandwidth="1GBps" latency="50us"/>
-		<link id="1_6_to_2_6" bandwidth="1GBps" latency="50us"/>
-		<link id="1_6_to_3_6" bandwidth="1GBps" latency="50us"/>
-		<link id="2_0_to_2_1" bandwidth="1GBps" latency="50us"/>
-		<link id="2_0_to_2_2" bandwidth="1GBps" latency="50us"/>
-		<link id="2_0_to_2_3" bandwidth="1GBps" latency="50us"/>
-		<link id="2_0_to_2_4" bandwidth="1GBps" latency="50us"/>
-		<link id="2_0_to_2_5" bandwidth="1GBps" latency="50us"/>
-		<link id="2_0_to_2_6" bandwidth="1GBps" latency="50us"/>
-		<link id="2_0_to_3_0" bandwidth="1GBps" latency="50us"/>
-		<link id="2_1_to_2_2" bandwidth="1GBps" latency="50us"/>
-		<link id="2_1_to_2_3" bandwidth="1GBps" latency="50us"/>
-		<link id="2_1_to_2_4" bandwidth="1GBps" latency="50us"/>
-		<link id="2_1_to_2_5" bandwidth="1GBps" latency="50us"/>
-		<link id="2_1_to_2_6" bandwidth="1GBps" latency="50us"/>
-		<link id="2_1_to_3_1" bandwidth="1GBps" latency="50us"/>
-		<link id="2_2_to_2_3" bandwidth="1GBps" latency="50us"/>
-		<link id="2_2_to_2_4" bandwidth="1GBps" latency="50us"/>
-		<link id="2_2_to_2_5" bandwidth="1GBps" latency="50us"/>
-		<link id="2_2_to_2_6" bandwidth="1GBps" latency="50us"/>
-		<link id="2_2_to_3_2" bandwidth="1GBps" latency="50us"/>
-		<link id="2_3_to_2_4" bandwidth="1GBps" latency="50us"/>
-		<link id="2_3_to_2_5" bandwidth="1GBps" latency="50us"/>
-		<link id="2_3_to_2_6" bandwidth="1GBps" latency="50us"/>
-		<link id="2_3_to_3_3" bandwidth="1GBps" latency="50us"/>
-		<link id="2_4_to_2_5" bandwidth="1GBps" latency="50us"/>
-		<link id="2_4_to_2_6" bandwidth="1GBps" latency="50us"/>
-		<link id="2_4_to_3_4" bandwidth="1GBps" latency="50us"/>
-		<link id="2_5_to_2_6" bandwidth="1GBps" latency="50us"/>
-		<link id="2_5_to_3_5" bandwidth="1GBps" latency="50us"/>
-		<link id="2_6_to_3_6" bandwidth="1GBps" latency="50us"/>
-		<link id="3_0_to_3_1" bandwidth="1GBps" latency="50us"/>
-		<link id="3_0_to_3_2" bandwidth="1GBps" latency="50us"/>
-		<link id="3_0_to_3_3" bandwidth="1GBps" latency="50us"/>
-		<link id="3_0_to_3_4" bandwidth="1GBps" latency="50us"/>
-		<link id="3_0_to_3_5" bandwidth="1GBps" latency="50us"/>
-		<link id="3_0_to_3_6" bandwidth="1GBps" latency="50us"/>
-		<link id="3_1_to_3_2" bandwidth="1GBps" latency="50us"/>
-		<link id="3_1_to_3_3" bandwidth="1GBps" latency="50us"/>
-		<link id="3_1_to_3_4" bandwidth="1GBps" latency="50us"/>
-		<link id="3_1_to_3_5" bandwidth="1GBps" latency="50us"/>
-		<link id="3_1_to_3_6" bandwidth="1GBps" latency="50us"/>
-		<link id="3_2_to_3_3" bandwidth="1GBps" latency="50us"/>
-		<link id="3_2_to_3_4" bandwidth="1GBps" latency="50us"/>
-		<link id="3_2_to_3_5" bandwidth="1GBps" latency="50us"/>
-		<link id="3_2_to_3_6" bandwidth="1GBps" latency="50us"/>
-		<link id="3_3_to_3_4" bandwidth="1GBps" latency="50us"/>
-		<link id="3_3_to_3_5" bandwidth="1GBps" latency="50us"/>
-		<link id="3_3_to_3_6" bandwidth="1GBps" latency="50us"/>
-		<link id="3_4_to_3_5" bandwidth="1GBps" latency="50us"/>
-		<link id="3_4_to_3_6" bandwidth="1GBps" latency="50us"/>
-		<link id="3_5_to_3_6" bandwidth="1GBps" latency="50us"/>
+		<link id="0_0_to_0_1" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_0_to_0_2" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_0_to_0_3" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_0_to_0_4" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_0_to_0_5" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_0_to_0_6" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_0_to_1_0" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_0_to_2_0" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_0_to_3_0" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_1_to_0_2" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_1_to_0_3" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_1_to_0_4" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_1_to_0_5" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_1_to_0_6" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_1_to_1_1" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_1_to_2_1" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_1_to_3_1" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_2_to_0_3" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_2_to_0_4" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_2_to_0_5" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_2_to_0_6" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_2_to_1_2" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_2_to_2_2" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_2_to_3_2" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_3_to_0_4" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_3_to_0_5" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_3_to_0_6" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_3_to_1_3" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_3_to_2_3" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_3_to_3_3" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_4_to_0_5" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_4_to_0_6" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_4_to_1_4" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_4_to_2_4" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_4_to_3_4" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_5_to_0_6" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_5_to_1_5" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_5_to_2_5" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_5_to_3_5" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_6_to_1_6" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_6_to_2_6" bandwidth="12.5GBps" latency="1us"/>
+		<link id="0_6_to_3_6" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_0_to_1_1" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_0_to_1_2" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_0_to_1_3" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_0_to_1_4" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_0_to_1_5" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_0_to_1_6" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_0_to_2_0" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_0_to_3_0" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_1_to_1_2" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_1_to_1_3" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_1_to_1_4" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_1_to_1_5" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_1_to_1_6" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_1_to_2_1" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_1_to_3_1" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_2_to_1_3" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_2_to_1_4" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_2_to_1_5" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_2_to_1_6" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_2_to_2_2" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_2_to_3_2" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_3_to_1_4" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_3_to_1_5" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_3_to_1_6" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_3_to_2_3" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_3_to_3_3" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_4_to_1_5" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_4_to_1_6" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_4_to_2_4" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_4_to_3_4" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_5_to_1_6" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_5_to_2_5" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_5_to_3_5" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_6_to_2_6" bandwidth="12.5GBps" latency="1us"/>
+		<link id="1_6_to_3_6" bandwidth="12.5GBps" latency="1us"/>
+		<link id="2_0_to_2_1" bandwidth="12.5GBps" latency="1us"/>
+		<link id="2_0_to_2_2" bandwidth="12.5GBps" latency="1us"/>
+		<link id="2_0_to_2_3" bandwidth="12.5GBps" latency="1us"/>
+		<link id="2_0_to_2_4" bandwidth="12.5GBps" latency="1us"/>
+		<link id="2_0_to_2_5" bandwidth="12.5GBps" latency="1us"/>
+		<link id="2_0_to_2_6" bandwidth="12.5GBps" latency="1us"/>
+		<link id="2_0_to_3_0" bandwidth="12.5GBps" latency="1us"/>
+		<link id="2_1_to_2_2" bandwidth="12.5GBps" latency="1us"/>
+		<link id="2_1_to_2_3" bandwidth="12.5GBps" latency="1us"/>
+		<link id="2_1_to_2_4" bandwidth="12.5GBps" latency="1us"/>
+		<link id="2_1_to_2_5" bandwidth="12.5GBps" latency="1us"/>
+		<link id="2_1_to_2_6" bandwidth="12.5GBps" latency="1us"/>
+		<link id="2_1_to_3_1" bandwidth="12.5GBps" latency="1us"/>
+		<link id="2_2_to_2_3" bandwidth="12.5GBps" latency="1us"/>
+		<link id="2_2_to_2_4" bandwidth="12.5GBps" latency="1us"/>
+		<link id="2_2_to_2_5" bandwidth="12.5GBps" latency="1us"/>
+		<link id="2_2_to_2_6" bandwidth="12.5GBps" latency="1us"/>
+		<link id="2_2_to_3_2" bandwidth="12.5GBps" latency="1us"/>
+		<link id="2_3_to_2_4" bandwidth="12.5GBps" latency="1us"/>
+		<link id="2_3_to_2_5" bandwidth="12.5GBps" latency="1us"/>
+		<link id="2_3_to_2_6" bandwidth="12.5GBps" latency="1us"/>
+		<link id="2_3_to_3_3" bandwidth="12.5GBps" latency="1us"/>
+		<link id="2_4_to_2_5" bandwidth="12.5GBps" latency="1us"/>
+		<link id="2_4_to_2_6" bandwidth="12.5GBps" latency="1us"/>
+		<link id="2_4_to_3_4" bandwidth="12.5GBps" latency="1us"/>
+		<link id="2_5_to_2_6" bandwidth="12.5GBps" latency="1us"/>
+		<link id="2_5_to_3_5" bandwidth="12.5GBps" latency="1us"/>
+		<link id="2_6_to_3_6" bandwidth="12.5GBps" latency="1us"/>
+		<link id="3_0_to_3_1" bandwidth="12.5GBps" latency="1us"/>
+		<link id="3_0_to_3_2" bandwidth="12.5GBps" latency="1us"/>
+		<link id="3_0_to_3_3" bandwidth="12.5GBps" latency="1us"/>
+		<link id="3_0_to_3_4" bandwidth="12.5GBps" latency="1us"/>
+		<link id="3_0_to_3_5" bandwidth="12.5GBps" latency="1us"/>
+		<link id="3_0_to_3_6" bandwidth="12.5GBps" latency="1us"/>
+		<link id="3_1_to_3_2" bandwidth="12.5GBps" latency="1us"/>
+		<link id="3_1_to_3_3" bandwidth="12.5GBps" latency="1us"/>
+		<link id="3_1_to_3_4" bandwidth="12.5GBps" latency="1us"/>
+		<link id="3_1_to_3_5" bandwidth="12.5GBps" latency="1us"/>
+		<link id="3_1_to_3_6" bandwidth="12.5GBps" latency="1us"/>
+		<link id="3_2_to_3_3" bandwidth="12.5GBps" latency="1us"/>
+		<link id="3_2_to_3_4" bandwidth="12.5GBps" latency="1us"/>
+		<link id="3_2_to_3_5" bandwidth="12.5GBps" latency="1us"/>
+		<link id="3_2_to_3_6" bandwidth="12.5GBps" latency="1us"/>
+		<link id="3_3_to_3_4" bandwidth="12.5GBps" latency="1us"/>
+		<link id="3_3_to_3_5" bandwidth="12.5GBps" latency="1us"/>
+		<link id="3_3_to_3_6" bandwidth="12.5GBps" latency="1us"/>
+		<link id="3_4_to_3_5" bandwidth="12.5GBps" latency="1us"/>
+		<link id="3_4_to_3_6" bandwidth="12.5GBps" latency="1us"/>
+		<link id="3_5_to_3_6" bandwidth="12.5GBps" latency="1us"/>
 
 		<route src="0_0" dst="0_1">
 			<link_ctn id="0_0_to_0_1"/>

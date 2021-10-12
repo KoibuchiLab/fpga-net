@@ -16,7 +16,7 @@
 //#define DEBUG5   // Print compare with buildin mpi result
 
 
-#define COMPARE_BUILDIN
+//#define COMPARE_BUILDIN
 //#define TIME_FOR_EACH_STEP
 
 

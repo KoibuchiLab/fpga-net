@@ -83,7 +83,7 @@ for h in hosts:
     hostlist.append(host(h))
     #print(hostlist[len(hostlist) - 1])
 
-path = "platforms/%s" % graph
+path = "../platforms/%s" % graph
 if not os.path.exists(path):
     os.makedirs(path)
 

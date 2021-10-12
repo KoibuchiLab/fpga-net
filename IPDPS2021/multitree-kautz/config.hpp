@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 12:03:36
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-10-11 10:59:25
+ * @ Modified time: 2021-10-12 01:46:27
  * @ Description:
  */
 
@@ -16,6 +16,6 @@
 //#define PRINT_RESULT
 
 //#define SCHEDULE_TABLE
-#define TIME_FOR_EACH_STEP
-#define COMPARE_BUILDIN
+//#define TIME_FOR_EACH_STEP
+//#define COMPARE_BUILDIN
 #endif /*IPDPS2021_MULTITREE_KAUTZ_CONFIG_HPP_*/
