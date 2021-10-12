@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-10-12 11:25:21
+ * @ Modified time: 2021-10-12 16:00:00
  * @ Description:
  */
 #include <iostream>
@@ -394,7 +394,7 @@ int main ( int argc, char *argv[] ){
 				source = childParent[rank][d + i];
 				sendidx = rank*NUM_ITEMS;
 				recvidx = childParent[rank][d + i]*NUM_ITEMS;
-				MPI_Irecv(&allGatherResult[recvidx], NUM_ITEMS, MPI_FLOAT, source, 0, \
+				MPI_Irecv(&sendbuf[i], NUM_ITEMS, MPI_FLOAT, source, 0, \
 						MPI_COMM_WORLD, &reqrecvs[i]);
 				MPI_Isend(&allGatherResult[sendidx], NUM_ITEMS, MPI_FLOAT, destination, 0, \
 						MPI_COMM_WORLD, &reqsends[i]);
@@ -434,11 +434,11 @@ int main ( int argc, char *argv[] ){
 	}
 #endif
 			//prepare sendbuf
-			for (int j = 0; j < d; j++){
+			/*for (int j = 0; j < d; j++){
 				for (int k = 0; k < NUM_ITEMS; k++){
 					sendbuf[j*NUM_ITEMS + k] = allGatherResult[childParent[rank][d + j]*NUM_ITEMS + k];
 				}
-			}
+			}*/
 			int tmpi;
 #if defined(TIME_FOR_EACH_STEP)
 	MPI_Barrier(MPI_COMM_WORLD);
@@ -482,6 +482,14 @@ int main ( int argc, char *argv[] ){
 				}
 			}
 			MPI_Isend(nsendbuf, NUM_ITEMS*(d - 1), MPI_FLOAT, duplicateIdx, 0, MPI_COMM_WORLD, &reqsends[tmpi]);
+
+            //copy back
+            for (int i = 0; i < d; i++){
+                recvidx = childParent[rank][d + i]*NUM_ITEMS;
+                for (int j = 0; j < NUM_ITEMS; j++){
+                    allGatherResult[recvidx + j] = sendbuf[i*NUM_ITEMS + j];
+                }
+            }
 
 			
 			int *whichData = new int[d];
