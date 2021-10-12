@@ -10,7 +10,8 @@
 cd multitree-kautz
 make
 limit=13
-for numitem in 256 512 #262144 #524288 #2621440 5242880
+echo conges
+for numitem in 256 512 262144 524288 2621440 #5242880
 do
     for d in $(seq 2 $limit)
     do
@@ -20,7 +21,9 @@ do
     done
 done
 
-for numitem in 256 512 #262144 #524288 #2621440 5242880
+
+echo cmb
+for numitem in 256 512 262144 524288 2621440 #5242880
 do
     for d in $(seq 2 $limit)
     do
@@ -30,7 +33,8 @@ do
     done
 done
 
-for numitem in 256 512 #262144 #524288 #2621440 5242880
+echo mttree
+for numitem in 256 512 262144 524288 2621440 #5242880
 do
     for d in $(seq 2 $limit)
     do
