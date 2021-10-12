@@ -21,14 +21,15 @@ sscanf() {
   [[ "$str" =~ $format ]]
 }
 
-for topo in 3x3 3x4 4x4 4x5 4x6 5x5 5x6 5x7 6x6 6x7 6x8 7x7
+for numitem in 256 512 262144 524288 2621440 5242880
 do
-    sscanf $topo "(.*)x(.*)"
-    nproc=$((${BASH_REMATCH[1]}*${BASH_REMATCH[2]}))
-    for numitem in 256 512 262144 524288 2621440 5242880
-    do 
+    for topo in 3x3 3x4 4x4 4x5 4x6 5x5 5x6 5x7 6x6 6x7 6x8 7x7
+    do
+        sscanf $topo "(.*)x(.*)"
+        nproc=$((${BASH_REMATCH[1]}*${BASH_REMATCH[2]}))
+        
         ../simgrid-3.28/install/bin/smpirun --cfg=smpi/bcast:mpich --cfg=smpi/host-speed:1Gf -np $nproc -hostfile ./hostfiles/2lvfc/$topo.txt \
-            -platform ./platforms/2lvfc/$topo.xml --log=smpi_coll.:critical ./multiport-2lvfc/allgathersmpi --num-item $numitem
+                -platform ./platforms/2lvfc/$topo.xml --log=smpi_coll.:critical ./multiport-2lvfc/allgathersmpi --num-item $numitem
     done
 done
 
