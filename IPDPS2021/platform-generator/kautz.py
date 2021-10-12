@@ -17,7 +17,7 @@ linklist = [] #linklist  to write to xml file
 routelist = [] #routelist to write to xml file
 
 DEFAULT_BANDWIDTH   = "12.5GBps"
-DEFAULT_LATENCY     = "1ms"
+DEFAULT_LATENCY     = "1us"
 DEFAULT_SPEED       = "100Gf"
 def host(hostname, speed = DEFAULT_SPEED):
     return "\t\t<host id=\"%s\" speed=\"%s\"/>\n" % (hostname, speed)
