@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-10-12 16:00:00
+ * @ Modified time: 2021-10-12 21:32:32
  * @ Description:
  */
 #include <iostream>
@@ -126,7 +126,7 @@ int main ( int argc, char *argv[] ){
 	int numofgroups = size/d;
 	int numofnodesingroup = d;
 
-	vector <Int3>*scheduleTable;
+	vector <Int3>scheduleTable;
 	vector <int>*childParent;
 	if (algo == COMBINE){
 		// Open file
@@ -153,17 +153,19 @@ int main ( int argc, char *argv[] ){
 		file.open (filename);
 		// reduce memory used: each process hold one line of this table
 		string line;
-		
-		scheduleTable = new vector<Int3> [size];
+
 		for (int i = 0; i < size; i++){
 			getline(file, line);
-			istringstream iss(line);
-			string schedule;
-			while (iss >> schedule) { 
-				Int3 tmp;
-				sscanf(schedule.c_str(), "%d,%d,%d,%d", &(tmp.dst), &tmp.src, &(tmp.sendidx), &tmp.recvidx);
-				scheduleTable[i].push_back(tmp); 
+			if (i == rank){
+				istringstream iss(line);
+				string schedule;
+				while (iss >> schedule) { 
+					Int3 tmp;
+					sscanf(schedule.c_str(), "%d,%d,%d,%d", &(tmp.dst), &tmp.src, &(tmp.sendidx), &tmp.recvidx);
+					scheduleTable.push_back(tmp); 
+				}
 			}
+			
 		}
 	}
 
@@ -217,10 +219,10 @@ int main ( int argc, char *argv[] ){
 					reqsends = new MPI_Request[d];
 					
 					for (int i = 0; i < d; i++){
-						int destination = scheduleTable[rank][i].dst; 
-						int source = scheduleTable[rank][i].src;
-						int sendIdx = scheduleTable[rank][i].sendidx*NUM_ITEMS;
-						int recvIdx = scheduleTable[rank][i].src*NUM_ITEMS;
+						int destination = scheduleTable[i].dst; 
+						int source = scheduleTable[i].src;
+						int sendIdx = scheduleTable[i].sendidx*NUM_ITEMS;
+						int recvIdx = scheduleTable[i].src*NUM_ITEMS;
 						//cout << "From rank " << rank << " destination: " << destination \
 								<< " data index: " << sendIdx << endl;
 						MPI_Irecv(&allGatherResult[recvIdx], NUM_ITEMS, MPI_FLOAT, source, \
@@ -251,10 +253,10 @@ int main ( int argc, char *argv[] ){
 					reqsends = new MPI_Request[d - 1];
 
 					for (int i = 0; i < d - 1; i++){
-						int source = scheduleTable[rank][d + i].src;
-						int destination = scheduleTable[rank][d + i].dst;
-						int sendIdx = scheduleTable[rank][d + i].sendidx*NUM_ITEMS;
-						int recvIdx = scheduleTable[rank][d + i].recvidx*NUM_ITEMS;
+						int source = scheduleTable[d + i].src;
+						int destination = scheduleTable[d + i].dst;
+						int sendIdx = scheduleTable[d + i].sendidx*NUM_ITEMS;
+						int recvIdx = scheduleTable[d + i].recvidx*NUM_ITEMS;
 						//printf("->> From rank %d, source: %d, dest: %d, sendidx: %d, recvidx: %d\n",\
 								rank, source, destination, sendIdx, recvIdx);
 						MPI_Irecv(&allGatherResult[recvIdx], NUM_ITEMS, MPI_FLOAT, 
@@ -284,10 +286,10 @@ int main ( int argc, char *argv[] ){
 					reqsends = new MPI_Request[d];
 
 					for (int i = 0; i < d; i++){
-						int source = scheduleTable[rank][step*d + i - 1].src;
-						int destination = scheduleTable[rank][step*d + i - 1].dst;
-						int sendIdx = scheduleTable[rank][step*d + i - 1].sendidx*NUM_ITEMS;
-						int recvIdx = scheduleTable[rank][step*d + i - 1].recvidx*NUM_ITEMS;
+						int source = scheduleTable[step*d + i - 1].src;
+						int destination = scheduleTable[step*d + i - 1].dst;
+						int sendIdx = scheduleTable[step*d + i - 1].sendidx*NUM_ITEMS;
+						int recvIdx = scheduleTable[step*d + i - 1].recvidx*NUM_ITEMS;
 
 						MPI_Irecv(&allGatherResult[recvIdx], NUM_ITEMS, MPI_FLOAT, source, \
 								0, MPI_COMM_WORLD, &reqrecvs[i]);
@@ -319,10 +321,10 @@ int main ( int argc, char *argv[] ){
 			reqsends = new MPI_Request[d];
 			
 			for (int i = 0; i < d; i++){
-				int destination = scheduleTable[rank][i].dst; 
-				int source = scheduleTable[rank][i].src;
-				int sendIdx = scheduleTable[rank][i].sendidx*NUM_ITEMS;
-				int recvIdx = scheduleTable[rank][i].src*NUM_ITEMS;
+				int destination = scheduleTable[i].dst; 
+				int source = scheduleTable[i].src;
+				int sendIdx = scheduleTable[i].sendidx*NUM_ITEMS;
+				int recvIdx = scheduleTable[i].src*NUM_ITEMS;
 				//cout << "From rank " << rank << " destination: " << destination \
 						<< " data index: " << sendIdx << endl;
 				MPI_Irecv(&allGatherResult[recvIdx], NUM_ITEMS, MPI_FLOAT, source, \
@@ -354,15 +356,15 @@ int main ( int argc, char *argv[] ){
 			reqsends = new MPI_Request[size];
 
 			for (int i = d; i < size - 1; i++){
-				int source = scheduleTable[rank][i].src;
-				int recvIdx = scheduleTable[rank][i].recvidx*NUM_ITEMS;
+				int source = scheduleTable[i].src;
+				int recvIdx = scheduleTable[i].recvidx*NUM_ITEMS;
 
 				MPI_Irecv(&allGatherResult[recvIdx], NUM_ITEMS, MPI_FLOAT, source, \
 						0, MPI_COMM_WORLD, &reqrecvs[i]);
 			}
-            for (int i = d; i < size - 1; i++){
-				int destination = scheduleTable[rank][i].dst;
-				int sendIdx = scheduleTable[rank][i].sendidx*NUM_ITEMS;
+			for (int i = d; i < size - 1; i++){
+				int destination = scheduleTable[i].dst;
+				int sendIdx = scheduleTable[i].sendidx*NUM_ITEMS;
 
 				MPI_Isend(&allGatherResult[sendIdx], NUM_ITEMS, MPI_FLOAT, destination,\
 						0, MPI_COMM_WORLD, &reqsends[i]);
@@ -483,13 +485,13 @@ int main ( int argc, char *argv[] ){
 			}
 			MPI_Isend(nsendbuf, NUM_ITEMS*(d - 1), MPI_FLOAT, duplicateIdx, 0, MPI_COMM_WORLD, &reqsends[tmpi]);
 
-            //copy back
-            for (int i = 0; i < d; i++){
-                recvidx = childParent[rank][d + i]*NUM_ITEMS;
-                for (int j = 0; j < NUM_ITEMS; j++){
-                    allGatherResult[recvidx + j] = sendbuf[i*NUM_ITEMS + j];
-                }
-            }
+			//copy back
+			for (int i = 0; i < d; i++){
+				recvidx = childParent[rank][d + i]*NUM_ITEMS;
+				for (int j = 0; j < NUM_ITEMS; j++){
+					allGatherResult[recvidx + j] = sendbuf[i*NUM_ITEMS + j];
+				}
+			}
 
 			
 			int *whichData = new int[d];
@@ -583,9 +585,9 @@ int main ( int argc, char *argv[] ){
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	/// Stop timer
 	MPI_Barrier(MPI_COMM_WORLD);
-    
+	
 	double kimrdtime = MPI_Wtime() - start_time;
-    if ((0 == rank)) {
+	if ((0 == rank)) {
 		fprintf(stdout, "k%d,%.7lf,%d\n", d, kimrdtime, NUM_ITEMS);
 	}
 #if defined(COMPARE_BUILDIN)
