@@ -21,7 +21,7 @@ sscanf() {
   [[ "$str" =~ $format ]]
 }
 
-for topo in 3x2 4x3
+for topo in 3x3 3x4 4x4 4x5 4x6 5x5 5x6 5x7 6x6 6x7 6x8 7x7
 do
     sscanf $topo "(.*)x(.*)"
     nproc=$((${BASH_REMATCH[1]}*${BASH_REMATCH[2]}))
