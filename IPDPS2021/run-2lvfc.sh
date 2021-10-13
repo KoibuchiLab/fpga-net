@@ -25,7 +25,7 @@ do
         nproc=$((${BASH_REMATCH[1]}*${BASH_REMATCH[2]}))
         
         ../simgrid-3.28/install/bin/smpirun --cfg=smpi/bcast:mpich --cfg=smpi/host-speed:1Gf -np $nproc -hostfile ./hostfiles/2lvfc/$topo.txt \
-                -platform ./platforms/2lvfc/$topo.xml --log=smpi_coll.:critical ./multiport-2lvfc/allgathersmpi --num-item $numitem
+                -platform ./platforms/2lvfc/$topo.xml --log=smpi_coll.:critical ./multiport-2lvfc/allgathersmpi-b --num-item $numitem
     done
 done
 

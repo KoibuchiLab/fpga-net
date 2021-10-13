@@ -1,7 +1,7 @@
 /*
  * allgather.c
  *
- *  Created on: Oct 2, 2021
+ *  Created on: Oct 13, 2021
  *      Author: kienpham
  */
 
@@ -17,6 +17,9 @@
 #include <stdlib.h>
 #include <mpi.h>
 #include <string.h>
+
+
+#include "../../simgrid-3.28/install/include/smpi/smpi.h"
 #include "config.h"
 
 
@@ -97,7 +100,7 @@ int main(int argc, char *argv[])
 
 //	if (rank == 0) printf("Chunksize: %d\n", chunksize);
 	float * data;
-	if ((data = malloc(sizeof(float) * NUM_ITEMS)) == NULL) {
+	if ((data = SMPI_SHARED_MALLOC(sizeof(float) * NUM_ITEMS)) == NULL) {
 		program_abort("Out of memory!");
 	}
 	char networkshape[256];
@@ -158,7 +161,7 @@ int main(int argc, char *argv[])
 	// send inter group reduction result to other groups
 	reqsends = (MPI_Request*)malloc(sizeof(MPI_Request)*(numofgroups + 1));
 	reqrecvs = (MPI_Request*)malloc(sizeof(MPI_Request)*(numofgroups + 1));
-	float *intergroupbuffer_ = (float*)malloc(sizeof(float)*numofgroups*NUM_ITEMS);
+	float *intergroupbuffer_ = (float*)SMPI_SHARED_MALLOC(sizeof(float)*numofgroups*NUM_ITEMS);
 #if defined(TIME_FOR_EACH_STEP)
 	MPI_Barrier(MPI_COMM_WORLD);
 	double dblasttimer = MPI_Wtime();
@@ -225,16 +228,16 @@ int main(int argc, char *argv[])
 	}
 #endif
 #if !defined(COMPARE_BUILDIN)
-	free(data);
+	SMPI_SHARED_FREE(data);
 #endif
 	free(reqsends);
 	free(reqrecvs);
 	// Step 2: Intra group gather  //////////////////////////////////////////////////////////////////
 	//Final result
-	float *allgatherresult = (float*)malloc(sizeof(float)*NUM_ITEMS*size);
+	float *allgatherresult = (float*)SMPI_SHARED_MALLOC(sizeof(float)*NUM_ITEMS*size);
 
 	reqsends = (MPI_Request*)malloc(sizeof(MPI_Request)*(numofnodesingroup + 1));
-	reqrecvs = (MPI_Request*)malloc(sizeof(MPI_Request)*(numofnodesingroup + 1));
+	reqrecvs = (MPI_Request*)malloc(sizeof(MPI_Request)*numofnodesingroup);
 #if defined(TIME_FOR_EACH_STEP)
 	MPI_Barrier(MPI_COMM_WORLD);
 	dblasttimer = MPI_Wtime();
@@ -312,7 +315,7 @@ int main(int argc, char *argv[])
 	// Size = [numofnodesingroup][numofgroup*numofitemkim
 	float **intragroupbuffer_ = (float**)malloc(sizeof(float*)*numofnodesingroup);
 	for (int i = 0; i < numofnodesingroup; i++){
-		intragroupbuffer_[i] = (float*)malloc(sizeof(float)*numofgroups*NUM_ITEMS);
+		intragroupbuffer_[i] = (float*)SMPI_SHARED_MALLOC(sizeof(float)*numofgroups*NUM_ITEMS);
 		for (int j = 0; j < numofgroups*NUM_ITEMS; j++){
 			intragroupbuffer_[i][j] = 0; // Should careful for other gather op
 		}
@@ -363,7 +366,7 @@ int main(int argc, char *argv[])
 			MPI_Wait(&reqsends[i], MPI_STATUS_IGNORE);
 		}
 	}
-	free(intergroupbuffer_);
+	SMPI_SHARED_FREE(intergroupbuffer_);
 
 #if defined(TIME_FOR_EACH_STEP)
 	MPI_Barrier(MPI_COMM_WORLD);
@@ -408,7 +411,7 @@ int main(int argc, char *argv[])
 			break;
 		}
 	}
-	free(data);
+	SMPI_SHARED_FREE(data);
 #endif
 
 #if defined(DEBUG5)
@@ -427,7 +430,7 @@ int main(int argc, char *argv[])
 	}
 	free(allgatherresultlib);
 #endif
-	free(allgatherresult);
+	SMPI_SHARED_FREE(allgatherresult);
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////	   ALLGATHER : END	   ////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////

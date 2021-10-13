@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-10-13 11:39:33
+ * @ Modified time: 2021-10-13 12:06:09
  * @ Description:
  */
 #include <iostream>
@@ -21,13 +21,13 @@
 #include <mpi.h>
 #include <stdio.h>
 
+#include "../../simgrid-3.28/install/include/smpi/smpi.h"
 #include "helper.hpp"
 #include "config.hpp"
 
 
 using namespace std;
 #define RAND_SEED 721311
-
 
 int main ( int argc, char *argv[] ){
 	int rank;
@@ -96,7 +96,7 @@ int main ( int argc, char *argv[] ){
 
 	// Allocate memory for data
 	float * data;
-	if ((data = new float[NUM_ITEMS]) == NULL) {
+	if ((data =  (float*)SMPI_SHARED_MALLOC(sizeof(float)*NUM_ITEMS)) == NULL) {
 		program_abort("Out of memory!");
 	}
 
@@ -165,7 +165,6 @@ int main ( int argc, char *argv[] ){
 					scheduleTable.push_back(tmp); 
 				}
 			}
-			
 		}
 	}
 
@@ -181,7 +180,7 @@ int main ( int argc, char *argv[] ){
 #endif
 
 	// allocate memory for result
-	float *allGatherResult = new float[NUM_ITEMS*size]();
+	float *allGatherResult = (float*) SMPI_SHARED_MALLOC(sizeof(float)*NUM_ITEMS*size); //new float[NUM_ITEMS*size]();
 	// copy local data to result
 	for (int i = 0; i < NUM_ITEMS; i++){
 		allGatherResult[rank*NUM_ITEMS + i] = data[i];
@@ -191,7 +190,7 @@ int main ( int argc, char *argv[] ){
 	if(algo == COMBINE){
 		recvbuf = new float*[d];
 		for (int i = 0; i < d; i++){
-			recvbuf[i] = new float[d*NUM_ITEMS];
+			recvbuf[i] = (float*)SMPI_SHARED_MALLOC(sizeof(float)*d*NUM_ITEMS);//new float[d*NUM_ITEMS];
 		}
 		sendbuf = new float[d*NUM_ITEMS];
 	}
@@ -201,6 +200,7 @@ int main ( int argc, char *argv[] ){
 	if (rank == 0) {
 		start_time = MPI_Wtime();
 	}
+	double tstep0, tstep1comm, tstep1copy;
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////	  ALLGATHER : START	     ////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////
@@ -382,8 +382,10 @@ int main ( int argc, char *argv[] ){
 			break; //optional
 		} case COMBINE:{
 			// Step o send data of this node to all child nodes
+			
 #if defined(TIME_FOR_EACH_STEP_C)
 	// MPI_Barrier(MPI_COMM_WORLD);
+	
 	if (rank == 0){
 		dblasttimer = MPI_Wtime();
 	}
@@ -412,7 +414,8 @@ int main ( int argc, char *argv[] ){
 #if defined(TIME_FOR_EACH_STEP_C)
 	// MPI_Barrier(MPI_COMM_WORLD);
 	if (rank == 0){
-		fprintf(stdout, "%.7lf\tTime for step 0\n", MPI_Wtime() - dblasttimer);
+		//fprintf(stdout, "%.7lf\tTime for step 0\n", MPI_Wtime() - dblasttimer);
+		tstep0 = MPI_Wtime() - dblasttimer;
 		dblasttimer = MPI_Wtime();
 	}
 #endif
@@ -456,7 +459,7 @@ int main ( int argc, char *argv[] ){
 					tmpi = i;
 				}
 			}
-			float *nsendbuf = new float[(d - 1)*NUM_ITEMS];
+			float *nsendbuf = new float[(d - 1)*NUM_ITEMS]; (float*)SMPI_SHARED_MALLOC(sizeof(float)*(d)*NUM_ITEMS);
 			
 			// send the message at the duplicate index
 			bool detectduplicate = false;
@@ -496,7 +499,9 @@ int main ( int argc, char *argv[] ){
 #if defined(TIME_FOR_EACH_STEP_C)
 	// MPI_Barrier(MPI_COMM_WORLD);
 	if (rank == 0){
-		fprintf(stdout, "%.7lf\tSend receive done\n", MPI_Wtime() - dblasttimer);
+		tstep1comm = MPI_Wtime() - dblasttimer;
+		//fprintf(stdout, "%.7lf\tSend receive done\n", MPI_Wtime() - dblasttimer);
+		
 		dblasttimer = MPI_Wtime();
 	}
 #endif
@@ -542,15 +547,16 @@ int main ( int argc, char *argv[] ){
 #if defined(TIME_FOR_EACH_STEP_C)
 	// MPI_Barrier(MPI_COMM_WORLD);
 	if (rank == 0){
-		fprintf(stdout, "%.7lf\tCopy to final result\n", MPI_Wtime() - dblasttimer);
+		//fprintf(stdout, "%.7lf\tCopy to final result\n", MPI_Wtime() - dblasttimer);
+		tstep1copy = MPI_Wtime() - dblasttimer;
 		dblasttimer = MPI_Wtime();
 	}
 #endif
 			for (int i = 0; i < d; i++){
-				delete recvbuf[i];
+				SMPI_SHARED_FREE(recvbuf[i]);
 			}
 			delete nsendbuf;
-			delete sendbuf;
+			delete (sendbuf);
 			delete whichData;
 	
 		} default : //Optional
@@ -577,7 +583,7 @@ int main ( int argc, char *argv[] ){
 	
 	double kimrdtime = MPI_Wtime() - start_time;
 	if ((0 == rank)) {
-		fprintf(stdout, "k%d,%.7lf,%d\n", d, kimrdtime, NUM_ITEMS);
+		fprintf(stdout, "k%d,%.7lf,%d,%.7lf,%.7lf,%.7lf\n", d, kimrdtime, NUM_ITEMS, tstep0, tstep1comm, tstep1copy);
 	}
 #if defined(COMPARE_BUILDIN)
 	start_time = MPI_Wtime();
@@ -598,8 +604,8 @@ int main ( int argc, char *argv[] ){
 		}
 	}
 #endif
-	delete data;
-	delete allGatherResult;
+	SMPI_SHARED_FREE(data);
+	SMPI_SHARED_FREE(allGatherResult);
 	MPI_Finalize();
 	return 0;
 }
