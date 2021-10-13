@@ -25,7 +25,7 @@ for topo in 4x5 8x9 16x17 32x33 64x65
         sscanf $topo "(.*)x(.*)"
         nproc=$((${BASH_REMATCH[1]}*${BASH_REMATCH[2]}))
         echo $topo
-        ../simgrid-3.28/install/bin/smpirun --cfg=smpi/bcast:mpich --cfg=smpi/host-speed:1Gf -np $nproc -hostfile ./hostfiles/2lvfc/$topo.txt \
+        ../simgrid-3.28/install/bin/smpirun --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf -np $nproc -hostfile ./hostfiles/2lvfc/$topo.txt \
                 -platform ./platforms/2lvfc/$topo.xml --log=smpi_coll.:critical ./multiport-2lvfc/allgathersmpi-b --num-item $numitem
     done
 done
