@@ -2,9 +2,10 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-10-14 00:04:27
+ * @ Modified time: 2021-10-14 01:06:07
  * @ Description:
  */
+
 #include <iostream>
 #include <list>
 #include <iterator>
@@ -153,6 +154,7 @@ int main ( int argc, char *argv[] ){
 		file.open (filename);
 		// reduce memory used: each process hold one line of this table
 		string line;
+		
 
 		for (int i = 0; i < size; i++){
 			getline(file, line);
@@ -165,7 +167,6 @@ int main ( int argc, char *argv[] ){
 					scheduleTable.push_back(tmp); 
 				}
 			}
-			
 		}
 	}
 
@@ -362,7 +363,7 @@ int main ( int argc, char *argv[] ){
 				MPI_Irecv(&allGatherResult[recvIdx], NUM_ITEMS, MPI_FLOAT, source, \
 						0, MPI_COMM_WORLD, &reqrecvs[i]);
 			}
-			for (int i = d; i < size - 1; i++){
+            for (int i = d; i < size - 1; i++){
 				int destination = scheduleTable[i].dst;
 				int sendIdx = scheduleTable[i].sendidx*NUM_ITEMS;
 
@@ -382,8 +383,8 @@ int main ( int argc, char *argv[] ){
 			break; //optional
 		} case COMBINE:{
 			// Step o send data of this node to all child nodes
-#if defined(TIME_FOR_EACH_STEP_C)
-	// MPI_Barrier(MPI_COMM_WORLD);
+#if defined(TIME_FOR_EACH_STEP)
+	MPI_Barrier(MPI_COMM_WORLD);
 	if (rank == 0){
 		dblasttimer = MPI_Wtime();
 	}
@@ -396,7 +397,7 @@ int main ( int argc, char *argv[] ){
 				source = childParent[rank][d + i];
 				sendidx = rank*NUM_ITEMS;
 				recvidx = childParent[rank][d + i]*NUM_ITEMS;
-				MPI_Irecv(&sendbuf[i], NUM_ITEMS, MPI_FLOAT, source, 0, \
+				MPI_Irecv(&allGatherResult[recvidx], NUM_ITEMS, MPI_FLOAT, source, 0, \
 						MPI_COMM_WORLD, &reqrecvs[i]);
 				MPI_Isend(&allGatherResult[sendidx], NUM_ITEMS, MPI_FLOAT, destination, 0, \
 						MPI_COMM_WORLD, &reqsends[i]);
@@ -409,11 +410,10 @@ int main ( int argc, char *argv[] ){
 			}
 			delete reqsends;
 			delete reqrecvs;
-#if defined(TIME_FOR_EACH_STEP_C)
-	// MPI_Barrier(MPI_COMM_WORLD);
+#if defined(TIME_FOR_EACH_STEP)
+	MPI_Barrier(MPI_COMM_WORLD);
 	if (rank == 0){
 		fprintf(stdout, "%.7lf\tTime for step 0\n", MPI_Wtime() - dblasttimer);
-		dblasttimer = MPI_Wtime();
 	}
 #endif
 			
@@ -430,15 +430,27 @@ int main ( int argc, char *argv[] ){
 			reqsends = new MPI_Request[d];
 			
 			int duplicateIdx = childParent[rank][2*d];
-
+#if defined(TIME_FOR_EACH_STEP)
+	MPI_Barrier(MPI_COMM_WORLD);
+	if (rank == 0){
+		dblasttimer = MPI_Wtime();
+	}
+#endif
 			//prepare sendbuf
-			/*for (int j = 0; j < d; j++){
-				for (int k = 0; k < NUM_ITEMS; k++){
+			for (int j = 0; j < d; j++){
+				memcpy(&sendbuf[j*NUM_ITEMS], &allGatherResult[childParent[rank][d + j]*NUM_ITEMS], sizeof(float)*NUM_ITEMS);
+				/*for (int k = 0; k < NUM_ITEMS; k++){
 					sendbuf[j*NUM_ITEMS + k] = allGatherResult[childParent[rank][d + j]*NUM_ITEMS + k];
-				}
-			}*/
+				}*/
+			}
 			int tmpi;
-
+#if defined(TIME_FOR_EACH_STEP)
+	MPI_Barrier(MPI_COMM_WORLD);
+	if (rank == 0){
+		fprintf(stdout, "%.7lf\tCopy to send buf\n", MPI_Wtime() - dblasttimer);
+		dblasttimer = MPI_Wtime();
+	}
+#endif
 
 			// send and receive message
 			for(int i = 0; i < d; i++){
@@ -466,22 +478,17 @@ int main ( int argc, char *argv[] ){
 						detectduplicate = true;
 						continue;
 					}
-					for (int k = 0; k < NUM_ITEMS; k++)
-						nsendbuf[j*NUM_ITEMS + k] = allGatherResult[childParent[rank][d + j]*NUM_ITEMS + k];
+					memcpy(&nsendbuf[j*NUM_ITEMS], &allGatherResult[childParent[rank][d + j]*NUM_ITEMS], sizeof(float)*NUM_ITEMS);
+					// for (int k = 0; k < NUM_ITEMS; k++)
+					// 	nsendbuf[j*NUM_ITEMS + k] = allGatherResult[childParent[rank][d + j]*NUM_ITEMS + k];
 				} else {
-					for (int k = 0; k < NUM_ITEMS; k++)
-						nsendbuf[(j - 1)*NUM_ITEMS + k] = allGatherResult[childParent[rank][d + j]*NUM_ITEMS + k];
+					// for (int k = 0; k < NUM_ITEMS; k++)
+					// 	nsendbuf[(j - 1)*NUM_ITEMS + k] = allGatherResult[childParent[rank][d + j]*NUM_ITEMS + k];
+					memcpy(&nsendbuf[(j - 1)*NUM_ITEMS], &allGatherResult[childParent[rank][d + j]*NUM_ITEMS], sizeof(float)*NUM_ITEMS);
 				}
 			}
 			MPI_Isend(nsendbuf, NUM_ITEMS*(d - 1), MPI_FLOAT, duplicateIdx, 0, MPI_COMM_WORLD, &reqsends[tmpi]);
 
-			//copy back
-			for (int i = 0; i < d; i++){
-				recvidx = childParent[rank][d + i]*NUM_ITEMS;
-				for (int j = 0; j < NUM_ITEMS; j++){
-					allGatherResult[recvidx + j] = sendbuf[i*NUM_ITEMS + j];
-				}
-			}
 			
 			int *whichData = new int[d];
 			// wait for send and reseive complete and copy buffer to final result
@@ -493,8 +500,8 @@ int main ( int argc, char *argv[] ){
 			for (int i = 0; i < d; i++){
 				MPI_Wait(&reqsends[i], MPI_STATUS_IGNORE);
 			}
-#if defined(TIME_FOR_EACH_STEP_C)
-	// MPI_Barrier(MPI_COMM_WORLD);
+#if defined(TIME_FOR_EACH_STEP)
+	MPI_Barrier(MPI_COMM_WORLD);
 	if (rank == 0){
 		fprintf(stdout, "%.7lf\tSend receive done\n", MPI_Wtime() - dblasttimer);
 		dblasttimer = MPI_Wtime();
@@ -510,9 +517,10 @@ int main ( int argc, char *argv[] ){
 				}
 				if(childParent[rank][d + i] != duplicateIdx){
 					for (int j = 0; j < d; j++){
-						for (int k = 0; k < NUM_ITEMS; k++){
-							allGatherResult[whichData[j]*NUM_ITEMS + k] = recvbuf[i][j*NUM_ITEMS + k];
-						}
+						// for (int k = 0; k < NUM_ITEMS; k++){
+						// 	allGatherResult[whichData[j]*NUM_ITEMS + k] = recvbuf[i][j*NUM_ITEMS + k];
+						// }
+						memcpy(&allGatherResult[whichData[j]*NUM_ITEMS], &recvbuf[i][j*NUM_ITEMS], sizeof(float)*NUM_ITEMS);
 					}
 				} else {
 					detectduplicate = false;
@@ -523,15 +531,15 @@ int main ( int argc, char *argv[] ){
 						}
 						
 						if (!detectduplicate){//Normal copy							
-							for (int k = 0; k < NUM_ITEMS; k++){
-								allGatherResult[whichData[j]*NUM_ITEMS + k] = recvbuf[i][(j)*NUM_ITEMS + k];
-								
-							}
+							// for (int k = 0; k < NUM_ITEMS; k++){
+							// 	allGatherResult[whichData[j]*NUM_ITEMS + k] = recvbuf[i][(j)*NUM_ITEMS + k];
+							// }
+							memcpy(&allGatherResult[whichData[j]*NUM_ITEMS], &recvbuf[i][(j)*NUM_ITEMS], sizeof(float)*NUM_ITEMS);
 						} else { // copy data with adjust index
-							for (int k = 0; k < NUM_ITEMS; k++){
-								allGatherResult[whichData[j]*NUM_ITEMS + k] = recvbuf[i][(j - 1)*NUM_ITEMS + k];
-								
-							}
+							// for (int k = 0; k < NUM_ITEMS; k++){
+							// 	allGatherResult[whichData[j]*NUM_ITEMS + k] = recvbuf[i][(j - 1)*NUM_ITEMS + k];
+							// }
+							memcpy(&allGatherResult[whichData[j]*NUM_ITEMS], &recvbuf[i][(j - 1)*NUM_ITEMS], sizeof(float)*NUM_ITEMS );
 						}
 					}
 					
@@ -539,8 +547,8 @@ int main ( int argc, char *argv[] ){
 			}
 
 
-#if defined(TIME_FOR_EACH_STEP_C)
-	// MPI_Barrier(MPI_COMM_WORLD);
+#if defined(TIME_FOR_EACH_STEP)
+	MPI_Barrier(MPI_COMM_WORLD);
 	if (rank == 0){
 		fprintf(stdout, "%.7lf\tCopy to final result\n", MPI_Wtime() - dblasttimer);
 		dblasttimer = MPI_Wtime();
@@ -574,9 +582,9 @@ int main ( int argc, char *argv[] ){
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	/// Stop timer
 	MPI_Barrier(MPI_COMM_WORLD);
-	
+    
 	double kimrdtime = MPI_Wtime() - start_time;
-	if ((0 == rank)) {
+    if ((0 == rank)) {
 		fprintf(stdout, "k%d,%.7lf,%d\n", d, kimrdtime, NUM_ITEMS);
 	}
 #if defined(COMPARE_BUILDIN)
@@ -603,4 +611,3 @@ int main ( int argc, char *argv[] ){
 	MPI_Finalize();
 	return 0;
 }
-// if fail roll back to this

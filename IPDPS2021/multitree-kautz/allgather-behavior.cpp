@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-10-13 12:06:09
+ * @ Modified time: 2021-10-14 01:06:04
  * @ Description:
  */
 #include <iostream>
@@ -469,11 +469,13 @@ int main ( int argc, char *argv[] ){
 						detectduplicate = true;
 						continue;
 					}
-					for (int k = 0; k < NUM_ITEMS; k++)
-						nsendbuf[j*NUM_ITEMS + k] = allGatherResult[childParent[rank][d + j]*NUM_ITEMS + k];
+                    memcpy(&nsendbuf[j*NUM_ITEMS], &allGatherResult[childParent[rank][d + j]*NUM_ITEMS], sizeof(float)*NUM_ITEMS);
+					// for (int k = 0; k < NUM_ITEMS; k++)
+					// 	nsendbuf[j*NUM_ITEMS + k] = allGatherResult[childParent[rank][d + j]*NUM_ITEMS + k];
 				} else {
-					for (int k = 0; k < NUM_ITEMS; k++)
-						nsendbuf[(j - 1)*NUM_ITEMS + k] = allGatherResult[childParent[rank][d + j]*NUM_ITEMS + k];
+					// for (int k = 0; k < NUM_ITEMS; k++)
+					// 	nsendbuf[(j - 1)*NUM_ITEMS + k] = allGatherResult[childParent[rank][d + j]*NUM_ITEMS + k];
+                    memcpy(&nsendbuf[(j - 1)*NUM_ITEMS], &allGatherResult[childParent[rank][d + j]*NUM_ITEMS], sizeof(float)*NUM_ITEMS);
 				}
 			}
 			MPI_Isend(nsendbuf, NUM_ITEMS*(d - 1), MPI_FLOAT, duplicateIdx, 0, MPI_COMM_WORLD, &reqsends[tmpi]);
@@ -481,9 +483,10 @@ int main ( int argc, char *argv[] ){
 			//copy back
 			for (int i = 0; i < d; i++){
 				recvidx = childParent[rank][d + i]*NUM_ITEMS;
-				for (int j = 0; j < NUM_ITEMS; j++){
-					allGatherResult[recvidx + j] = sendbuf[i*NUM_ITEMS + j];
-				}
+                memcpy(&allGatherResult[recvidx], &sendbuf[i*NUM_ITEMS], sizeof(float)*NUM_ITEMS);
+				// for (int j = 0; j < NUM_ITEMS; j++){
+				// 	allGatherResult[recvidx + j] = sendbuf[i*NUM_ITEMS + j];
+				// }
 			}
 			
 			int *whichData = new int[d];
@@ -515,9 +518,10 @@ int main ( int argc, char *argv[] ){
 				}
 				if(childParent[rank][d + i] != duplicateIdx){
 					for (int j = 0; j < d; j++){
-						for (int k = 0; k < NUM_ITEMS; k++){
-							allGatherResult[whichData[j]*NUM_ITEMS + k] = recvbuf[i][j*NUM_ITEMS + k];
-						}
+						// for (int k = 0; k < NUM_ITEMS; k++){
+						// 	allGatherResult[whichData[j]*NUM_ITEMS + k] = recvbuf[i][j*NUM_ITEMS + k];
+						// }
+                        memcpy(&allGatherResult[whichData[j]*NUM_ITEMS], &recvbuf[i][j*NUM_ITEMS], sizeof(float)*NUM_ITEMS);
 					}
 				} else {
 					detectduplicate = false;
@@ -528,15 +532,15 @@ int main ( int argc, char *argv[] ){
 						}
 						
 						if (!detectduplicate){//Normal copy							
-							for (int k = 0; k < NUM_ITEMS; k++){
-								allGatherResult[whichData[j]*NUM_ITEMS + k] = recvbuf[i][(j)*NUM_ITEMS + k];
-								
-							}
+							// for (int k = 0; k < NUM_ITEMS; k++){
+							// 	allGatherResult[whichData[j]*NUM_ITEMS + k] = recvbuf[i][(j)*NUM_ITEMS + k];
+							// }
+                            memcpy(&allGatherResult[whichData[j]*NUM_ITEMS], &recvbuf[i][(j)*NUM_ITEMS], sizeof(float)*NUM_ITEMS);
 						} else { // copy data with adjust index
-							for (int k = 0; k < NUM_ITEMS; k++){
-								allGatherResult[whichData[j]*NUM_ITEMS + k] = recvbuf[i][(j - 1)*NUM_ITEMS + k];
-								
-							}
+							// for (int k = 0; k < NUM_ITEMS; k++){
+							// 	allGatherResult[whichData[j]*NUM_ITEMS + k] = recvbuf[i][(j - 1)*NUM_ITEMS + k];
+							// }
+                            memcpy(&allGatherResult[whichData[j]*NUM_ITEMS], &recvbuf[i][(j - 1)*NUM_ITEMS], sizeof(float)*NUM_ITEMS );
 						}
 					}
 					
