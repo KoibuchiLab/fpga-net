@@ -11,10 +11,6 @@ cd multiport-2lvfc
 make allgather
 cd ..
 
-cd multitree-kautz
-make
-cd ..
-
 sscanf() {
   local str="$1"
   local format="$2"
@@ -23,7 +19,7 @@ sscanf() {
 
 for numitem in 256 512 262144 524288 2621440 5242880
 do
-    for topo in 3x3 3x4 4x4 4x5 4x6 5x5 5x6 5x7 6x6 6x7 6x8 7x7
+    for topo in 2x2 3x2 3x3 3x4 4x4 4x5 4x6 5x5 5x6 5x7 6x6 6x7 6x8 7x7
     do
         sscanf $topo "(.*)x(.*)"
         nproc=$((${BASH_REMATCH[1]}*${BASH_REMATCH[2]}))
