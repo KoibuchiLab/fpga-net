@@ -2,12 +2,15 @@ import numpy as np
 import sys
 import os
 
-if len(sys.argv) == 3: 
+DEFAULT_BANDWIDTH = "12.5GBps"
+if len(sys.argv) == 4: 
 	NUM_OF_GROUPS=int(sys.argv[1])
 	NUM_OF_NODES_IN_GROUP=int(sys.argv[2])
+	DEFAULT_BANDWIDTH=sys.argv[3]
 else:
 	NUM_OF_GROUPS=3
 	NUM_OF_NODES_IN_GROUP=3
+	DEFAULT_BANDWIDTH = "12.5GBps"
 
 NUM_OF_NODES=NUM_OF_GROUPS * NUM_OF_NODES_IN_GROUP
 NUM_OF_LINKS=int(NUM_OF_GROUPS * NUM_OF_NODES_IN_GROUP*(NUM_OF_NODES_IN_GROUP - 1)/2 + NUM_OF_GROUPS*(NUM_OF_GROUPS - 1))
@@ -16,9 +19,8 @@ path = "../platforms/2lvfc/"
 OUTPUT_FILENAME = "%s%dx%d.xml" % (path, NUM_OF_GROUPS, NUM_OF_NODES_IN_GROUP)
 
 if not os.path.exists(path):
-    os.makedirs(path)
+	os.makedirs(path)
 
-DEFAULT_BANDWIDTH = "12.5GBps"
 DEFAULT_LATENCY = "1us"
 DEFAULT_SPEED = "100Gf"
 def host(hostname, speed = DEFAULT_SPEED):
@@ -94,8 +96,8 @@ for i in range(len(hostIDlist)):
 			linklist.append(link(linkID))
 			
 			routelist.append(route_directlink(src, dst, linkID))
-		else: #disjoint link
-			routelist.append(route_disjoint(src, dst))
+		# else: #disjoint link
+		# 	routelist.append(route_disjoint(src, dst))
 
 
 f = open(OUTPUT_FILENAME, "w")
@@ -105,7 +107,7 @@ header = 	["<?xml version='1.0'?>\n",
 			]
 
 f.writelines(header)
-f.write("\t<zone  id=\"AS0\"  routing=\"Full\">\n")
+f.write("\t<zone  id=\"AS0\"  routing=\"Floyd\">\n")
 f.writelines(hostlist)
 f.writelines("\n")
 f.writelines(linklist)
@@ -115,10 +117,10 @@ f.write("\t</zone>\n")
 f.write("</platform>")
 
 f.close()
-path = "hostfiles/2lvfc/"
+path = "../hostfiles/2lvfc/"
 OUTPUT_FILENAME_H = "%s%dx%d.txt" % (path, NUM_OF_GROUPS, NUM_OF_NODES_IN_GROUP)
 if not os.path.exists(path):
-    os.makedirs(path)
+	os.makedirs(path)
 
 
 f = open(OUTPUT_FILENAME_H, "w")
