@@ -1,0 +1,44 @@
+mpic++ -o allgather allgather.cpp helper.cpp 
+../../simgrid-3.28/install/bin/smpicxx -o allgathersmpi allgather.cpp helper.cpp 
+conges
+k8,0.0009146,262144
+k8,0.0017973,524288
+k8,0.0035629,1048576
+k8,0.0070943,2097152
+k8,0.0141569,4194304
+k8,0.0282822,8388608
+k8,0.0565328,16777216
+./allgathersmpi --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz8-2.xml
+Execution failed with code 134.
+./allgathersmpi --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz8-2.xml
+Execution failed with code 139.
+./allgathersmpi --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz8-2.xml
+Execution failed with code 139.
+cmb
+k8,0.0014006,262144
+k8,0.0027448,524288
+k8,0.0055048,1048576
+k8,0.0109695,2097152
+k8,0.0219199,4194304
+k8,0.0459942,8388608
+k8,0.0874657,16777216
+./allgathersmpi --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz8-2.xml
+Execution failed with code 134.
+./allgathersmpi --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz8-2.xml
+Execution failed with code 139.
+./allgathersmpi --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz8-2.xml
+Execution failed with code 139.
+mttree
+k8,0.0009967,262144
+k8,0.0018793,524288
+k8,0.0036448,1048576
+k8,0.0071762,2097152
+k8,0.0142390,4194304
+k8,0.0283641,8388608
+k8,0.0566147,16777216
+./allgathersmpi --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz8-2.xml
+Execution failed with code 134.
+./allgathersmpi --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz8-2.xml
+Execution failed with code 139.
+./allgathersmpi --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz8-2.xml
+Execution failed with code 139.
