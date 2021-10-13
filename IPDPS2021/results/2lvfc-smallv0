@@ -1,0 +1,80 @@
+mpicc allgather.c -o allgather
+../../simgrid-3.28/install/bin/smpicc allgather.c  -o allgathersmpi
+../../simgrid-3.28/install/bin/smpicc allgather-behavior.c  -o allgathersmpi-b
+4x5
+4x5,0.0000211,256
+4x5
+4x5,0.0000245,512
+4x5
+4x5,0.0000397,1024
+4x5
+4x5,0.0000602,2048
+4x5
+4x5,0.0001073,4096
+4x5
+4x5,0.0001734,8192
+4x5
+4x5,0.0003057,16384
+8x9
+8x9,0.0000258,256
+8x9
+8x9,0.0000416,512
+8x9
+8x9,0.0000630,1024
+8x9
+8x9,0.0001081,2048
+8x9
+8x9,0.0001812,4096
+8x9
+8x9,0.0003310,8192
+8x9
+8x9,0.0006161,16384
+16x17
+16x17,0.0000438,256
+16x17
+16x17,0.0000689,512
+16x17
+16x17,0.0001205,1024
+16x17
+16x17,0.0002058,2048
+16x17
+16x17,0.0003702,4096
+16x17
+16x17,0.0007190,8192
+16x17
+16x17,0.0014128,16384
+32x33
+32x33,0.0000910,256
+32x33
+32x33,0.0001529,512
+32x33
+32x33,0.0002692,1024
+32x33
+32x33,0.0005041,2048
+32x33
+32x33,0.0009879,4096
+32x33
+32x33,0.0019067,8192
+32x33
+32x33,0.0037820,16384
+64x65
+./multiport-2lvfc/allgathersmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ./platforms/2lvfc/64x65.xml
+Execution failed with code 134.
+64x65
+./multiport-2lvfc/allgathersmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ./platforms/2lvfc/64x65.xml
+Execution failed with code 134.
+64x65
+./multiport-2lvfc/allgathersmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ./platforms/2lvfc/64x65.xml
+Execution failed with code 134.
+64x65
+./multiport-2lvfc/allgathersmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ./platforms/2lvfc/64x65.xml
+Execution failed with code 134.
+64x65
+./multiport-2lvfc/allgathersmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ./platforms/2lvfc/64x65.xml
+Execution failed with code 134.
+64x65
+./multiport-2lvfc/allgathersmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ./platforms/2lvfc/64x65.xml
+Execution failed with code 134.
+64x65
+./multiport-2lvfc/allgathersmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ./platforms/2lvfc/64x65.xml
+Execution failed with code 134.
