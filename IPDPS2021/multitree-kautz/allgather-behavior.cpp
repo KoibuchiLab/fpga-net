@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-10-13 10:59:15
+ * @ Modified time: 2021-10-13 12:06:09
  * @ Description:
  */
 #include <iostream>
@@ -28,7 +28,6 @@
 
 using namespace std;
 #define RAND_SEED 721311
-
 
 int main ( int argc, char *argv[] ){
 	int rank;
@@ -166,7 +165,6 @@ int main ( int argc, char *argv[] ){
 					scheduleTable.push_back(tmp); 
 				}
 			}
-			
 		}
 	}
 
@@ -202,6 +200,7 @@ int main ( int argc, char *argv[] ){
 	if (rank == 0) {
 		start_time = MPI_Wtime();
 	}
+	double tstep0, tstep1comm, tstep1copy;
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////	  ALLGATHER : START	     ////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////
@@ -383,8 +382,10 @@ int main ( int argc, char *argv[] ){
 			break; //optional
 		} case COMBINE:{
 			// Step o send data of this node to all child nodes
+			
 #if defined(TIME_FOR_EACH_STEP_C)
 	// MPI_Barrier(MPI_COMM_WORLD);
+	
 	if (rank == 0){
 		dblasttimer = MPI_Wtime();
 	}
@@ -413,7 +414,9 @@ int main ( int argc, char *argv[] ){
 #if defined(TIME_FOR_EACH_STEP_C)
 	// MPI_Barrier(MPI_COMM_WORLD);
 	if (rank == 0){
-		fprintf(stdout, "%.7lf\tTime for step 0\n", MPI_Wtime() - dblasttimer);
+		//fprintf(stdout, "%.7lf\tTime for step 0\n", MPI_Wtime() - dblasttimer);
+		tstep0 = MPI_Wtime() - dblasttimer;
+		dblasttimer = MPI_Wtime();
 	}
 #endif
 			
@@ -496,7 +499,9 @@ int main ( int argc, char *argv[] ){
 #if defined(TIME_FOR_EACH_STEP_C)
 	// MPI_Barrier(MPI_COMM_WORLD);
 	if (rank == 0){
-		fprintf(stdout, "%.7lf\tSend receive done\n", MPI_Wtime() - dblasttimer);
+		tstep1comm = MPI_Wtime() - dblasttimer;
+		//fprintf(stdout, "%.7lf\tSend receive done\n", MPI_Wtime() - dblasttimer);
+		
 		dblasttimer = MPI_Wtime();
 	}
 #endif
@@ -542,7 +547,8 @@ int main ( int argc, char *argv[] ){
 #if defined(TIME_FOR_EACH_STEP_C)
 	// MPI_Barrier(MPI_COMM_WORLD);
 	if (rank == 0){
-		fprintf(stdout, "%.7lf\tCopy to final result\n", MPI_Wtime() - dblasttimer);
+		//fprintf(stdout, "%.7lf\tCopy to final result\n", MPI_Wtime() - dblasttimer);
+		tstep1copy = MPI_Wtime() - dblasttimer;
 		dblasttimer = MPI_Wtime();
 	}
 #endif
@@ -577,7 +583,7 @@ int main ( int argc, char *argv[] ){
 	
 	double kimrdtime = MPI_Wtime() - start_time;
 	if ((0 == rank)) {
-		fprintf(stdout, "k%d,%.7lf,%d\n", d, kimrdtime, NUM_ITEMS);
+		fprintf(stdout, "k%d,%.7lf,%d,%.7lf,%.7lf,%.7lf\n", d, kimrdtime, NUM_ITEMS, tstep0, tstep1comm, tstep1copy);
 	}
 #if defined(COMPARE_BUILDIN)
 	start_time = MPI_Wtime();

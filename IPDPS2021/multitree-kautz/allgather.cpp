@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-10-13 09:56:30
+ * @ Modified time: 2021-10-13 11:39:33
  * @ Description:
  */
 #include <iostream>
@@ -413,6 +413,7 @@ int main ( int argc, char *argv[] ){
 	// MPI_Barrier(MPI_COMM_WORLD);
 	if (rank == 0){
 		fprintf(stdout, "%.7lf\tTime for step 0\n", MPI_Wtime() - dblasttimer);
+		dblasttimer = MPI_Wtime();
 	}
 #endif
 			
