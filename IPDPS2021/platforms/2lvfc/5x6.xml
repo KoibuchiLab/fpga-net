@@ -1,7 +1,7 @@
 <?xml version='1.0'?>
 <!DOCTYPE platform SYSTEM 'http://simgrid.gforge.inria.fr/simgrid/simgrid.dtd'>
 <platform version="4.1">
-	<zone  id="AS0"  routing="Full">
+	<zone  id="AS0"  routing="Floyd">
 		<host id="0_0" speed="100Gf"/>
 		<host id="0_1" speed="100Gf"/>
 		<host id="0_2" speed="100Gf"/>
@@ -187,94 +187,14 @@
 		<route src="0_0" dst="1_0">
 			<link_ctn id="0_0_to_1_0"/>
 		</route>
-		<route src="0_0" dst="1_1">
- 			<link_ctn id="0_0_to_1_0"/>
-			<link_ctn id="1_0_to_1_1"/>
-		</route>
-		<route src="0_0" dst="1_2">
- 			<link_ctn id="0_0_to_1_0"/>
-			<link_ctn id="1_0_to_1_2"/>
-		</route>
-		<route src="0_0" dst="1_3">
- 			<link_ctn id="0_0_to_1_0"/>
-			<link_ctn id="1_0_to_1_3"/>
-		</route>
-		<route src="0_0" dst="1_4">
- 			<link_ctn id="0_0_to_1_0"/>
-			<link_ctn id="1_0_to_1_4"/>
-		</route>
-		<route src="0_0" dst="1_5">
- 			<link_ctn id="0_0_to_1_0"/>
-			<link_ctn id="1_0_to_1_5"/>
-		</route>
 		<route src="0_0" dst="2_0">
 			<link_ctn id="0_0_to_2_0"/>
-		</route>
-		<route src="0_0" dst="2_1">
- 			<link_ctn id="0_0_to_2_0"/>
-			<link_ctn id="2_0_to_2_1"/>
-		</route>
-		<route src="0_0" dst="2_2">
- 			<link_ctn id="0_0_to_2_0"/>
-			<link_ctn id="2_0_to_2_2"/>
-		</route>
-		<route src="0_0" dst="2_3">
- 			<link_ctn id="0_0_to_2_0"/>
-			<link_ctn id="2_0_to_2_3"/>
-		</route>
-		<route src="0_0" dst="2_4">
- 			<link_ctn id="0_0_to_2_0"/>
-			<link_ctn id="2_0_to_2_4"/>
-		</route>
-		<route src="0_0" dst="2_5">
- 			<link_ctn id="0_0_to_2_0"/>
-			<link_ctn id="2_0_to_2_5"/>
 		</route>
 		<route src="0_0" dst="3_0">
 			<link_ctn id="0_0_to_3_0"/>
 		</route>
-		<route src="0_0" dst="3_1">
- 			<link_ctn id="0_0_to_3_0"/>
-			<link_ctn id="3_0_to_3_1"/>
-		</route>
-		<route src="0_0" dst="3_2">
- 			<link_ctn id="0_0_to_3_0"/>
-			<link_ctn id="3_0_to_3_2"/>
-		</route>
-		<route src="0_0" dst="3_3">
- 			<link_ctn id="0_0_to_3_0"/>
-			<link_ctn id="3_0_to_3_3"/>
-		</route>
-		<route src="0_0" dst="3_4">
- 			<link_ctn id="0_0_to_3_0"/>
-			<link_ctn id="3_0_to_3_4"/>
-		</route>
-		<route src="0_0" dst="3_5">
- 			<link_ctn id="0_0_to_3_0"/>
-			<link_ctn id="3_0_to_3_5"/>
-		</route>
 		<route src="0_0" dst="4_0">
 			<link_ctn id="0_0_to_4_0"/>
-		</route>
-		<route src="0_0" dst="4_1">
- 			<link_ctn id="0_0_to_4_0"/>
-			<link_ctn id="4_0_to_4_1"/>
-		</route>
-		<route src="0_0" dst="4_2">
- 			<link_ctn id="0_0_to_4_0"/>
-			<link_ctn id="4_0_to_4_2"/>
-		</route>
-		<route src="0_0" dst="4_3">
- 			<link_ctn id="0_0_to_4_0"/>
-			<link_ctn id="4_0_to_4_3"/>
-		</route>
-		<route src="0_0" dst="4_4">
- 			<link_ctn id="0_0_to_4_0"/>
-			<link_ctn id="4_0_to_4_4"/>
-		</route>
-		<route src="0_0" dst="4_5">
- 			<link_ctn id="0_0_to_4_0"/>
-			<link_ctn id="4_0_to_4_5"/>
 		</route>
 		<route src="0_1" dst="0_2">
 			<link_ctn id="0_1_to_0_2"/>
@@ -288,97 +208,17 @@
 		<route src="0_1" dst="0_5">
 			<link_ctn id="0_1_to_0_5"/>
 		</route>
-		<route src="0_1" dst="1_0">
- 			<link_ctn id="0_1_to_1_1"/>
-			<link_ctn id="1_0_to_1_1"/>
-		</route>
 		<route src="0_1" dst="1_1">
 			<link_ctn id="0_1_to_1_1"/>
-		</route>
-		<route src="0_1" dst="1_2">
- 			<link_ctn id="0_1_to_1_1"/>
-			<link_ctn id="1_1_to_1_2"/>
-		</route>
-		<route src="0_1" dst="1_3">
- 			<link_ctn id="0_1_to_1_1"/>
-			<link_ctn id="1_1_to_1_3"/>
-		</route>
-		<route src="0_1" dst="1_4">
- 			<link_ctn id="0_1_to_1_1"/>
-			<link_ctn id="1_1_to_1_4"/>
-		</route>
-		<route src="0_1" dst="1_5">
- 			<link_ctn id="0_1_to_1_1"/>
-			<link_ctn id="1_1_to_1_5"/>
-		</route>
-		<route src="0_1" dst="2_0">
- 			<link_ctn id="0_1_to_2_1"/>
-			<link_ctn id="2_0_to_2_1"/>
 		</route>
 		<route src="0_1" dst="2_1">
 			<link_ctn id="0_1_to_2_1"/>
 		</route>
-		<route src="0_1" dst="2_2">
- 			<link_ctn id="0_1_to_2_1"/>
-			<link_ctn id="2_1_to_2_2"/>
-		</route>
-		<route src="0_1" dst="2_3">
- 			<link_ctn id="0_1_to_2_1"/>
-			<link_ctn id="2_1_to_2_3"/>
-		</route>
-		<route src="0_1" dst="2_4">
- 			<link_ctn id="0_1_to_2_1"/>
-			<link_ctn id="2_1_to_2_4"/>
-		</route>
-		<route src="0_1" dst="2_5">
- 			<link_ctn id="0_1_to_2_1"/>
-			<link_ctn id="2_1_to_2_5"/>
-		</route>
-		<route src="0_1" dst="3_0">
- 			<link_ctn id="0_1_to_3_1"/>
-			<link_ctn id="3_0_to_3_1"/>
-		</route>
 		<route src="0_1" dst="3_1">
 			<link_ctn id="0_1_to_3_1"/>
 		</route>
-		<route src="0_1" dst="3_2">
- 			<link_ctn id="0_1_to_3_1"/>
-			<link_ctn id="3_1_to_3_2"/>
-		</route>
-		<route src="0_1" dst="3_3">
- 			<link_ctn id="0_1_to_3_1"/>
-			<link_ctn id="3_1_to_3_3"/>
-		</route>
-		<route src="0_1" dst="3_4">
- 			<link_ctn id="0_1_to_3_1"/>
-			<link_ctn id="3_1_to_3_4"/>
-		</route>
-		<route src="0_1" dst="3_5">
- 			<link_ctn id="0_1_to_3_1"/>
-			<link_ctn id="3_1_to_3_5"/>
-		</route>
-		<route src="0_1" dst="4_0">
- 			<link_ctn id="0_1_to_4_1"/>
-			<link_ctn id="4_0_to_4_1"/>
-		</route>
 		<route src="0_1" dst="4_1">
 			<link_ctn id="0_1_to_4_1"/>
-		</route>
-		<route src="0_1" dst="4_2">
- 			<link_ctn id="0_1_to_4_1"/>
-			<link_ctn id="4_1_to_4_2"/>
-		</route>
-		<route src="0_1" dst="4_3">
- 			<link_ctn id="0_1_to_4_1"/>
-			<link_ctn id="4_1_to_4_3"/>
-		</route>
-		<route src="0_1" dst="4_4">
- 			<link_ctn id="0_1_to_4_1"/>
-			<link_ctn id="4_1_to_4_4"/>
-		</route>
-		<route src="0_1" dst="4_5">
- 			<link_ctn id="0_1_to_4_1"/>
-			<link_ctn id="4_1_to_4_5"/>
 		</route>
 		<route src="0_2" dst="0_3">
 			<link_ctn id="0_2_to_0_3"/>
@@ -389,97 +229,17 @@
 		<route src="0_2" dst="0_5">
 			<link_ctn id="0_2_to_0_5"/>
 		</route>
-		<route src="0_2" dst="1_0">
- 			<link_ctn id="0_2_to_1_2"/>
-			<link_ctn id="1_0_to_1_2"/>
-		</route>
-		<route src="0_2" dst="1_1">
- 			<link_ctn id="0_2_to_1_2"/>
-			<link_ctn id="1_1_to_1_2"/>
-		</route>
 		<route src="0_2" dst="1_2">
 			<link_ctn id="0_2_to_1_2"/>
-		</route>
-		<route src="0_2" dst="1_3">
- 			<link_ctn id="0_2_to_1_2"/>
-			<link_ctn id="1_2_to_1_3"/>
-		</route>
-		<route src="0_2" dst="1_4">
- 			<link_ctn id="0_2_to_1_2"/>
-			<link_ctn id="1_2_to_1_4"/>
-		</route>
-		<route src="0_2" dst="1_5">
- 			<link_ctn id="0_2_to_1_2"/>
-			<link_ctn id="1_2_to_1_5"/>
-		</route>
-		<route src="0_2" dst="2_0">
- 			<link_ctn id="0_2_to_2_2"/>
-			<link_ctn id="2_0_to_2_2"/>
-		</route>
-		<route src="0_2" dst="2_1">
- 			<link_ctn id="0_2_to_2_2"/>
-			<link_ctn id="2_1_to_2_2"/>
 		</route>
 		<route src="0_2" dst="2_2">
 			<link_ctn id="0_2_to_2_2"/>
 		</route>
-		<route src="0_2" dst="2_3">
- 			<link_ctn id="0_2_to_2_2"/>
-			<link_ctn id="2_2_to_2_3"/>
-		</route>
-		<route src="0_2" dst="2_4">
- 			<link_ctn id="0_2_to_2_2"/>
-			<link_ctn id="2_2_to_2_4"/>
-		</route>
-		<route src="0_2" dst="2_5">
- 			<link_ctn id="0_2_to_2_2"/>
-			<link_ctn id="2_2_to_2_5"/>
-		</route>
-		<route src="0_2" dst="3_0">
- 			<link_ctn id="0_2_to_3_2"/>
-			<link_ctn id="3_0_to_3_2"/>
-		</route>
-		<route src="0_2" dst="3_1">
- 			<link_ctn id="0_2_to_3_2"/>
-			<link_ctn id="3_1_to_3_2"/>
-		</route>
 		<route src="0_2" dst="3_2">
 			<link_ctn id="0_2_to_3_2"/>
 		</route>
-		<route src="0_2" dst="3_3">
- 			<link_ctn id="0_2_to_3_2"/>
-			<link_ctn id="3_2_to_3_3"/>
-		</route>
-		<route src="0_2" dst="3_4">
- 			<link_ctn id="0_2_to_3_2"/>
-			<link_ctn id="3_2_to_3_4"/>
-		</route>
-		<route src="0_2" dst="3_5">
- 			<link_ctn id="0_2_to_3_2"/>
-			<link_ctn id="3_2_to_3_5"/>
-		</route>
-		<route src="0_2" dst="4_0">
- 			<link_ctn id="0_2_to_4_2"/>
-			<link_ctn id="4_0_to_4_2"/>
-		</route>
-		<route src="0_2" dst="4_1">
- 			<link_ctn id="0_2_to_4_2"/>
-			<link_ctn id="4_1_to_4_2"/>
-		</route>
 		<route src="0_2" dst="4_2">
 			<link_ctn id="0_2_to_4_2"/>
-		</route>
-		<route src="0_2" dst="4_3">
- 			<link_ctn id="0_2_to_4_2"/>
-			<link_ctn id="4_2_to_4_3"/>
-		</route>
-		<route src="0_2" dst="4_4">
- 			<link_ctn id="0_2_to_4_2"/>
-			<link_ctn id="4_2_to_4_4"/>
-		</route>
-		<route src="0_2" dst="4_5">
- 			<link_ctn id="0_2_to_4_2"/>
-			<link_ctn id="4_2_to_4_5"/>
 		</route>
 		<route src="0_3" dst="0_4">
 			<link_ctn id="0_3_to_0_4"/>
@@ -487,281 +247,41 @@
 		<route src="0_3" dst="0_5">
 			<link_ctn id="0_3_to_0_5"/>
 		</route>
-		<route src="0_3" dst="1_0">
- 			<link_ctn id="0_3_to_1_3"/>
-			<link_ctn id="1_0_to_1_3"/>
-		</route>
-		<route src="0_3" dst="1_1">
- 			<link_ctn id="0_3_to_1_3"/>
-			<link_ctn id="1_1_to_1_3"/>
-		</route>
-		<route src="0_3" dst="1_2">
- 			<link_ctn id="0_3_to_1_3"/>
-			<link_ctn id="1_2_to_1_3"/>
-		</route>
 		<route src="0_3" dst="1_3">
 			<link_ctn id="0_3_to_1_3"/>
-		</route>
-		<route src="0_3" dst="1_4">
- 			<link_ctn id="0_3_to_1_3"/>
-			<link_ctn id="1_3_to_1_4"/>
-		</route>
-		<route src="0_3" dst="1_5">
- 			<link_ctn id="0_3_to_1_3"/>
-			<link_ctn id="1_3_to_1_5"/>
-		</route>
-		<route src="0_3" dst="2_0">
- 			<link_ctn id="0_3_to_2_3"/>
-			<link_ctn id="2_0_to_2_3"/>
-		</route>
-		<route src="0_3" dst="2_1">
- 			<link_ctn id="0_3_to_2_3"/>
-			<link_ctn id="2_1_to_2_3"/>
-		</route>
-		<route src="0_3" dst="2_2">
- 			<link_ctn id="0_3_to_2_3"/>
-			<link_ctn id="2_2_to_2_3"/>
 		</route>
 		<route src="0_3" dst="2_3">
 			<link_ctn id="0_3_to_2_3"/>
 		</route>
-		<route src="0_3" dst="2_4">
- 			<link_ctn id="0_3_to_2_3"/>
-			<link_ctn id="2_3_to_2_4"/>
-		</route>
-		<route src="0_3" dst="2_5">
- 			<link_ctn id="0_3_to_2_3"/>
-			<link_ctn id="2_3_to_2_5"/>
-		</route>
-		<route src="0_3" dst="3_0">
- 			<link_ctn id="0_3_to_3_3"/>
-			<link_ctn id="3_0_to_3_3"/>
-		</route>
-		<route src="0_3" dst="3_1">
- 			<link_ctn id="0_3_to_3_3"/>
-			<link_ctn id="3_1_to_3_3"/>
-		</route>
-		<route src="0_3" dst="3_2">
- 			<link_ctn id="0_3_to_3_3"/>
-			<link_ctn id="3_2_to_3_3"/>
-		</route>
 		<route src="0_3" dst="3_3">
 			<link_ctn id="0_3_to_3_3"/>
-		</route>
-		<route src="0_3" dst="3_4">
- 			<link_ctn id="0_3_to_3_3"/>
-			<link_ctn id="3_3_to_3_4"/>
-		</route>
-		<route src="0_3" dst="3_5">
- 			<link_ctn id="0_3_to_3_3"/>
-			<link_ctn id="3_3_to_3_5"/>
-		</route>
-		<route src="0_3" dst="4_0">
- 			<link_ctn id="0_3_to_4_3"/>
-			<link_ctn id="4_0_to_4_3"/>
-		</route>
-		<route src="0_3" dst="4_1">
- 			<link_ctn id="0_3_to_4_3"/>
-			<link_ctn id="4_1_to_4_3"/>
-		</route>
-		<route src="0_3" dst="4_2">
- 			<link_ctn id="0_3_to_4_3"/>
-			<link_ctn id="4_2_to_4_3"/>
 		</route>
 		<route src="0_3" dst="4_3">
 			<link_ctn id="0_3_to_4_3"/>
 		</route>
-		<route src="0_3" dst="4_4">
- 			<link_ctn id="0_3_to_4_3"/>
-			<link_ctn id="4_3_to_4_4"/>
-		</route>
-		<route src="0_3" dst="4_5">
- 			<link_ctn id="0_3_to_4_3"/>
-			<link_ctn id="4_3_to_4_5"/>
-		</route>
 		<route src="0_4" dst="0_5">
 			<link_ctn id="0_4_to_0_5"/>
-		</route>
-		<route src="0_4" dst="1_0">
- 			<link_ctn id="0_4_to_1_4"/>
-			<link_ctn id="1_0_to_1_4"/>
-		</route>
-		<route src="0_4" dst="1_1">
- 			<link_ctn id="0_4_to_1_4"/>
-			<link_ctn id="1_1_to_1_4"/>
-		</route>
-		<route src="0_4" dst="1_2">
- 			<link_ctn id="0_4_to_1_4"/>
-			<link_ctn id="1_2_to_1_4"/>
-		</route>
-		<route src="0_4" dst="1_3">
- 			<link_ctn id="0_4_to_1_4"/>
-			<link_ctn id="1_3_to_1_4"/>
 		</route>
 		<route src="0_4" dst="1_4">
 			<link_ctn id="0_4_to_1_4"/>
 		</route>
-		<route src="0_4" dst="1_5">
- 			<link_ctn id="0_4_to_1_4"/>
-			<link_ctn id="1_4_to_1_5"/>
-		</route>
-		<route src="0_4" dst="2_0">
- 			<link_ctn id="0_4_to_2_4"/>
-			<link_ctn id="2_0_to_2_4"/>
-		</route>
-		<route src="0_4" dst="2_1">
- 			<link_ctn id="0_4_to_2_4"/>
-			<link_ctn id="2_1_to_2_4"/>
-		</route>
-		<route src="0_4" dst="2_2">
- 			<link_ctn id="0_4_to_2_4"/>
-			<link_ctn id="2_2_to_2_4"/>
-		</route>
-		<route src="0_4" dst="2_3">
- 			<link_ctn id="0_4_to_2_4"/>
-			<link_ctn id="2_3_to_2_4"/>
-		</route>
 		<route src="0_4" dst="2_4">
 			<link_ctn id="0_4_to_2_4"/>
-		</route>
-		<route src="0_4" dst="2_5">
- 			<link_ctn id="0_4_to_2_4"/>
-			<link_ctn id="2_4_to_2_5"/>
-		</route>
-		<route src="0_4" dst="3_0">
- 			<link_ctn id="0_4_to_3_4"/>
-			<link_ctn id="3_0_to_3_4"/>
-		</route>
-		<route src="0_4" dst="3_1">
- 			<link_ctn id="0_4_to_3_4"/>
-			<link_ctn id="3_1_to_3_4"/>
-		</route>
-		<route src="0_4" dst="3_2">
- 			<link_ctn id="0_4_to_3_4"/>
-			<link_ctn id="3_2_to_3_4"/>
-		</route>
-		<route src="0_4" dst="3_3">
- 			<link_ctn id="0_4_to_3_4"/>
-			<link_ctn id="3_3_to_3_4"/>
 		</route>
 		<route src="0_4" dst="3_4">
 			<link_ctn id="0_4_to_3_4"/>
 		</route>
-		<route src="0_4" dst="3_5">
- 			<link_ctn id="0_4_to_3_4"/>
-			<link_ctn id="3_4_to_3_5"/>
-		</route>
-		<route src="0_4" dst="4_0">
- 			<link_ctn id="0_4_to_4_4"/>
-			<link_ctn id="4_0_to_4_4"/>
-		</route>
-		<route src="0_4" dst="4_1">
- 			<link_ctn id="0_4_to_4_4"/>
-			<link_ctn id="4_1_to_4_4"/>
-		</route>
-		<route src="0_4" dst="4_2">
- 			<link_ctn id="0_4_to_4_4"/>
-			<link_ctn id="4_2_to_4_4"/>
-		</route>
-		<route src="0_4" dst="4_3">
- 			<link_ctn id="0_4_to_4_4"/>
-			<link_ctn id="4_3_to_4_4"/>
-		</route>
 		<route src="0_4" dst="4_4">
 			<link_ctn id="0_4_to_4_4"/>
-		</route>
-		<route src="0_4" dst="4_5">
- 			<link_ctn id="0_4_to_4_4"/>
-			<link_ctn id="4_4_to_4_5"/>
-		</route>
-		<route src="0_5" dst="1_0">
- 			<link_ctn id="0_5_to_1_5"/>
-			<link_ctn id="1_0_to_1_5"/>
-		</route>
-		<route src="0_5" dst="1_1">
- 			<link_ctn id="0_5_to_1_5"/>
-			<link_ctn id="1_1_to_1_5"/>
-		</route>
-		<route src="0_5" dst="1_2">
- 			<link_ctn id="0_5_to_1_5"/>
-			<link_ctn id="1_2_to_1_5"/>
-		</route>
-		<route src="0_5" dst="1_3">
- 			<link_ctn id="0_5_to_1_5"/>
-			<link_ctn id="1_3_to_1_5"/>
-		</route>
-		<route src="0_5" dst="1_4">
- 			<link_ctn id="0_5_to_1_5"/>
-			<link_ctn id="1_4_to_1_5"/>
 		</route>
 		<route src="0_5" dst="1_5">
 			<link_ctn id="0_5_to_1_5"/>
 		</route>
-		<route src="0_5" dst="2_0">
- 			<link_ctn id="0_5_to_2_5"/>
-			<link_ctn id="2_0_to_2_5"/>
-		</route>
-		<route src="0_5" dst="2_1">
- 			<link_ctn id="0_5_to_2_5"/>
-			<link_ctn id="2_1_to_2_5"/>
-		</route>
-		<route src="0_5" dst="2_2">
- 			<link_ctn id="0_5_to_2_5"/>
-			<link_ctn id="2_2_to_2_5"/>
-		</route>
-		<route src="0_5" dst="2_3">
- 			<link_ctn id="0_5_to_2_5"/>
-			<link_ctn id="2_3_to_2_5"/>
-		</route>
-		<route src="0_5" dst="2_4">
- 			<link_ctn id="0_5_to_2_5"/>
-			<link_ctn id="2_4_to_2_5"/>
-		</route>
 		<route src="0_5" dst="2_5">
 			<link_ctn id="0_5_to_2_5"/>
 		</route>
-		<route src="0_5" dst="3_0">
- 			<link_ctn id="0_5_to_3_5"/>
-			<link_ctn id="3_0_to_3_5"/>
-		</route>
-		<route src="0_5" dst="3_1">
- 			<link_ctn id="0_5_to_3_5"/>
-			<link_ctn id="3_1_to_3_5"/>
-		</route>
-		<route src="0_5" dst="3_2">
- 			<link_ctn id="0_5_to_3_5"/>
-			<link_ctn id="3_2_to_3_5"/>
-		</route>
-		<route src="0_5" dst="3_3">
- 			<link_ctn id="0_5_to_3_5"/>
-			<link_ctn id="3_3_to_3_5"/>
-		</route>
-		<route src="0_5" dst="3_4">
- 			<link_ctn id="0_5_to_3_5"/>
-			<link_ctn id="3_4_to_3_5"/>
-		</route>
 		<route src="0_5" dst="3_5">
 			<link_ctn id="0_5_to_3_5"/>
-		</route>
-		<route src="0_5" dst="4_0">
- 			<link_ctn id="0_5_to_4_5"/>
-			<link_ctn id="4_0_to_4_5"/>
-		</route>
-		<route src="0_5" dst="4_1">
- 			<link_ctn id="0_5_to_4_5"/>
-			<link_ctn id="4_1_to_4_5"/>
-		</route>
-		<route src="0_5" dst="4_2">
- 			<link_ctn id="0_5_to_4_5"/>
-			<link_ctn id="4_2_to_4_5"/>
-		</route>
-		<route src="0_5" dst="4_3">
- 			<link_ctn id="0_5_to_4_5"/>
-			<link_ctn id="4_3_to_4_5"/>
-		</route>
-		<route src="0_5" dst="4_4">
- 			<link_ctn id="0_5_to_4_5"/>
-			<link_ctn id="4_4_to_4_5"/>
 		</route>
 		<route src="0_5" dst="4_5">
 			<link_ctn id="0_5_to_4_5"/>
@@ -784,71 +304,11 @@
 		<route src="1_0" dst="2_0">
 			<link_ctn id="1_0_to_2_0"/>
 		</route>
-		<route src="1_0" dst="2_1">
- 			<link_ctn id="1_0_to_2_0"/>
-			<link_ctn id="2_0_to_2_1"/>
-		</route>
-		<route src="1_0" dst="2_2">
- 			<link_ctn id="1_0_to_2_0"/>
-			<link_ctn id="2_0_to_2_2"/>
-		</route>
-		<route src="1_0" dst="2_3">
- 			<link_ctn id="1_0_to_2_0"/>
-			<link_ctn id="2_0_to_2_3"/>
-		</route>
-		<route src="1_0" dst="2_4">
- 			<link_ctn id="1_0_to_2_0"/>
-			<link_ctn id="2_0_to_2_4"/>
-		</route>
-		<route src="1_0" dst="2_5">
- 			<link_ctn id="1_0_to_2_0"/>
-			<link_ctn id="2_0_to_2_5"/>
-		</route>
 		<route src="1_0" dst="3_0">
 			<link_ctn id="1_0_to_3_0"/>
 		</route>
-		<route src="1_0" dst="3_1">
- 			<link_ctn id="1_0_to_3_0"/>
-			<link_ctn id="3_0_to_3_1"/>
-		</route>
-		<route src="1_0" dst="3_2">
- 			<link_ctn id="1_0_to_3_0"/>
-			<link_ctn id="3_0_to_3_2"/>
-		</route>
-		<route src="1_0" dst="3_3">
- 			<link_ctn id="1_0_to_3_0"/>
-			<link_ctn id="3_0_to_3_3"/>
-		</route>
-		<route src="1_0" dst="3_4">
- 			<link_ctn id="1_0_to_3_0"/>
-			<link_ctn id="3_0_to_3_4"/>
-		</route>
-		<route src="1_0" dst="3_5">
- 			<link_ctn id="1_0_to_3_0"/>
-			<link_ctn id="3_0_to_3_5"/>
-		</route>
 		<route src="1_0" dst="4_0">
 			<link_ctn id="1_0_to_4_0"/>
-		</route>
-		<route src="1_0" dst="4_1">
- 			<link_ctn id="1_0_to_4_0"/>
-			<link_ctn id="4_0_to_4_1"/>
-		</route>
-		<route src="1_0" dst="4_2">
- 			<link_ctn id="1_0_to_4_0"/>
-			<link_ctn id="4_0_to_4_2"/>
-		</route>
-		<route src="1_0" dst="4_3">
- 			<link_ctn id="1_0_to_4_0"/>
-			<link_ctn id="4_0_to_4_3"/>
-		</route>
-		<route src="1_0" dst="4_4">
- 			<link_ctn id="1_0_to_4_0"/>
-			<link_ctn id="4_0_to_4_4"/>
-		</route>
-		<route src="1_0" dst="4_5">
- 			<link_ctn id="1_0_to_4_0"/>
-			<link_ctn id="4_0_to_4_5"/>
 		</route>
 		<route src="1_1" dst="1_2">
 			<link_ctn id="1_1_to_1_2"/>
@@ -862,74 +322,14 @@
 		<route src="1_1" dst="1_5">
 			<link_ctn id="1_1_to_1_5"/>
 		</route>
-		<route src="1_1" dst="2_0">
- 			<link_ctn id="1_1_to_2_1"/>
-			<link_ctn id="2_0_to_2_1"/>
-		</route>
 		<route src="1_1" dst="2_1">
 			<link_ctn id="1_1_to_2_1"/>
-		</route>
-		<route src="1_1" dst="2_2">
- 			<link_ctn id="1_1_to_2_1"/>
-			<link_ctn id="2_1_to_2_2"/>
-		</route>
-		<route src="1_1" dst="2_3">
- 			<link_ctn id="1_1_to_2_1"/>
-			<link_ctn id="2_1_to_2_3"/>
-		</route>
-		<route src="1_1" dst="2_4">
- 			<link_ctn id="1_1_to_2_1"/>
-			<link_ctn id="2_1_to_2_4"/>
-		</route>
-		<route src="1_1" dst="2_5">
- 			<link_ctn id="1_1_to_2_1"/>
-			<link_ctn id="2_1_to_2_5"/>
-		</route>
-		<route src="1_1" dst="3_0">
- 			<link_ctn id="1_1_to_3_1"/>
-			<link_ctn id="3_0_to_3_1"/>
 		</route>
 		<route src="1_1" dst="3_1">
 			<link_ctn id="1_1_to_3_1"/>
 		</route>
-		<route src="1_1" dst="3_2">
- 			<link_ctn id="1_1_to_3_1"/>
-			<link_ctn id="3_1_to_3_2"/>
-		</route>
-		<route src="1_1" dst="3_3">
- 			<link_ctn id="1_1_to_3_1"/>
-			<link_ctn id="3_1_to_3_3"/>
-		</route>
-		<route src="1_1" dst="3_4">
- 			<link_ctn id="1_1_to_3_1"/>
-			<link_ctn id="3_1_to_3_4"/>
-		</route>
-		<route src="1_1" dst="3_5">
- 			<link_ctn id="1_1_to_3_1"/>
-			<link_ctn id="3_1_to_3_5"/>
-		</route>
-		<route src="1_1" dst="4_0">
- 			<link_ctn id="1_1_to_4_1"/>
-			<link_ctn id="4_0_to_4_1"/>
-		</route>
 		<route src="1_1" dst="4_1">
 			<link_ctn id="1_1_to_4_1"/>
-		</route>
-		<route src="1_1" dst="4_2">
- 			<link_ctn id="1_1_to_4_1"/>
-			<link_ctn id="4_1_to_4_2"/>
-		</route>
-		<route src="1_1" dst="4_3">
- 			<link_ctn id="1_1_to_4_1"/>
-			<link_ctn id="4_1_to_4_3"/>
-		</route>
-		<route src="1_1" dst="4_4">
- 			<link_ctn id="1_1_to_4_1"/>
-			<link_ctn id="4_1_to_4_4"/>
-		</route>
-		<route src="1_1" dst="4_5">
- 			<link_ctn id="1_1_to_4_1"/>
-			<link_ctn id="4_1_to_4_5"/>
 		</route>
 		<route src="1_2" dst="1_3">
 			<link_ctn id="1_2_to_1_3"/>
@@ -940,74 +340,14 @@
 		<route src="1_2" dst="1_5">
 			<link_ctn id="1_2_to_1_5"/>
 		</route>
-		<route src="1_2" dst="2_0">
- 			<link_ctn id="1_2_to_2_2"/>
-			<link_ctn id="2_0_to_2_2"/>
-		</route>
-		<route src="1_2" dst="2_1">
- 			<link_ctn id="1_2_to_2_2"/>
-			<link_ctn id="2_1_to_2_2"/>
-		</route>
 		<route src="1_2" dst="2_2">
 			<link_ctn id="1_2_to_2_2"/>
-		</route>
-		<route src="1_2" dst="2_3">
- 			<link_ctn id="1_2_to_2_2"/>
-			<link_ctn id="2_2_to_2_3"/>
-		</route>
-		<route src="1_2" dst="2_4">
- 			<link_ctn id="1_2_to_2_2"/>
-			<link_ctn id="2_2_to_2_4"/>
-		</route>
-		<route src="1_2" dst="2_5">
- 			<link_ctn id="1_2_to_2_2"/>
-			<link_ctn id="2_2_to_2_5"/>
-		</route>
-		<route src="1_2" dst="3_0">
- 			<link_ctn id="1_2_to_3_2"/>
-			<link_ctn id="3_0_to_3_2"/>
-		</route>
-		<route src="1_2" dst="3_1">
- 			<link_ctn id="1_2_to_3_2"/>
-			<link_ctn id="3_1_to_3_2"/>
 		</route>
 		<route src="1_2" dst="3_2">
 			<link_ctn id="1_2_to_3_2"/>
 		</route>
-		<route src="1_2" dst="3_3">
- 			<link_ctn id="1_2_to_3_2"/>
-			<link_ctn id="3_2_to_3_3"/>
-		</route>
-		<route src="1_2" dst="3_4">
- 			<link_ctn id="1_2_to_3_2"/>
-			<link_ctn id="3_2_to_3_4"/>
-		</route>
-		<route src="1_2" dst="3_5">
- 			<link_ctn id="1_2_to_3_2"/>
-			<link_ctn id="3_2_to_3_5"/>
-		</route>
-		<route src="1_2" dst="4_0">
- 			<link_ctn id="1_2_to_4_2"/>
-			<link_ctn id="4_0_to_4_2"/>
-		</route>
-		<route src="1_2" dst="4_1">
- 			<link_ctn id="1_2_to_4_2"/>
-			<link_ctn id="4_1_to_4_2"/>
-		</route>
 		<route src="1_2" dst="4_2">
 			<link_ctn id="1_2_to_4_2"/>
-		</route>
-		<route src="1_2" dst="4_3">
- 			<link_ctn id="1_2_to_4_2"/>
-			<link_ctn id="4_2_to_4_3"/>
-		</route>
-		<route src="1_2" dst="4_4">
- 			<link_ctn id="1_2_to_4_2"/>
-			<link_ctn id="4_2_to_4_4"/>
-		</route>
-		<route src="1_2" dst="4_5">
- 			<link_ctn id="1_2_to_4_2"/>
-			<link_ctn id="4_2_to_4_5"/>
 		</route>
 		<route src="1_3" dst="1_4">
 			<link_ctn id="1_3_to_1_4"/>
@@ -1015,212 +355,32 @@
 		<route src="1_3" dst="1_5">
 			<link_ctn id="1_3_to_1_5"/>
 		</route>
-		<route src="1_3" dst="2_0">
- 			<link_ctn id="1_3_to_2_3"/>
-			<link_ctn id="2_0_to_2_3"/>
-		</route>
-		<route src="1_3" dst="2_1">
- 			<link_ctn id="1_3_to_2_3"/>
-			<link_ctn id="2_1_to_2_3"/>
-		</route>
-		<route src="1_3" dst="2_2">
- 			<link_ctn id="1_3_to_2_3"/>
-			<link_ctn id="2_2_to_2_3"/>
-		</route>
 		<route src="1_3" dst="2_3">
 			<link_ctn id="1_3_to_2_3"/>
-		</route>
-		<route src="1_3" dst="2_4">
- 			<link_ctn id="1_3_to_2_3"/>
-			<link_ctn id="2_3_to_2_4"/>
-		</route>
-		<route src="1_3" dst="2_5">
- 			<link_ctn id="1_3_to_2_3"/>
-			<link_ctn id="2_3_to_2_5"/>
-		</route>
-		<route src="1_3" dst="3_0">
- 			<link_ctn id="1_3_to_3_3"/>
-			<link_ctn id="3_0_to_3_3"/>
-		</route>
-		<route src="1_3" dst="3_1">
- 			<link_ctn id="1_3_to_3_3"/>
-			<link_ctn id="3_1_to_3_3"/>
-		</route>
-		<route src="1_3" dst="3_2">
- 			<link_ctn id="1_3_to_3_3"/>
-			<link_ctn id="3_2_to_3_3"/>
 		</route>
 		<route src="1_3" dst="3_3">
 			<link_ctn id="1_3_to_3_3"/>
 		</route>
-		<route src="1_3" dst="3_4">
- 			<link_ctn id="1_3_to_3_3"/>
-			<link_ctn id="3_3_to_3_4"/>
-		</route>
-		<route src="1_3" dst="3_5">
- 			<link_ctn id="1_3_to_3_3"/>
-			<link_ctn id="3_3_to_3_5"/>
-		</route>
-		<route src="1_3" dst="4_0">
- 			<link_ctn id="1_3_to_4_3"/>
-			<link_ctn id="4_0_to_4_3"/>
-		</route>
-		<route src="1_3" dst="4_1">
- 			<link_ctn id="1_3_to_4_3"/>
-			<link_ctn id="4_1_to_4_3"/>
-		</route>
-		<route src="1_3" dst="4_2">
- 			<link_ctn id="1_3_to_4_3"/>
-			<link_ctn id="4_2_to_4_3"/>
-		</route>
 		<route src="1_3" dst="4_3">
 			<link_ctn id="1_3_to_4_3"/>
-		</route>
-		<route src="1_3" dst="4_4">
- 			<link_ctn id="1_3_to_4_3"/>
-			<link_ctn id="4_3_to_4_4"/>
-		</route>
-		<route src="1_3" dst="4_5">
- 			<link_ctn id="1_3_to_4_3"/>
-			<link_ctn id="4_3_to_4_5"/>
 		</route>
 		<route src="1_4" dst="1_5">
 			<link_ctn id="1_4_to_1_5"/>
 		</route>
-		<route src="1_4" dst="2_0">
- 			<link_ctn id="1_4_to_2_4"/>
-			<link_ctn id="2_0_to_2_4"/>
-		</route>
-		<route src="1_4" dst="2_1">
- 			<link_ctn id="1_4_to_2_4"/>
-			<link_ctn id="2_1_to_2_4"/>
-		</route>
-		<route src="1_4" dst="2_2">
- 			<link_ctn id="1_4_to_2_4"/>
-			<link_ctn id="2_2_to_2_4"/>
-		</route>
-		<route src="1_4" dst="2_3">
- 			<link_ctn id="1_4_to_2_4"/>
-			<link_ctn id="2_3_to_2_4"/>
-		</route>
 		<route src="1_4" dst="2_4">
 			<link_ctn id="1_4_to_2_4"/>
-		</route>
-		<route src="1_4" dst="2_5">
- 			<link_ctn id="1_4_to_2_4"/>
-			<link_ctn id="2_4_to_2_5"/>
-		</route>
-		<route src="1_4" dst="3_0">
- 			<link_ctn id="1_4_to_3_4"/>
-			<link_ctn id="3_0_to_3_4"/>
-		</route>
-		<route src="1_4" dst="3_1">
- 			<link_ctn id="1_4_to_3_4"/>
-			<link_ctn id="3_1_to_3_4"/>
-		</route>
-		<route src="1_4" dst="3_2">
- 			<link_ctn id="1_4_to_3_4"/>
-			<link_ctn id="3_2_to_3_4"/>
-		</route>
-		<route src="1_4" dst="3_3">
- 			<link_ctn id="1_4_to_3_4"/>
-			<link_ctn id="3_3_to_3_4"/>
 		</route>
 		<route src="1_4" dst="3_4">
 			<link_ctn id="1_4_to_3_4"/>
 		</route>
-		<route src="1_4" dst="3_5">
- 			<link_ctn id="1_4_to_3_4"/>
-			<link_ctn id="3_4_to_3_5"/>
-		</route>
-		<route src="1_4" dst="4_0">
- 			<link_ctn id="1_4_to_4_4"/>
-			<link_ctn id="4_0_to_4_4"/>
-		</route>
-		<route src="1_4" dst="4_1">
- 			<link_ctn id="1_4_to_4_4"/>
-			<link_ctn id="4_1_to_4_4"/>
-		</route>
-		<route src="1_4" dst="4_2">
- 			<link_ctn id="1_4_to_4_4"/>
-			<link_ctn id="4_2_to_4_4"/>
-		</route>
-		<route src="1_4" dst="4_3">
- 			<link_ctn id="1_4_to_4_4"/>
-			<link_ctn id="4_3_to_4_4"/>
-		</route>
 		<route src="1_4" dst="4_4">
 			<link_ctn id="1_4_to_4_4"/>
-		</route>
-		<route src="1_4" dst="4_5">
- 			<link_ctn id="1_4_to_4_4"/>
-			<link_ctn id="4_4_to_4_5"/>
-		</route>
-		<route src="1_5" dst="2_0">
- 			<link_ctn id="1_5_to_2_5"/>
-			<link_ctn id="2_0_to_2_5"/>
-		</route>
-		<route src="1_5" dst="2_1">
- 			<link_ctn id="1_5_to_2_5"/>
-			<link_ctn id="2_1_to_2_5"/>
-		</route>
-		<route src="1_5" dst="2_2">
- 			<link_ctn id="1_5_to_2_5"/>
-			<link_ctn id="2_2_to_2_5"/>
-		</route>
-		<route src="1_5" dst="2_3">
- 			<link_ctn id="1_5_to_2_5"/>
-			<link_ctn id="2_3_to_2_5"/>
-		</route>
-		<route src="1_5" dst="2_4">
- 			<link_ctn id="1_5_to_2_5"/>
-			<link_ctn id="2_4_to_2_5"/>
 		</route>
 		<route src="1_5" dst="2_5">
 			<link_ctn id="1_5_to_2_5"/>
 		</route>
-		<route src="1_5" dst="3_0">
- 			<link_ctn id="1_5_to_3_5"/>
-			<link_ctn id="3_0_to_3_5"/>
-		</route>
-		<route src="1_5" dst="3_1">
- 			<link_ctn id="1_5_to_3_5"/>
-			<link_ctn id="3_1_to_3_5"/>
-		</route>
-		<route src="1_5" dst="3_2">
- 			<link_ctn id="1_5_to_3_5"/>
-			<link_ctn id="3_2_to_3_5"/>
-		</route>
-		<route src="1_5" dst="3_3">
- 			<link_ctn id="1_5_to_3_5"/>
-			<link_ctn id="3_3_to_3_5"/>
-		</route>
-		<route src="1_5" dst="3_4">
- 			<link_ctn id="1_5_to_3_5"/>
-			<link_ctn id="3_4_to_3_5"/>
-		</route>
 		<route src="1_5" dst="3_5">
 			<link_ctn id="1_5_to_3_5"/>
-		</route>
-		<route src="1_5" dst="4_0">
- 			<link_ctn id="1_5_to_4_5"/>
-			<link_ctn id="4_0_to_4_5"/>
-		</route>
-		<route src="1_5" dst="4_1">
- 			<link_ctn id="1_5_to_4_5"/>
-			<link_ctn id="4_1_to_4_5"/>
-		</route>
-		<route src="1_5" dst="4_2">
- 			<link_ctn id="1_5_to_4_5"/>
-			<link_ctn id="4_2_to_4_5"/>
-		</route>
-		<route src="1_5" dst="4_3">
- 			<link_ctn id="1_5_to_4_5"/>
-			<link_ctn id="4_3_to_4_5"/>
-		</route>
-		<route src="1_5" dst="4_4">
- 			<link_ctn id="1_5_to_4_5"/>
-			<link_ctn id="4_4_to_4_5"/>
 		</route>
 		<route src="1_5" dst="4_5">
 			<link_ctn id="1_5_to_4_5"/>
@@ -1243,48 +403,8 @@
 		<route src="2_0" dst="3_0">
 			<link_ctn id="2_0_to_3_0"/>
 		</route>
-		<route src="2_0" dst="3_1">
- 			<link_ctn id="2_0_to_3_0"/>
-			<link_ctn id="3_0_to_3_1"/>
-		</route>
-		<route src="2_0" dst="3_2">
- 			<link_ctn id="2_0_to_3_0"/>
-			<link_ctn id="3_0_to_3_2"/>
-		</route>
-		<route src="2_0" dst="3_3">
- 			<link_ctn id="2_0_to_3_0"/>
-			<link_ctn id="3_0_to_3_3"/>
-		</route>
-		<route src="2_0" dst="3_4">
- 			<link_ctn id="2_0_to_3_0"/>
-			<link_ctn id="3_0_to_3_4"/>
-		</route>
-		<route src="2_0" dst="3_5">
- 			<link_ctn id="2_0_to_3_0"/>
-			<link_ctn id="3_0_to_3_5"/>
-		</route>
 		<route src="2_0" dst="4_0">
 			<link_ctn id="2_0_to_4_0"/>
-		</route>
-		<route src="2_0" dst="4_1">
- 			<link_ctn id="2_0_to_4_0"/>
-			<link_ctn id="4_0_to_4_1"/>
-		</route>
-		<route src="2_0" dst="4_2">
- 			<link_ctn id="2_0_to_4_0"/>
-			<link_ctn id="4_0_to_4_2"/>
-		</route>
-		<route src="2_0" dst="4_3">
- 			<link_ctn id="2_0_to_4_0"/>
-			<link_ctn id="4_0_to_4_3"/>
-		</route>
-		<route src="2_0" dst="4_4">
- 			<link_ctn id="2_0_to_4_0"/>
-			<link_ctn id="4_0_to_4_4"/>
-		</route>
-		<route src="2_0" dst="4_5">
- 			<link_ctn id="2_0_to_4_0"/>
-			<link_ctn id="4_0_to_4_5"/>
 		</route>
 		<route src="2_1" dst="2_2">
 			<link_ctn id="2_1_to_2_2"/>
@@ -1298,51 +418,11 @@
 		<route src="2_1" dst="2_5">
 			<link_ctn id="2_1_to_2_5"/>
 		</route>
-		<route src="2_1" dst="3_0">
- 			<link_ctn id="2_1_to_3_1"/>
-			<link_ctn id="3_0_to_3_1"/>
-		</route>
 		<route src="2_1" dst="3_1">
 			<link_ctn id="2_1_to_3_1"/>
 		</route>
-		<route src="2_1" dst="3_2">
- 			<link_ctn id="2_1_to_3_1"/>
-			<link_ctn id="3_1_to_3_2"/>
-		</route>
-		<route src="2_1" dst="3_3">
- 			<link_ctn id="2_1_to_3_1"/>
-			<link_ctn id="3_1_to_3_3"/>
-		</route>
-		<route src="2_1" dst="3_4">
- 			<link_ctn id="2_1_to_3_1"/>
-			<link_ctn id="3_1_to_3_4"/>
-		</route>
-		<route src="2_1" dst="3_5">
- 			<link_ctn id="2_1_to_3_1"/>
-			<link_ctn id="3_1_to_3_5"/>
-		</route>
-		<route src="2_1" dst="4_0">
- 			<link_ctn id="2_1_to_4_1"/>
-			<link_ctn id="4_0_to_4_1"/>
-		</route>
 		<route src="2_1" dst="4_1">
 			<link_ctn id="2_1_to_4_1"/>
-		</route>
-		<route src="2_1" dst="4_2">
- 			<link_ctn id="2_1_to_4_1"/>
-			<link_ctn id="4_1_to_4_2"/>
-		</route>
-		<route src="2_1" dst="4_3">
- 			<link_ctn id="2_1_to_4_1"/>
-			<link_ctn id="4_1_to_4_3"/>
-		</route>
-		<route src="2_1" dst="4_4">
- 			<link_ctn id="2_1_to_4_1"/>
-			<link_ctn id="4_1_to_4_4"/>
-		</route>
-		<route src="2_1" dst="4_5">
- 			<link_ctn id="2_1_to_4_1"/>
-			<link_ctn id="4_1_to_4_5"/>
 		</route>
 		<route src="2_2" dst="2_3">
 			<link_ctn id="2_2_to_2_3"/>
@@ -1353,51 +433,11 @@
 		<route src="2_2" dst="2_5">
 			<link_ctn id="2_2_to_2_5"/>
 		</route>
-		<route src="2_2" dst="3_0">
- 			<link_ctn id="2_2_to_3_2"/>
-			<link_ctn id="3_0_to_3_2"/>
-		</route>
-		<route src="2_2" dst="3_1">
- 			<link_ctn id="2_2_to_3_2"/>
-			<link_ctn id="3_1_to_3_2"/>
-		</route>
 		<route src="2_2" dst="3_2">
 			<link_ctn id="2_2_to_3_2"/>
 		</route>
-		<route src="2_2" dst="3_3">
- 			<link_ctn id="2_2_to_3_2"/>
-			<link_ctn id="3_2_to_3_3"/>
-		</route>
-		<route src="2_2" dst="3_4">
- 			<link_ctn id="2_2_to_3_2"/>
-			<link_ctn id="3_2_to_3_4"/>
-		</route>
-		<route src="2_2" dst="3_5">
- 			<link_ctn id="2_2_to_3_2"/>
-			<link_ctn id="3_2_to_3_5"/>
-		</route>
-		<route src="2_2" dst="4_0">
- 			<link_ctn id="2_2_to_4_2"/>
-			<link_ctn id="4_0_to_4_2"/>
-		</route>
-		<route src="2_2" dst="4_1">
- 			<link_ctn id="2_2_to_4_2"/>
-			<link_ctn id="4_1_to_4_2"/>
-		</route>
 		<route src="2_2" dst="4_2">
 			<link_ctn id="2_2_to_4_2"/>
-		</route>
-		<route src="2_2" dst="4_3">
- 			<link_ctn id="2_2_to_4_2"/>
-			<link_ctn id="4_2_to_4_3"/>
-		</route>
-		<route src="2_2" dst="4_4">
- 			<link_ctn id="2_2_to_4_2"/>
-			<link_ctn id="4_2_to_4_4"/>
-		</route>
-		<route src="2_2" dst="4_5">
- 			<link_ctn id="2_2_to_4_2"/>
-			<link_ctn id="4_2_to_4_5"/>
 		</route>
 		<route src="2_3" dst="2_4">
 			<link_ctn id="2_3_to_2_4"/>
@@ -1405,143 +445,23 @@
 		<route src="2_3" dst="2_5">
 			<link_ctn id="2_3_to_2_5"/>
 		</route>
-		<route src="2_3" dst="3_0">
- 			<link_ctn id="2_3_to_3_3"/>
-			<link_ctn id="3_0_to_3_3"/>
-		</route>
-		<route src="2_3" dst="3_1">
- 			<link_ctn id="2_3_to_3_3"/>
-			<link_ctn id="3_1_to_3_3"/>
-		</route>
-		<route src="2_3" dst="3_2">
- 			<link_ctn id="2_3_to_3_3"/>
-			<link_ctn id="3_2_to_3_3"/>
-		</route>
 		<route src="2_3" dst="3_3">
 			<link_ctn id="2_3_to_3_3"/>
-		</route>
-		<route src="2_3" dst="3_4">
- 			<link_ctn id="2_3_to_3_3"/>
-			<link_ctn id="3_3_to_3_4"/>
-		</route>
-		<route src="2_3" dst="3_5">
- 			<link_ctn id="2_3_to_3_3"/>
-			<link_ctn id="3_3_to_3_5"/>
-		</route>
-		<route src="2_3" dst="4_0">
- 			<link_ctn id="2_3_to_4_3"/>
-			<link_ctn id="4_0_to_4_3"/>
-		</route>
-		<route src="2_3" dst="4_1">
- 			<link_ctn id="2_3_to_4_3"/>
-			<link_ctn id="4_1_to_4_3"/>
-		</route>
-		<route src="2_3" dst="4_2">
- 			<link_ctn id="2_3_to_4_3"/>
-			<link_ctn id="4_2_to_4_3"/>
 		</route>
 		<route src="2_3" dst="4_3">
 			<link_ctn id="2_3_to_4_3"/>
 		</route>
-		<route src="2_3" dst="4_4">
- 			<link_ctn id="2_3_to_4_3"/>
-			<link_ctn id="4_3_to_4_4"/>
-		</route>
-		<route src="2_3" dst="4_5">
- 			<link_ctn id="2_3_to_4_3"/>
-			<link_ctn id="4_3_to_4_5"/>
-		</route>
 		<route src="2_4" dst="2_5">
 			<link_ctn id="2_4_to_2_5"/>
-		</route>
-		<route src="2_4" dst="3_0">
- 			<link_ctn id="2_4_to_3_4"/>
-			<link_ctn id="3_0_to_3_4"/>
-		</route>
-		<route src="2_4" dst="3_1">
- 			<link_ctn id="2_4_to_3_4"/>
-			<link_ctn id="3_1_to_3_4"/>
-		</route>
-		<route src="2_4" dst="3_2">
- 			<link_ctn id="2_4_to_3_4"/>
-			<link_ctn id="3_2_to_3_4"/>
-		</route>
-		<route src="2_4" dst="3_3">
- 			<link_ctn id="2_4_to_3_4"/>
-			<link_ctn id="3_3_to_3_4"/>
 		</route>
 		<route src="2_4" dst="3_4">
 			<link_ctn id="2_4_to_3_4"/>
 		</route>
-		<route src="2_4" dst="3_5">
- 			<link_ctn id="2_4_to_3_4"/>
-			<link_ctn id="3_4_to_3_5"/>
-		</route>
-		<route src="2_4" dst="4_0">
- 			<link_ctn id="2_4_to_4_4"/>
-			<link_ctn id="4_0_to_4_4"/>
-		</route>
-		<route src="2_4" dst="4_1">
- 			<link_ctn id="2_4_to_4_4"/>
-			<link_ctn id="4_1_to_4_4"/>
-		</route>
-		<route src="2_4" dst="4_2">
- 			<link_ctn id="2_4_to_4_4"/>
-			<link_ctn id="4_2_to_4_4"/>
-		</route>
-		<route src="2_4" dst="4_3">
- 			<link_ctn id="2_4_to_4_4"/>
-			<link_ctn id="4_3_to_4_4"/>
-		</route>
 		<route src="2_4" dst="4_4">
 			<link_ctn id="2_4_to_4_4"/>
 		</route>
-		<route src="2_4" dst="4_5">
- 			<link_ctn id="2_4_to_4_4"/>
-			<link_ctn id="4_4_to_4_5"/>
-		</route>
-		<route src="2_5" dst="3_0">
- 			<link_ctn id="2_5_to_3_5"/>
-			<link_ctn id="3_0_to_3_5"/>
-		</route>
-		<route src="2_5" dst="3_1">
- 			<link_ctn id="2_5_to_3_5"/>
-			<link_ctn id="3_1_to_3_5"/>
-		</route>
-		<route src="2_5" dst="3_2">
- 			<link_ctn id="2_5_to_3_5"/>
-			<link_ctn id="3_2_to_3_5"/>
-		</route>
-		<route src="2_5" dst="3_3">
- 			<link_ctn id="2_5_to_3_5"/>
-			<link_ctn id="3_3_to_3_5"/>
-		</route>
-		<route src="2_5" dst="3_4">
- 			<link_ctn id="2_5_to_3_5"/>
-			<link_ctn id="3_4_to_3_5"/>
-		</route>
 		<route src="2_5" dst="3_5">
 			<link_ctn id="2_5_to_3_5"/>
-		</route>
-		<route src="2_5" dst="4_0">
- 			<link_ctn id="2_5_to_4_5"/>
-			<link_ctn id="4_0_to_4_5"/>
-		</route>
-		<route src="2_5" dst="4_1">
- 			<link_ctn id="2_5_to_4_5"/>
-			<link_ctn id="4_1_to_4_5"/>
-		</route>
-		<route src="2_5" dst="4_2">
- 			<link_ctn id="2_5_to_4_5"/>
-			<link_ctn id="4_2_to_4_5"/>
-		</route>
-		<route src="2_5" dst="4_3">
- 			<link_ctn id="2_5_to_4_5"/>
-			<link_ctn id="4_3_to_4_5"/>
-		</route>
-		<route src="2_5" dst="4_4">
- 			<link_ctn id="2_5_to_4_5"/>
-			<link_ctn id="4_4_to_4_5"/>
 		</route>
 		<route src="2_5" dst="4_5">
 			<link_ctn id="2_5_to_4_5"/>
@@ -1564,26 +484,6 @@
 		<route src="3_0" dst="4_0">
 			<link_ctn id="3_0_to_4_0"/>
 		</route>
-		<route src="3_0" dst="4_1">
- 			<link_ctn id="3_0_to_4_0"/>
-			<link_ctn id="4_0_to_4_1"/>
-		</route>
-		<route src="3_0" dst="4_2">
- 			<link_ctn id="3_0_to_4_0"/>
-			<link_ctn id="4_0_to_4_2"/>
-		</route>
-		<route src="3_0" dst="4_3">
- 			<link_ctn id="3_0_to_4_0"/>
-			<link_ctn id="4_0_to_4_3"/>
-		</route>
-		<route src="3_0" dst="4_4">
- 			<link_ctn id="3_0_to_4_0"/>
-			<link_ctn id="4_0_to_4_4"/>
-		</route>
-		<route src="3_0" dst="4_5">
- 			<link_ctn id="3_0_to_4_0"/>
-			<link_ctn id="4_0_to_4_5"/>
-		</route>
 		<route src="3_1" dst="3_2">
 			<link_ctn id="3_1_to_3_2"/>
 		</route>
@@ -1596,28 +496,8 @@
 		<route src="3_1" dst="3_5">
 			<link_ctn id="3_1_to_3_5"/>
 		</route>
-		<route src="3_1" dst="4_0">
- 			<link_ctn id="3_1_to_4_1"/>
-			<link_ctn id="4_0_to_4_1"/>
-		</route>
 		<route src="3_1" dst="4_1">
 			<link_ctn id="3_1_to_4_1"/>
-		</route>
-		<route src="3_1" dst="4_2">
- 			<link_ctn id="3_1_to_4_1"/>
-			<link_ctn id="4_1_to_4_2"/>
-		</route>
-		<route src="3_1" dst="4_3">
- 			<link_ctn id="3_1_to_4_1"/>
-			<link_ctn id="4_1_to_4_3"/>
-		</route>
-		<route src="3_1" dst="4_4">
- 			<link_ctn id="3_1_to_4_1"/>
-			<link_ctn id="4_1_to_4_4"/>
-		</route>
-		<route src="3_1" dst="4_5">
- 			<link_ctn id="3_1_to_4_1"/>
-			<link_ctn id="4_1_to_4_5"/>
 		</route>
 		<route src="3_2" dst="3_3">
 			<link_ctn id="3_2_to_3_3"/>
@@ -1628,28 +508,8 @@
 		<route src="3_2" dst="3_5">
 			<link_ctn id="3_2_to_3_5"/>
 		</route>
-		<route src="3_2" dst="4_0">
- 			<link_ctn id="3_2_to_4_2"/>
-			<link_ctn id="4_0_to_4_2"/>
-		</route>
-		<route src="3_2" dst="4_1">
- 			<link_ctn id="3_2_to_4_2"/>
-			<link_ctn id="4_1_to_4_2"/>
-		</route>
 		<route src="3_2" dst="4_2">
 			<link_ctn id="3_2_to_4_2"/>
-		</route>
-		<route src="3_2" dst="4_3">
- 			<link_ctn id="3_2_to_4_2"/>
-			<link_ctn id="4_2_to_4_3"/>
-		</route>
-		<route src="3_2" dst="4_4">
- 			<link_ctn id="3_2_to_4_2"/>
-			<link_ctn id="4_2_to_4_4"/>
-		</route>
-		<route src="3_2" dst="4_5">
- 			<link_ctn id="3_2_to_4_2"/>
-			<link_ctn id="4_2_to_4_5"/>
 		</route>
 		<route src="3_3" dst="3_4">
 			<link_ctn id="3_3_to_3_4"/>
@@ -1657,74 +517,14 @@
 		<route src="3_3" dst="3_5">
 			<link_ctn id="3_3_to_3_5"/>
 		</route>
-		<route src="3_3" dst="4_0">
- 			<link_ctn id="3_3_to_4_3"/>
-			<link_ctn id="4_0_to_4_3"/>
-		</route>
-		<route src="3_3" dst="4_1">
- 			<link_ctn id="3_3_to_4_3"/>
-			<link_ctn id="4_1_to_4_3"/>
-		</route>
-		<route src="3_3" dst="4_2">
- 			<link_ctn id="3_3_to_4_3"/>
-			<link_ctn id="4_2_to_4_3"/>
-		</route>
 		<route src="3_3" dst="4_3">
 			<link_ctn id="3_3_to_4_3"/>
-		</route>
-		<route src="3_3" dst="4_4">
- 			<link_ctn id="3_3_to_4_3"/>
-			<link_ctn id="4_3_to_4_4"/>
-		</route>
-		<route src="3_3" dst="4_5">
- 			<link_ctn id="3_3_to_4_3"/>
-			<link_ctn id="4_3_to_4_5"/>
 		</route>
 		<route src="3_4" dst="3_5">
 			<link_ctn id="3_4_to_3_5"/>
 		</route>
-		<route src="3_4" dst="4_0">
- 			<link_ctn id="3_4_to_4_4"/>
-			<link_ctn id="4_0_to_4_4"/>
-		</route>
-		<route src="3_4" dst="4_1">
- 			<link_ctn id="3_4_to_4_4"/>
-			<link_ctn id="4_1_to_4_4"/>
-		</route>
-		<route src="3_4" dst="4_2">
- 			<link_ctn id="3_4_to_4_4"/>
-			<link_ctn id="4_2_to_4_4"/>
-		</route>
-		<route src="3_4" dst="4_3">
- 			<link_ctn id="3_4_to_4_4"/>
-			<link_ctn id="4_3_to_4_4"/>
-		</route>
 		<route src="3_4" dst="4_4">
 			<link_ctn id="3_4_to_4_4"/>
-		</route>
-		<route src="3_4" dst="4_5">
- 			<link_ctn id="3_4_to_4_4"/>
-			<link_ctn id="4_4_to_4_5"/>
-		</route>
-		<route src="3_5" dst="4_0">
- 			<link_ctn id="3_5_to_4_5"/>
-			<link_ctn id="4_0_to_4_5"/>
-		</route>
-		<route src="3_5" dst="4_1">
- 			<link_ctn id="3_5_to_4_5"/>
-			<link_ctn id="4_1_to_4_5"/>
-		</route>
-		<route src="3_5" dst="4_2">
- 			<link_ctn id="3_5_to_4_5"/>
-			<link_ctn id="4_2_to_4_5"/>
-		</route>
-		<route src="3_5" dst="4_3">
- 			<link_ctn id="3_5_to_4_5"/>
-			<link_ctn id="4_3_to_4_5"/>
-		</route>
-		<route src="3_5" dst="4_4">
- 			<link_ctn id="3_5_to_4_5"/>
-			<link_ctn id="4_4_to_4_5"/>
 		</route>
 		<route src="3_5" dst="4_5">
 			<link_ctn id="3_5_to_4_5"/>
