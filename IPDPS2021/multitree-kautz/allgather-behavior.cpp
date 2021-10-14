@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-10-14 17:55:26
+ * @ Modified time: 2021-10-14 21:47:17
  * @ Description:
  */
 #include <iostream>
@@ -460,7 +460,7 @@ int main ( int argc, char *argv[] ){
 					tmpi = i;
 				}
 			}
-			float *nsendbuf = new float[(d - 1)*NUM_ITEMS]; (float*)SMPI_SHARED_MALLOC(sizeof(float)*(d)*NUM_ITEMS);
+			float *nsendbuf = (float*)SMPI_SHARED_MALLOC(sizeof(float)*(d)*NUM_ITEMS);
 			
 			// send the message at the duplicate index
 			bool detectduplicate = false;
@@ -560,7 +560,7 @@ int main ( int argc, char *argv[] ){
 			for (int i = 0; i < d; i++){
 				SMPI_SHARED_FREE(recvbuf[i]);
 			}
-			delete nsendbuf;
+			SMPI_SHARED_FREE (nsendbuf);
 			delete (sendbuf);
 			delete whichData;
 	
