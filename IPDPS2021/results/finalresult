@@ -1,0 +1,27 @@
+mpicc allgather.c -o allgather
+../../simgrid-3.28/install/bin/smpicc allgather.c  -o allgathersmpi
+../../simgrid-3.28/install/bin/smpicc allgather-behavior.c  -o allgathersmpi-b
+./multiport-2lvfc/allgathersmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:144245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ./platforms/2lvfc/16x17.xml
+Execution failed with code 137.
+mpic++ -o allgather allgather.cpp helper.cpp 
+../../simgrid-3.28/install/bin/smpicxx -o allgathersmpi allgather.cpp helper.cpp 
+../../simgrid-3.28/install/bin/smpicxx -o allgathersmpi-b allgather-behavior.cpp helper.cpp 
+cmb
+k16,0.0808743,8388608,0.0031547,0.0502354,0.0239527
+k16,0.1607196,16777216,0.0062936,0.1004589,0.0466981
+./allgathersmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:144245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz16-2.xml
+Execution failed with code 134.
+./allgathersmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:144245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz16-2.xml
+Execution failed with code 137.
+conges
+k16,0.0534021,8388608,0.0000000,0.0000000,0.0000000
+k16,0.1067608,16777216,0.0000000,0.0000000,0.0000000
+./allgathersmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:144245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz16-2.xml
+Execution failed with code 134.
+k16,0.2134830,33554432,0.0000000,0.0000000,0.0000000
+mttree
+k16,0.0535701,8388608,0.0000000,0.0000000,0.0000000
+k16,0.1069315,16777216,0.0000000,0.0000000,0.0000000
+./allgathersmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:144245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz16-2.xml
+Execution failed with code 134.
+k16,0.2136559,33554432,0.0000000,0.0000000,0.0000000
