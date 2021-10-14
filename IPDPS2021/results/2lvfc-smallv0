@@ -1,80 +1,59 @@
 mpicc allgather.c -o allgather
 ../../simgrid-3.28/install/bin/smpicc allgather.c  -o allgathersmpi
 ../../simgrid-3.28/install/bin/smpicc allgather-behavior.c  -o allgathersmpi-b
-4x5
-4x5,0.0000211,256
-4x5
-4x5,0.0000245,512
-4x5
-4x5,0.0000397,1024
-4x5
-4x5,0.0000602,2048
-4x5
-4x5,0.0001073,4096
-4x5
-4x5,0.0001734,8192
-4x5
-4x5,0.0003057,16384
-8x9
-8x9,0.0000258,256
-8x9
-8x9,0.0000416,512
-8x9
-8x9,0.0000630,1024
-8x9
-8x9,0.0001081,2048
-8x9
-8x9,0.0001812,4096
-8x9
-8x9,0.0003310,8192
-8x9
-8x9,0.0006161,16384
-16x17
-16x17,0.0000438,256
-16x17
-16x17,0.0000689,512
-16x17
-16x17,0.0001205,1024
-16x17
-16x17,0.0002058,2048
-16x17
-16x17,0.0003702,4096
-16x17
-16x17,0.0007190,8192
-16x17
-16x17,0.0014128,16384
-32x33
-32x33,0.0000910,256
-32x33
-32x33,0.0001529,512
-32x33
-32x33,0.0002692,1024
-32x33
-32x33,0.0005041,2048
-32x33
-32x33,0.0009879,4096
-32x33
-32x33,0.0019067,8192
-32x33
-32x33,0.0037820,16384
-64x65
-./multiport-2lvfc/allgathersmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ./platforms/2lvfc/64x65.xml
-Execution failed with code 134.
-64x65
-./multiport-2lvfc/allgathersmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ./platforms/2lvfc/64x65.xml
-Execution failed with code 134.
-64x65
-./multiport-2lvfc/allgathersmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ./platforms/2lvfc/64x65.xml
-Execution failed with code 134.
-64x65
-./multiport-2lvfc/allgathersmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ./platforms/2lvfc/64x65.xml
-Execution failed with code 134.
-64x65
-./multiport-2lvfc/allgathersmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ./platforms/2lvfc/64x65.xml
-Execution failed with code 134.
-64x65
-./multiport-2lvfc/allgathersmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ./platforms/2lvfc/64x65.xml
-Execution failed with code 134.
-64x65
-./multiport-2lvfc/allgathersmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ./platforms/2lvfc/64x65.xml
-Execution failed with code 134.
+2x3,0.0000175,256
+2x3,0.0000190,512
+2x3,0.0000226,1024
+2x3,0.0000356,2048
+2x3,0.0000578,4096
+2x3,0.0001019,8192
+2x3,0.0001638,16384
+2x3,0.0002814,32768
+2x3,0.0005047,65536
+2x3,0.0009575,131072
+2x3,0.0017802,262144
+2x3,0.0034225,524288
+2x3,0.0067162,1048576
+2x3,0.0130782,2097152
+4x5,0.0000209,256
+4x5,0.0000237,512
+4x5,0.0000390,1024
+4x5,0.0000604,2048
+4x5,0.0001056,4096
+4x5,0.0001746,8192
+4x5,0.0003033,16384
+4x5,0.0005448,32768
+4x5,0.0010466,65536
+4x5,0.0019626,131072
+4x5,0.0037865,262144
+4x5,0.0074013,524288
+4x5,0.0146732,1048576
+4x5,0.0295304,2097152
+8x9,0.0000256,256
+8x9,0.0000419,512
+8x9,0.0000696,1024
+8x9,0.0001067,2048
+8x9,0.0001822,4096
+8x9,0.0003035,8192
+8x9,0.0006079,16384
+8x9,0.0011509,32768
+8x9,0.0022223,65536
+8x9,0.0043306,131072
+8x9,0.0085683,262144
+8x9,0.0170977,524288
+8x9,0.0339448,1048576
+8x9,0.0683860,2097152
+16x17,0.0000439,256
+16x17,0.0000688,512
+16x17,0.0001193,1024
+16x17,0.0002050,2048
+16x17,0.0003758,4096
+16x17,0.0007155,8192
+16x17,0.0014523,16384
+16x17,0.0029872,32768
+16x17,0.0061964,65536
+16x17,0.0121748,131072
+16x17,0.0233482,262144
+16x17,0.0451443,524288
+16x17,0.0910979,1048576
+16x17,0.1758496,2097152
