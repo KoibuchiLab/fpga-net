@@ -129,7 +129,7 @@ int main(int argc, char *argv[])
 
 #if defined(DEBUG1)
 	printf("Data from rank %d: ", rank);
-	for (int i = 0; i < NUM_ITEMS; i++){
+	for (unsigned int i = 0; i < NUM_ITEMS; i++){
 		printf("%.0f\t", data[i]);
 	}
 	printf("\n");
@@ -179,7 +179,7 @@ int main(int argc, char *argv[])
 					MPI_COMM_WORLD, &reqsends[i]);
 		} else {
 			//intergroupbuffer_[i] <- data (data is on a process so dont need to send)
-			for (int j = 0; j < NUM_ITEMS; j++){
+			for (unsigned int j = 0; j < NUM_ITEMS; j++){
 				intergroupbuffer_[i*NUM_ITEMS + j] = data[j];
 			}
 		}
@@ -243,7 +243,7 @@ int main(int argc, char *argv[])
 	dblasttimer = MPI_Wtime();
 #endif
 
-	for (int i = 0; i < NUM_ITEMS*size; i++){
+	for (unsigned int i = 0; i < NUM_ITEMS*size; i++){
 		allgatherresult[i] = 0;
 	}
 	// Allocate buffer for intra group
@@ -268,7 +268,7 @@ int main(int argc, char *argv[])
 			MPI_Isend(intergroupbuffer_, numofgroups*NUM_ITEMS, MPI_FLOAT, \
 					destination, 1, MPI_COMM_WORLD, &reqsends[i]);
 		} else {
-			for (int j = 0; j < numofgroups*NUM_ITEMS; j++){
+			for (unsigned int j = 0; j < numofgroups*NUM_ITEMS; j++){
 				allgatherresult[i*numofgroups*NUM_ITEMS + j] = intergroupbuffer_[j];
 			}
 		}
@@ -316,7 +316,7 @@ int main(int argc, char *argv[])
 	float **intragroupbuffer_ = (float**)malloc(sizeof(float*)*numofnodesingroup);
 	for (int i = 0; i < numofnodesingroup; i++){
 		intragroupbuffer_[i] = (float*)SMPI_SHARED_MALLOC(sizeof(float)*numofgroups*NUM_ITEMS);
-		for (int j = 0; j < numofgroups*NUM_ITEMS; j++){
+		for (unsigned int j = 0; j < numofgroups*NUM_ITEMS; j++){
 			intragroupbuffer_[i][j] = 0; // Should careful for other gather op
 		}
 	}
@@ -332,7 +332,7 @@ int main(int argc, char *argv[])
 			MPI_Isend(intergroupbuffer_, numofgroups*NUM_ITEMS, MPI_FLOAT, \
 					destination, 1, MPI_COMM_WORLD, &reqsends[i]);
 		} else {
-			for (int j = 0; j < numofgroups*NUM_ITEMS; j++){
+			for (unsigned int j = 0; j < numofgroups*NUM_ITEMS; j++){
 				intragroupbuffer_[i][j] = intergroupbuffer_[j];
 			}
 		}
@@ -355,7 +355,7 @@ int main(int argc, char *argv[])
 		if (rank != source){
 			MPI_Wait(&reqrecvs[i], MPI_STATUS_IGNORE);
 		}
-		for (int j = 0; j < NUM_ITEMS*numofgroups; j++){
+		for (unsigned int j = 0; j < NUM_ITEMS*numofgroups; j++){
 			int index = j%NUM_ITEMS + i*NUM_ITEMS + (j/NUM_ITEMS)*numofnodesingroup*NUM_ITEMS;
 			allgatherresult[index] = intragroupbuffer_[i][j];
 		}
@@ -416,11 +416,11 @@ int main(int argc, char *argv[])
 
 #if defined(DEBUG5)
 		printf("Kim allgather: \n");
-		for (int i = 0; i < NUM_ITEMS*size; i++){
+		for (unsigned int i = 0; i < NUM_ITEMS*size; i++){
 			printf(" %.0f", allgatherresult[i]);
 		}
 		printf("\nLib Allgather\n");
-		for (int i = 0; i < NUM_ITEMS*size; i++){
+		for (unsigned int i = 0; i < NUM_ITEMS*size; i++){
 			printf(" %.0f", allgatherresultlib[i]);
 		}
 		printf("\n");

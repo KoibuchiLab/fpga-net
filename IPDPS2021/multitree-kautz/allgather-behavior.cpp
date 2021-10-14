@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-10-14 01:06:04
+ * @ Modified time: 2021-10-14 17:55:26
  * @ Description:
  */
 #include <iostream>
@@ -33,7 +33,7 @@ int main ( int argc, char *argv[] ){
 	int rank;
 	int size;
 	int hostname_len;
-	int NUM_ITEMS = 2;
+	unsigned int NUM_ITEMS = 2;
 	MPI_Init(&argc, &argv);
 	MPI_Comm_size(MPI_COMM_WORLD, &size);
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -46,7 +46,7 @@ int main ( int argc, char *argv[] ){
 	MPI_Get_processor_name(hostname, &hostname_len);
 	char topo[256];
 	// Topology optional argument
-	for (int i = 1; i < argc; i++){
+	for (unsigned int i = 1; i < argc; i++){
 		if (!strcmp(argv[i], "--topo")){
 			if ((i + 1 >= argc) || (sscanf(argv[i + 1], "%s", topo) != 1)) {
 				program_abort("Invalid <topology> argument\n");
@@ -102,13 +102,13 @@ int main ( int argc, char *argv[] ){
 
 	// All rank fill the buffer with random data
 	srandom(RAND_SEED + rank);
-	for (int i = 0; i < NUM_ITEMS; i++) {
+	for (unsigned int i = 0; i < NUM_ITEMS; i++) {
 		data[i] = (float)(1 + 1.0 * (random() % 9));
 	}
 
 #if defined(DEBUG1)
 	printf("Data from rank %d: ", rank);
-	for (int i = 0; i < NUM_ITEMS; i++){
+	for (unsigned int i = 0; i < NUM_ITEMS; i++){
 		printf("%.0f\t", data[i]);
 	}
 	printf("\n");
@@ -136,11 +136,11 @@ int main ( int argc, char *argv[] ){
 		file.open (filename);
 		int tmp;
 		childParent = new vector <int> [size];
-		for (int i = 0; i < size; i++){
+		for (unsigned int i = 0; i < size; i++){
 			getline(file, line);
 			istringstream iss(line);
 			string alist;
-			for(int j = 0; j < 2*d + 1; j++){
+			for(unsigned int j = 0; j < 2*d + 1; j++){
 				iss >> tmp;
 				childParent[i].push_back(tmp);
 			}
@@ -154,7 +154,7 @@ int main ( int argc, char *argv[] ){
 		// reduce memory used: each process hold one line of this table
 		string line;
 
-		for (int i = 0; i < size; i++){
+		for (unsigned int i = 0; i < size; i++){
 			getline(file, line);
 			if (i == rank){
 				istringstream iss(line);
@@ -170,7 +170,7 @@ int main ( int argc, char *argv[] ){
 
 #if defined(SCHEDULE_TABLE)
 	if(rank == 0){
-		for (int i = 0; i < size; i++){
+		for (unsigned int i = 0; i < size; i++){
 			for(auto j: scheduleTable[i]){
 				cout << j.dst << "," << j.src << "," << j.sendidx << "," << j.recvidx << "\t";
 			}
@@ -182,7 +182,7 @@ int main ( int argc, char *argv[] ){
 	// allocate memory for result
 	float *allGatherResult = (float*) SMPI_SHARED_MALLOC(sizeof(float)*NUM_ITEMS*size); //new float[NUM_ITEMS*size]();
 	// copy local data to result
-	for (int i = 0; i < NUM_ITEMS; i++){
+	for (unsigned int i = 0; i < NUM_ITEMS; i++){
 		allGatherResult[rank*NUM_ITEMS + i] = data[i];
 	}
 	float **recvbuf;
@@ -221,8 +221,8 @@ int main ( int argc, char *argv[] ){
 					for (int i = 0; i < d; i++){
 						int destination = scheduleTable[i].dst; 
 						int source = scheduleTable[i].src;
-						int sendIdx = scheduleTable[i].sendidx*NUM_ITEMS;
-						int recvIdx = scheduleTable[i].src*NUM_ITEMS;
+						unsigned int sendIdx = scheduleTable[i].sendidx*NUM_ITEMS;
+						unsigned int recvIdx = scheduleTable[i].src*NUM_ITEMS;
 						//cout << "From rank " << rank << " destination: " << destination \
 								<< " data index: " << sendIdx << endl;
 						MPI_Irecv(&allGatherResult[recvIdx], NUM_ITEMS, MPI_FLOAT, source, \
@@ -241,7 +241,7 @@ int main ( int argc, char *argv[] ){
 	#if defined(PRINT_STEP_0)
 		// Print allgather result after step 0
 		cout << "From rank " << rank << " allgatherresult after step 0:\n\t";
-		for (int i = 0; i < NUM_ITEMS*size; i++){
+		for (unsigned int i = 0; i < NUM_ITEMS*size; i++){
 			cout << allGatherResult[i] << "\t";
 		}
 		cout << endl;
@@ -255,8 +255,8 @@ int main ( int argc, char *argv[] ){
 					for (int i = 0; i < d - 1; i++){
 						int source = scheduleTable[d + i].src;
 						int destination = scheduleTable[d + i].dst;
-						int sendIdx = scheduleTable[d + i].sendidx*NUM_ITEMS;
-						int recvIdx = scheduleTable[d + i].recvidx*NUM_ITEMS;
+						unsigned int sendIdx = scheduleTable[d + i].sendidx*NUM_ITEMS;
+						unsigned int recvIdx = scheduleTable[d + i].recvidx*NUM_ITEMS;
 						//printf("->> From rank %d, source: %d, dest: %d, sendidx: %d, recvidx: %d\n",\
 								rank, source, destination, sendIdx, recvIdx);
 						MPI_Irecv(&allGatherResult[recvIdx], NUM_ITEMS, MPI_FLOAT, 
@@ -276,7 +276,7 @@ int main ( int argc, char *argv[] ){
 	#if defined(PRINT_STEP_1)
 		// Print allgather result after step 1
 		cout << "From rank " << rank << " allgatherresult after step 1 :\n\t";
-		for (int i = 0; i < NUM_ITEMS*size; i++){
+		for (unsigned int i = 0; i < NUM_ITEMS*size; i++){
 			cout << allGatherResult[i] << "\t";
 		}
 		cout << endl;
@@ -288,8 +288,8 @@ int main ( int argc, char *argv[] ){
 					for (int i = 0; i < d; i++){
 						int source = scheduleTable[step*d + i - 1].src;
 						int destination = scheduleTable[step*d + i - 1].dst;
-						int sendIdx = scheduleTable[step*d + i - 1].sendidx*NUM_ITEMS;
-						int recvIdx = scheduleTable[step*d + i - 1].recvidx*NUM_ITEMS;
+						unsigned int sendIdx = scheduleTable[step*d + i - 1].sendidx*NUM_ITEMS;
+						unsigned int recvIdx = scheduleTable[step*d + i - 1].recvidx*NUM_ITEMS;
 
 						MPI_Irecv(&allGatherResult[recvIdx], NUM_ITEMS, MPI_FLOAT, source, \
 								0, MPI_COMM_WORLD, &reqrecvs[i]);
@@ -323,8 +323,8 @@ int main ( int argc, char *argv[] ){
 			for (int i = 0; i < d; i++){
 				int destination = scheduleTable[i].dst; 
 				int source = scheduleTable[i].src;
-				int sendIdx = scheduleTable[i].sendidx*NUM_ITEMS;
-				int recvIdx = scheduleTable[i].src*NUM_ITEMS;
+				unsigned int sendIdx = scheduleTable[i].sendidx*NUM_ITEMS;
+				unsigned int recvIdx = scheduleTable[i].src*NUM_ITEMS;
 				//cout << "From rank " << rank << " destination: " << destination \
 						<< " data index: " << sendIdx << endl;
 				MPI_Irecv(&allGatherResult[recvIdx], NUM_ITEMS, MPI_FLOAT, source, \
@@ -345,7 +345,7 @@ int main ( int argc, char *argv[] ){
 #if defined(PRINT_STEP_0)
 	// Print allgather result after step 0
 	cout << "From rank " << rank << " allgatherresult after step 0:\n\t";
-	for (int i = 0; i < NUM_ITEMS*size; i++){
+	for (unsigned int i = 0; i < NUM_ITEMS*size; i++){
 		cout << allGatherResult[i] << "\t";
 	}
 	cout << endl;
@@ -357,14 +357,14 @@ int main ( int argc, char *argv[] ){
 
 			for (int i = d; i < size - 1; i++){
 				int source = scheduleTable[i].src;
-				int recvIdx = scheduleTable[i].recvidx*NUM_ITEMS;
+				unsigned int recvIdx = scheduleTable[i].recvidx*NUM_ITEMS;
 
 				MPI_Irecv(&allGatherResult[recvIdx], NUM_ITEMS, MPI_FLOAT, source, \
 						0, MPI_COMM_WORLD, &reqrecvs[i]);
 			}
 			for (int i = d; i < size - 1; i++){
 				int destination = scheduleTable[i].dst;
-				int sendIdx = scheduleTable[i].sendidx*NUM_ITEMS;
+				unsigned int sendIdx = scheduleTable[i].sendidx*NUM_ITEMS;
 
 				MPI_Isend(&allGatherResult[sendIdx], NUM_ITEMS, MPI_FLOAT, destination,\
 						0, MPI_COMM_WORLD, &reqsends[i]);
@@ -392,7 +392,8 @@ int main ( int argc, char *argv[] ){
 #endif
 			reqrecvs = new MPI_Request[d];
 			reqsends = new MPI_Request[d];
-			int source, destination, sendidx, recvidx;
+			int source, destination;
+            unsigned int sendidx, recvidx;
 			for(int i = 0; i < d; i++){
 				destination  = childParent[rank][i];
 				source = childParent[rank][d + i];
@@ -423,7 +424,7 @@ int main ( int argc, char *argv[] ){
 #if defined(PRINT_STEP_0)
 	// Print allgather result after step 0
 	cout << "From rank " << rank << " allgatherresult after step 0:\n\t";
-	for (int i = 0; i < NUM_ITEMS*size; i++){
+	for (unsigned int i = 0; i < NUM_ITEMS*size; i++){
 		cout << allGatherResult[i] << "\t";
 	}
 	cout << endl;
@@ -432,7 +433,7 @@ int main ( int argc, char *argv[] ){
 			reqrecvs = new MPI_Request[d];
 			reqsends = new MPI_Request[d];
 			
-			int duplicateIdx = childParent[rank][2*d];
+			unsigned int duplicateIdx = childParent[rank][2*d];
 
 			//prepare sendbuf
 			/*for (int j = 0; j < d; j++){
