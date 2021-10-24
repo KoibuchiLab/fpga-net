@@ -184,19 +184,6 @@ int main(int argc, char *argv[])
 			}
 		}
 	}
-	/*for (int i = 0; i < numofgroups; i++){
-		// Compute destination
-		int destination = numofnodesingroup*i + nodenumber;
-		if (destination != rank){
-			MPI_Isend(data, NUM_ITEMS, MPI_FLOAT, destination, 1, \
-					MPI_COMM_WORLD, &reqsends[i]);
-		} else {
-			//intergroupbuffer_[i] <- data (data is on a process so dont need to send)
-			for (int j = 0; j < NUM_ITEMS; j++){
-				intergroupbuffer_[i*NUM_ITEMS + j] = data[j];
-			}
-		}
-	}*/
 
 	for (int i = 0; i < numofgroups; i++){
 		// Compute source
@@ -246,15 +233,7 @@ int main(int argc, char *argv[])
 	for (unsigned int i = 0; i < NUM_ITEMS*size; i++){
 		allgatherresult[i] = 0;
 	}
-	// Allocate buffer for intra group
-	// Size = [numofnodesingroup][numofgroup*NUM_ITEMS]
-	/*float **intragroupbuffer_ = (float**)malloc(sizeof(float*)*numofnodesingroup);
-	for (int i = 0; i < numofnodesingroup; i++){
-		intragroupbuffer_[i] = (float*)malloc(sizeof(float)*numofgroups*NUM_ITEMS);
-		for (int j = 0; j < numofgroups*NUM_ITEMS; j++){
-			intragroupbuffer_[i][j] = 0; // Should careful for other gather op
-		}
-	}*/
+	// Allocate buffer for intra group/
 
 	for (int i = 0; i < numofnodesingroup; i++){
 		int source = groupnumber*numofnodesingroup + i;
@@ -273,18 +252,6 @@ int main(int argc, char *argv[])
 			}
 		}
 	}
-
-	/*for (int i = 0; i < numofnodesingroup; i++){
-		int destination = groupnumber*numofnodesingroup + i;
-		if(rank != destination){
-			MPI_Isend(intergroupbuffer_, numofgroups*NUM_ITEMS, MPI_FLOAT, \
-					destination, 1, MPI_COMM_WORLD, &reqsends[i]);
-		} else {
-			for (int j = 0; j < numofgroups*NUM_ITEMS; j++){
-				allgatherresult[i*numofgroups*NUM_ITEMS + j] = intergroupbuffer_[j];
-			}
-		}
-	}*/
 
 	for (int i = 0; i < numofnodesingroup; i++){
 		int source = groupnumber*numofnodesingroup + i;
@@ -337,18 +304,6 @@ int main(int argc, char *argv[])
 			}
 		}
 	}
-
-	/*for (int i = 0; i < numofnodesingroup; i++){
-		int destination = groupnumber*numofnodesingroup + i;
-		if(rank != destination){
-			MPI_Isend(intergroupbuffer_, numofgroups*NUM_ITEMS, MPI_FLOAT, \
-					destination, 1, MPI_COMM_WORLD, &reqsends[i]);
-		} else {
-			for (int j = 0; j < numofgroups*NUM_ITEMS; j++){
-				intragroupbuffer_[i][j] = intergroupbuffer_[j];
-			}
-		}
-	}*/
 
 	for (int i = 0; i < numofnodesingroup; i++){
 		int source = groupnumber*numofnodesingroup + i;
