@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 20:25:10
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-10-10 20:54:02
+ * @ Modified time: 2021-10-27 13:36:19
  * @ Description:
  */
 
@@ -44,6 +44,17 @@ Kautz::Kautz(int degree, string inout) {
 				if (a != b){ // find host that have the same b
 					int index = hidx2r(a, b, d);
 					rotateLeft(adjLists[index], curPosition);
+					//cout << "Current Position: " << curPosition << " Index: " << index << endl ;
+					curPosition++;
+				}
+			}
+		}
+        for (int b = 0; b <= d; b++){
+			int curPosition = 0;
+			for (int a = 0; a <= d; a++){
+				if (a != b){ // find host that have the same b
+					int index = hidx2r(b, a, d);
+                    rotateLeft(adjListParent[index], curPosition);
 					//cout << "Current Position: " << curPosition << " Index: " << index << endl ;
 					curPosition++;
 				}
@@ -130,6 +141,7 @@ void Kautz::BFS(int startVertex) {
 }
 
 void Kautz::printAdjAndParentList(){
+
     for (int i = 0; i < numVertices; i++){
         for (list<int>::iterator it = adjLists[i].begin(); it != adjLists[i].end(); it++){
 			cout << *it << " ";
