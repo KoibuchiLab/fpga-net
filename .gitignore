@@ -539,6 +539,8 @@ IPDPS2021/platforms/kautz/kautz64-2.xml
 
 IPDPS2021/multiport-2lvfc/allgather
 IPDPS2021/multiport-2lvfc/allgathersmpi
+IPDPS2021/multitree-kautz/alltoall
+IPDPS2021/multitree-kautz/alltoallsmpi
 IPDPS2021/multiport-2lvfc/resultallgather
 IPDPS2021/multiport-2lvfc/trace/3x2
 
