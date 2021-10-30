@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-10-30 18:10:41
+ * @ Modified time: 2021-10-30 19:32:28
  * @ Description:
  */
 
@@ -38,7 +38,7 @@ int main ( int argc, char *argv[] ){
 	MPI_Init(&argc, &argv);
 	MPI_Comm_size(MPI_COMM_WORLD, &size);
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-	char algo = MULTITREE;
+	char algo = COMBINE;
 	double dblasttimer;
 	// Calculate degree
 	int d = (1 + sqrt(-1 + 4*size))/2;
@@ -454,7 +454,141 @@ int main ( int argc, char *argv[] ){
 			delete reqrecvs;
 			break; //optional
 		} case COMBINE:{
-			;
+			// Step 0 send all the neccessary information to all neighbors
+			sendbuf = (float*)malloc(sizeof(float)*(d + 1)*NUM_ITEMS);
+			recvbuf = (float**)malloc(sizeof(float*)*d);
+			for (int i = 0; i < d; i++){
+				recvbuf[i] = (float*)malloc(sizeof(float)*(d + 1)*NUM_ITEMS);
+			}
+			reqsends = new MPI_Request[d];
+			reqrecvs = new MPI_Request[d];
+
+			// for all child: 
+			for (int i = 0; i < d; i++){
+				int aChild = childParent[rank][i];
+				int aParent = childParent[rank][d + i];
+				int duplicateIdx = childParent[aChild][0];
+				//receive data from parents
+				if (aParent != childParent[rank][0]){
+					MPI_Irecv(recvbuf[i], (d + 1)*NUM_ITEMS, MPI_FLOAT, aParent, 0, MPI_COMM_WORLD, &reqrecvs[i]);
+				} else {
+					MPI_Irecv(recvbuf[i], d*NUM_ITEMS, MPI_FLOAT, aParent, 0, MPI_COMM_WORLD, &reqrecvs[i]);
+				}
+
+				// Prepare sendbuffer
+				// copy data of child of child to send buf
+				if (rank != duplicateIdx){ // normal copy
+					for (int j = 0; j < d; j++){
+						memcpy(&sendbuf[j*NUM_ITEMS], &data[childParent[aChild][j] * NUM_ITEMS], NUM_ITEMS*sizeof(float));
+					}
+					memcpy(&sendbuf[d*NUM_ITEMS], &data[aChild*NUM_ITEMS], NUM_ITEMS*sizeof(float));
+
+					MPI_Isend(sendbuf, (d + 1)*NUM_ITEMS, MPI_FLOAT, aChild, 0, MPI_COMM_WORLD, &reqsends[i]);
+				} else { // copy with adjust index
+					for (int j = 0; j < d - 1; j++){
+						memcpy(&sendbuf[j*NUM_ITEMS], &data[childParent[aChild][j + 1] * NUM_ITEMS], NUM_ITEMS*sizeof(float));
+					}
+					memcpy(&sendbuf[(d - 1)*NUM_ITEMS], &data[aChild*NUM_ITEMS], NUM_ITEMS*sizeof(float));
+
+					MPI_Isend(sendbuf, d*NUM_ITEMS, MPI_FLOAT, aChild, 0, MPI_COMM_WORLD, &reqsends[i]);
+				}
+				
+			}
+			
+			for (int i = 0; i < d; i++){
+				MPI_Wait(&reqrecvs[i], MPI_STATUS_IGNORE);
+				// Copy data to final result
+				int duplicateIdx = childParent[rank][0];
+				int cpyIdx = childParent[rank][d + i];
+				if(cpyIdx != duplicateIdx){ //normal copy
+					memcpy(&result[cpyIdx*NUM_ITEMS], &recvbuf[i][d*NUM_ITEMS], NUM_ITEMS*sizeof(float));
+				} else { // copy with adjust index
+					memcpy(&result[cpyIdx*NUM_ITEMS], &recvbuf[i][(d - 1)*NUM_ITEMS], NUM_ITEMS*sizeof(float));
+				}
+			}
+			// cout << "From rank: " << rank << " result after the 1st step " << ": ";
+			// for (int j = 0; j < size*NUM_ITEMS; j++){
+			// 	cout << result[j] << " ";
+			// }
+			// cout << endl;
+			// cout << "From rank: " << rank << " recvbuf " << ": " << endl;
+			// for (int i = 0; i < d ;i ++){
+			// 	cout << "\t";
+			// 	for (int j = 0; j < (d + 1)*NUM_ITEMS; j++){
+			// 		cout << recvbuf[i][j] << " ";
+			// 	}
+			// 	cout << endl;
+			// }
+			free(sendbuf);
+			delete reqrecvs;
+			delete reqsends;
+
+			// Step 1 to d: send all the received data to children, finish the algorithm.
+
+			// allocate new size for send buf
+			sendbuf = (float*)malloc(sizeof(float)*NUM_ITEMS);
+
+			for (int i = 0; i < d; i ++){
+				// Prepare meta data
+				int duplicateIdx = childParent[rank][0];
+				int indexOfSendData = childParent[rank][d + i];
+
+				reqsends = new MPI_Request[d];
+				reqrecvs = new MPI_Request[d];	
+				// Receive data from parent
+				// for parent i
+				if (indexOfSendData != duplicateIdx){ // receive d chunk of data
+					// for each parent of parent (j)
+					for (int j = 0; j < d; j++){
+						int source = childParent[rank][d + j]; 
+						int recvIdx = childParent[source][2*d - i];
+						// cout << "\tFrom rank: " << rank << " step: " << i << " wait to receive from " << source << " index " << recvIdx << endl;
+						MPI_Irecv(&result[recvIdx*NUM_ITEMS], NUM_ITEMS, MPI_FLOAT, source, recvIdx, MPI_COMM_WORLD, &reqrecvs[j]);					
+					}
+					
+				} else { // receive d - 1 chunk of data
+					for (int j = 0; j < d - 1; j++){
+						int source = childParent[rank][d + j + 1];
+						int recvIdx = childParent[source][0];// receive from parent of parent
+						// cout << "\tFrom rank: " << rank << " step: " << i << " wait to receive from " << source << " index " << recvIdx << endl;
+						MPI_Irecv(&result[recvIdx*NUM_ITEMS], NUM_ITEMS, MPI_FLOAT, source, recvIdx, MPI_COMM_WORLD, &reqrecvs[j]);					
+					}
+				}
+
+				// IF ERROR SPLIT SEND AND RECEIVE INTO TWO FOR I LOOP
+				
+				// Send data to children
+				// For each child i 
+				if (indexOfSendData != duplicateIdx){ // send d chunks of data
+					// send the data from parent j
+					for (int j = 0; j < d; j++){
+						int destination = childParent[rank][j];
+						int sendidx = childParent[rank][2*d - i];
+						// cout << "\tFrom rank: " << rank << " step: " << i << " send to rank " << destination << " index " << indexOfSendData << endl;
+						MPI_Isend(&recvbuf[d - i][j*NUM_ITEMS], NUM_ITEMS, MPI_FLOAT, destination, sendidx, MPI_COMM_WORLD, &reqsends[j]);
+					}
+				} else { // send d - 1 chunks of data
+					for (int j = 0; j < d - 1; j++){
+						int destination = childParent[rank][j + 1];
+						// cout << "\tFrom rank: " << rank << " step: " << i << " send to rank " << destination << " index " << indexOfSendData << endl;
+						MPI_Isend(&recvbuf[i][j*NUM_ITEMS], NUM_ITEMS, MPI_FLOAT, destination, indexOfSendData, MPI_COMM_WORLD, &reqsends[j]);
+					}
+				}
+
+				if (indexOfSendData != duplicateIdx){ // send d chunks of data
+					// send the data from parent j
+					for (int j = 0; j < d; j++){
+						MPI_Wait(&reqrecvs[j], MPI_STATUS_IGNORE);
+					}
+				} else { // send d - 1 chunks of data
+					for (int j = 0; j < d - 1; j++){
+						MPI_Wait(&reqrecvs[j], MPI_STATUS_IGNORE);
+					}
+				}
+
+				delete reqrecvs;
+				delete reqsends;
+			}
 
 		} default : //Optional
 			break;											
