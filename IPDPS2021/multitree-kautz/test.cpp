@@ -12,6 +12,7 @@ int main(int argc, char *argv[])  {
     MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Get_processor_name(name, &len);
+    while(1);
     if (rank == 0) {      
         dest = 1;
         source = 1;
@@ -37,4 +38,5 @@ int main(int argc, char *argv[])  {
         printf("Task 1 on processor %s listening for Tag1 received this  message:\n   %s\n",name,inmsg);
     }
     MPI_Finalize();
+    while(1);
 }
