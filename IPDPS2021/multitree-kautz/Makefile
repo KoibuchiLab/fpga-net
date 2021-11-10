@@ -18,7 +18,19 @@ alltoall:
 	../../simgrid-3.28/install/bin/smpicxx -o alltoallsmpi $(sourcefilealltoall)
 	mpirun -np 6 ./alltoall --topo k2
 	../../simgrid-3.28/install/bin/smpirun -np 6 --cfg=smpi/host-speed:1Gf -hostfile ../hostfiles/kautz/kautz2-2.txt \
-	-platform ../platforms/kautz/kautz2-2.xml --log=smpi_coll.:critical ./alltoallsmpi --num-item 1
+	-platform ../platforms/kautz/kautz2-2.xml --log=smpi_coll.:critical ./alltoallsmpi --num-item 1024 --algorithm cmb
+	../../simgrid-3.28/install/bin/smpirun -np 6 --cfg=smpi/host-speed:1Gf -hostfile ../hostfiles/kautz/kautz2-2.txt \
+	-platform ../platforms/kautz/kautz2-2.xml --log=smpi_coll.:critical ./alltoallsmpi --num-item 1024 --algorithm mttree
+	../../simgrid-3.28/install/bin/smpirun -np 6 --cfg=smpi/host-speed:1Gf -hostfile ../hostfiles/kautz/kautz2-2.txt \
+	-platform ../platforms/kautz/kautz2-2.xml --log=smpi_coll.:critical ./alltoallsmpi --num-item 1024 -- algorithm conges
+
+	../../simgrid-3.28/install/bin/smpirun -np 12 --cfg=smpi/host-speed:1Gf -hostfile ../hostfiles/kautz/kautz3-2.txt \
+	-platform ../platforms/kautz/kautz3-2.xml --log=smpi_coll.:critical ./alltoallsmpi --num-item 1024 --algorithm cmb
+	../../simgrid-3.28/install/bin/smpirun -np 12 --cfg=smpi/host-speed:1Gf -hostfile ../hostfiles/kautz/kautz3-2.txt \
+	-platform ../platforms/kautz/kautz3-2.xml --log=smpi_coll.:critical ./alltoallsmpi --num-item 1024 --algorithm mttree
+	../../simgrid-3.28/install/bin/smpirun -np 12 --cfg=smpi/host-speed:1Gf -hostfile ../hostfiles/kautz/kautz3-2.txt \
+	-platform ../platforms/kautz/kautz3-2.xml --log=smpi_coll.:critical ./alltoallsmpi --num-item 1024 -- algorithm conges
+
 
 clean:
 	rm -f allgather allgathersmpi a.out

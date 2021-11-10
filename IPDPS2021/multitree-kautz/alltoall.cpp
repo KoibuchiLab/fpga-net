@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-10-30 19:32:28
+ * @ Modified time: 2021-11-10 14:31:46
  * @ Description:
  */
 
@@ -42,7 +42,6 @@ int main ( int argc, char *argv[] ){
 	double dblasttimer;
 	// Calculate degree
 	int d = (1 + sqrt(-1 + 4*size))/2;
-	
 	char hostname[256];
 	MPI_Get_processor_name(hostname, &hostname_len);
 	char topo[256];
@@ -104,7 +103,8 @@ int main ( int argc, char *argv[] ){
 	// All rank fill the buffer with random data
 	srandom(RAND_SEED + rank);
 	for (int i = 0; i < NUM_ITEMS*size; i++) {
-		data[i] = (float)(rank*10 + i);
+		//data[i] = (float)((rank*1000 + i));
+		data[i] = rank; //(float)(1 + 1.0 * (random() % 9));
 	}                                                                                                        
 
 #if defined(DEBUG1)
@@ -151,11 +151,6 @@ int main ( int argc, char *argv[] ){
 	// copy local data to result
 	memcpy(&result[rank*NUM_ITEMS], &data[rank*NUM_ITEMS], NUM_ITEMS*sizeof(float));
 	
-	float **recvbuf;
-	float *sendbuf;
-
-	MPI_Request *reqrecvs;
-	MPI_Request *reqsends;
 	MPI_Barrier(MPI_COMM_WORLD);
 	if (rank == 0) {
 		start_time = MPI_Wtime();
@@ -166,13 +161,13 @@ int main ( int argc, char *argv[] ){
 	switch(algo) {
 		case MULTITREE  :{ 
 			// Step 0 send all the neccessary information to all neighbors
-			sendbuf = (float*)malloc(sizeof(float)*(d + 1)*NUM_ITEMS);
-			recvbuf = (float**)malloc(sizeof(float*)*d);
+			float *sendbuf = (float*)malloc(sizeof(float)*(d + 1)*NUM_ITEMS);
+			float **recvbuf = (float**)malloc(sizeof(float*)*d);
 			for (int i = 0; i < d; i++){
 				recvbuf[i] = (float*)malloc(sizeof(float)*(d + 1)*NUM_ITEMS);
 			}
-			reqsends = new MPI_Request[d];
-			reqrecvs = new MPI_Request[d];
+			MPI_Request *reqsends = new MPI_Request[d];
+			MPI_Request *reqrecvs = new MPI_Request[d];
 
 			// for all child: 
 			for (int i = 0; i < d; i++){
@@ -187,7 +182,7 @@ int main ( int argc, char *argv[] ){
 				}
 
 				// Prepare sendbuffer
-				// copy data of child of child to send buf
+				// copy data of child of child to sendbuf
 				if (rank != duplicateIdx){ // normal copy
 					for (int j = 0; j < d; j++){
 						memcpy(&sendbuf[j*NUM_ITEMS], &data[childParent[aChild][j] * NUM_ITEMS], NUM_ITEMS*sizeof(float));
@@ -235,9 +230,6 @@ int main ( int argc, char *argv[] ){
 			delete reqsends;
 
 			// Step 1 to d: send all the received data to children, finish the algorithm.
-
-			// allocate new size for send buf
-			sendbuf = (float*)malloc(sizeof(float)*NUM_ITEMS);
 
 			for (int i = 0; i < d; i ++){
 				// Prepare meta data
@@ -311,13 +303,13 @@ int main ( int argc, char *argv[] ){
 		
 		} case CONGESTION: {
 			// Step 0 send all the neccessary information to all neighbors
-			sendbuf = (float*)malloc(sizeof(float)*(d + 1)*NUM_ITEMS);
-			recvbuf = (float**)malloc(sizeof(float*)*d);
+			float *sendbuf = (float*)malloc(sizeof(float*)*(d + 1)*NUM_ITEMS);
+			float **recvbuf = (float**)malloc(sizeof(float*)*d);
 			for (int i = 0; i < d; i++){
 				recvbuf[i] = (float*)malloc(sizeof(float)*(d + 1)*NUM_ITEMS);
 			}
-			reqsends = new MPI_Request[d];
-			reqrecvs = new MPI_Request[d];
+			MPI_Request *reqsends = new MPI_Request[d];
+			MPI_Request *reqrecvs = new MPI_Request[d];
 
 			// for all child: 
 			for (int i = 0; i < d; i++){
@@ -364,21 +356,22 @@ int main ( int argc, char *argv[] ){
 					memcpy(&result[cpyIdx*NUM_ITEMS], &recvbuf[i][(d - 1)*NUM_ITEMS], NUM_ITEMS*sizeof(float));
 				}
 			}
-			cout << "From rank: " << rank << " result after the 1st step " << ": ";
-			for (int j = 0; j < size*NUM_ITEMS; j++){
-				cout << result[j] << " ";
+			for (int i =0; i < d; i++){
+				MPI_Wait(&reqsends[i], MPI_STATUS_IGNORE);
 			}
-			cout << endl;
-			MPI_Barrier(MPI_COMM_WORLD);
-			for (int i = 0; i < 10000000; i++);
-			cout << "From rank: " << rank << " recvbuf " << ": " << endl;
-			for (int i = 0; i < d ;i ++){
-				cout << "\t";
-				for (int j = 0; j < (d + 1)*NUM_ITEMS; j++){
-					cout << recvbuf[i][j] << " ";
-				}
-				cout << endl;
-			}
+			// cout << "From rank: " << rank << " result after the 1st step " << ": ";
+			// for (int j = 0; j < size*NUM_ITEMS; j++){
+			// 	cout << result[j] << " ";
+			// }
+			// cout << endl;
+			// cout << "From rank: " << rank << " recvbuf " << ": " << endl;
+			// for (int i = 0; i < d ;i ++){
+			// 	cout << "\t";
+			// 	for (int j = 0; j < (d + 1)*NUM_ITEMS; j++){
+			// 		cout << recvbuf[i][j] << " ";
+			// 	}
+			// 	cout << endl;
+			// }
 			free(sendbuf);
 			delete reqsends;
 			delete reqrecvs;
@@ -398,7 +391,7 @@ int main ( int argc, char *argv[] ){
 					for (int j = 0; j < d; j++){
 						int source = childParent[rank][d + i]; // from one source but different data
 						int recvIdx = childParent[source][d + j];// receive from parent of parent
-						cout << "\tFrom rank: " << rank << " wait to receive from " << source << " index " << recvIdx << endl;
+						// cout << "\tFrom rank: " << rank << " wait to receive from " << source << " index " << recvIdx << endl;
 						MPI_Irecv(&result[recvIdx*NUM_ITEMS], NUM_ITEMS, MPI_FLOAT, source, recvIdx, MPI_COMM_WORLD, &reqrecvs[i*d + j]);					
 					}
 					
@@ -406,7 +399,7 @@ int main ( int argc, char *argv[] ){
 					for (int j = 0; j < d - 1; j++){
 						int source = childParent[rank][d + i]; // from one source but different data
 						int recvIdx = childParent[source][d + j + 1];// receive from parent of parent
-						cout << "\tFrom rank: " << rank << " wait to receive from " << source << " index " << recvIdx << endl;
+						// cout << "\tFrom rank: " << rank << " wait to receive from " << source << " index " << recvIdx << endl;
 						MPI_Irecv(&result[recvIdx*NUM_ITEMS], NUM_ITEMS, MPI_FLOAT, source, recvIdx, MPI_COMM_WORLD, &reqrecvs[i*d + j]);					
 					}
 				}
@@ -419,13 +412,13 @@ int main ( int argc, char *argv[] ){
 					// send the data from parent j
 					for (int j = 0; j < d; j++){
 						int destination = childParent[rank][j];
-						cout << "\tFrom rank: " << rank << " send to rank " << destination << " index " << indexOfSendData << endl;
+						// cout << "\tFrom rank: " << rank << " send to rank " << destination << " index " << indexOfSendData << endl;
 						MPI_Isend(&recvbuf[i][j*NUM_ITEMS], NUM_ITEMS, MPI_FLOAT, destination, indexOfSendData, MPI_COMM_WORLD, &reqsends[i*d + j]);
 					}
 				} else { // send d - 1 chunks of data
 					for (int j = 0; j < d - 1; j++){
 						int destination = childParent[rank][j + 1];
-						cout << "\tFrom rank: " << rank << " send to rank " << destination << " index " << indexOfSendData << endl;
+						// cout << "\tFrom rank: " << rank << " send to rank " << destination << " index " << indexOfSendData << endl;
 						MPI_Isend(&recvbuf[i][j*NUM_ITEMS], NUM_ITEMS, MPI_FLOAT, destination, indexOfSendData, MPI_COMM_WORLD, &reqsends[i*d + j]);
 					}
 				}
@@ -445,24 +438,27 @@ int main ( int argc, char *argv[] ){
 				}
 			}
 
-			cout << "From rank: " << rank << " result after the 2nd step " << ": ";
-			for (int j = 0; j < size*NUM_ITEMS; j++){
-				cout << result[j] << " ";
-			}
-			cout << endl;
+			// cout << "From rank: " << rank << " result after the 2nd step " << ": ";
+			// for (int j = 0; j < size*NUM_ITEMS; j++){
+			// 	cout << result[j] << " ";
+			// }
+			// cout << endl;
 			delete reqsends;
 			delete reqrecvs;
 			break; //optional
 		} case COMBINE:{
 			// Step 0 send all the neccessary information to all neighbors
-			sendbuf = (float*)malloc(sizeof(float)*(d + 1)*NUM_ITEMS);
-			recvbuf = (float**)malloc(sizeof(float*)*d);
-			for (int i = 0; i < d; i++){
-				recvbuf[i] = (float*)malloc(sizeof(float)*(d + 1)*NUM_ITEMS);
-			}
-			reqsends = new MPI_Request[d];
-			reqrecvs = new MPI_Request[d];
 
+			MPI_Request *reqsends = new MPI_Request[d];
+			MPI_Request *reqrecvs = new MPI_Request[d];
+			float *sendbuf1 = (float*)malloc(sizeof(float)*(d + 1)*NUM_ITEMS);
+			float **recvbuf1 = (float**)malloc(sizeof(float*)*d);
+			
+			for (int i = 0; i < d; i++){
+				recvbuf1[i] = (float*)malloc(sizeof(float)*(d + 1)*NUM_ITEMS);
+			}
+			
+			
 			// for all child: 
 			for (int i = 0; i < d; i++){
 				int aChild = childParent[rank][i];
@@ -470,27 +466,31 @@ int main ( int argc, char *argv[] ){
 				int duplicateIdx = childParent[aChild][0];
 				//receive data from parents
 				if (aParent != childParent[rank][0]){
-					MPI_Irecv(recvbuf[i], (d + 1)*NUM_ITEMS, MPI_FLOAT, aParent, 0, MPI_COMM_WORLD, &reqrecvs[i]);
+					MPI_Irecv(recvbuf1[i], (d + 1)*NUM_ITEMS, MPI_FLOAT, aParent, 0, MPI_COMM_WORLD, &reqrecvs[i]);
 				} else {
-					MPI_Irecv(recvbuf[i], d*NUM_ITEMS, MPI_FLOAT, aParent, 0, MPI_COMM_WORLD, &reqrecvs[i]);
+					MPI_Irecv(recvbuf1[i], d*NUM_ITEMS, MPI_FLOAT, aParent, 0, MPI_COMM_WORLD, &reqrecvs[i]);
 				}
-
+			}
+			
+			for (int i = 0; i < d; i++){
 				// Prepare sendbuffer
 				// copy data of child of child to send buf
+				int aChild = childParent[rank][i];
+				int duplicateIdx = childParent[aChild][0];
 				if (rank != duplicateIdx){ // normal copy
 					for (int j = 0; j < d; j++){
-						memcpy(&sendbuf[j*NUM_ITEMS], &data[childParent[aChild][j] * NUM_ITEMS], NUM_ITEMS*sizeof(float));
+						memcpy(&sendbuf1[j*NUM_ITEMS], &data[childParent[aChild][j] * NUM_ITEMS], NUM_ITEMS*sizeof(float));
 					}
-					memcpy(&sendbuf[d*NUM_ITEMS], &data[aChild*NUM_ITEMS], NUM_ITEMS*sizeof(float));
+					memcpy(&sendbuf1[d*NUM_ITEMS], &data[aChild*NUM_ITEMS], NUM_ITEMS*sizeof(float));
 
-					MPI_Isend(sendbuf, (d + 1)*NUM_ITEMS, MPI_FLOAT, aChild, 0, MPI_COMM_WORLD, &reqsends[i]);
+					MPI_Isend(sendbuf1, (d + 1)*NUM_ITEMS, MPI_FLOAT, aChild, 0, MPI_COMM_WORLD, &reqsends[i]);
 				} else { // copy with adjust index
 					for (int j = 0; j < d - 1; j++){
-						memcpy(&sendbuf[j*NUM_ITEMS], &data[childParent[aChild][j + 1] * NUM_ITEMS], NUM_ITEMS*sizeof(float));
+						memcpy(&sendbuf1[j*NUM_ITEMS], &data[childParent[aChild][j + 1] * NUM_ITEMS], NUM_ITEMS*sizeof(float));
 					}
-					memcpy(&sendbuf[(d - 1)*NUM_ITEMS], &data[aChild*NUM_ITEMS], NUM_ITEMS*sizeof(float));
+					memcpy(&sendbuf1[(d - 1)*NUM_ITEMS], &data[aChild*NUM_ITEMS], NUM_ITEMS*sizeof(float));
 
-					MPI_Isend(sendbuf, d*NUM_ITEMS, MPI_FLOAT, aChild, 0, MPI_COMM_WORLD, &reqsends[i]);
+					MPI_Isend(sendbuf1, d*NUM_ITEMS, MPI_FLOAT, aChild, 0, MPI_COMM_WORLD, &reqsends[i]);
 				}
 				
 			}
@@ -501,10 +501,13 @@ int main ( int argc, char *argv[] ){
 				int duplicateIdx = childParent[rank][0];
 				int cpyIdx = childParent[rank][d + i];
 				if(cpyIdx != duplicateIdx){ //normal copy
-					memcpy(&result[cpyIdx*NUM_ITEMS], &recvbuf[i][d*NUM_ITEMS], NUM_ITEMS*sizeof(float));
+					memcpy(&result[cpyIdx*NUM_ITEMS], &recvbuf1[i][d*NUM_ITEMS], NUM_ITEMS*sizeof(float));
 				} else { // copy with adjust index
-					memcpy(&result[cpyIdx*NUM_ITEMS], &recvbuf[i][(d - 1)*NUM_ITEMS], NUM_ITEMS*sizeof(float));
+					memcpy(&result[cpyIdx*NUM_ITEMS], &recvbuf1[i][(d - 1)*NUM_ITEMS], NUM_ITEMS*sizeof(float));
 				}
+			}
+			for (int i = 0; i < d; i++){
+				MPI_Wait(&reqsends[i], MPI_STATUS_IGNORE);
 			}
 			// cout << "From rank: " << rank << " result after the 1st step " << ": ";
 			// for (int j = 0; j < size*NUM_ITEMS; j++){
@@ -519,87 +522,148 @@ int main ( int argc, char *argv[] ){
 			// 	}
 			// 	cout << endl;
 			// }
-			free(sendbuf);
-			delete reqrecvs;
-			delete reqsends;
+			
+			free(sendbuf1);
+			delete [] reqrecvs;
+			delete [] reqsends;
+			
+			// if (rank == 0){
+			// 	cout << "1\n";
+			// 	cin.get();
+			// }
+			// MPI_Barrier(MPI_COMM_WORLD);
+			
 
-			// Step 1 to d: send all the received data to children, finish the algorithm.
+			// Step 1 combine the message and send to the children
 
 			// allocate new size for send buf
-			sendbuf = (float*)malloc(sizeof(float)*NUM_ITEMS);
+			float *sendbuf2 = new float[NUM_ITEMS*d]();//(float*)malloc(sizeof(float)*NUM_ITEMS*d);
+			float **recvbufv2 = (float**)malloc(sizeof(float*)*(d));
+			for (int i = 0; i < d; i++){
+				recvbufv2[i] = (float*)malloc(sizeof(float)*d*NUM_ITEMS);
+			}
+			reqsends = new MPI_Request[d];
+			reqrecvs = new MPI_Request[d];
 
+			
 			for (int i = 0; i < d; i ++){
 				// Prepare meta data
 				int duplicateIdx = childParent[rank][0];
-				int indexOfSendData = childParent[rank][d + i];
 
-				reqsends = new MPI_Request[d];
-				reqrecvs = new MPI_Request[d];	
-				// Receive data from parent
-				// for parent i
-				if (indexOfSendData != duplicateIdx){ // receive d chunk of data
-					// for each parent of parent (j)
-					for (int j = 0; j < d; j++){
-						int source = childParent[rank][d + j]; 
-						int recvIdx = childParent[source][2*d - i];
-						// cout << "\tFrom rank: " << rank << " step: " << i << " wait to receive from " << source << " index " << recvIdx << endl;
-						MPI_Irecv(&result[recvIdx*NUM_ITEMS], NUM_ITEMS, MPI_FLOAT, source, recvIdx, MPI_COMM_WORLD, &reqrecvs[j]);					
-					}
-					
-				} else { // receive d - 1 chunk of data
-					for (int j = 0; j < d - 1; j++){
-						int source = childParent[rank][d + j + 1];
-						int recvIdx = childParent[source][0];// receive from parent of parent
-						// cout << "\tFrom rank: " << rank << " step: " << i << " wait to receive from " << source << " index " << recvIdx << endl;
-						MPI_Irecv(&result[recvIdx*NUM_ITEMS], NUM_ITEMS, MPI_FLOAT, source, recvIdx, MPI_COMM_WORLD, &reqrecvs[j]);					
-					}
+				int source = childParent[rank][d + i];
+				if (source != duplicateIdx){
+					cout << "From rank: " << rank << " wait to recieve from: " << source << " numitems: " << d << endl;
+					MPI_Irecv(recvbufv2[i], d*NUM_ITEMS, MPI_FLOAT, source, 0, MPI_COMM_WORLD, &reqrecvs[i]);
+				} else {
+					cout << "From rank: " << rank << " wait to recieve from: " << source << " numitems: " << d - 1 << endl;
+					MPI_Irecv(recvbufv2[i], (d - 1)*NUM_ITEMS, MPI_FLOAT, source, 0, MPI_COMM_WORLD, &reqrecvs[i]);
 				}
-
-				// IF ERROR SPLIT SEND AND RECEIVE INTO TWO FOR I LOOP
-				
+			}
+			for (int i = 0; i < d; i ++){
+				int duplicateIdx = childParent[rank][0];
 				// Send data to children
 				// For each child i 
-				if (indexOfSendData != duplicateIdx){ // send d chunks of data
-					// send the data from parent j
-					for (int j = 0; j < d; j++){
-						int destination = childParent[rank][j];
-						int sendidx = childParent[rank][2*d - i];
-						// cout << "\tFrom rank: " << rank << " step: " << i << " send to rank " << destination << " index " << indexOfSendData << endl;
-						MPI_Isend(&recvbuf[d - i][j*NUM_ITEMS], NUM_ITEMS, MPI_FLOAT, destination, sendidx, MPI_COMM_WORLD, &reqsends[j]);
+				int destination = childParent[rank][i];
+				if (destination != duplicateIdx){ // send d chunks of data
+					// prepare data
+					memcpy(&sendbuf2[0*NUM_ITEMS], &recvbuf1[0][(i - 1)*NUM_ITEMS], NUM_ITEMS*sizeof(float));
+					for (int j = 1; j < d; j++){
+						memcpy(&sendbuf2[j*NUM_ITEMS], &recvbuf1[j][i*NUM_ITEMS], NUM_ITEMS*sizeof(float));
 					}
+					// cout << "From rank " << rank << " sendbuf " << i << " ";
+					// for (int j = 0; j < d*NUM_ITEMS; j++){
+					// 	cout << sendbuf[j] << " ";
+					// }
+					// cout << endl;
+					cout << "From rank: " << rank << " send to: " << destination << " numitems: " << d << endl;
+					MPI_Isend(sendbuf2, NUM_ITEMS*d, MPI_FLOAT, destination, 0, MPI_COMM_WORLD, &reqsends[i]);
+					// send
+					
 				} else { // send d - 1 chunks of data
+					// prepare data
 					for (int j = 0; j < d - 1; j++){
-						int destination = childParent[rank][j + 1];
-						// cout << "\tFrom rank: " << rank << " step: " << i << " send to rank " << destination << " index " << indexOfSendData << endl;
-						MPI_Isend(&recvbuf[i][j*NUM_ITEMS], NUM_ITEMS, MPI_FLOAT, destination, indexOfSendData, MPI_COMM_WORLD, &reqsends[j]);
+						memcpy(&sendbuf2[j*NUM_ITEMS], &recvbuf1[j + 1][i], NUM_ITEMS*sizeof(float));
+					}
+					// cout << "From rank " << rank << " sendbuf " << i << " ";
+                    // for (int j = 0; j < (d - 1)*NUM_ITEMS; j++){
+                    //     cout << sendbuf[j] << " ";
+                    // }
+                    // cout << endl;
+					// send 
+					cout << "From rank: " << rank << " send to: " << destination << " numitems: " << d - 1  << endl;
+					MPI_Isend(sendbuf2, (d - 1)*NUM_ITEMS, MPI_FLOAT, destination, 0, MPI_COMM_WORLD, &reqsends[i]);
+
+				}
+			}
+			
+
+			for (int i = 0; i < d; i++){
+				// Wait for recieving complete
+				MPI_Wait(&reqrecvs[i], MPI_STATUS_IGNORE);
+
+				// Copy to the final result
+				if(i == 0){ // duplicate index
+					// For each data chunk in the received buf
+					for (int j = 0; j < d - 1; j++){
+						// calculate index of the data
+						int parent = childParent[rank][d + i];
+						int idx = childParent[parent][d + j + 1];
+						// copy to the final result
+						memcpy(&result[idx*NUM_ITEMS], &recvbufv2[i][j*NUM_ITEMS], NUM_ITEMS*sizeof(float));			
+					}
+				} else {
+					for (int j = 0; j < d; j++){
+						// calculate index of the data
+						int parent = childParent[rank][d + i];
+						int idx = childParent[parent][d + j];
+
+						// copy to the final result
+						memcpy(&result[idx*NUM_ITEMS], &recvbufv2[i][j*NUM_ITEMS], NUM_ITEMS*sizeof(float));
 					}
 				}
-
-				if (indexOfSendData != duplicateIdx){ // send d chunks of data
-					// send the data from parent j
-					for (int j = 0; j < d; j++){
-						MPI_Wait(&reqrecvs[j], MPI_STATUS_IGNORE);
-					}
-				} else { // send d - 1 chunks of data
-					for (int j = 0; j < d - 1; j++){
-						MPI_Wait(&reqrecvs[j], MPI_STATUS_IGNORE);
-					}
-				}
-
-				delete reqrecvs;
-				delete reqsends;
 			}
 
+			// cout << "From rank " << rank << " Recvbufv2: " << endl;
+			// for (int i = 0; i < d; i++){
+			// 	cout << "\t";
+			// 	for (int j = 0; j < d*NUM_ITEMS; j++){
+			// 		cout << recvbufv2[i][j] << " ";
+			// 	}
+			// 	cout << endl;
+			// }
+			for (int i = 0; i < d; i++){
+				MPI_Wait(&reqsends[i], MPI_STATUS_IGNORE);
+			}
+
+			
+			// cout << "From rank: " << rank << " final result " << ": ";
+			// for (int j = 0; j < size*NUM_ITEMS; j++){
+			// 	cout << result[j] << " ";
+			// }
+			// cout << endl;
+
+
+			delete reqrecvs;
+			delete reqsends;
+			delete [] sendbuf2;
+			for (int i = 1; i < d; i++){
+				free(recvbuf1[i]);
+				free(recvbufv2[i]);
+			}
+			free(recvbufv2);
+			free(recvbuf1);
 		} default : //Optional
 			break;											
 	}
+	
+
 	
 #if defined(PRINT_RESULT)
 	// Print allgather result after step 
 	if (rank == 0){
 		cout << "From rank " << rank << " allgatherresult:\n\t";
 		for (int i = 0; i < NUM_ITEMS*size; i++){
-			cout << allGatherResult[i] << "\t";
+			cout << result[i] << "\t";
 		}
 		cout << endl;
 	}
@@ -607,7 +671,7 @@ int main ( int argc, char *argv[] ){
 #endif
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////	 ALLGATHER : END	     ////////////////////////////////////////
+	////////////////////////////	    ALLTOALL : END	     ////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	/// Stop timer
 	MPI_Barrier(MPI_COMM_WORLD);
@@ -628,7 +692,8 @@ int main ( int argc, char *argv[] ){
 	// Compare the result
 	if (rank == 0){
 		for (int i = 0; i < NUM_ITEMS*size; i++){
-			if (result[i] != resultlib[i]){
+			if (int(result[i]) != int(resultlib[i])){
+				cout << "Index " << i << " kim: " << result[i] << " lib " << resultlib[i] << endl;
 				fprintf(stdout, "%s\n", "Alltoall wrong");
 				break;
 			}
@@ -638,5 +703,6 @@ int main ( int argc, char *argv[] ){
 	delete data;
 	delete result;
 	MPI_Finalize();
+	
 	return 0;
 }
