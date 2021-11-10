@@ -1,34 +1,31 @@
-#include <iostream>
+#include "mpi.h"
+#include <stdio.h>
+#include <string.h>
 
-int main() {
-
-    //Hey, pointers have a finite size, no matter the indirection level!
-    std::cout << "sizeof(int*): " << sizeof(int*) << std::endl;
-    std::cout << "sizeof(int**): " << sizeof(int**) << std::endl;
-    std::cout << "sizeof(int***): " << sizeof(int***) << std::endl;
-    int d  = 5;
-    //Create an array of pointers that points to more arrays
-    int** matrix = new int*[d];
-    for (int i = 0; i < 5; ++i) {
-        matrix[i] = new int[d];
-        for (int j = 0; j < 5; ++j) {
-            matrix[i][j] = i*5 + j;
-        }
+int main(int argc, char *argv[])  {
+    int numtasks, rank, dest, source, rc, count,len;  
+    char name[MPI_MAX_PROCESSOR_NAME];
+    MPI_Init(&argc,&argv);
+    MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    MPI_Get_processor_name(name, &len);
+    // allocate new size for send buf
+    MPI_Request *reqsends, *reqrecvs;
+    int NUM_ITEMS = 2, d = 4;
+    // float *sendbuf2 = new float[NUM_ITEMS*d];//(float*)malloc(sizeof(float)*NUM_ITEMS*d);
+    float **recvbufv2 = (float**)malloc(sizeof(float*)*(d));
+    for (int i = 0; i < d; i++){
+        recvbufv2[i] = (float*)malloc(sizeof(float)*d*NUM_ITEMS);
     }
+    reqsends = new MPI_Request[d];
+    reqrecvs = new MPI_Request[d];
 
-    //Print out the matrix to verify we have created the matrix
-    for (int j = 0; j < 5; ++j) {
-        for (int i = 0; i < 5; ++i) {
-            std::cout << matrix[j][i] << std::endl;
-        }
+    delete [] reqrecvs;
+    delete [] reqsends;
+    // delete sendbuf2;
+    for (int i = 1; i < d; i++){
+        free(recvbufv2[i]);
     }
-
-    //Free each sub-array
-    for(int i = 0; i < 5; ++i) {
-        delete matrix[i];   
-    }
-    //Free the array of pointers
-    delete matrix;
-
-    return 0;
+    free(recvbufv2);
+    MPI_Finalize();
 }
