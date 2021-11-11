@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-11-10 14:31:46
+ * @ Modified time: 2021-11-11 19:31:51
  * @ Description:
  */
 
@@ -556,7 +556,7 @@ int main ( int argc, char *argv[] ){
 					MPI_Irecv(recvbufv2[i], d*NUM_ITEMS, MPI_FLOAT, source, 0, MPI_COMM_WORLD, &reqrecvs[i]);
 				} else {
 					cout << "From rank: " << rank << " wait to recieve from: " << source << " numitems: " << d - 1 << endl;
-					MPI_Irecv(recvbufv2[i], (d - 1)*NUM_ITEMS, MPI_FLOAT, source, 0, MPI_COMM_WORLD, &reqrecvs[i]);
+					MPI_Irecv(recvbufv2[i], (d - 1)*NUM_ITEMS, MPI_FLOAT, source, 00, MPI_COMM_WORLD, &reqrecvs[i]);
 				}
 			}
 			for (int i = 0; i < d; i ++){
@@ -591,7 +591,7 @@ int main ( int argc, char *argv[] ){
                     // cout << endl;
 					// send 
 					cout << "From rank: " << rank << " send to: " << destination << " numitems: " << d - 1  << endl;
-					MPI_Isend(sendbuf2, (d - 1)*NUM_ITEMS, MPI_FLOAT, destination, 0, MPI_COMM_WORLD, &reqsends[i]);
+					MPI_Isend(sendbuf2, (d - 1)*NUM_ITEMS, MPI_FLOAT, destination, 00, MPI_COMM_WORLD, &reqsends[i]);
 
 				}
 			}

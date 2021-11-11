@@ -502,6 +502,8 @@ IPDPS2021/platform-generator/platforms/
 
 IPDPS2021/multitree-kautz/allgather
 IPDPS2021/multitree-kautz/allgathersmpi
+IPDPS2021/multiport-2lvfc/allgather
+IPDPS2021/multiport-2lvfc/allgathersmpi
 IPDPS2021/multitree-kautz/a.out
 
 
