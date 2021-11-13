@@ -505,7 +505,8 @@ IPDPS2021/multitree-kautz/allgathersmpi
 IPDPS2021/multiport-2lvfc/allgather
 IPDPS2021/multiport-2lvfc/allgathersmpi
 IPDPS2021/multitree-kautz/a.out
-
+IPDPS2021/multitree-kautz/alltoallsmpi-b
+IPDPS2021/multitree-kautz/error
 
 IPDPS2021/hostfiles/2lvfc/16x17.txt
 IPDPS2021/hostfiles/2lvfc/32x33.txt
