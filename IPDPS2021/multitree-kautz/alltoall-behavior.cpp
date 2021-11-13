@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-11-13 23:43:59
+ * @ Modified time: 2021-11-14 00:24:55
  * @ Description:
  */
 
@@ -33,9 +33,9 @@ using namespace std;
 
 
 int main ( int argc, char *argv[] ){
-    {int i=0;
-    while (0 == i)
-        sleep(5);}
+    // {int i=0;
+    // while (0 == i)
+    //     sleep(5);}
 	int rank;
 	int size;
 	int hostname_len;
@@ -553,19 +553,19 @@ int main ( int argc, char *argv[] ){
                 // }
             }
             
-                cout << "From rank: " << rank << " result after the 1st step " << ": ";
-                for (int j = 0; j < size*NUM_ITEMS; j++){
-                    cout << result[j] << " ";
-                }
-                cout << endl;
-                cout << "From rank: " << rank << " recvbuf " << ": " << endl;
-                for (int i = 0; i < d ;i ++){
-                    cout << "\t";
-                    for (int j = 0; j < (d + 1)*NUM_ITEMS; j++){
-                        cout << recvbuf1[i][j] << " ";
-                    }
-                    cout << endl;
-                }
+                // cout << "From rank: " << rank << " result after the 1st step " << ": ";
+                // for (int j = 0; j < size*NUM_ITEMS; j++){
+                //     cout << result[j] << " ";
+                // }
+                // cout << endl;
+                // cout << "From rank: " << rank << " recvbuf " << ": " << endl;
+                // for (int i = 0; i < d ;i ++){
+                //     cout << "\t";
+                //     for (int j = 0; j < (d + 1)*NUM_ITEMS; j++){
+                //         cout << recvbuf1[i][j] << " ";
+                //     }
+                //     cout << endl;
+                // }
 			
 			
 			free(sendbuf1);
@@ -620,11 +620,11 @@ int main ( int argc, char *argv[] ){
 						memcpy(&sendbuf2[j*NUM_ITEMS], &recvbuf1[j][i*NUM_ITEMS], NUM_ITEMS*sizeof(float));
 					}
 
-                    cout << "From rank " << rank << " sendbuf " << i << " ";
-                    for (int j = 0; j < d*NUM_ITEMS; j++){
-                        cout << sendbuf2[j] << " ";
-                    }
-                    cout << endl;
+                    // cout << "From rank " << rank << " sendbuf " << i << " ";
+                    // for (int j = 0; j < d*NUM_ITEMS; j++){
+                    //     cout << sendbuf2[j] << " ";
+                    // }
+                    // cout << endl;
 					
 					// cout << "From rank: " << rank << " send to: " << destination << " numitems: " << d << endl;
 					MPI_Isend(sendbuf2, NUM_ITEMS*d, MPI_FLOAT, destination, 0, MPI_COMM_WORLD, &reqsends1[i]);
@@ -637,11 +637,11 @@ int main ( int argc, char *argv[] ){
 					}
 
                     
-                    cout << "From rank " << rank << " sendbuf " << i << " ";
-                    for (int j = 0; j < (d - 1)*NUM_ITEMS; j++){
-                        cout << sendbuf2[j] << " ";
-                    }
-                    cout << endl;
+                    // cout << "From rank " << rank << " sendbuf " << i << " ";
+                    // for (int j = 0; j < (d - 1)*NUM_ITEMS; j++){
+                    //     cout << sendbuf2[j] << " ";
+                    // }
+                    // cout << endl;
 					
 					// send 
 					// cout << "From rank: " << rank << " send to: " << destination << " numitems: " << d - 1  << endl;
@@ -659,14 +659,14 @@ int main ( int argc, char *argv[] ){
 				MPI_Wait(&reqrecvs1[i], MPI_STATUS_IGNORE);
 			}   
             
-            cout << "From rank " << rank << " Recvbufv2: " << endl;
-            for (int i = 0; i < d; i++){
-                cout << "\t";
-                for (int j = 0; j < d*NUM_ITEMS; j++){
-                    cout << recvbufv2[i][j] << " ";
-                }
-                cout << endl;
-            }
+            // cout << "From rank " << rank << " Recvbufv2: " << endl;
+            // for (int i = 0; i < d; i++){
+            //     cout << "\t";
+            //     for (int j = 0; j < d*NUM_ITEMS; j++){
+            //         cout << recvbufv2[i][j] << " ";
+            //     }
+            //     cout << endl;
+            // }
 			
 			int parent, idx;
 			for (int i = 0; i < d; i++){
@@ -694,11 +694,11 @@ int main ( int argc, char *argv[] ){
 				}
 			}
 
-            cout << "From rank: " << rank << " final result " << ": ";
-            for (int j = 0; j < size*NUM_ITEMS; j++){
-                cout << result[j] << " ";
-            }
-            cout << endl;
+            // cout << "From rank: " << rank << " final result " << ": ";
+            // for (int j = 0; j < size*NUM_ITEMS; j++){
+            //     cout << result[j] << " ";
+            // }
+            // cout << endl;
 
 
 			delete reqrecvs1;

@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-11-13 20:58:26
+ * @ Modified time: 2021-11-14 00:25:06
  * @ Description:
  */
 
@@ -32,9 +32,9 @@ using namespace std;
 
 
 int main ( int argc, char *argv[] ){
-    {int i=0;
-    while (0 == i)
-        sleep(5);}
+    // {int i=0;
+    // while (0 == i)
+    //     sleep(5);}
 	int rank;
 	int size;
 	int hostname_len;
