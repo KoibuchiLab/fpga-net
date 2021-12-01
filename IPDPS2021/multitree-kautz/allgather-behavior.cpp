@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-10-15 00:54:18
+ * @ Modified time: 2021-12-01 21:20:21
  * @ Description:
  */
 #include <iostream>
@@ -186,11 +186,12 @@ int main ( int argc, char *argv[] ){
 		allGatherResult[rank*NUM_ITEMS + i] = data[i];
 	}
 	float **recvbuf;
-	float *sendbuf;
+	float *sendbuf, *recvbufdata;
 	if(algo == COMBINE){
 		recvbuf = new float*[d];
+        recvbufdata = (float*)SMPI_SHARED_MALLOC(sizeof(float)*d*NUM_ITEMS*d);
 		for (int i = 0; i < d; i++){
-			recvbuf[i] = (float*)SMPI_SHARED_MALLOC(sizeof(float)*d*NUM_ITEMS);//new float[d*NUM_ITEMS];
+			recvbuf[i] = (float*)&(recvbufdata[i*NUM_ITEMS]);//new float[d*NUM_ITEMS];
 		}
 		sendbuf = new float[d*NUM_ITEMS];
 	}
@@ -557,9 +558,9 @@ int main ( int argc, char *argv[] ){
 		dblasttimer = MPI_Wtime();
 	}
 #endif
-			for (int i = 0; i < d; i++){
-				SMPI_SHARED_FREE(recvbuf[i]);
-			}
+            SMPI_SHARED_FREE(recvbufdata);
+            SMPI_SHARED_FREE(recvbuf);
+
 			SMPI_SHARED_FREE (nsendbuf);
 			delete (sendbuf);
 			delete whichData;
