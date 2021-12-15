@@ -35,9 +35,16 @@ allgather:
 	../../simgrid-3.28/install/bin/smpicc allgather-behavior.c  -o allgathersmpi-b
 #	mpirun -np 6 ./allgather --topo 3x2 --num-item 2
 #	../../simgrid-3.28/install/bin/smpirun --cfg=smpi/bcast:mpich --cfg=smpi/host-speed:1Gf -np 6 -hostfile ../hostfiles/2lvfc/3x2.txt -platform ../platforms/2lvfc/3x2.xml --log=smpi_coll.:critical ./allgathersmpi --num-item 2
+
+alltoall:
+	mpicc alltoall.c -o alltoall
+	../../simgrid-3.28/install/bin/smpicc alltoall.c  -o alltoallsmpi
+#	../../simgrid-3.28/install/bin/smpicc alltoall-behavior.c  -o alltoallsmpi-b
+	mpirun -np 6 ./alltoall --topo 3x2 --num-item 2
+	mpirun -np 9 ./alltoall --topo 3x3 --num-item 2
 	
 	
 	
 	
-.PHONY: all test allgather realmpi compare
+.PHONY: all test allgather realmpi compare alltoall
 	

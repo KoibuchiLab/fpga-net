@@ -9,14 +9,14 @@
 #define IPDPS2021_MULTIPORT_2LVFC_CONFIG_H_
 
 //#define DEBUG0
-//#define DEBUG1 	// Intra group reduscatter
+#define DEBUG1 	// Intra group reduscatter
 //#define DEBUG2   // Inter group reducescatter
 //#define DEBUG3   // Inter group allgather
 //#define DEBUG4   // Intra group allgather
-//#define DEBUG5   // Print compare with buildin mpi result
+// #define DEBUG5   // Print compare with buildin mpi result
 
 
-//#define COMPARE_BUILDIN
+#define COMPARE_BUILDIN
 //#define TIME_FOR_EACH_STEP
 
 
