@@ -1,0 +1,330 @@
+mpic++ -o allgather allgather.cpp helper.cpp 
+mpic++ -g -o alltoall alltoall.cpp helper.cpp 
+../../simgrid-3.28/install/bin/smpicxx -o allgathersmpi allgather.cpp helper.cpp 
+../../simgrid-3.28/install/bin/smpicxx -o alltoallsmpi alltoall.cpp helper.cpp 
+../../simgrid-3.28/install/bin/smpicxx -o allgathersmpi-b allgather-behavior.cpp helper.cpp 
+../../simgrid-3.28/install/bin/smpicxx -o alltoallsmpi-b alltoall-behavior.cpp helper.cpp 
+cmb
+k2,0.0000319,256
+k4,0.0000899,256
+k8,0.0003028,256
+k16,0.0011204,256
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz32-2.xml
+Execution failed with code 134.
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0000324,512
+k4,0.0000919,512
+k8,0.0003092,512
+k16,0.0011258,512
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz32-2.xml
+Execution failed with code 134.
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0000339,1024
+k4,0.0000969,1024
+k8,0.0003143,1024
+k16,0.0011493,1024
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz32-2.xml
+Execution failed with code 134.
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0000397,2048
+k4,0.0001028,2048
+k8,0.0003384,2048
+k16,0.0011686,2048
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz32-2.xml
+Execution failed with code 134.
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0000455,4096
+k4,0.0001248,4096
+k8,0.0003544,4096
+k16,0.0012047,4096
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz32-2.xml
+Execution failed with code 134.
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0000680,8192
+k4,0.0001412,8192
+k8,0.0003873,8192
+k16,0.0012759,8192
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz32-2.xml
+Execution failed with code 134.
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0000849,16384
+k4,0.0001742,16384
+k8,0.0004500,16384
+k16,0.0014191,16384
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz32-2.xml
+Execution failed with code 134.
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0001185,32768
+k4,0.0002441,32768
+k8,0.0005822,32768
+k16,0.0016900,32768
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz32-2.xml
+Execution failed with code 134.
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0001875,65536
+k4,0.0003773,65536
+k8,0.0008420,65536
+k16,0.0022509,65536
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz32-2.xml
+Execution failed with code 134.
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0003402,131072
+k4,0.0006341,131072
+k8,0.0013524,131072
+k16,0.0034258,131072
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz32-2.xml
+Execution failed with code 134.
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0006252,262144
+k4,0.0011428,262144
+k8,0.0023691,262144
+k16,0.0058574,262144
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz32-2.xml
+Execution failed with code 134.
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0011858,524288
+k4,0.0020969,524288
+k8,0.0042033,524288
+k16,0.0095235,524288
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz32-2.xml
+Execution failed with code 134.
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0022795,1048576
+k4,0.0040843,1048576
+k8,0.0081223,1048576
+k16,0.0190994,1048576
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz32-2.xml
+Execution failed with code 134.
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 139.
+k2,0.0044229,2097152
+k4,0.0080620,2097152
+k8,0.0160320,2097152
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz16-2.xml
+Execution failed with code 134.
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz32-2.xml
+Execution failed with code 134.
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 139.
+conges
+k2,0.0000138,256
+k4,0.0000154,256
+k8,0.0000181,256
+k16,0.0000232,256
+k32,0.0001185,256
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0000139,512
+k4,0.0000168,512
+k8,0.0000207,512
+k16,0.0000348,512
+k32,0.0001838,512
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0000156,1024
+k4,0.0000197,1024
+k8,0.0000250,1024
+k16,0.0000505,1024
+k32,0.0001085,1024
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0000191,2048
+k4,0.0000238,2048
+k8,0.0000380,2048
+k16,0.0000586,2048
+k32,0.0001398,2048
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0000265,4096
+k4,0.0000418,4096
+k8,0.0000594,4096
+k16,0.0000990,4096
+k32,0.0002094,4096
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0000425,8192
+k4,0.0000590,8192
+k8,0.0000934,8192
+k16,0.0001604,8192
+k32,0.0003395,8192
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0000637,16384
+k4,0.0000928,16384
+k8,0.0001510,16384
+k16,0.0002744,16384
+k32,0.0043945,16384
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0000974,32768
+k4,0.0001551,32768
+k8,0.0002680,32768
+k16,0.0005143,32768
+k32,0.0040900,32768
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0001637,65536
+k4,0.0002787,65536
+k8,0.0004993,65536
+k16,0.0009636,65536
+k32,0.0020986,65536
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0003006,131072
+k4,0.0005188,131072
+k8,0.0009614,131072
+k16,0.0018764,131072
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz32-2.xml
+Execution failed with code 134.
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0005684,262144
+k4,0.0010013,262144
+k8,0.0018835,262144
+k16,0.0038562,262144
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz32-2.xml
+Execution failed with code 134.
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0010937,524288
+k4,0.0019462,524288
+k8,0.0036599,524288
+k16,0.0073033,524288
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz32-2.xml
+Execution failed with code 134.
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0021477,1048576
+k4,0.0038368,1048576
+k8,0.0072340,1048576
+k16,0.0149262,1048576
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz32-2.xml
+Execution failed with code 134.
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 139.
+k2,0.0042146,2097152
+k4,0.0075695,2097152
+k8,0.0144319,2097152
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz16-2.xml
+Execution failed with code 134.
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz32-2.xml
+Execution failed with code 134.
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 139.
+mttree
+k2,0.0000155,256
+k4,0.0000212,256
+k8,0.0000314,256
+k16,0.0000544,256
+k32,0.0001086,256
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0000152,512
+k4,0.0000216,512
+k8,0.0000324,512
+k16,0.0000514,512
+k32,0.0001053,512
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0000180,1024
+k4,0.0000254,1024
+k8,0.0000381,1024
+k16,0.0000696,1024
+k32,0.0001342,1024
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0000213,2048
+k4,0.0000302,2048
+k8,0.0000539,2048
+k16,0.0000871,2048
+k32,0.0001689,2048
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0000300,4096
+k4,0.0000518,4096
+k8,0.0000844,4096
+k16,0.0001472,4096
+k32,0.0002970,4096
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0000460,8192
+k4,0.0000694,8192
+k8,0.0001184,8192
+k16,0.0002148,8192
+k32,0.0004575,8192
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0000765,16384
+k4,0.0001279,16384
+k8,0.0002329,16384
+k16,0.0004441,16384
+k32,0.0009417,16384
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0001093,32768
+k4,0.0001900,32768
+k8,0.0003471,32768
+k16,0.0006759,32768
+k32,0.0013989,32768
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0001754,65536
+k4,0.0003133,65536
+k8,0.0005821,65536
+k16,0.0011369,65536
+k32,0.0024815,65536
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0003101,131072
+k4,0.0005555,131072
+k8,0.0010421,131072
+k16,0.0020516,131072
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz32-2.xml
+Execution failed with code 134.
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0005739,262144
+k4,0.0010363,262144
+k8,0.0019584,262144
+k16,0.0040311,262144
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz32-2.xml
+Execution failed with code 134.
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0011067,524288
+k4,0.0019777,524288
+k8,0.0037468,524288
+k16,0.0074783,524288
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz32-2.xml
+Execution failed with code 134.
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 134.
+k2,0.0021544,1048576
+k4,0.0038612,1048576
+k8,0.0073125,1048576
+k16,0.0150985,1048576
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz32-2.xml
+Execution failed with code 134.
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 139.
+k2,0.0042226,2097152
+k4,0.0075868,2097152
+k8,0.0145105,2097152
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz16-2.xml
+Execution failed with code 134.
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz32-2.xml
+Execution failed with code 134.
+./alltoallsmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz64-2.xml
+Execution failed with code 139.
