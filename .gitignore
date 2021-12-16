@@ -524,6 +524,7 @@ IPDPS2021/hostfiles/kautz/kautz32-2.txt
 IPDPS2021/hostfiles/kautz/kautz64-2.txt
 IPDPS2021/multiport-2lvfc/allgathersmpi-b
 IPDPS2021/multitree-kautz/allgathersmpi-b
+IPDPS2021/multitree-kautz/schedule
 IPDPS2021/multitree-kautz/scheduleTable/kcmb1
 IPDPS2021/multitree-kautz/scheduleTable/kcmb16
 IPDPS2021/multitree-kautz/scheduleTable/kcmb32
