@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-12-11 08:43:24
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-12-15 19:28:20
+ * @ Modified time: 2021-12-16 16:04:56
  * @ Description:
  */
 
@@ -77,10 +77,10 @@ int main(int argc, char *argv[])
 	MPI_Get_processor_name(hostname,&hostname_len);
 	NUM_ITEMS = 2; //default numitems
 
-	FILE *debugfile;
-	char filename[256];
-	sprintf(filename, "debugfiles/%d", rank);
-	debugfile = fopen(filename, "w");
+	// FILE *debugfile;
+	// char filename[256];
+	// sprintf(filename, "debugfiles/%d", rank);
+	// debugfile = fopen(filename, "w");
 
 	// Topology optional argument
 	for (int i = 1; i < argc; i++) {
@@ -198,7 +198,7 @@ int main(int argc, char *argv[])
 	}
 	for (int i = 0; i < numofnodesingroup; i++){
 		if (i != nodenumber){
-			fprintf(debugfile, "Send data from %d_%d to %d_%d: ", groupnumber, nodenumber, groupnumber, i);
+			// fprintf(debugfile, "Send data from %d_%d to %d_%d: ", groupnumber, nodenumber, groupnumber, i);
 			for (int j = 0; j < numofgroups; j++){
 				// fprintf(debugfile, "%d_%d ", j, i); // Index of data
 				// prepare sendbuf
@@ -206,33 +206,33 @@ int main(int argc, char *argv[])
 				int index = h2r_r(j, i, networkshape);
 				for (int k = 0; k < NUM_ITEMS; k++){
 					sendbufintra[i][j*NUM_ITEMS + k] = data[index*NUM_ITEMS + k];
-                    fprintf(debugfile, "%d ", sendbufintra[i][j*NUM_ITEMS + k]);
+                    // fprintf(debugfile, "%d ", sendbufintra[i][j*NUM_ITEMS + k]);
 				}
 			}
 			int dest = h2r_r(groupnumber, i, networkshape);
 			MPI_Isend(sendbufintra[i], NUM_ITEMS*numofgroups, KIM_DATA, dest, rank, MPI_COMM_WORLD, &(reqsends[i]));
-			fprintf(debugfile, "\n");
+			// fprintf(debugfile, "\n");
 		}
 	}
 	for (int i = 0; i < numofnodesingroup; i++){
 		if(i != nodenumber){
 			MPI_Wait(&reqrecvs[i], &statusrecvs[i]);
-			fprintf(debugfile, "Node %d_%d receive data from %d_%d: ", groupnumber, nodenumber, groupnumber, i);
-			for (int j = 0; j < numofgroups; j++){
-				fprintf(debugfile, "%d_%d ", j, nodenumber);
-			}
-			fprintf(debugfile, "\n");
+			// fprintf(debugfile, "Node %d_%d receive data from %d_%d: ", groupnumber, nodenumber, groupnumber, i);
+			// for (int j = 0; j < numofgroups; j++){
+			// 	fprintf(debugfile, "%d_%d ", j, nodenumber);
+			// }
+			// fprintf(debugfile, "\n");
 		}
 	}
-    fprintf(debugfile, "Status error code: ");
+    // fprintf(debugfile, "Status error code: ");
 	for (int i = 0; i < numofnodesingroup; i++){
 		if(i != nodenumber){
 			MPI_Wait(&(reqsends[i]), &(statussends[i]));
-            fprintf(debugfile, "%d ", (statussends[i]).MPI_SOURCE);
+            // fprintf(debugfile, "%d ", (statussends[i]).MPI_SOURCE);
             // fprintf(debugfile, "%ld ", statusrecvs[i].count);
 		}
 	}
-    fprintf(debugfile, "\n");
+    // fprintf(debugfile, "\n");
 	free(sendbufintra);
 #if defined(DEBUG1)
 	fprintf(debugfile, "From rank: %d|\t recvbufintra\n", rank);
@@ -264,10 +264,11 @@ int main(int argc, char *argv[])
 	//Final result
 	
 
-	MPI_Request reqsend;
-	MPI_Request **reqrecvss = (MPI_Request**)malloc(sizeof(MPI_Request*)*(numofnodesingroup));
+	MPI_Request** reqrecvss = (MPI_Request**)malloc(sizeof(MPI_Request*) * (numofnodesingroup));
+	MPI_Request** reqsendss = (MPI_Request**)malloc(sizeof(MPI_Request*) * (numofnodesingroup));
 	for (int i = 0; i < numofnodesingroup; i++){
-		reqrecvss[i] = (MPI_Request*)malloc(sizeof(MPI_Request)*numofgroups);
+		reqrecvss[i] = (MPI_Request*)malloc(sizeof(MPI_Request) * numofgroups);
+		reqsendss[i] = (MPI_Request*)malloc(sizeof(MPI_Request) * numofgroups);
 	}
 #if defined(TIME_FOR_EACH_STEP)
 	MPI_Barrier(MPI_COMM_WORLD);
@@ -294,8 +295,7 @@ int main(int argc, char *argv[])
 		if ( i != groupnumber){
 			int destination = h2r_r(i, nodenumber, networkshape);
 			int dataindex = destination;
-			MPI_Isend(&data[dataindex*NUM_ITEMS], NUM_ITEMS, KIM_DATA, destination, 0, MPI_COMM_WORLD, &reqsend);
-			MPI_Request_free(&reqsend);
+			MPI_Isend(&data[dataindex * NUM_ITEMS], NUM_ITEMS, KIM_DATA, destination, 0, MPI_COMM_WORLD, &reqsendss[nodenumber][i]);
 		}
 	}
 
@@ -342,8 +342,7 @@ int main(int argc, char *argv[])
 					int dataindex = h2r_r(groupnumber, i, networkshape);
 					int destination = h2r_r(j, nodenumber, networkshape);
 					// printf("From node %d send data %d to node %d\n", rank, dataindex, destination);
-					MPI_Isend(&recvbufintra[i][j*NUM_ITEMS], NUM_ITEMS, KIM_DATA, destination, dataindex, MPI_COMM_WORLD, &reqsend);
-					MPI_Request_free(&reqsend);
+					MPI_Isend(&recvbufintra[i][j*NUM_ITEMS], NUM_ITEMS, KIM_DATA, destination, dataindex, MPI_COMM_WORLD, &reqsendss[i][j]);
 				}
 			}
 		}

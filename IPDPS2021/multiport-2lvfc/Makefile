@@ -40,8 +40,8 @@ alltoall:
 	mpicc alltoall.c -o alltoall
 	../../simgrid-3.28/install/bin/smpicc alltoall.c  -o alltoallsmpi
 #	../../simgrid-3.28/install/bin/smpicc alltoall-behavior.c  -o alltoallsmpi-b
-	mpirun -np 6 ./alltoall --topo 3x2 --num-item 2
-	mpirun -np 9 ./alltoall --topo 3x3 --num-item 2
+#	mpirun -np 6 ./alltoall --topo 3x2 --num-item 2
+#	mpirun -np 9 ./alltoall --topo 3x3 --num-item 2
 	
 	
 	
