@@ -19,7 +19,7 @@ do
     do
         nproc=$((${d}*(${d} + 1)))
         ../../simgrid-3.28/install/bin/smpirun -np $nproc --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf -hostfile ../hostfiles/kautz/kautz${d}-2.txt \
-                -platform ../platforms/kautz/kautz${d}-2.xml --log=smpi_coll.:critical ./alltoallsmpi --num-item $numitem --algorithm cmb
+                -platform ../platforms/kautz/kautz${d}-2.xml --log=smpi_coll.:critical ./alltoallsmpi-b --num-item $numitem --algorithm cmb
     done
 done
 
@@ -30,7 +30,7 @@ do
     do
         nproc=$((${d}*(${d} + 1)))
         ../../simgrid-3.28/install/bin/smpirun -np $nproc --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf -hostfile ../hostfiles/kautz/kautz${d}-2.txt \
-                -platform ../platforms/kautz/kautz${d}-2.xml --log=smpi_coll.:critical ./alltoallsmpi --num-item $numitem --algorithm conges
+                -platform ../platforms/kautz/kautz${d}-2.xml --log=smpi_coll.:critical ./alltoallsmpi-b --num-item $numitem --algorithm conges
     done
 done
 
@@ -41,6 +41,6 @@ do
     do
         nproc=$((${d}*(${d} + 1)))
         ../../simgrid-3.28/install/bin/smpirun -np $nproc --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf -hostfile ../hostfiles/kautz/kautz${d}-2.txt \
-                -platform ../platforms/kautz/kautz${d}-2.xml --log=smpi_coll.:critical ./alltoallsmpi --num-item $numitem --algorithm mttree
+                -platform ../platforms/kautz/kautz${d}-2.xml --log=smpi_coll.:critical ./alltoallsmpi-b --num-item $numitem --algorithm mttree
     done
 done
