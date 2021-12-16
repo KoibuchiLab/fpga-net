@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-12-11 08:43:24
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-12-16 16:04:56
+ * @ Modified time: 2021-12-16 16:32:38
  * @ Description:
  */
 
@@ -165,8 +165,6 @@ int main(int argc, char *argv[])
 	// Step 1: Intra group alltoall  ////////////////////////////////////////////////////////////////
 	reqsends = (MPI_Request*)malloc(sizeof(MPI_Request)*(numofnodesingroup));
 	reqrecvs = (MPI_Request*)malloc(sizeof(MPI_Request)*(numofnodesingroup));
-    MPI_Status *statussends = (MPI_Status*)malloc(sizeof(MPI_Status)*numofnodesingroup);
-    MPI_Status *statusrecvs = (MPI_Status*)malloc(sizeof(MPI_Status)*numofnodesingroup);
 
 #if defined(TIME_FOR_EACH_STEP)
 	MPI_Barrier(MPI_COMM_WORLD);
@@ -194,7 +192,9 @@ int main(int argc, char *argv[])
 	// Prepare data for intra group transfer
 	KIM_data **sendbufintra = (KIM_data**)malloc(sizeof(KIM_data*)*numofnodesingroup);
 	for (int i = 0; i < numofnodesingroup; i++){
-		sendbufintra[i] = (KIM_data*)malloc(sizeof(KIM_data) * numofgroups * NUM_ITEMS);
+		if(i != nodenumber){
+			sendbufintra[i] = (KIM_data*)malloc(sizeof(KIM_data) * numofgroups * NUM_ITEMS);
+		}
 	}
 	for (int i = 0; i < numofnodesingroup; i++){
 		if (i != nodenumber){
@@ -214,9 +214,20 @@ int main(int argc, char *argv[])
 			// fprintf(debugfile, "\n");
 		}
 	}
+
+	KIM_data* alltoallresult = (KIM_data*)malloc(sizeof(KIM_data) * NUM_ITEMS * size);
+	for (int i = 0; i < NUM_ITEMS * size; i++) {
+		alltoallresult[i] = -1;
+	}
+
+	// Copy from data to result
+	for (int i = 0; i < NUM_ITEMS; i++) {
+		alltoallresult[rank * NUM_ITEMS + i] = data[rank * NUM_ITEMS + i];
+	}
+
 	for (int i = 0; i < numofnodesingroup; i++){
 		if(i != nodenumber){
-			MPI_Wait(&reqrecvs[i], &statusrecvs[i]);
+			MPI_Wait(&reqrecvs[i], MPI_STATUS_IGNORE);
 			// fprintf(debugfile, "Node %d_%d receive data from %d_%d: ", groupnumber, nodenumber, groupnumber, i);
 			// for (int j = 0; j < numofgroups; j++){
 			// 	fprintf(debugfile, "%d_%d ", j, nodenumber);
@@ -227,12 +238,14 @@ int main(int argc, char *argv[])
     // fprintf(debugfile, "Status error code: ");
 	for (int i = 0; i < numofnodesingroup; i++){
 		if(i != nodenumber){
-			MPI_Wait(&(reqsends[i]), &(statussends[i]));
+			MPI_Wait(&(reqsends[i]), MPI_STATUS_IGNORE);
             // fprintf(debugfile, "%d ", (statussends[i]).MPI_SOURCE);
             // fprintf(debugfile, "%ld ", statusrecvs[i].count);
+
+			free(sendbufintra[i]);
 		}
 	}
-    // fprintf(debugfile, "\n");
+	// fprintf(debgit commit -m ".gitignore is now working"ugfile, "\n");
 	free(sendbufintra);
 #if defined(DEBUG1)
 	fprintf(debugfile, "From rank: %d|\t recvbufintra\n", rank);
@@ -270,6 +283,7 @@ int main(int argc, char *argv[])
 		reqrecvss[i] = (MPI_Request*)malloc(sizeof(MPI_Request) * numofgroups);
 		reqsendss[i] = (MPI_Request*)malloc(sizeof(MPI_Request) * numofgroups);
 	}
+	
 #if defined(TIME_FOR_EACH_STEP)
 	MPI_Barrier(MPI_COMM_WORLD);
 	dblasttimer = MPI_Wtime();
@@ -277,11 +291,6 @@ int main(int argc, char *argv[])
 
 	KIM_data *sendbufinter = (KIM_data*)malloc(sizeof(KIM_data)*NUM_ITEMS);
 	
-
-	KIM_data *alltoallresult = (KIM_data*)malloc(sizeof(KIM_data)*NUM_ITEMS*size);
-	for (int i = 0; i < NUM_ITEMS*size; i++){
-		alltoallresult[i] = -1;
-	}
 
 	for (int i = 0; i < numofgroups; i++){
 		if(i != groupnumber){
@@ -348,10 +357,7 @@ int main(int argc, char *argv[])
 		}
 	}
 	
-	// Copy from data to result
-	for(int i = 0; i < NUM_ITEMS; i++){
-		alltoallresult[rank*NUM_ITEMS + i] = data[rank*NUM_ITEMS + i];
-	}
+	
 
 	for (int i = 0; i < numofnodesingroup; i++){
 		if(i != nodenumber){
@@ -362,7 +368,23 @@ int main(int argc, char *argv[])
 			}
 		}
 	}
-	
+	for (int i = 0; i < numofnodesingroup; i++) {
+		if (i != nodenumber) {
+			for (int j = 0; j < numofgroups; j++) {
+				if (j != groupnumber) {
+					MPI_Wait(&reqsendss[i][j], MPI_STATUS_IGNORE);
+				}
+			}
+		}
+	}
+
+	for (int i = 0; i < numofnodesingroup; i++) {
+		free(reqrecvss[i]);
+		free(reqsendss[i]);
+	}
+	free(reqrecvss);
+	free(reqsendss);
+	free(sendbufinter);
 	
 #if defined(DEBUG4)
 	MPI_Barrier(MPI_COMM_WORLD);
@@ -445,7 +467,7 @@ int main(int argc, char *argv[])
 	////////////////////////////	   ALLTOALL : END	   //////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 
-	fclose(debugfile);
+	// fclose(debugfile);
 	MPI_Finalize();
 	return 0;
 }
