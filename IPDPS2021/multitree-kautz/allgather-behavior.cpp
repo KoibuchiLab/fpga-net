@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-12-01 21:20:21
+ * @ Modified time: 2021-12-16 20:14:07
  * @ Description:
  */
 #include <iostream>
@@ -185,16 +185,9 @@ int main ( int argc, char *argv[] ){
 	for (unsigned int i = 0; i < NUM_ITEMS; i++){
 		allGatherResult[rank*NUM_ITEMS + i] = data[i];
 	}
-	float **recvbuf;
-	float *sendbuf, *recvbufdata;
-	if(algo == COMBINE){
-		recvbuf = new float*[d];
-        recvbufdata = (float*)SMPI_SHARED_MALLOC(sizeof(float)*d*NUM_ITEMS*d);
-		for (int i = 0; i < d; i++){
-			recvbuf[i] = (float*)&(recvbufdata[i*NUM_ITEMS]);//new float[d*NUM_ITEMS];
-		}
-		sendbuf = new float[d*NUM_ITEMS];
-	}
+	float *recvbuf;
+	float *sendbuf;
+
 	MPI_Request *reqrecvs;
 	MPI_Request *reqsends;
 	MPI_Barrier(MPI_COMM_WORLD);
@@ -391,6 +384,12 @@ int main ( int argc, char *argv[] ){
 		dblasttimer = MPI_Wtime();
 	}
 #endif
+			recvbuf = (float*)SMPI_SHARED_MALLOC(sizeof(float) * d * NUM_ITEMS * d);
+			// recvbufdata = (float*)SMPI_SHARED_MALLOC(sizeof(float)*d*NUM_ITEMS*d);
+			// for (int i = 0; i < d; i++){
+			// 	recvbuf[i] = (float*)&(recvbufdata[i*NUM_ITEMS]);//new float[d*NUM_ITEMS];
+			// }
+			sendbuf = (float*)SMPI_SHARED_MALLOC(sizeof(float) * d * NUM_ITEMS);
 			reqrecvs = new MPI_Request[d];
 			reqsends = new MPI_Request[d];
 			int source, destination;
@@ -449,9 +448,9 @@ int main ( int argc, char *argv[] ){
 			for(int i = 0; i < d; i++){
 				source = childParent[rank][d + i];
 				if (source == duplicateIdx){
-					MPI_Irecv(recvbuf[i], NUM_ITEMS*(d - 1), MPI_FLOAT, source, 0, MPI_COMM_WORLD, &reqrecvs[i]);
+					MPI_Irecv(recvbuf, NUM_ITEMS*(d - 1), MPI_FLOAT, source, 0, MPI_COMM_WORLD, &reqrecvs[i]);
 				} else {
-					MPI_Irecv(recvbuf[i], NUM_ITEMS*d, MPI_FLOAT, source, 0, MPI_COMM_WORLD, &reqrecvs[i]);
+					MPI_Irecv(recvbuf, NUM_ITEMS*d, MPI_FLOAT, source, 0, MPI_COMM_WORLD, &reqrecvs[i]);
 				}
 
 				destination  = childParent[rank][i];
@@ -461,7 +460,6 @@ int main ( int argc, char *argv[] ){
 					tmpi = i;
 				}
 			}
-			float *nsendbuf = (float*)SMPI_SHARED_MALLOC(sizeof(float)*(d)*NUM_ITEMS);
 			
 			// send the message at the duplicate index
 			bool detectduplicate = false;
@@ -471,16 +469,16 @@ int main ( int argc, char *argv[] ){
 						detectduplicate = true;
 						continue;
 					}
-                    memcpy(&nsendbuf[j*NUM_ITEMS], &allGatherResult[childParent[rank][d + j]*NUM_ITEMS], sizeof(float)*NUM_ITEMS);
+                    memcpy(&sendbuf[j*NUM_ITEMS], &allGatherResult[childParent[rank][d + j]*NUM_ITEMS], sizeof(float)*NUM_ITEMS);
 					// for (int k = 0; k < NUM_ITEMS; k++)
 					// 	nsendbuf[j*NUM_ITEMS + k] = allGatherResult[childParent[rank][d + j]*NUM_ITEMS + k];
 				} else {
 					// for (int k = 0; k < NUM_ITEMS; k++)
 					// 	nsendbuf[(j - 1)*NUM_ITEMS + k] = allGatherResult[childParent[rank][d + j]*NUM_ITEMS + k];
-                    memcpy(&nsendbuf[(j - 1)*NUM_ITEMS], &allGatherResult[childParent[rank][d + j]*NUM_ITEMS], sizeof(float)*NUM_ITEMS);
+                    memcpy(&sendbuf[(j - 1)*NUM_ITEMS], &allGatherResult[childParent[rank][d + j]*NUM_ITEMS], sizeof(float)*NUM_ITEMS);
 				}
 			}
-			MPI_Isend(nsendbuf, NUM_ITEMS*(d - 1), MPI_FLOAT, duplicateIdx, 0, MPI_COMM_WORLD, &reqsends[tmpi]);
+			MPI_Isend(sendbuf, NUM_ITEMS*(d - 1), MPI_FLOAT, duplicateIdx, 0, MPI_COMM_WORLD, &reqsends[tmpi]);
 
 			//copy back
 			for (int i = 0; i < d; i++){
@@ -523,7 +521,7 @@ int main ( int argc, char *argv[] ){
 						// for (int k = 0; k < NUM_ITEMS; k++){
 						// 	allGatherResult[whichData[j]*NUM_ITEMS + k] = recvbuf[i][j*NUM_ITEMS + k];
 						// }
-                        memcpy(&allGatherResult[whichData[j]*NUM_ITEMS], &recvbuf[i][j*NUM_ITEMS], sizeof(float)*NUM_ITEMS);
+                        memcpy(&allGatherResult[whichData[j]*NUM_ITEMS], &recvbuf[j*NUM_ITEMS], sizeof(float)*NUM_ITEMS);
 					}
 				} else {
 					detectduplicate = false;
@@ -537,12 +535,12 @@ int main ( int argc, char *argv[] ){
 							// for (int k = 0; k < NUM_ITEMS; k++){
 							// 	allGatherResult[whichData[j]*NUM_ITEMS + k] = recvbuf[i][(j)*NUM_ITEMS + k];
 							// }
-                            memcpy(&allGatherResult[whichData[j]*NUM_ITEMS], &recvbuf[i][(j)*NUM_ITEMS], sizeof(float)*NUM_ITEMS);
+                            memcpy(&allGatherResult[whichData[j]*NUM_ITEMS], &recvbuf[(j)*NUM_ITEMS], sizeof(float)*NUM_ITEMS);
 						} else { // copy data with adjust index
 							// for (int k = 0; k < NUM_ITEMS; k++){
 							// 	allGatherResult[whichData[j]*NUM_ITEMS + k] = recvbuf[i][(j - 1)*NUM_ITEMS + k];
 							// }
-                            memcpy(&allGatherResult[whichData[j]*NUM_ITEMS], &recvbuf[i][(j - 1)*NUM_ITEMS], sizeof(float)*NUM_ITEMS );
+                            memcpy(&allGatherResult[whichData[j]*NUM_ITEMS], &recvbuf[(j - 1)*NUM_ITEMS], sizeof(float)*NUM_ITEMS );
 						}
 					}
 					
@@ -558,11 +556,8 @@ int main ( int argc, char *argv[] ){
 		dblasttimer = MPI_Wtime();
 	}
 #endif
-            SMPI_SHARED_FREE(recvbufdata);
             SMPI_SHARED_FREE(recvbuf);
-
-			SMPI_SHARED_FREE (nsendbuf);
-			delete (sendbuf);
+			SMPI_SHARED_FREE(sendbuf);
 			delete whichData;
 	
 		} default : //Optional
