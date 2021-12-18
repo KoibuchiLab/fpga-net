@@ -164,6 +164,7 @@ int main ( int argc, char *argv[] ){
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////	  ALLTOALL : START	     ////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////
+	double kstart, step1, step2; //preparebuf, createrecvcode, createsendcode, 
 	switch(algo) {
 		case MULTITREE  :{ 
 			// Step 0 send all the neccessary information to all neighbors
@@ -456,7 +457,10 @@ int main ( int argc, char *argv[] ){
 			break; //optional
 		} case COMBINE:{
 			// Step 0 send all the neccessary information to all neighbors
-
+			
+			if (rank == 0){
+				kstart = MPI_Wtime();
+			}
 			MPI_Request *reqsends = new MPI_Request[d];
 			MPI_Request *reqrecvs = new MPI_Request[d];
 			float **sendbuf1 = (float**)malloc(sizeof(float*)*d);
@@ -548,7 +552,9 @@ int main ( int argc, char *argv[] ){
 			free(sendbuf1);
 			delete reqrecvs;
 			delete reqsends;
-			
+			if(rank == 0){
+				step1 = MPI_Wtime();
+			}
 			// if (rank == 0){
 			// 	cout << "1\n";
 			// 	cin.get();
@@ -688,6 +694,9 @@ int main ( int argc, char *argv[] ){
 			}
 			free(recvbufv2);
 			free(recvbuf1);
+			if(rank == 0){
+				step2 = MPI_Wtime();
+			}
 		} default : //Optional
 			break;											
 	}
@@ -738,6 +747,9 @@ int main ( int argc, char *argv[] ){
 #endif
 	delete data;
 	delete result;
+	if(rank == 0){
+		printf("Step 1: %f, Step2: %f\n", step1 - kstart, step2 - step1);
+	}
 	MPI_Finalize();
 	
 	return 0;
