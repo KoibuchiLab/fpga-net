@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-12-18 22:55:23
+ * @ Modified time: 2021-12-19 00:12:52
  * @ Description:
  */
 
@@ -376,7 +376,6 @@ int main ( int argc, char *argv[] ){
 			// 	cout << endl;
 			// }
 			SMPI_SHARED_FREE(sendbuf);
-			SMPI_SHARED_FREE(recvbuf);
 			delete reqsends;
 			delete reqrecvs;
 
