@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-12-18 21:14:20
+ * @ Modified time: 2021-12-18 21:23:39
  * @ Description:
  */
 
@@ -718,6 +718,9 @@ int main ( int argc, char *argv[] ){
 			if (rank == 0) {
 				step2 = MPI_Wtime();
 			}
+			if (rank == 0) {
+				printf("Step 1: %f, Step2: %f\n", step1 - kstart, step2 - step1);
+			}
 		} default : //Optional
 			break;											
 	}
@@ -769,9 +772,7 @@ int main ( int argc, char *argv[] ){
 	delete data;
 	delete result;
 
-	if (rank == 0) {
-		printf("Step 1: %f, Step2: %f\n", step1 - kstart, step2 - step1);
-	}
+	
 	MPI_Finalize();
 	
 	return 0;
