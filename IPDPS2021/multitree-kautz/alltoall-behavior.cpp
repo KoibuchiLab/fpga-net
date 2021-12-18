@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-11-14 00:24:55
+ * @ Modified time: 2021-12-18 21:14:20
  * @ Description:
  */
 
@@ -162,6 +162,7 @@ int main ( int argc, char *argv[] ){
 	if (rank == 0) {
 		start_time = MPI_Wtime();
 	}
+	double kstart, step1, step2; //preparebuf, createrecvcode, createsendcode,
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////	  ALLTOALL : START	     ////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////
@@ -455,7 +456,9 @@ int main ( int argc, char *argv[] ){
 			break; //optional
 		} case COMBINE:{
 			// Step 0 send all the neccessary information to all neighbors
-
+			if (rank == 0) {
+				kstart = MPI_Wtime();
+			}
 			MPI_Request *reqsends = new MPI_Request[d];
 			MPI_Request *reqrecvs = new MPI_Request[d];
 			float *sendbuf1 = (float*)SMPI_SHARED_MALLOC(sizeof(float)*(d + 1)*NUM_ITEMS);
@@ -576,7 +579,9 @@ int main ( int argc, char *argv[] ){
 			// 	cout << "1\n";
 			// 	cin.get();
 			// }
-			
+			if (rank == 0) {
+				step1 = MPI_Wtime();
+			}
 			
 			//////////////////////////////////////////////////////////////////////////////////////////
 			// Step 1 combine the message and send to the children
@@ -710,6 +715,9 @@ int main ( int argc, char *argv[] ){
 			}
 			free(recvbufv2);
 			free(recvbuf1);
+			if (rank == 0) {
+				step2 = MPI_Wtime();
+			}
 		} default : //Optional
 			break;											
 	}
@@ -760,6 +768,10 @@ int main ( int argc, char *argv[] ){
 #endif
 	delete data;
 	delete result;
+
+	if (rank == 0) {
+		printf("Step 1: %f, Step2: %f\n", step1 - kstart, step2 - step1);
+	}
 	MPI_Finalize();
 	
 	return 0;
