@@ -512,6 +512,14 @@ IPDPS2021/multiport-2lvfc/alltoall
 IPDPS2021/multiport-2lvfc/alltoallsmpi
 IPDPS2021/multiport-2lvfc/resultallgather
 
+
+IPDPS2021/collective-operations/2lvfc.o
+IPDPS2021/collective-operations/a.out
+IPDPS2021/collective-operations/kautz-cmb
+IPDPS2021/collective-operations/kautz-cmb.o
+IPDPS2021/collective-operations/main-test.o
+IPDPS2021/collective-operations/test
+
 IPDPS2021/hostfiles/2lvfc/16x17.txt
 IPDPS2021/hostfiles/2lvfc/32x33.txt
 IPDPS2021/hostfiles/2lvfc/64x65.txt

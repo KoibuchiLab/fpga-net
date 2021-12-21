@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-12-11 08:43:24
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-12-16 17:42:37
+ * @ Modified time: 2021-12-20 23:02:16
  * @ Description:
  */
 
@@ -12,8 +12,6 @@
 #include <string.h>
 #include "config.h"
 
-#define KIM_DATA MPI_INT
-#define KIM_data int
 #define RAND_SEED 721311
 
 static void program_abort(char * message) {
