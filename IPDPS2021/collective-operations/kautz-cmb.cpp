@@ -1,4 +1,4 @@
-#include "kmpi.h"
+
 #include <vector>
 #include <iostream>
 #include <cstdlib>
@@ -14,6 +14,11 @@
 #include <string>
 #include <mpi.h>
 #include <stdio.h>
+extern "C" {
+    // Get declaration for f(int i, char c, float x)
+#include "kmpi.h"
+}
+
 
 using namespace std;
 struct Int3 {
@@ -23,9 +28,6 @@ struct Int3 {
     int recvidx;
 };
 
-#define MULTITREE	0
-#define CONGESTION	1
-#define COMBINE		2
 int h2r(const char* hostname, int degree);
 int hidx2r(const int a, const int b, int degree);
 void r2h(int rank, int degree, int& a, int& b);
@@ -48,9 +50,8 @@ int KMPI_Allgatherf(const float* sendbuf, int sendcount, MPI_Datatype sendtype,
     char hostname[256];
     MPI_Get_processor_name(hostname, &hostname_len);
     
-
 #if defined(DEBUG0)
-    printf("Hostname: %s | Rank: %d\n", hostname, rank);
+    printf("Hostname: %s | Rank: %d | Size: %d\n", hostname, rank, size);
 #endif
 
     if (size != d * (d + 1)) {
@@ -93,10 +94,14 @@ int KMPI_Allgatherf(const float* sendbuf, int sendcount, MPI_Datatype sendtype,
         }
     }
     file.close();
+
+    // copy local data to result
+    for (int i = 0; i < sendcount; i++) {
+        recvbuf[rank * sendcount + i] = sendbuf[i];
+    }
+
     
 
-    // allocate memory for result
-    float* allGatherResult = new float[sendcount * size]();
     // copy local data to result
     float** recvbuf0;
     float* sendbuf0;
@@ -109,6 +114,13 @@ int KMPI_Allgatherf(const float* sendbuf, int sendcount, MPI_Datatype sendtype,
     MPI_Request* reqrecvs;
     MPI_Request* reqsends;
 
+    // Step o send data of this node to all child nodes
+#if defined(TIME_FOR_EACH_STEP)
+    MPI_Barrier(MPI_COMM_WORLD);
+    if (rank == 0) {
+        dblasttimer = MPI_Wtime();
+    }
+#endif
     reqrecvs = new MPI_Request[d];
     reqsends = new MPI_Request[d];
     int source, destination, sendidx, recvidx;
@@ -117,10 +129,10 @@ int KMPI_Allgatherf(const float* sendbuf, int sendcount, MPI_Datatype sendtype,
         source = childParent[rank][d + i];
         sendidx = rank * sendcount;
         recvidx = childParent[rank][d + i] * recvcount;
-        MPI_Irecv(&allGatherResult[recvidx], recvcount, MPI_FLOAT, source, 0, \
-            comm, &reqrecvs[i]);
-        MPI_Isend(&allGatherResult[sendidx], sendcount, MPI_FLOAT, destination, 0, \
-            comm, &reqsends[i]);
+        MPI_Irecv(&recvbuf[recvidx], recvcount, MPI_FLOAT, source, 0, \
+            MPI_COMM_WORLD, &reqrecvs[i]);
+        MPI_Isend(&recvbuf[sendidx], sendcount, MPI_FLOAT, destination, 0, \
+            MPI_COMM_WORLD, &reqsends[i]);
     }
     for (int i = 0; i < d; i++) {
         MPI_Wait(&reqrecvs[i], MPI_STATUS_IGNORE);
@@ -130,32 +142,60 @@ int KMPI_Allgatherf(const float* sendbuf, int sendcount, MPI_Datatype sendtype,
     }
     delete reqsends;
     delete reqrecvs;
+#if defined(TIME_FOR_EACH_STEP)
+    MPI_Barrier(MPI_COMM_WORLD);
+    if (rank == 0) {
+        fprintf(stdout, "%.7lf\tTime for step 0\n", MPI_Wtime() - dblasttimer);
+    }
+#endif
 
+#if defined(PRINT_STEP_0)
+    // Print allgather result after step 0
+    cout << "From rank " << rank << " recvbuf after step 0:\n\t";
+    for (int i = 0; i < NUM_ITEMS * size; i++) {
+        cout << recvbuf[i] << "\t";
+    }
+    cout << endl;
+#endif
     // Step 1 send receives informantion to all child node
     reqrecvs = new MPI_Request[d];
     reqsends = new MPI_Request[d];
 
     int duplicateIdx = childParent[rank][2 * d];
-
+#if defined(TIME_FOR_EACH_STEP)
+    MPI_Barrier(MPI_COMM_WORLD);
+    if (rank == 0) {
+        dblasttimer = MPI_Wtime();
+    }
+#endif
     //prepare sendbuf
     for (int j = 0; j < d; j++) {
-        memcpy(&sendbuf0[j * sendcount], &allGatherResult[childParent[rank][d + j] * sendcount], sizeof(float) * sendcount);
+        for (int k = 0; k < sendcount; k++) {
+            sendbuf0[j * sendcount + k] = recvbuf[childParent[rank][d + j] * sendcount + k];
+        }
     }
     int tmpi;
+#if defined(TIME_FOR_EACH_STEP)
+    MPI_Barrier(MPI_COMM_WORLD);
+    if (rank == 0) {
+        fprintf(stdout, "%.7lf\tCopy to send buf\n", MPI_Wtime() - dblasttimer);
+        dblasttimer = MPI_Wtime();
+    }
+#endif
 
     // send and receive message
     for (int i = 0; i < d; i++) {
         source = childParent[rank][d + i];
         if (source == duplicateIdx) {
-            MPI_Irecv(recvbuf0[i], recvcount * (d - 1), MPI_FLOAT, source, 0, comm, &reqrecvs[i]);
+            MPI_Irecv(recvbuf0[i], recvcount * (d - 1), MPI_FLOAT, source, 0, MPI_COMM_WORLD, &reqrecvs[i]);
         }
         else {
-            MPI_Irecv(recvbuf0[i], recvcount * d, MPI_FLOAT, source, 0, comm, &reqrecvs[i]);
+            MPI_Irecv(recvbuf0[i], recvcount * d, MPI_FLOAT, source, 0, MPI_COMM_WORLD, &reqrecvs[i]);
         }
 
         destination = childParent[rank][i];
         if (destination != duplicateIdx) {
-            MPI_Isend(sendbuf0, sendcount * d, MPI_FLOAT, destination, 0, comm, &reqsends[i]);
+            MPI_Isend(sendbuf0, sendcount * d, MPI_FLOAT, destination, 0, MPI_COMM_WORLD, &reqsends[i]);
         }
         else {
             tmpi = i;
@@ -171,17 +211,15 @@ int KMPI_Allgatherf(const float* sendbuf, int sendcount, MPI_Datatype sendtype,
                 detectduplicate = true;
                 continue;
             }
-            memcpy(&nsendbuf[j * sendcount], &allGatherResult[childParent[rank][d + j] * sendcount], sizeof(float) * sendcount);
-            // for (int k = 0; k < NUM_ITEMS; k++)
-            // 	nsendbuf[j*NUM_ITEMS + k] = allGatherResult[childParent[rank][d + j]*NUM_ITEMS + k];
+            for (int k = 0; k < sendcount; k++)
+                nsendbuf[j * sendcount + k] = recvbuf[childParent[rank][d + j] * sendcount + k];
         }
         else {
-            // for (int k = 0; k < NUM_ITEMS; k++)
-            // 	nsendbuf[(j - 1)*NUM_ITEMS + k] = allGatherResult[childParent[rank][d + j]*NUM_ITEMS + k];
-            memcpy(&nsendbuf[(j - 1) * sendcount], &allGatherResult[childParent[rank][d + j] * sendcount], sizeof(float) * sendcount);
+            for (int k = 0; k < sendcount; k++)
+                nsendbuf[(j - 1) * sendcount + k] = recvbuf[childParent[rank][d + j] * sendcount + k];
         }
     }
-    MPI_Isend(nsendbuf, sendcount * (d - 1), MPI_FLOAT, duplicateIdx, 0, comm, &reqsends[tmpi]);
+    MPI_Isend(nsendbuf, sendcount * (d - 1), MPI_FLOAT, duplicateIdx, 0, MPI_COMM_WORLD, &reqsends[tmpi]);
 
 
     int* whichData = new int[d];
@@ -194,7 +232,13 @@ int KMPI_Allgatherf(const float* sendbuf, int sendcount, MPI_Datatype sendtype,
     for (int i = 0; i < d; i++) {
         MPI_Wait(&reqsends[i], MPI_STATUS_IGNORE);
     }
-
+#if defined(TIME_FOR_EACH_STEP)
+    MPI_Barrier(MPI_COMM_WORLD);
+    if (rank == 0) {
+        fprintf(stdout, "%.7lf\tSend receive done\n", MPI_Wtime() - dblasttimer);
+        dblasttimer = MPI_Wtime();
+    }
+#endif
     for (int i = 0; i < d; i++) {
         // copy buffer to final result
         // find the data source
@@ -205,10 +249,9 @@ int KMPI_Allgatherf(const float* sendbuf, int sendcount, MPI_Datatype sendtype,
         }
         if (childParent[rank][d + i] != duplicateIdx) {
             for (int j = 0; j < d; j++) {
-                // for (int k = 0; k < NUM_ITEMS; k++){
-                // 	allGatherResult[whichData[j]*NUM_ITEMS + k] = recvbuf[i][j*NUM_ITEMS + k];
-                // }
-                memcpy(&allGatherResult[whichData[j] * recvcount], &recvbuf0[i][j * recvcount], sizeof(float) * recvcount);
+                for (int k = 0; k < recvcount; k++) {
+                    recvbuf[whichData[j] * recvcount + k] = recvbuf0[i][j * recvcount + k];
+                }
             }
         }
         else {
@@ -220,25 +263,34 @@ int KMPI_Allgatherf(const float* sendbuf, int sendcount, MPI_Datatype sendtype,
                 }
 
                 if (!detectduplicate) {//Normal copy							
-                    // for (int k = 0; k < NUM_ITEMS; k++){
-                    // 	allGatherResult[whichData[j]*NUM_ITEMS + k] = recvbuf[i][(j)*NUM_ITEMS + k];
-                    // }
-                    memcpy(&allGatherResult[whichData[j] * recvcount], &recvbuf0[i][(j)*recvcount], sizeof(float) * recvcount);
+                    for (int k = 0; k < recvcount; k++) {
+                        recvbuf[whichData[j] * recvcount + k] = recvbuf0[i][(j)*recvcount + k];
+
+                    }
                 }
                 else { // copy data with adjust index
-                 // for (int k = 0; k < NUM_ITEMS; k++){
-                 // 	allGatherResult[whichData[j]*NUM_ITEMS + k] = recvbuf[i][(j - 1)*NUM_ITEMS + k];
-                 // }
-                    memcpy(&allGatherResult[whichData[j] * recvcount], &recvbuf0[i][(j - 1) * recvcount], sizeof(float) * recvcount);
+                    for (int k = 0; k < recvcount; k++) {
+                        recvbuf[whichData[j] * recvcount + k] = recvbuf0[i][(j - 1) * recvcount + k];
+
+                    }
                 }
             }
 
         }
     }
 
+
+#if defined(TIME_FOR_EACH_STEP)
+    MPI_Barrier(MPI_COMM_WORLD);
+    if (rank == 0) {
+        fprintf(stdout, "%.7lf\tCopy to final result\n", MPI_Wtime() - dblasttimer);
+        dblasttimer = MPI_Wtime();
+    }
+#endif
     for (int i = 0; i < d; i++) {
         delete recvbuf0[i];
     }
+    delete(recvbuf0);
     delete nsendbuf;
     delete sendbuf0;
     delete whichData;
@@ -489,6 +541,7 @@ int KMPI_Alltoallf(const float* sendbuf, int sendcount, MPI_Datatype sendtype,
     }
     free(recvbufv2);
     free(recvbuf1);
+    return(MPI_SUCCESS);
 }
 
 int h2r(const char* hostname, int degree) {
@@ -531,3 +584,4 @@ void program_abort(const char* message) {
     fprintf(stderr, "Error: %s", message);
     exit(1);
 }
+

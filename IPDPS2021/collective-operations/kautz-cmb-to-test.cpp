@@ -14,6 +14,7 @@
 #include <string>
 #include <mpi.h>
 #include <stdio.h>
+
 using namespace std;
 struct Int3 {
     int dst;
@@ -22,9 +23,6 @@ struct Int3 {
     int recvidx;
 };
 
-#define MULTITREE	0
-#define CONGESTION	1
-#define COMBINE		2
 int h2r(const char* hostname, int degree);
 int hidx2r(const int a, const int b, int degree);
 void r2h(int rank, int degree, int& a, int& b);
@@ -47,10 +45,7 @@ int KMPI_Allgatherf(const float* sendbuf, int sendcount, MPI_Datatype sendtype,
     char hostname[256];
     MPI_Get_processor_name(hostname, &hostname_len);
     
-
-#if defined(DEBUG0)
     printf("Hostname: %s | Rank: %d\n", hostname, rank);
-#endif
 
     if (size != d * (d + 1)) {
         printf("Number of process must equal to # node Kautz graph diameter 2\n");
