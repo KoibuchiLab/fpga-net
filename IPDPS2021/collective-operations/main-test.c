@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-12-19 17:38:28
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-12-22 02:22:28
+ * @ Modified time: 2021-12-22 12:49:22
  * @ Description:
  */
 
@@ -81,7 +81,6 @@ int main(int argc, char* argv[])
     if ((0 == rank)) {
         fprintf(stdout, "Time %.7lf,%.7lf,%d\n", kimrdtime, MPI_Wtime() - start_time, NUM_ITEMS);
     }
-
     // Compare the result
     if (rank == 0) {
         for (int i = 0; i < NUM_ITEMS * size; i++) {
@@ -94,6 +93,9 @@ int main(int argc, char* argv[])
     }
     
     float* alltoallsendbuf = (float*)malloc(sizeof(float) * NUM_ITEMS * size);
+    for(int i = 0; i < NUM_ITEMS*size; i++){
+        alltoallsendbuf[i] = i;
+    }
     printf("Test MPI_Alltoall\n");
     MPI_Barrier(MPI_COMM_WORLD);
     if (rank == 0) {
@@ -106,12 +108,20 @@ int main(int argc, char* argv[])
     kimrdtime = MPI_Wtime() - start_time;
     
     start_time = MPI_Wtime();
-    MPI_Allgather(sendbuf, NUM_ITEMS, MPI_FLOAT, resultlib, NUM_ITEMS, MPI_FLOAT, MPI_COMM_WORLD);
+    MPI_Alltoall(alltoallsendbuf, NUM_ITEMS, MPI_FLOAT, resultlib, NUM_ITEMS, MPI_FLOAT, MPI_COMM_WORLD);
     MPI_Barrier(MPI_COMM_WORLD);
     if ((0 == rank)) {
         fprintf(stdout, "Time %.7lf,%.7lf,%d\n", kimrdtime, MPI_Wtime() - start_time, NUM_ITEMS);
     }
+    if (rank == 0) {
+        for (int i = 0; i < NUM_ITEMS * size; i++) {
+            if (recvbuf[i] != resultlib[i]) {
+                fprintf(stdout, "%s, %s\n", "Result", "Allgather wrong");
+                break;
+            }
+        }
 
+    }
     free(resultlib);
     MPI_Finalize();
     return 0;

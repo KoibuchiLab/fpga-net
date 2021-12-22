@@ -522,6 +522,8 @@ IPDPS2021/collective-operations/test
 IPDPS2021/collective-operations/scheduleTable/*
 IPDPS2021/collective-operations/kautz-mttree
 IPDPS2021/collective-operations/kautz-mttree.o
+IPDPS2021/collective-operations/kautz-conges
+IPDPS2021/collective-operations/kautz-conges.o
 
 IPDPS2021/hostfiles/2lvfc/16x17.txt
 IPDPS2021/hostfiles/2lvfc/32x33.txt
