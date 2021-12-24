@@ -1,9 +1,11 @@
-/*
- * allreduce.c
- *
- *  Created on: Sep 25, 2021
- *	  Author: kienpham
+/**
+ * @ Author: Kien Pham
+ * @ Create Time: 2021-09-25 23:13:38
+ * @ Modified by: Kien Pham
+ * @ Modified time: 2021-12-24 21:05:12
+ * @ Description:
  */
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -60,7 +62,7 @@ int main(int argc, char *argv[])
 
 
 	MPI_Init(&argc, &argv);
-
+	printf("clm1\n");
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 	MPI_Comm_size(MPI_COMM_WORLD, &size);
 	MPI_Get_processor_name(hostname,&hostname_len);
@@ -86,7 +88,7 @@ int main(int argc, char *argv[])
 		}
 
 	}
-
+	
 //	if (rank == 0) printf("Chunksize: %d\n", chunksize);
 	int NUM_ITEMS_ROUND = NUM_ITEMS - NUM_ITEMS%size;
 	float * data;
@@ -110,7 +112,7 @@ int main(int argc, char *argv[])
 		printf("Network shape 1: %s\n", networkshape);
 	}
 #endif
-
+	
 	// All rank fill the buffer with random data
 	srandom(RAND_SEED + rank);
 	for (int j = 0; j < NUM_ITEMS_ROUND; j++) {
@@ -154,7 +156,7 @@ int main(int argc, char *argv[])
 		printf("Network shape: %s\n", networkshape);
 	}
 #endif
-
+	
 	//Step 1: Intra group exchange  /////////////////////////////////////////////////////////////////
 #if defined(TIME_FOR_EACH_STEP)
 	MPI_Barrier(MPI_COMM_WORLD);
@@ -196,7 +198,7 @@ int main(int argc, char *argv[])
 			}
 		}
 	}
-
+	
 	//wait for nonblocking receive to complete
 	for (int i = 0; i < numofnodesingroup; i++){
 		// Compute destination
@@ -213,7 +215,7 @@ int main(int argc, char *argv[])
 			MPI_Wait(&reqsends[i], MPI_STATUS_IGNORE);
 		}
 	}
-
+	
 #if defined(DEBUG1)
 	printf("Data from rank %d: ", rank);
 	for (int i = 0; i < NUM_ITEMS_ROUND; i++){
@@ -287,7 +289,6 @@ int main(int argc, char *argv[])
 	free(intragroupbuffer);
 	free(reqsends);
 	free(reqrecvs);
-
 
 
 	//Step 2: Inter group exchange  /////////////////////////////////////////////////////////////////
@@ -466,7 +467,7 @@ int main(int argc, char *argv[])
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////   REDUCE - SCATTER : END	////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////
-
+	
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////	  ALLGATHER : START	  ////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////
@@ -542,7 +543,7 @@ int main(int argc, char *argv[])
 	MPI_Barrier(MPI_COMM_WORLD);
 	dblasttimer = MPI_Wtime();
 #endif
-
+	
 	for (int i = 0; i < NUM_ITEMS_ROUND; i++){
 		allreduceresult[i] = 0;
 	}
@@ -574,7 +575,7 @@ int main(int argc, char *argv[])
 			}
 		}
 	}
-
+	
 	for (int i = 0; i < numofnodesingroup; i++){
 		int source = groupnumber*numofnodesingroup + i;
 		if (rank != source){
@@ -634,7 +635,7 @@ int main(int argc, char *argv[])
 	/// Stop timer
 	MPI_Barrier(MPI_COMM_WORLD);
 	double kimrdtime = MPI_Wtime() - start_time;
-
+	
 
 	free(intergroupbuffer_);
 	free(reqrecvs);
@@ -676,7 +677,7 @@ int main(int argc, char *argv[])
 	////////////////////////////	   ALLGATHER : END	   ////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+	
 	MPI_Finalize();
 	return 0;
 }
