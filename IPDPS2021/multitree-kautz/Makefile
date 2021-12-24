@@ -36,6 +36,6 @@ alltoall:
 
 
 clean:
-	rm -f allgather allgathersmpi a.out
+	rm -f allgather allgathersmpi a.out allgathersmpi allgathersmpi-b alltoall alltoallsmpi alltoallsmpi-b 
 
 .PHONY: all alltoall allgather clean

@@ -43,8 +43,10 @@ alltoall:
 #	mpirun -np 6 ./alltoall --topo 3x2 --num-item 2
 #	mpirun -np 9 ./alltoall --topo 3x3 --num-item 2
 	
+clean:
+	rm a a.out allgather allgathersmpi allgathersmpi-b allreduce alltoall alltoallsmpi alltoallsmpi-b 
 	
 	
-	
-.PHONY: all test allgather realmpi compare alltoall
+.PHONY: all test allgather realmpi compare alltoall clean
+
 	
