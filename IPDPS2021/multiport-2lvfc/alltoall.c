@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-12-11 08:43:24
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-12-20 23:02:16
+ * @ Modified time: 2021-12-25 11:55:30
  * @ Description:
  */
 
@@ -13,6 +13,8 @@
 #include "config.h"
 
 #define RAND_SEED 721311
+#define KIM_data float
+#define KIM_DATA MPI_FLOAT
 
 static void program_abort(char * message) {
 	fprintf(stderr, "Error: %s", message);
