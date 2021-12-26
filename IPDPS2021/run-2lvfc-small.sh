@@ -18,9 +18,9 @@ sscanf() {
 }
 
 
-for topo in 2x3 4x5 8x9 16x17 #32x33 64x65
+for topo in 2x3 4x5 8x9 16x17 # 32x33 #64x65
     do
-	for numitem in 256 512 1024 2048 4096 8192 16384 32768 65536 131072 262144 524288 # 1048576 2097152
+	for numitem in 256 512 1024 2048 4096 8192 16384 32768 65536 131072 262144 524288 1048576 2097152
 	do
         sscanf $topo "(.*)x(.*)"
         nproc=$((${BASH_REMATCH[1]}*${BASH_REMATCH[2]}))
