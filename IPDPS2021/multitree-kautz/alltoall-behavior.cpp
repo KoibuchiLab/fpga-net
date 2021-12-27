@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-12-27 15:32:31
+ * @ Modified time: 2021-12-27 18:01:42
  * @ Description:
  */
 
@@ -231,7 +231,6 @@ int main ( int argc, char *argv[] ){
 			// 	}
 			// 	cout << endl;
 			// }
-			SMPI_SHARED_FREE(sendbuf);
 			delete reqrecvs;
 			delete reqsends;
 
@@ -376,7 +375,6 @@ int main ( int argc, char *argv[] ){
 			// 	}
 			// 	cout << endl;
 			// }
-			SMPI_SHARED_FREE(sendbuf);
 			delete reqsends;
 			delete reqrecvs;
 
@@ -447,7 +445,6 @@ int main ( int argc, char *argv[] ){
 			// 	cout << result[j] << " ";
 			// }
 			// cout << endl;
-			SMPI_SHARED_FREE(sendbuf);
 			delete reqsends;
 			delete reqrecvs;
 			break; //optional
@@ -535,7 +532,6 @@ int main ( int argc, char *argv[] ){
 				}
 			}
             
-			SMPI_SHARED_FREE(sendbuf1);
 			delete reqrecvs;
 			delete reqsends;
 			
@@ -669,10 +665,6 @@ int main ( int argc, char *argv[] ){
 
 			delete reqrecvs1;
 			delete reqsends1;
-			SMPI_SHARED_FREE(sendbuf2);
-			
-			SMPI_SHARED_FREE(recvbufv2);
-			SMPI_SHARED_FREE(recvbuf1);
 			// if (rank != -1) {
 			// 	step2 = MPI_Wtime();
 			// }
@@ -725,7 +717,6 @@ int main ( int argc, char *argv[] ){
 		}
 	}
 #endif
-	SMPI_SHARED_FREE(data);
 	// if (rank != -10) {
 	// 	printf("Step 1: %f, Step2: %f\n", step1 - kstart, step2 - step1);
 	// }
