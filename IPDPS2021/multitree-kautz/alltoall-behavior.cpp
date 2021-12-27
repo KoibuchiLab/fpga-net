@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-12-26 15:50:55
+ * @ Modified time: 2021-12-27 15:20:55
  * @ Description:
  */
 
@@ -154,7 +154,7 @@ int main ( int argc, char *argv[] ){
 	file.close();
 
 	// allocate memory for result NUM_ITEMS*size
-	float *result = new float[NUM_ITEMS*size]();
+	float *result = data;
 	// copy local data to result
 	memcpy(&result[rank*NUM_ITEMS], &data[rank*NUM_ITEMS], NUM_ITEMS*sizeof(float));
 	
@@ -725,7 +725,6 @@ int main ( int argc, char *argv[] ){
 	}
 #endif
 	delete data;
-	delete result;
 	// if (rank != -10) {
 	// 	printf("Step 1: %f, Step2: %f\n", step1 - kstart, step2 - step1);
 	// }
