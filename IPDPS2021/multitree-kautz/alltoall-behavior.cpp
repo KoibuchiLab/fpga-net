@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-12-27 15:20:55
+ * @ Modified time: 2021-12-27 15:32:31
  * @ Description:
  */
 
@@ -101,9 +101,10 @@ int main ( int argc, char *argv[] ){
 
 	// Allocate memory for data
 	float * data;
-	if ((data = new float[NUM_ITEMS*size]) == NULL) {
-		program_abort("Allocate fail!");
-	}
+	data = (float*)SMPI_SHARED_MALLOC(sizeof(float) * NUM_ITEMS * size);
+	// if ((data = new float[NUM_ITEMS*size]) == NULL) {
+	// 	program_abort("Allocate fail!");
+	// }
 
 	// All rank fill the buffer with random data
 	srandom(RAND_SEED + rank);
@@ -724,7 +725,7 @@ int main ( int argc, char *argv[] ){
 		}
 	}
 #endif
-	delete data;
+	SMPI_SHARED_FREE(data);
 	// if (rank != -10) {
 	// 	printf("Step 1: %f, Step2: %f\n", step1 - kstart, step2 - step1);
 	// }
