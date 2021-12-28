@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-12-28 23:36:24
+ * @ Modified time: 2021-12-28 23:52:44
  * @ Description:
  */
 
@@ -108,13 +108,15 @@ int main ( int argc, char *argv[] ){
 	// }
 
 	// All rank fill the buffer with random data
-	for (size_t i = 0; i < size * NUM_ITEMS; i++) {
-            //data[i] = (float)((rank*1000 + i));
-		    data[i] =  i; //(float)(1 + 1.0 * (random() % 9));
-	}                                                                                                        
+	size_t DATA_SIZE = NUM_ITEMS*size;
+	// printf("%ld\n", DATA_SIZE);
+	// for (size_t i = 0; i < DATA_SIZE; i++) {
+    //         //data[i] = (float)((rank*1000 + i));
+	// 	    data[i] =  i; //(float)(1 + 1.0 * (random() % 9));
+	// }                                                                                                        
 #if defined(DEBUG1)
 	printf("Data from rank %d: ", rank);
-	for (size_t i = 0; i < NUM_ITEMS*size; i++){
+	for (size_t i = 0; i < DATA_SIZE; i++){
 		printf("%.0f\t", data[i]);
 	}
 	printf("\n");
@@ -160,9 +162,9 @@ int main ( int argc, char *argv[] ){
 	if (rank == 0) {
 		start_time = MPI_Wtime();
 	}
-	if ((0 == rank)) {
-		fprintf(stdout, "alo 0\n");
-	}
+	// if ((0 == rank)) {
+	// 	fprintf(stdout, "alo 0\n");
+	// }
 	// double kstart, step1, step2, preparebuf, createrecvcode, createsendcode, communicate; 
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////	  ALLTOALL : START	     ////////////////////////////////////////
@@ -453,9 +455,9 @@ int main ( int argc, char *argv[] ){
 			// if (rank != -1) {
 			// 	kstart = MPI_Wtime();
 			// }
-			if ((0 == rank)) {
-				fprintf(stdout, "alo 0.5\n");
-			}
+			// if ((0 == rank)) {
+			// 	fprintf(stdout, "alo 0.5\n");
+			// }
 			MPI_Request *reqsends = new MPI_Request[d];
 			MPI_Request *reqrecvs = new MPI_Request[d];
 			float *sendbuf1 = (float*)SMPI_SHARED_MALLOC(sizeof(float)*(d + 1)*NUM_ITEMS);
@@ -474,9 +476,9 @@ int main ( int argc, char *argv[] ){
 			// 	communicate = MPI_Wtime();
 			// }
 			// for all child: 
-			if ((0 == rank)) {
-				fprintf(stdout, "alo 2\n");
-			}
+			// if ((0 == rank)) {
+			// 	fprintf(stdout, "alo 2\n");
+			// }
 			for (int i = 0; i < d; i++){
 				int aChild = childParent[rank][i];
 				int aParent = childParent[rank][d + i];
@@ -526,9 +528,9 @@ int main ( int argc, char *argv[] ){
 			for (int i = 0; i < d; i++){
 				MPI_Wait(&reqsends[i], MPI_STATUS_IGNORE);
 			}
-			if ((0 == rank)) {
-				fprintf(stdout, "alo 3\n");
-			}
+			// if ((0 == rank)) {
+			// 	fprintf(stdout, "alo 3\n");
+			// }
 			for (int i = 0; i < d; i++){
 				// Copy data to final result
 				int duplicateIdx = childParent[rank][0];
@@ -560,9 +562,9 @@ int main ( int argc, char *argv[] ){
 			MPI_Request *reqsends1 = new MPI_Request[d];
 			MPI_Request *reqrecvs1 = new MPI_Request[d];
 
-			if ((0 == rank)) {
-				fprintf(stdout, "alo 4\n");
-			}
+			// if ((0 == rank)) {
+			// 	fprintf(stdout, "alo 4\n");
+			// }
 			for (int i = 0; i < d; i ++){
 				// Prepare meta data
 				int duplicateIdx = childParent[rank][0];
@@ -689,7 +691,7 @@ int main ( int argc, char *argv[] ){
 	// Print allgather result after step 
 	if (rank == 0){
 		cout << "From rank " << rank << " allgatherresult:\n\t";
-		for (int i = 0; i < NUM_ITEMS*size; i++){
+		for (size_t i = 0; i < DATA_SIZE; i++){
 			cout << result[i] << "\t";
 		}
 		cout << endl;
@@ -709,7 +711,7 @@ int main ( int argc, char *argv[] ){
 	}
 #if defined(COMPARE_BUILDIN)
 	start_time = MPI_Wtime();
-	float *resultlib = (float*)malloc(sizeof(float)*NUM_ITEMS*size);
+	float *resultlib = (float*)malloc(sizeof(float)*DATA_SIZE);
 	MPI_Alltoall(data, NUM_ITEMS, MPI_FLOAT, resultlib, NUM_ITEMS, MPI_FLOAT, MPI_COMM_WORLD);
 	MPI_Barrier(MPI_COMM_WORLD);
 	if ((0 == rank)) {
@@ -718,7 +720,7 @@ int main ( int argc, char *argv[] ){
 
 	// Compare the result
 	if (rank == 0){
-		for (int i = 0; i < NUM_ITEMS*size; i++){
+		for (size_t i = 0; i < DATA_SIZE; i++){
 			if ((result[i]) != (resultlib[i])){
 				cout << "Index " << i << " kim: " << result[i] << " lib " << resultlib[i] << endl;
 				fprintf(stdout, "%s\n", "Alltoall wrong");
