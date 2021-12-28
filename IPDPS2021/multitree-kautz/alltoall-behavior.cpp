@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-12-28 23:52:44
+ * @ Modified time: 2021-12-29 08:09:03
  * @ Description:
  */
 
@@ -154,7 +154,7 @@ int main ( int argc, char *argv[] ){
 	file.close();
 
 	// allocate memory for result NUM_ITEMS*size
-	float* result = (float*)SMPI_SHARED_MALLOC(sizeof(float)* NUM_ITEMS* size);
+	float* result = data;
 	// copy local data to result
 	memcpy(&result[rank*NUM_ITEMS], &data[rank*NUM_ITEMS], NUM_ITEMS*sizeof(float));
 	
@@ -172,8 +172,11 @@ int main ( int argc, char *argv[] ){
 	switch(algo) {
 		case MULTITREE  :{ 
 			// Step 0 send all the neccessary information to all neighbors
-			float *sendbuf = (float*)SMPI_SHARED_MALLOC(sizeof(float)*(d + 1)*NUM_ITEMS);
-			float* recvbuf = (float*)SMPI_SHARED_MALLOC(sizeof(float) * (d + 1) * NUM_ITEMS);
+			// float *sendbuf = (float*)SMPI_SHARED_MALLOC(sizeof(float)*(d + 1)*NUM_ITEMS);
+			float* sendbuf = data;
+
+			// float* recvbuf = (float*)SMPI_SHARED_MALLOC(sizeof(float) * (d + 1) * NUM_ITEMS);
+			float* recvbuf = sendbuf;
 			MPI_Request *reqsends = new MPI_Request[d];
 			MPI_Request *reqrecvs = new MPI_Request[d];
 
@@ -310,8 +313,13 @@ int main ( int argc, char *argv[] ){
 		
 		} case CONGESTION: {
 			// Step 0 send all the neccessary information to all neighbors
-			float *sendbuf = (float*)SMPI_SHARED_MALLOC(sizeof(float)*(d + 1)*NUM_ITEMS);
-			float* recvbuf = (float*)SMPI_SHARED_MALLOC(sizeof(float) * (d + 1) * NUM_ITEMS);
+			// float *sendbuf = (float*)SMPI_SHARED_MALLOC(sizeof(float)*(d + 1)*NUM_ITEMS);
+			float* sendbuf = data;
+
+
+			// float* recvbuf = (float*)SMPI_SHARED_MALLOC(sizeof(float) * (d + 1) * NUM_ITEMS);
+			float* recvbuf = sendbuf;
+
 
 			MPI_Request *reqsends = new MPI_Request[d];
 			MPI_Request *reqrecvs = new MPI_Request[d];
@@ -383,7 +391,7 @@ int main ( int argc, char *argv[] ){
 			// Step 1: send all the received data to children, finish the algorithm.
 			reqsends = new MPI_Request[d*d];
 			reqrecvs = new MPI_Request[d*d];
-			sendbuf = (float*)SMPI_SHARED_MALLOC(sizeof(float)*NUM_ITEMS);
+			// sendbuf = (float*)SMPI_SHARED_MALLOC(sizeof(float)*NUM_ITEMS);
 			for (int i = 0; i < d; i ++){
 				// Prepare meta data
 				int duplicateIdx = childParent[rank][0];
@@ -460,8 +468,11 @@ int main ( int argc, char *argv[] ){
 			// }
 			MPI_Request *reqsends = new MPI_Request[d];
 			MPI_Request *reqrecvs = new MPI_Request[d];
-			float *sendbuf1 = (float*)SMPI_SHARED_MALLOC(sizeof(float)*(d + 1)*NUM_ITEMS);
-			float* recvbuf1 = (float*)SMPI_SHARED_MALLOC(sizeof(float) * (d + 1) * NUM_ITEMS);
+			// float *sendbuf1 = (float*)SMPI_SHARED_MALLOC(sizeof(float)*(d + 1)*NUM_ITEMS);
+			float* sendbuf1 = data;
+
+			// float* recvbuf1 = (float*)SMPI_SHARED_MALLOC(sizeof(float) * (d + 1) * NUM_ITEMS);
+			float* recvbuf1 = sendbuf1;
 			
 			// if (rank == 0) {
 			// 	preparebuf = MPI_Wtime();
@@ -557,8 +568,10 @@ int main ( int argc, char *argv[] ){
 			// Step 1 combine the message and send to the children
 
 			// allocate new size for send buf
-			float *sendbuf2 = (float*)SMPI_SHARED_MALLOC(sizeof(float)*NUM_ITEMS*(d + 3));
-			float* recvbufv2 = (float*)SMPI_SHARED_MALLOC(sizeof(float) * (d + 3) * NUM_ITEMS);
+			// float *sendbuf2 = (float*)SMPI_SHARED_MALLOC(sizeof(float)*NUM_ITEMS*(d + 1));
+			// float* recvbufv2 = (float*)SMPI_SHARED_MALLOC(sizeof(float) * (d + 1) * NUM_ITEMS);
+			float* sendbuf2 = sendbuf1;
+			float* recvbufv2 = sendbuf1;
 			MPI_Request *reqsends1 = new MPI_Request[d];
 			MPI_Request *reqrecvs1 = new MPI_Request[d];
 
