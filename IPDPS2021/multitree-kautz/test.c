@@ -1,33 +1,21 @@
 #include <stdio.h>
-#include "mpi.h"
+#include <stdlib.h>
+// #include "mpi.h"
 
-int main( argc, argv )
-int argc;
-char **argv;
-{
-    int rank, value, size;
-    MPI_Status status;
-
-    MPI_Init( &argc, &argv );
-
-    MPI_Comm_rank( MPI_COMM_WORLD, &rank );
-    MPI_Comm_size( MPI_COMM_WORLD, &size );
-    scanf( "%d", &value );
-	if (rank == 0) {
-	    
-	    MPI_Send( &value, 1, MPI_INT, rank + 1, 0, MPI_COMM_WORLD );
-
+int main(  )
+{	
+	int aa = 272;
+	int a = 272 * 16777216;
+	unsigned long b = 272 ;
+	unsigned long c = 16777216;
+	unsigned long d = b *c;
+	printf("%ld %d %ld\n", sizeof(size_t), a, d);
+	float* kim = (float*)malloc(sizeof(float)*d);
+	kim[d -1] = 0.2;
+	printf("%ld", aa * c);
+	for (size_t i = 0; i < aa * c; i++) {
+		kim[i] = i;
 	}
-	else {
-	    MPI_Recv( &value, 1, MPI_INT, rank - 1, 0, MPI_COMM_WORLD, 
-		      &status );
-	    if (rank < size - 1) 
-		MPI_Send( &value, 1, MPI_INT, rank + 1, 0, MPI_COMM_WORLD );
-
-
-	}
-	printf( "Process %d got %d\n", rank, value );
-
-    MPI_Finalize( );
-    return 0;
+	printf("%ld %f\n", d, kim[d - 1]);
+	return 0;
 }
