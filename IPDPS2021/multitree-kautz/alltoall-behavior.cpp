@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-12-27 18:01:42
+ * @ Modified time: 2021-12-28 20:36:38
  * @ Description:
  */
 
@@ -155,7 +155,7 @@ int main ( int argc, char *argv[] ){
 	file.close();
 
 	// allocate memory for result NUM_ITEMS*size
-	float *result = data;
+	float* result = (float*)SMPI_SHARED_MALLOC(sizeof(float)* NUM_ITEMS* size);
 	// copy local data to result
 	memcpy(&result[rank*NUM_ITEMS], &data[rank*NUM_ITEMS], NUM_ITEMS*sizeof(float));
 	
@@ -720,7 +720,7 @@ int main ( int argc, char *argv[] ){
 	// if (rank != -10) {
 	// 	printf("Step 1: %f, Step2: %f\n", step1 - kstart, step2 - step1);
 	// }
-	
+	MPI_Barrier(MPI_COMM_WORLD);
 	MPI_Finalize();
 	
 	return 0;
