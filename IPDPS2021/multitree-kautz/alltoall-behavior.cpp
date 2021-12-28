@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-12-28 21:37:31
+ * @ Modified time: 2021-12-28 21:52:40
  * @ Description:
  */
 
@@ -452,6 +452,9 @@ int main ( int argc, char *argv[] ){
 			// if (rank != -1) {
 			// 	kstart = MPI_Wtime();
 			// }
+			if ((0 == rank)) {
+				fprintf(stdout, "alo 0.5\n");
+			}
 			MPI_Request *reqsends = new MPI_Request[d];
 			MPI_Request *reqrecvs = new MPI_Request[d];
 			float *sendbuf1 = (float*)SMPI_SHARED_MALLOC(sizeof(float)*(d + 1)*NUM_ITEMS);
