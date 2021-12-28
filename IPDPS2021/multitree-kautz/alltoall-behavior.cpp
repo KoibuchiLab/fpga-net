@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-12-28 20:36:38
+ * @ Modified time: 2021-12-28 21:12:52
  * @ Description:
  */
 
@@ -43,6 +43,7 @@ int main ( int argc, char *argv[] ){
 	MPI_Init(&argc, &argv);
 	MPI_Comm_size(MPI_COMM_WORLD, &size);
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+	
 	char algo = COMBINE;
 	double dblasttimer;
 	// Calculate degree
@@ -98,7 +99,7 @@ int main ( int argc, char *argv[] ){
 	if (size != d*(d+1)){
 		program_abort("Number of process must equal to # node Kautz graph diameter 2\n");
 	}
-
+	
 	// Allocate memory for data
 	float * data;
 	data = (float*)SMPI_SHARED_MALLOC(sizeof(float) * NUM_ITEMS * size);
@@ -108,13 +109,10 @@ int main ( int argc, char *argv[] ){
 
 	// All rank fill the buffer with random data
 	srandom(RAND_SEED + rank);
-	for (int i = 0; i < size; i++) {
-        for (int j = 0; j < NUM_ITEMS; j++){
+	for (int i = 0; i < size*NUM_ITEMS; i++) {
             //data[i] = (float)((rank*1000 + i));
-		    data[i*NUM_ITEMS + j] = rank*10 + i; //(float)(1 + 1.0 * (random() % 9));
-        }
+		    data[i] =  i; //(float)(1 + 1.0 * (random() % 9));
 	}                                                                                                        
-
 #if defined(DEBUG1)
 	printf("Data from rank %d: ", rank);
 	for (int i = 0; i < NUM_ITEMS*size; i++){
@@ -163,6 +161,7 @@ int main ( int argc, char *argv[] ){
 	if (rank == 0) {
 		start_time = MPI_Wtime();
 	}
+
 	// double kstart, step1, step2, preparebuf, createrecvcode, createsendcode, communicate; 
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////	  ALLTOALL : START	     ////////////////////////////////////////
@@ -520,7 +519,6 @@ int main ( int argc, char *argv[] ){
 			for (int i = 0; i < d; i++){
 				MPI_Wait(&reqsends[i], MPI_STATUS_IGNORE);
 			}
-
 			for (int i = 0; i < d; i++){
 				// Copy data to final result
 				int duplicateIdx = childParent[rank][0];
@@ -552,7 +550,6 @@ int main ( int argc, char *argv[] ){
 			MPI_Request *reqsends1 = new MPI_Request[d];
 			MPI_Request *reqrecvs1 = new MPI_Request[d];
 
-			
 			for (int i = 0; i < d; i ++){
 				// Prepare meta data
 				int duplicateIdx = childParent[rank][0];
