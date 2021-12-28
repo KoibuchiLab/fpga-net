@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-12-28 21:12:52
+ * @ Modified time: 2021-12-28 21:37:31
  * @ Description:
  */
 
@@ -470,6 +470,9 @@ int main ( int argc, char *argv[] ){
 			// 	communicate = MPI_Wtime();
 			// }
 			// for all child: 
+			if ((0 == rank)) {
+				fprintf(stdout, "alo 2\n");
+			}
 			for (int i = 0; i < d; i++){
 				int aChild = childParent[rank][i];
 				int aParent = childParent[rank][d + i];
@@ -519,6 +522,9 @@ int main ( int argc, char *argv[] ){
 			for (int i = 0; i < d; i++){
 				MPI_Wait(&reqsends[i], MPI_STATUS_IGNORE);
 			}
+			if ((0 == rank)) {
+				fprintf(stdout, "alo 3\n");
+			}
 			for (int i = 0; i < d; i++){
 				// Copy data to final result
 				int duplicateIdx = childParent[rank][0];
@@ -550,6 +556,9 @@ int main ( int argc, char *argv[] ){
 			MPI_Request *reqsends1 = new MPI_Request[d];
 			MPI_Request *reqrecvs1 = new MPI_Request[d];
 
+			if ((0 == rank)) {
+				fprintf(stdout, "alo 4\n");
+			}
 			for (int i = 0; i < d; i ++){
 				// Prepare meta data
 				int duplicateIdx = childParent[rank][0];
