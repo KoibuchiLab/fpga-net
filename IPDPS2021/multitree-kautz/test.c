@@ -12,7 +12,7 @@ int main(  )
 	printf("%ld %d %ld\n", sizeof(size_t), a, d);
 	float* kim = (float*)malloc(sizeof(float)*d);
 	kim[d -1] = 0.2;
-	printf("%ld", aa * c);
+	printf("%ld\n", aa * c);
 	for (size_t i = 0; i < aa * c; i++) {
 		kim[i] = i;
 	}

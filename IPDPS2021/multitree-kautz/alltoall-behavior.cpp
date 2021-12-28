@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-12-28 21:52:40
+ * @ Modified time: 2021-12-28 23:36:24
  * @ Description:
  */
 
@@ -39,7 +39,7 @@ int main ( int argc, char *argv[] ){
 	int rank;
 	int size;
 	int hostname_len;
-	int NUM_ITEMS = 1011;
+	size_t NUM_ITEMS = 1011;
 	MPI_Init(&argc, &argv);
 	MPI_Comm_size(MPI_COMM_WORLD, &size);
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -71,7 +71,7 @@ int main ( int argc, char *argv[] ){
 			}
 		}
 		if (!strcmp(argv[i], "--num-item")){
-			if ((i + 1 >= argc) || (sscanf(argv[i + 1], "%d", &NUM_ITEMS) != 1)) {
+			if ((i + 1 >= argc) || (sscanf(argv[i + 1], "%ld", &NUM_ITEMS) != 1)) {
 				program_abort("Invalid num of items.\n");
 			}
 		}
@@ -108,14 +108,13 @@ int main ( int argc, char *argv[] ){
 	// }
 
 	// All rank fill the buffer with random data
-	srandom(RAND_SEED + rank);
-	for (int i = 0; i < size*NUM_ITEMS; i++) {
+	for (size_t i = 0; i < size * NUM_ITEMS; i++) {
             //data[i] = (float)((rank*1000 + i));
 		    data[i] =  i; //(float)(1 + 1.0 * (random() % 9));
 	}                                                                                                        
 #if defined(DEBUG1)
 	printf("Data from rank %d: ", rank);
-	for (int i = 0; i < NUM_ITEMS*size; i++){
+	for (size_t i = 0; i < NUM_ITEMS*size; i++){
 		printf("%.0f\t", data[i]);
 	}
 	printf("\n");
@@ -161,7 +160,9 @@ int main ( int argc, char *argv[] ){
 	if (rank == 0) {
 		start_time = MPI_Wtime();
 	}
-
+	if ((0 == rank)) {
+		fprintf(stdout, "alo 0\n");
+	}
 	// double kstart, step1, step2, preparebuf, createrecvcode, createsendcode, communicate; 
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////	  ALLTOALL : START	     ////////////////////////////////////////
@@ -704,7 +705,7 @@ int main ( int argc, char *argv[] ){
 	
 	double kimrdtime = MPI_Wtime() - start_time;
 	if ((0 == rank)) {
-		fprintf(stdout, "k%d,%.7lf,%d\n", d, kimrdtime, NUM_ITEMS);
+		fprintf(stdout, "k%d,%.7lf,%ld\n", d, kimrdtime, NUM_ITEMS);
 	}
 #if defined(COMPARE_BUILDIN)
 	start_time = MPI_Wtime();
