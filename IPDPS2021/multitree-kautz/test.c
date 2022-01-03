@@ -1,21 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <time.h>
 // #include "mpi.h"
 
 int main(  )
 {	
-	int aa = 272;
-	int a = 272 * 16777216;
-	unsigned long b = 272 ;
-	unsigned long c = 16777216;
-	unsigned long d = b *c;
-	printf("%ld %d %ld\n", sizeof(size_t), a, d);
-	float* kim = (float*)malloc(sizeof(float)*d);
-	kim[d -1] = 0.2;
-	printf("%ld\n", aa * c);
-	for (size_t i = 0; i < aa * c; i++) {
-		kim[i] = i;
+	int arraysize = 1231231;
+	float *kimarray = (float*)malloc(sizeof(float)*arraysize);
+	
+	double startime = clock();
+	for (int i = 0; i < arraysize; i++){
+		kimarray[i] = 0;
 	}
-	printf("%ld %f\n", d, kim[d - 1]);
+	double endtime = (clock() - startime) / 1000000;
+	printf("%lf ", endtime);
+	startime = clock();
+	memset(kimarray, 0.0f, sizeof(float) * arraysize);
+	endtime = (clock() - startime) / 1000000;
+	printf("%lf ", endtime);
+	printf("\n");
 	return 0;
 }
