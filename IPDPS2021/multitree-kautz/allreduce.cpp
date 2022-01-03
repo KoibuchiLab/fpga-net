@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-12-26 20:14:05
  * @ Modified by: Kien Pham
- * @ Modified time: 2022-01-04 07:35:50
+ * @ Modified time: 2022-01-04 08:09:16
  * @ Description:
  */
 
@@ -125,7 +125,7 @@ int main(int argc, char* argv[]) {
     for (size_t j = 0; j < NUM_ITEMS; j++) {
         //data[i] = (float)((rank*1000 + i));
         if (j < NUM_ITEMS_ORIGIN){
-            data[j] = rank * 10 + j; //;(float)(1 + 1.0 * (random() % 9));//
+            data[j] = (float)(1 + 1.0 * (random() % 9));//rank * 10 + j; //;
         } else {
             data[j] = 0;
         }
