@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-12-26 20:14:05
  * @ Modified by: Kien Pham
- * @ Modified time: 2022-01-04 08:09:16
+ * @ Modified time: 2022-01-04 08:20:55
  * @ Description:
  */
 
@@ -876,7 +876,8 @@ int main(int argc, char* argv[]) {
         /////////////////////////////////////////////////////////////////////////////////////////////
         //                                   END:  REDUCE SCATTER                                  //
 
-
+        rstime = MPI_Wtime();
+        
         MPI_Request *reqrecvs = new MPI_Request[d];
         MPI_Request *reqsends = new MPI_Request[d];
 
@@ -1073,8 +1074,10 @@ int main(int argc, char* argv[]) {
     /////////////////////////////////////////////////////////////////////////////////////////////////
     /// Stop timer
     MPI_Barrier(MPI_COMM_WORLD);
-
-    double kimrdtime = MPI_Wtime() - start_time;
+    double kimrdtime;
+    if(rank == 0){
+        kimrdtime = MPI_Wtime() - start_time;
+    }
     double kimrstime = rstime - start_time;
     if ((0 == rank)) {
         fprintf(stdout, "k%d,%.7lf,%ld\n", d, kimrdtime, NUM_ITEMS_ORIGIN);
