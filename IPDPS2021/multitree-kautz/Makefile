@@ -3,6 +3,7 @@ sourcefilealltoall=alltoall.cpp helper.cpp
 sourcefileallreduce=allreduce.cpp helper.cpp
 sourcefilebehavior=allgather-behavior.cpp helper.cpp
 sourcefilebehaviora=alltoall-behavior.cpp helper.cpp
+sourcefileallreduceb=allreduce-behavior.cpp helper.cpp
 all:
 	mpic++ -o allgather $(sourcefileallgather) 
 	mpic++ -g -o alltoall $(sourcefilealltoall) 
@@ -12,6 +13,7 @@ all:
 	../../simgrid-3.28/install/bin/smpicxx -o alltoallsmpi $(sourcefilealltoall) 
 	../../simgrid-3.28/install/bin/smpicxx -o allgathersmpi-b $(sourcefilebehavior) 
 	../../simgrid-3.28/install/bin/smpicxx -o alltoallsmpi-b $(sourcefilebehaviora) 
+	../../simgrid-3.28/install/bin/smpicxx -o allreducesmpi-b $(sourcefileallreduceb)
 
 allreduce: allreduce.cpp helper.cpp
 	mpic++ -g -o allreduce $(sourcefileallreduce)

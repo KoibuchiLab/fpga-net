@@ -499,6 +499,8 @@ IPDPS2021/multiport-2lvfc/test1.c
 IPDPS2021/multiport-2lvfc/trace/
 IPDPS2021/multiport-2lvfc/allreducesmpi
 IPDPS2021/multiport-2lvfc/log/
+IPDPS2021/multiport-2lvfc/allreducesmpi-b
+
 IPDPS2021/multitree-kautz/allreduce
 IPDPS2021/multitree-kautz/allreducesmpi
 IPDPS2021/multitree-kautz/test
