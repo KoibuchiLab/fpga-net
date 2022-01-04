@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-12-11 08:43:24
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-12-16 17:55:30
+ * @ Modified time: 2022-01-04 10:33:07
  * @ Description:
  */
 
@@ -221,7 +221,7 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	KIM_data* alltoallresult = (KIM_data*)SMPI_SHARED_MALLOC(sizeof(KIM_data) * NUM_ITEMS * size);
+	KIM_data* alltoallresult = data;//(KIM_data*)SMPI_SHARED_MALLOC(sizeof(KIM_data) * NUM_ITEMS * size);
 	for (int i = 0; i < NUM_ITEMS * size; i++) {
 		alltoallresult[i] = -1;
 	}
@@ -470,7 +470,7 @@ int main(int argc, char* argv[])
 	}
 	free(alltoallresultlib);
 #endif
-	SMPI_SHARED_FREE(alltoallresult);
+
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////	   ALLTOALL : END	   //////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////
