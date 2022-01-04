@@ -18,7 +18,7 @@ do
     for d in ${topo[@]}
     do
         nproc=$((${d}*(${d} + 1)))
-        ../../simgrid-3.28/install/bin/smpirun -np $nproc --cfg=smpi/shared-malloc:global --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf -hostfile ../hostfiles/kautz/kautz${d}-2.txt \
+        ../../simgrid-3.28/install/bin/smpirun -np $nproc --cfg=smpi/shared-malloc:global --cfg=smpi/shared-malloc-blocksize:429496729600 --cfg=smpi/host-speed:1Gf -hostfile ../hostfiles/kautz/kautz${d}-2.txt \
                 -platform ../platforms/kautz/kautz${d}-2.xml --log=smpi_coll.:critical ./allreducesmpi-b --num-item $numitem --algorithm cmb
         #../../simgrid-3.28/install/bin/smpirun -np $nproc --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf -hostfile ../hostfiles/kautz/kautz${d}-2.txt \
         #   -platform ../platforms/kautz/kautz${d}-2.xml --log=smpi_coll.:critical ./allreducesmpi --num-item $numitem --algorithm cmb
