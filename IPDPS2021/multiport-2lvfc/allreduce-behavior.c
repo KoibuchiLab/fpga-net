@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-09-25 23:13:38
  * @ Modified by: Kien Pham
- * @ Modified time: 2022-01-05 04:39:15
+ * @ Modified time: 2022-01-05 05:24:13
  * @ Description:
  */
 
@@ -169,12 +169,14 @@ int main(int argc, char *argv[])
 
 	//Prepare buffer to receive data
 	float* intragroupbuffer0 = (float*)SMPI_SHARED_MALLOC(sizeof(float) * numofitemsineachchunk);
-	// for (int i = 0; i < numofnodesingroup; i++){
-	// 	intragroupbuffer[i] = (float*)malloc(sizeof(float)*numofitemsineachchunk);
-	// 	for(int j = 0; j < numofitemsineachchunk; j++){
-	// 		intragroupbuffer[i][j] = 0;
-	// 	}
-	// }
+	float* intragroupbuffer01;
+	for (int i = 0; i < numofnodesingroup; i++){
+		intragroupbuffer01 = (float*)malloc(sizeof(float)*numofitemsineachchunk);
+		for(int j = 0; j < numofitemsineachchunk; j++){
+			intragroupbuffer01[j] = 0;
+		}
+		free(intragroupbuffer01);
+	}
 
 	MPI_Request * reqsends = (MPI_Request*) malloc(sizeof(MPI_Request)*numofnodesingroup);
 	MPI_Request * reqrecvs = (MPI_Request*) malloc(sizeof(MPI_Request)*numofnodesingroup);
@@ -297,12 +299,14 @@ int main(int argc, char *argv[])
 	// float **intergroupbuffer = (float**)malloc(sizeof(float*)*numofgroups);
 	//intergroupbuffer[i] = (float*)malloc(sizeof(float)*numofitemsinsecondreduction);
 	float* intergroupbuffer0 = (float*)malloc(sizeof(float) * numofitemsinsecondreduction);
-	// for (int i = 0; i < numofgroups; i++){
-	// 	intergroupbuffer[i] = (float*)malloc(sizeof(float)*numofitemsinsecondreduction);
-	// 	for (int j = 0; j < numofitemsinsecondreduction; j++){
-	// 		intergroupbuffer[i][j] = 0; // should carefull for other reduce operation
-	// 	}
-	// }
+	float* intergroupbuffer02;
+	for (int i = 0; i < numofgroups; i++){
+		intergroupbuffer02 = (float*)malloc(sizeof(float)*numofitemsinsecondreduction);
+		for (int j = 0; j < numofitemsinsecondreduction; j++){
+			intergroupbuffer02[j] = 0; // should carefull for other reduce operation
+		}
+		free(intergroupbuffer02);
+	}
 	reqsends = (MPI_Request*)malloc(sizeof(MPI_Request)*numofgroups);
 	reqrecvs = (MPI_Request*)malloc(sizeof(MPI_Request)*numofgroups);
 #if defined(TIME_FOR_EACH_STEP)
@@ -501,6 +505,8 @@ int main(int argc, char *argv[])
 	// Step 2: Intra group gather  //////////////////////////////////////////////////////////////////
 	//Final result
 	float *allreduceresult = data;
+	float* allreduceresulta = (float*)malloc(sizeof(float) * NUM_ITEMS_ROUND);
+	free(allreduceresulta);
 
 	reqsends = (MPI_Request*)malloc(sizeof(MPI_Request)*numofnodesingroup);
 	reqrecvs = (MPI_Request*)malloc(sizeof(MPI_Request)*numofnodesingroup);
