@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-12-11 08:43:24
  * @ Modified by: Kien Pham
- * @ Modified time: 2022-01-04 10:33:07
+ * @ Modified time: 2022-01-04 14:23:21
  * @ Description:
  */
 
@@ -252,7 +252,7 @@ int main(int argc, char* argv[])
 		}
 	}
 	// fprintf(debgit commit -m ".gitignore is now working"ugfile, "\n");
-	SMPI_SHARED_FREE(sendbufintra);
+	// SMPI_SHARED_FREE(sendbufintra);
 #if defined(DEBUG1)
 	fprintf(debugfile, "From rank: %d|\t recvbufintra\n", rank);
 	for (int i = 0; i < numofnodesingroup; i++) {
@@ -392,7 +392,7 @@ int main(int argc, char* argv[])
 	}
 	free(reqrecvss);
 	free(reqsendss);
-	SMPI_SHARED_FREE(sendbufinter);
+	// SMPI_SHARED_FREE(sendbufinter);
 
 #if defined(DEBUG4)
 	MPI_Barrier(MPI_COMM_WORLD);
