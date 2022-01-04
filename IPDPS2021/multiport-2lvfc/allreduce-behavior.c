@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-09-25 23:13:38
  * @ Modified by: Kien Pham
- * @ Modified time: 2022-01-04 18:35:39
+ * @ Modified time: 2022-01-05 04:39:15
  * @ Description:
  */
 
@@ -93,7 +93,7 @@ int main(int argc, char *argv[])
 	}
 	
 //	if (rank == 0) printf("Chunksize: %d\n", chunksize);
-	int NUM_ITEMS_ROUND = NUM_ITEMS - NUM_ITEMS%size;
+	int NUM_ITEMS_ROUND = ((NUM_ITEMS - 1) / size + 1) * size;
 	float* data = (float*)SMPI_SHARED_MALLOC(sizeof(float) * NUM_ITEMS_ROUND);
 	
 	char networkshape[256];
