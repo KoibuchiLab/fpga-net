@@ -10,7 +10,7 @@
 cd multitree-kautz
 make
 topo=( 16 ) #32 64) #2 3 4 5 6 7 8 ) #9 10 11 12 13 16 32 64)
-numitems=( 536870912 1073741824 2147483648 4294967296) #5242880)
+numitems=( 536870912 1073741824 2147483648 4294967296 ) #5242880)
 
 echo cmb
 for numitem in ${numitems[@]}
@@ -18,7 +18,7 @@ do
     for d in ${topo[@]}
     do
         nproc=$((${d}*(${d} + 1)))
-        ../../simgrid-3.28/install/bin/smpirun -np $nproc --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf -hostfile ../hostfiles/kautz/kautz${d}-2.txt \
+        ../../simgrid-3.28/install/bin/smpirun -np $nproc --cfg=smpi/shared-malloc:global --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf -hostfile ../hostfiles/kautz/kautz${d}-2.txt \
                 -platform ../platforms/kautz/kautz${d}-2.xml --log=smpi_coll.:critical ./allreducesmpi-b --num-item $numitem --algorithm cmb
         #../../simgrid-3.28/install/bin/smpirun -np $nproc --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf -hostfile ../hostfiles/kautz/kautz${d}-2.txt \
         #   -platform ../platforms/kautz/kautz${d}-2.xml --log=smpi_coll.:critical ./allreducesmpi --num-item $numitem --algorithm cmb
