@@ -18,12 +18,13 @@ all:
 allreduce: allreduce.cpp helper.cpp
 	mpic++ -g -o allreduce $(sourcefileallreduce)
 	../../simgrid-3.28/install/bin/smpicxx -o allreducesmpi $(sourcefileallreduce)
+	../../simgrid-3.28/install/bin/smpicxx -o allreducesmpi-b $(sourcefileallreduceb)
 
 	../../simgrid-3.28/install/bin/smpirun -np 6 --cfg=smpi/host-speed:1Gf -hostfile ../hostfiles/kautz/kautz2-2.txt \
-	-platform ../platforms/kautz/kautz2-2.xml --log=smpi_coll.:critical ./allreducesmpi --num-item 12
+	-platform ../platforms/kautz/kautz2-2.xml --log=smpi_coll.:critical ./allreducesmpi-b --num-item 1212321
 
 	../../simgrid-3.28/install/bin/smpirun -np 12 --cfg=smpi/host-speed:1Gf -hostfile ../hostfiles/kautz/kautz3-2.txt \
-	-platform ../platforms/kautz/kautz3-2.xml --log=smpi_coll.:critical ./allreducesmpi --num-item 24
+	-platform ../platforms/kautz/kautz3-2.xml --log=smpi_coll.:critical ./allreducesmpi-b --num-item 2412331
 
 allgather: allgather-behavior.cpp helper.cpp
 	mpirun -np 6 ./allgather --topo k2
