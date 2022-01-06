@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-12-26 20:14:05
  * @ Modified by: Kien Pham
- * @ Modified time: 2022-01-04 18:06:07
+ * @ Modified time: 2022-01-06 16:27:42
  * @ Description:
  */
 
@@ -51,7 +51,7 @@ int main(int argc, char* argv[]) {
     // sprintf(filename1, "log/%d", rank);
     // debug = fopen(filename1, "w");
     
-    char algo = COMBINE;
+    char algo = MULTITREE;
     double dblasttimer;
     // Calculate degree
     int d = (1 + sqrt(-1 + 4 * size)) / 2;
@@ -199,6 +199,7 @@ int main(int argc, char* argv[]) {
     /////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////	  ALLREDUCE : START	     ////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////
+    double initbuffer_t, firststep_t, middlestep_t, finalstep_t;
     switch (algo) {
     case MULTITREE:{
         /////////////////////////////////////////////////////////////////////////////////////////////
@@ -210,18 +211,16 @@ int main(int argc, char* argv[]) {
         
         // float *rsbuf = (float*)malloc(sizeof(float)*d*numofrsitems);
         float *rsbuf = (float*)malloc(sizeof(float)*d*numofrsitems);
-        // for (int i = 0; i < numofrsitems*d; i++){
-        //     // should careful other reduce operations
-        //     localbuf[i] = 0;
-        //     rsbuf[i] = 0;
-        // }
+    
         memset(localbuf, 0.0f, sizeof(float)*d*numofrsitems);
         memset(rsbuf, 0.0f, sizeof(float)*d*numofrsitems);
 
         // Send and receive data for the first round
         MPI_Request *reqrecvfirst = (MPI_Request*)malloc(sizeof(MPI_Request)*d);
         MPI_Request *reqsendfirst = (MPI_Request*)malloc(sizeof(MPI_Request)*d);
-
+        if (rank == 0){
+            initbuffer_t = MPI_Wtime();
+        }
         // Receive data from parent
         for (int i = 1; i < d; i++){
             int source = childParent[rank][d + i];
@@ -261,6 +260,9 @@ int main(int argc, char* argv[]) {
     fprintf(debug, "\n");
     fprintf(debug, "\n");
 #endif
+        if (rank == 0){
+            firststep_t = MPI_Wtime();
+        }
         /////////////////////////////////////////////////////////////////////////////////////////
         // Step 1 -> d - 1: send to d - 1 trees, each tree has d children
         MPI_Request* reqrecvs;
@@ -312,7 +314,9 @@ int main(int argc, char* argv[]) {
     fprintf(debug, "\n");
 #endif
         }
-        
+        if (rank == 0){
+            middlestep_t = MPI_Wtime();
+        }
         // Last step exchange data from rsbuf
         MPI_Request* reqrecvlast = (MPI_Request*)malloc(sizeof(MPI_Request) * d);
         MPI_Request* reqsendlast = (MPI_Request*)malloc(sizeof(MPI_Request) * d);
@@ -498,7 +502,9 @@ int main(int argc, char* argv[]) {
             memset(localbuf[i], 0.0f, sizeof(float)*d*numofrsitems);
         }
         memset(rsbuf, 0.0f, sizeof(float)* d* numofrsitems);
-
+        if(rank == 0){
+            initbuffer_t = MPI_Wtime();
+        }
         // Receive data from parent
         for (int i = 1; i < d; i++) {
             int source = childParent[rank][d + i];
@@ -560,6 +566,9 @@ int main(int argc, char* argv[]) {
         for (int i = 1; i < d; i++) {
             MPI_Wait(&reqsends0[i], MPI_STATUS_IGNORE);
         }
+        if (rank == 0){
+            firststep_t =  MPI_Wtime();
+        }
 #if defined(DEBUG1)
         fprintf(debug, "Local result after the 0th step:\n\t");
         for (int i = 0; i < d * numofrsitems; i++) {
@@ -585,7 +594,9 @@ int main(int argc, char* argv[]) {
                 MPI_Wait(&reqsends0[step * d + i], MPI_STATUS_IGNORE);
             }
         }
-
+        if (rank == 0){
+            middlestep_t = MPI_Wtime();
+        }
         // Last step exchange data from rsbuf
         MPI_Request* reqrecvlast = (MPI_Request*)malloc(sizeof(MPI_Request) * d);
         MPI_Request* reqsendlast = (MPI_Request*)malloc(sizeof(MPI_Request) * d);
@@ -727,6 +738,9 @@ int main(int argc, char* argv[]) {
             memset(localbuf[i], 0.0f, sizeof(float) * d * numofrsitems);
         }
         memset(rsbuf, 0.0f, sizeof(float) * d * numofrsitems);
+        if (rank == 0) {
+            initbuffer_t = MPI_Wtime();
+        }
 
         // Receive data from parent
         for (int i = 1; i < d; i++) {
@@ -814,7 +828,10 @@ int main(int argc, char* argv[]) {
                 MPI_Wait(&reqsends0[step * d + i], MPI_STATUS_IGNORE);
             }
         }
-
+        if (rank == 0) {
+            firststep_t = initbuffer_t;
+            middlestep_t = MPI_Wtime();
+        }
         // Last step exchange data from rsbuf
         MPI_Request* reqrecvlast = (MPI_Request*)malloc(sizeof(MPI_Request) * d);
         MPI_Request* reqsendlast = (MPI_Request*)malloc(sizeof(MPI_Request) * d);
@@ -872,7 +889,9 @@ int main(int argc, char* argv[]) {
 #endif
         free(reqrecvlast);
         free(reqsendlast);
-
+        if (rank == 0) {
+            finalstep_t = MPI_Wtime();
+        }
         /////////////////////////////////////////////////////////////////////////////////////////////
         //                                   END:  REDUCE SCATTER                                  //
 
@@ -1081,6 +1100,11 @@ int main(int argc, char* argv[]) {
     double kimrstime = rstime - start_time;
     if ((0 == rank)) {
         fprintf(stdout, "k%d,%.7lf,%ld\n", d, kimrdtime, NUM_ITEMS_ORIGIN);
+    }
+    if (rank == 0){
+        printf("rstime: %f\n", rstime - start_time);
+        printf("Time for reduce: Initbuffer: %f, first step: %f, middlestep: %f, finalstep: %f\n", \
+                initbuffer_t - start_time, firststep_t - initbuffer_t, middlestep_t - firststep_t, rstime - middlestep_t);
     }
 #if defined(COMPARE_BUILDIN)
     start_time = MPI_Wtime();
