@@ -1,0 +1,11 @@
+mpicc allgather.c -o allgather
+../../simgrid-3.28/install/bin/smpicc allgather.c  -o allgathersmpi
+../../simgrid-3.28/install/bin/smpicc allgather-behavior.c  -o allgathersmpi-b
+./multiport-2lvfc/allgathersmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:global --cfg=smpi/shared-malloc-blocksize:6429496729600 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ./platforms/2lvfc/16x17.xml
+Execution failed with code 134.
+./multiport-2lvfc/allgathersmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:global --cfg=smpi/shared-malloc-blocksize:6429496729600 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ./platforms/2lvfc/16x17.xml
+Execution failed with code 134.
+./multiport-2lvfc/allgathersmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:global --cfg=smpi/shared-malloc-blocksize:6429496729600 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ./platforms/2lvfc/16x17.xml
+Execution failed with code 134.
+./multiport-2lvfc/allgathersmpi-b --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:global --cfg=smpi/shared-malloc-blocksize:6429496729600 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ./platforms/2lvfc/16x17.xml
+Execution failed with code 134.
