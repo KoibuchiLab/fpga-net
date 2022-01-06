@@ -1,0 +1,685 @@
+mpic++ -o allgather allgather.cpp helper.cpp 
+mpic++ -g -o alltoall alltoall.cpp helper.cpp 
+mpic++ -g -o allreduce allreduce.cpp helper.cpp
+../../simgrid-3.28/install/bin/smpicxx -o allreducesmpi allreduce.cpp helper.cpp 
+../../simgrid-3.28/install/bin/smpicxx -o allgathersmpi allgather.cpp helper.cpp 
+../../simgrid-3.28/install/bin/smpicxx -o alltoallsmpi alltoall.cpp helper.cpp 
+../../simgrid-3.28/install/bin/smpicxx -o allgathersmpi-b allgather-behavior.cpp helper.cpp 
+../../simgrid-3.28/install/bin/smpicxx -o alltoallsmpi-b alltoall-behavior.cpp helper.cpp 
+../../simgrid-3.28/install/bin/smpicxx -o allreducesmpi-b allreduce-behavior.cpp helper.cpp
+cmb
+Error: no program to execute!
+Usage: ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> program [program-options]
+       ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> -replay <tracefile> [program] [program-options]
+Options:
+  -analyze                   # show information about allocations and timings at the end of execution
+  -keep-temps                # don't remove the generated files after execution
+  -wrapper <command>         # use command to run the program (e.g. "valgrind" or "gdb --args")
+  -gdb                       # run within GDB (-wrapper "gdb --args" -keep-temps)
+  -lldb                      # run within LLDB (-wrapper "lldb --" -keep-temps)
+  -vgdb                      # run within Valgrind+GDB (-wrapper "valgrind --vgdb=yes --vgdb-error=0" -keep-temps)
+  -map                       # display the machine on which each process rank is mapped
+  -np <numprocs>             # use that amount of processes from the hostfile.
+                             # By default, all processes of the hostfile are used.
+  -no-privatize              # Disable the globals privatization, that is activated by default
+  -tmpdir                    # Directory used to store temporary files. Defaults to system's. 
+  -trace-ti                  # activate time independent tracing (for replay, default in smpi_simgrid.txt)
+  -trace                     # activate tracing (Paje, default in smpi_simgrid.trace)
+  -trace-comment <comment>   # put a comment on the top of the trace file
+  -trace-comment-file <file> # put file contents on the top of the trace file as comment
+  -trace-grouped             # group MPI processes by location
+  -trace-resource            # trace resource utilization
+  -trace-file <tracefile>    # name of the tracefile (simgrid_smpi.trace)
+  -replay <tracefile>        # replays a trace instead of actually executing an application
+
+  -version                   # Displays the SimGrid version (human readable)
+  -git-version               # Displays the git hash of SimGrid
+
+or (deprecated usage):
+  ../../simgrid-3.28/install/bin/smpirun [-keep-temps] [-np <numprocs>] [-bandwidth <bytes/sec>] [-latency <secs>] program [program-options]
+
+Error: no program to execute!
+Usage: ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> program [program-options]
+       ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> -replay <tracefile> [program] [program-options]
+Options:
+  -analyze                   # show information about allocations and timings at the end of execution
+  -keep-temps                # don't remove the generated files after execution
+  -wrapper <command>         # use command to run the program (e.g. "valgrind" or "gdb --args")
+  -gdb                       # run within GDB (-wrapper "gdb --args" -keep-temps)
+  -lldb                      # run within LLDB (-wrapper "lldb --" -keep-temps)
+  -vgdb                      # run within Valgrind+GDB (-wrapper "valgrind --vgdb=yes --vgdb-error=0" -keep-temps)
+  -map                       # display the machine on which each process rank is mapped
+  -np <numprocs>             # use that amount of processes from the hostfile.
+                             # By default, all processes of the hostfile are used.
+  -no-privatize              # Disable the globals privatization, that is activated by default
+  -tmpdir                    # Directory used to store temporary files. Defaults to system's. 
+  -trace-ti                  # activate time independent tracing (for replay, default in smpi_simgrid.txt)
+  -trace                     # activate tracing (Paje, default in smpi_simgrid.trace)
+  -trace-comment <comment>   # put a comment on the top of the trace file
+  -trace-comment-file <file> # put file contents on the top of the trace file as comment
+  -trace-grouped             # group MPI processes by location
+  -trace-resource            # trace resource utilization
+  -trace-file <tracefile>    # name of the tracefile (simgrid_smpi.trace)
+  -replay <tracefile>        # replays a trace instead of actually executing an application
+
+  -version                   # Displays the SimGrid version (human readable)
+  -git-version               # Displays the git hash of SimGrid
+
+or (deprecated usage):
+  ../../simgrid-3.28/install/bin/smpirun [-keep-temps] [-np <numprocs>] [-bandwidth <bytes/sec>] [-latency <secs>] program [program-options]
+
+Error: no program to execute!
+Usage: ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> program [program-options]
+       ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> -replay <tracefile> [program] [program-options]
+Options:
+  -analyze                   # show information about allocations and timings at the end of execution
+  -keep-temps                # don't remove the generated files after execution
+  -wrapper <command>         # use command to run the program (e.g. "valgrind" or "gdb --args")
+  -gdb                       # run within GDB (-wrapper "gdb --args" -keep-temps)
+  -lldb                      # run within LLDB (-wrapper "lldb --" -keep-temps)
+  -vgdb                      # run within Valgrind+GDB (-wrapper "valgrind --vgdb=yes --vgdb-error=0" -keep-temps)
+  -map                       # display the machine on which each process rank is mapped
+  -np <numprocs>             # use that amount of processes from the hostfile.
+                             # By default, all processes of the hostfile are used.
+  -no-privatize              # Disable the globals privatization, that is activated by default
+  -tmpdir                    # Directory used to store temporary files. Defaults to system's. 
+  -trace-ti                  # activate time independent tracing (for replay, default in smpi_simgrid.txt)
+  -trace                     # activate tracing (Paje, default in smpi_simgrid.trace)
+  -trace-comment <comment>   # put a comment on the top of the trace file
+  -trace-comment-file <file> # put file contents on the top of the trace file as comment
+  -trace-grouped             # group MPI processes by location
+  -trace-resource            # trace resource utilization
+  -trace-file <tracefile>    # name of the tracefile (simgrid_smpi.trace)
+  -replay <tracefile>        # replays a trace instead of actually executing an application
+
+  -version                   # Displays the SimGrid version (human readable)
+  -git-version               # Displays the git hash of SimGrid
+
+or (deprecated usage):
+  ../../simgrid-3.28/install/bin/smpirun [-keep-temps] [-np <numprocs>] [-bandwidth <bytes/sec>] [-latency <secs>] program [program-options]
+
+Error: no program to execute!
+Usage: ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> program [program-options]
+       ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> -replay <tracefile> [program] [program-options]
+Options:
+  -analyze                   # show information about allocations and timings at the end of execution
+  -keep-temps                # don't remove the generated files after execution
+  -wrapper <command>         # use command to run the program (e.g. "valgrind" or "gdb --args")
+  -gdb                       # run within GDB (-wrapper "gdb --args" -keep-temps)
+  -lldb                      # run within LLDB (-wrapper "lldb --" -keep-temps)
+  -vgdb                      # run within Valgrind+GDB (-wrapper "valgrind --vgdb=yes --vgdb-error=0" -keep-temps)
+  -map                       # display the machine on which each process rank is mapped
+  -np <numprocs>             # use that amount of processes from the hostfile.
+                             # By default, all processes of the hostfile are used.
+  -no-privatize              # Disable the globals privatization, that is activated by default
+  -tmpdir                    # Directory used to store temporary files. Defaults to system's. 
+  -trace-ti                  # activate time independent tracing (for replay, default in smpi_simgrid.txt)
+  -trace                     # activate tracing (Paje, default in smpi_simgrid.trace)
+  -trace-comment <comment>   # put a comment on the top of the trace file
+  -trace-comment-file <file> # put file contents on the top of the trace file as comment
+  -trace-grouped             # group MPI processes by location
+  -trace-resource            # trace resource utilization
+  -trace-file <tracefile>    # name of the tracefile (simgrid_smpi.trace)
+  -replay <tracefile>        # replays a trace instead of actually executing an application
+
+  -version                   # Displays the SimGrid version (human readable)
+  -git-version               # Displays the git hash of SimGrid
+
+or (deprecated usage):
+  ../../simgrid-3.28/install/bin/smpirun [-keep-temps] [-np <numprocs>] [-bandwidth <bytes/sec>] [-latency <secs>] program [program-options]
+
+Error: no program to execute!
+Usage: ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> program [program-options]
+       ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> -replay <tracefile> [program] [program-options]
+Options:
+  -analyze                   # show information about allocations and timings at the end of execution
+  -keep-temps                # don't remove the generated files after execution
+  -wrapper <command>         # use command to run the program (e.g. "valgrind" or "gdb --args")
+  -gdb                       # run within GDB (-wrapper "gdb --args" -keep-temps)
+  -lldb                      # run within LLDB (-wrapper "lldb --" -keep-temps)
+  -vgdb                      # run within Valgrind+GDB (-wrapper "valgrind --vgdb=yes --vgdb-error=0" -keep-temps)
+  -map                       # display the machine on which each process rank is mapped
+  -np <numprocs>             # use that amount of processes from the hostfile.
+                             # By default, all processes of the hostfile are used.
+  -no-privatize              # Disable the globals privatization, that is activated by default
+  -tmpdir                    # Directory used to store temporary files. Defaults to system's. 
+  -trace-ti                  # activate time independent tracing (for replay, default in smpi_simgrid.txt)
+  -trace                     # activate tracing (Paje, default in smpi_simgrid.trace)
+  -trace-comment <comment>   # put a comment on the top of the trace file
+  -trace-comment-file <file> # put file contents on the top of the trace file as comment
+  -trace-grouped             # group MPI processes by location
+  -trace-resource            # trace resource utilization
+  -trace-file <tracefile>    # name of the tracefile (simgrid_smpi.trace)
+  -replay <tracefile>        # replays a trace instead of actually executing an application
+
+  -version                   # Displays the SimGrid version (human readable)
+  -git-version               # Displays the git hash of SimGrid
+
+or (deprecated usage):
+  ../../simgrid-3.28/install/bin/smpirun [-keep-temps] [-np <numprocs>] [-bandwidth <bytes/sec>] [-latency <secs>] program [program-options]
+
+Error: no program to execute!
+Usage: ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> program [program-options]
+       ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> -replay <tracefile> [program] [program-options]
+Options:
+  -analyze                   # show information about allocations and timings at the end of execution
+  -keep-temps                # don't remove the generated files after execution
+  -wrapper <command>         # use command to run the program (e.g. "valgrind" or "gdb --args")
+  -gdb                       # run within GDB (-wrapper "gdb --args" -keep-temps)
+  -lldb                      # run within LLDB (-wrapper "lldb --" -keep-temps)
+  -vgdb                      # run within Valgrind+GDB (-wrapper "valgrind --vgdb=yes --vgdb-error=0" -keep-temps)
+  -map                       # display the machine on which each process rank is mapped
+  -np <numprocs>             # use that amount of processes from the hostfile.
+                             # By default, all processes of the hostfile are used.
+  -no-privatize              # Disable the globals privatization, that is activated by default
+  -tmpdir                    # Directory used to store temporary files. Defaults to system's. 
+  -trace-ti                  # activate time independent tracing (for replay, default in smpi_simgrid.txt)
+  -trace                     # activate tracing (Paje, default in smpi_simgrid.trace)
+  -trace-comment <comment>   # put a comment on the top of the trace file
+  -trace-comment-file <file> # put file contents on the top of the trace file as comment
+  -trace-grouped             # group MPI processes by location
+  -trace-resource            # trace resource utilization
+  -trace-file <tracefile>    # name of the tracefile (simgrid_smpi.trace)
+  -replay <tracefile>        # replays a trace instead of actually executing an application
+
+  -version                   # Displays the SimGrid version (human readable)
+  -git-version               # Displays the git hash of SimGrid
+
+or (deprecated usage):
+  ../../simgrid-3.28/install/bin/smpirun [-keep-temps] [-np <numprocs>] [-bandwidth <bytes/sec>] [-latency <secs>] program [program-options]
+
+Error: no program to execute!
+Usage: ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> program [program-options]
+       ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> -replay <tracefile> [program] [program-options]
+Options:
+  -analyze                   # show information about allocations and timings at the end of execution
+  -keep-temps                # don't remove the generated files after execution
+  -wrapper <command>         # use command to run the program (e.g. "valgrind" or "gdb --args")
+  -gdb                       # run within GDB (-wrapper "gdb --args" -keep-temps)
+  -lldb                      # run within LLDB (-wrapper "lldb --" -keep-temps)
+  -vgdb                      # run within Valgrind+GDB (-wrapper "valgrind --vgdb=yes --vgdb-error=0" -keep-temps)
+  -map                       # display the machine on which each process rank is mapped
+  -np <numprocs>             # use that amount of processes from the hostfile.
+                             # By default, all processes of the hostfile are used.
+  -no-privatize              # Disable the globals privatization, that is activated by default
+  -tmpdir                    # Directory used to store temporary files. Defaults to system's. 
+  -trace-ti                  # activate time independent tracing (for replay, default in smpi_simgrid.txt)
+  -trace                     # activate tracing (Paje, default in smpi_simgrid.trace)
+  -trace-comment <comment>   # put a comment on the top of the trace file
+  -trace-comment-file <file> # put file contents on the top of the trace file as comment
+  -trace-grouped             # group MPI processes by location
+  -trace-resource            # trace resource utilization
+  -trace-file <tracefile>    # name of the tracefile (simgrid_smpi.trace)
+  -replay <tracefile>        # replays a trace instead of actually executing an application
+
+  -version                   # Displays the SimGrid version (human readable)
+  -git-version               # Displays the git hash of SimGrid
+
+or (deprecated usage):
+  ../../simgrid-3.28/install/bin/smpirun [-keep-temps] [-np <numprocs>] [-bandwidth <bytes/sec>] [-latency <secs>] program [program-options]
+
+Error: no program to execute!
+Usage: ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> program [program-options]
+       ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> -replay <tracefile> [program] [program-options]
+Options:
+  -analyze                   # show information about allocations and timings at the end of execution
+  -keep-temps                # don't remove the generated files after execution
+  -wrapper <command>         # use command to run the program (e.g. "valgrind" or "gdb --args")
+  -gdb                       # run within GDB (-wrapper "gdb --args" -keep-temps)
+  -lldb                      # run within LLDB (-wrapper "lldb --" -keep-temps)
+  -vgdb                      # run within Valgrind+GDB (-wrapper "valgrind --vgdb=yes --vgdb-error=0" -keep-temps)
+  -map                       # display the machine on which each process rank is mapped
+  -np <numprocs>             # use that amount of processes from the hostfile.
+                             # By default, all processes of the hostfile are used.
+  -no-privatize              # Disable the globals privatization, that is activated by default
+  -tmpdir                    # Directory used to store temporary files. Defaults to system's. 
+  -trace-ti                  # activate time independent tracing (for replay, default in smpi_simgrid.txt)
+  -trace                     # activate tracing (Paje, default in smpi_simgrid.trace)
+  -trace-comment <comment>   # put a comment on the top of the trace file
+  -trace-comment-file <file> # put file contents on the top of the trace file as comment
+  -trace-grouped             # group MPI processes by location
+  -trace-resource            # trace resource utilization
+  -trace-file <tracefile>    # name of the tracefile (simgrid_smpi.trace)
+  -replay <tracefile>        # replays a trace instead of actually executing an application
+
+  -version                   # Displays the SimGrid version (human readable)
+  -git-version               # Displays the git hash of SimGrid
+
+or (deprecated usage):
+  ../../simgrid-3.28/install/bin/smpirun [-keep-temps] [-np <numprocs>] [-bandwidth <bytes/sec>] [-latency <secs>] program [program-options]
+
+Error: no program to execute!
+Usage: ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> program [program-options]
+       ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> -replay <tracefile> [program] [program-options]
+Options:
+  -analyze                   # show information about allocations and timings at the end of execution
+  -keep-temps                # don't remove the generated files after execution
+  -wrapper <command>         # use command to run the program (e.g. "valgrind" or "gdb --args")
+  -gdb                       # run within GDB (-wrapper "gdb --args" -keep-temps)
+  -lldb                      # run within LLDB (-wrapper "lldb --" -keep-temps)
+  -vgdb                      # run within Valgrind+GDB (-wrapper "valgrind --vgdb=yes --vgdb-error=0" -keep-temps)
+  -map                       # display the machine on which each process rank is mapped
+  -np <numprocs>             # use that amount of processes from the hostfile.
+                             # By default, all processes of the hostfile are used.
+  -no-privatize              # Disable the globals privatization, that is activated by default
+  -tmpdir                    # Directory used to store temporary files. Defaults to system's. 
+  -trace-ti                  # activate time independent tracing (for replay, default in smpi_simgrid.txt)
+  -trace                     # activate tracing (Paje, default in smpi_simgrid.trace)
+  -trace-comment <comment>   # put a comment on the top of the trace file
+  -trace-comment-file <file> # put file contents on the top of the trace file as comment
+  -trace-grouped             # group MPI processes by location
+  -trace-resource            # trace resource utilization
+  -trace-file <tracefile>    # name of the tracefile (simgrid_smpi.trace)
+  -replay <tracefile>        # replays a trace instead of actually executing an application
+
+  -version                   # Displays the SimGrid version (human readable)
+  -git-version               # Displays the git hash of SimGrid
+
+or (deprecated usage):
+  ../../simgrid-3.28/install/bin/smpirun [-keep-temps] [-np <numprocs>] [-bandwidth <bytes/sec>] [-latency <secs>] program [program-options]
+
+Error: no program to execute!
+Usage: ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> program [program-options]
+       ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> -replay <tracefile> [program] [program-options]
+Options:
+  -analyze                   # show information about allocations and timings at the end of execution
+  -keep-temps                # don't remove the generated files after execution
+  -wrapper <command>         # use command to run the program (e.g. "valgrind" or "gdb --args")
+  -gdb                       # run within GDB (-wrapper "gdb --args" -keep-temps)
+  -lldb                      # run within LLDB (-wrapper "lldb --" -keep-temps)
+  -vgdb                      # run within Valgrind+GDB (-wrapper "valgrind --vgdb=yes --vgdb-error=0" -keep-temps)
+  -map                       # display the machine on which each process rank is mapped
+  -np <numprocs>             # use that amount of processes from the hostfile.
+                             # By default, all processes of the hostfile are used.
+  -no-privatize              # Disable the globals privatization, that is activated by default
+  -tmpdir                    # Directory used to store temporary files. Defaults to system's. 
+  -trace-ti                  # activate time independent tracing (for replay, default in smpi_simgrid.txt)
+  -trace                     # activate tracing (Paje, default in smpi_simgrid.trace)
+  -trace-comment <comment>   # put a comment on the top of the trace file
+  -trace-comment-file <file> # put file contents on the top of the trace file as comment
+  -trace-grouped             # group MPI processes by location
+  -trace-resource            # trace resource utilization
+  -trace-file <tracefile>    # name of the tracefile (simgrid_smpi.trace)
+  -replay <tracefile>        # replays a trace instead of actually executing an application
+
+  -version                   # Displays the SimGrid version (human readable)
+  -git-version               # Displays the git hash of SimGrid
+
+or (deprecated usage):
+  ../../simgrid-3.28/install/bin/smpirun [-keep-temps] [-np <numprocs>] [-bandwidth <bytes/sec>] [-latency <secs>] program [program-options]
+
+Error: no program to execute!
+Usage: ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> program [program-options]
+       ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> -replay <tracefile> [program] [program-options]
+Options:
+  -analyze                   # show information about allocations and timings at the end of execution
+  -keep-temps                # don't remove the generated files after execution
+  -wrapper <command>         # use command to run the program (e.g. "valgrind" or "gdb --args")
+  -gdb                       # run within GDB (-wrapper "gdb --args" -keep-temps)
+  -lldb                      # run within LLDB (-wrapper "lldb --" -keep-temps)
+  -vgdb                      # run within Valgrind+GDB (-wrapper "valgrind --vgdb=yes --vgdb-error=0" -keep-temps)
+  -map                       # display the machine on which each process rank is mapped
+  -np <numprocs>             # use that amount of processes from the hostfile.
+                             # By default, all processes of the hostfile are used.
+  -no-privatize              # Disable the globals privatization, that is activated by default
+  -tmpdir                    # Directory used to store temporary files. Defaults to system's. 
+  -trace-ti                  # activate time independent tracing (for replay, default in smpi_simgrid.txt)
+  -trace                     # activate tracing (Paje, default in smpi_simgrid.trace)
+  -trace-comment <comment>   # put a comment on the top of the trace file
+  -trace-comment-file <file> # put file contents on the top of the trace file as comment
+  -trace-grouped             # group MPI processes by location
+  -trace-resource            # trace resource utilization
+  -trace-file <tracefile>    # name of the tracefile (simgrid_smpi.trace)
+  -replay <tracefile>        # replays a trace instead of actually executing an application
+
+  -version                   # Displays the SimGrid version (human readable)
+  -git-version               # Displays the git hash of SimGrid
+
+or (deprecated usage):
+  ../../simgrid-3.28/install/bin/smpirun [-keep-temps] [-np <numprocs>] [-bandwidth <bytes/sec>] [-latency <secs>] program [program-options]
+
+Error: no program to execute!
+Usage: ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> program [program-options]
+       ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> -replay <tracefile> [program] [program-options]
+Options:
+  -analyze                   # show information about allocations and timings at the end of execution
+  -keep-temps                # don't remove the generated files after execution
+  -wrapper <command>         # use command to run the program (e.g. "valgrind" or "gdb --args")
+  -gdb                       # run within GDB (-wrapper "gdb --args" -keep-temps)
+  -lldb                      # run within LLDB (-wrapper "lldb --" -keep-temps)
+  -vgdb                      # run within Valgrind+GDB (-wrapper "valgrind --vgdb=yes --vgdb-error=0" -keep-temps)
+  -map                       # display the machine on which each process rank is mapped
+  -np <numprocs>             # use that amount of processes from the hostfile.
+                             # By default, all processes of the hostfile are used.
+  -no-privatize              # Disable the globals privatization, that is activated by default
+  -tmpdir                    # Directory used to store temporary files. Defaults to system's. 
+  -trace-ti                  # activate time independent tracing (for replay, default in smpi_simgrid.txt)
+  -trace                     # activate tracing (Paje, default in smpi_simgrid.trace)
+  -trace-comment <comment>   # put a comment on the top of the trace file
+  -trace-comment-file <file> # put file contents on the top of the trace file as comment
+  -trace-grouped             # group MPI processes by location
+  -trace-resource            # trace resource utilization
+  -trace-file <tracefile>    # name of the tracefile (simgrid_smpi.trace)
+  -replay <tracefile>        # replays a trace instead of actually executing an application
+
+  -version                   # Displays the SimGrid version (human readable)
+  -git-version               # Displays the git hash of SimGrid
+
+or (deprecated usage):
+  ../../simgrid-3.28/install/bin/smpirun [-keep-temps] [-np <numprocs>] [-bandwidth <bytes/sec>] [-latency <secs>] program [program-options]
+
+Error: no program to execute!
+Usage: ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> program [program-options]
+       ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> -replay <tracefile> [program] [program-options]
+Options:
+  -analyze                   # show information about allocations and timings at the end of execution
+  -keep-temps                # don't remove the generated files after execution
+  -wrapper <command>         # use command to run the program (e.g. "valgrind" or "gdb --args")
+  -gdb                       # run within GDB (-wrapper "gdb --args" -keep-temps)
+  -lldb                      # run within LLDB (-wrapper "lldb --" -keep-temps)
+  -vgdb                      # run within Valgrind+GDB (-wrapper "valgrind --vgdb=yes --vgdb-error=0" -keep-temps)
+  -map                       # display the machine on which each process rank is mapped
+  -np <numprocs>             # use that amount of processes from the hostfile.
+                             # By default, all processes of the hostfile are used.
+  -no-privatize              # Disable the globals privatization, that is activated by default
+  -tmpdir                    # Directory used to store temporary files. Defaults to system's. 
+  -trace-ti                  # activate time independent tracing (for replay, default in smpi_simgrid.txt)
+  -trace                     # activate tracing (Paje, default in smpi_simgrid.trace)
+  -trace-comment <comment>   # put a comment on the top of the trace file
+  -trace-comment-file <file> # put file contents on the top of the trace file as comment
+  -trace-grouped             # group MPI processes by location
+  -trace-resource            # trace resource utilization
+  -trace-file <tracefile>    # name of the tracefile (simgrid_smpi.trace)
+  -replay <tracefile>        # replays a trace instead of actually executing an application
+
+  -version                   # Displays the SimGrid version (human readable)
+  -git-version               # Displays the git hash of SimGrid
+
+or (deprecated usage):
+  ../../simgrid-3.28/install/bin/smpirun [-keep-temps] [-np <numprocs>] [-bandwidth <bytes/sec>] [-latency <secs>] program [program-options]
+
+Error: no program to execute!
+Usage: ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> program [program-options]
+       ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> -replay <tracefile> [program] [program-options]
+Options:
+  -analyze                   # show information about allocations and timings at the end of execution
+  -keep-temps                # don't remove the generated files after execution
+  -wrapper <command>         # use command to run the program (e.g. "valgrind" or "gdb --args")
+  -gdb                       # run within GDB (-wrapper "gdb --args" -keep-temps)
+  -lldb                      # run within LLDB (-wrapper "lldb --" -keep-temps)
+  -vgdb                      # run within Valgrind+GDB (-wrapper "valgrind --vgdb=yes --vgdb-error=0" -keep-temps)
+  -map                       # display the machine on which each process rank is mapped
+  -np <numprocs>             # use that amount of processes from the hostfile.
+                             # By default, all processes of the hostfile are used.
+  -no-privatize              # Disable the globals privatization, that is activated by default
+  -tmpdir                    # Directory used to store temporary files. Defaults to system's. 
+  -trace-ti                  # activate time independent tracing (for replay, default in smpi_simgrid.txt)
+  -trace                     # activate tracing (Paje, default in smpi_simgrid.trace)
+  -trace-comment <comment>   # put a comment on the top of the trace file
+  -trace-comment-file <file> # put file contents on the top of the trace file as comment
+  -trace-grouped             # group MPI processes by location
+  -trace-resource            # trace resource utilization
+  -trace-file <tracefile>    # name of the tracefile (simgrid_smpi.trace)
+  -replay <tracefile>        # replays a trace instead of actually executing an application
+
+  -version                   # Displays the SimGrid version (human readable)
+  -git-version               # Displays the git hash of SimGrid
+
+or (deprecated usage):
+  ../../simgrid-3.28/install/bin/smpirun [-keep-temps] [-np <numprocs>] [-bandwidth <bytes/sec>] [-latency <secs>] program [program-options]
+
+Error: no program to execute!
+Usage: ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> program [program-options]
+       ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> -replay <tracefile> [program] [program-options]
+Options:
+  -analyze                   # show information about allocations and timings at the end of execution
+  -keep-temps                # don't remove the generated files after execution
+  -wrapper <command>         # use command to run the program (e.g. "valgrind" or "gdb --args")
+  -gdb                       # run within GDB (-wrapper "gdb --args" -keep-temps)
+  -lldb                      # run within LLDB (-wrapper "lldb --" -keep-temps)
+  -vgdb                      # run within Valgrind+GDB (-wrapper "valgrind --vgdb=yes --vgdb-error=0" -keep-temps)
+  -map                       # display the machine on which each process rank is mapped
+  -np <numprocs>             # use that amount of processes from the hostfile.
+                             # By default, all processes of the hostfile are used.
+  -no-privatize              # Disable the globals privatization, that is activated by default
+  -tmpdir                    # Directory used to store temporary files. Defaults to system's. 
+  -trace-ti                  # activate time independent tracing (for replay, default in smpi_simgrid.txt)
+  -trace                     # activate tracing (Paje, default in smpi_simgrid.trace)
+  -trace-comment <comment>   # put a comment on the top of the trace file
+  -trace-comment-file <file> # put file contents on the top of the trace file as comment
+  -trace-grouped             # group MPI processes by location
+  -trace-resource            # trace resource utilization
+  -trace-file <tracefile>    # name of the tracefile (simgrid_smpi.trace)
+  -replay <tracefile>        # replays a trace instead of actually executing an application
+
+  -version                   # Displays the SimGrid version (human readable)
+  -git-version               # Displays the git hash of SimGrid
+
+or (deprecated usage):
+  ../../simgrid-3.28/install/bin/smpirun [-keep-temps] [-np <numprocs>] [-bandwidth <bytes/sec>] [-latency <secs>] program [program-options]
+
+Error: no program to execute!
+Usage: ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> program [program-options]
+       ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> -replay <tracefile> [program] [program-options]
+Options:
+  -analyze                   # show information about allocations and timings at the end of execution
+  -keep-temps                # don't remove the generated files after execution
+  -wrapper <command>         # use command to run the program (e.g. "valgrind" or "gdb --args")
+  -gdb                       # run within GDB (-wrapper "gdb --args" -keep-temps)
+  -lldb                      # run within LLDB (-wrapper "lldb --" -keep-temps)
+  -vgdb                      # run within Valgrind+GDB (-wrapper "valgrind --vgdb=yes --vgdb-error=0" -keep-temps)
+  -map                       # display the machine on which each process rank is mapped
+  -np <numprocs>             # use that amount of processes from the hostfile.
+                             # By default, all processes of the hostfile are used.
+  -no-privatize              # Disable the globals privatization, that is activated by default
+  -tmpdir                    # Directory used to store temporary files. Defaults to system's. 
+  -trace-ti                  # activate time independent tracing (for replay, default in smpi_simgrid.txt)
+  -trace                     # activate tracing (Paje, default in smpi_simgrid.trace)
+  -trace-comment <comment>   # put a comment on the top of the trace file
+  -trace-comment-file <file> # put file contents on the top of the trace file as comment
+  -trace-grouped             # group MPI processes by location
+  -trace-resource            # trace resource utilization
+  -trace-file <tracefile>    # name of the tracefile (simgrid_smpi.trace)
+  -replay <tracefile>        # replays a trace instead of actually executing an application
+
+  -version                   # Displays the SimGrid version (human readable)
+  -git-version               # Displays the git hash of SimGrid
+
+or (deprecated usage):
+  ../../simgrid-3.28/install/bin/smpirun [-keep-temps] [-np <numprocs>] [-bandwidth <bytes/sec>] [-latency <secs>] program [program-options]
+
+Error: no program to execute!
+Usage: ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> program [program-options]
+       ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> -replay <tracefile> [program] [program-options]
+Options:
+  -analyze                   # show information about allocations and timings at the end of execution
+  -keep-temps                # don't remove the generated files after execution
+  -wrapper <command>         # use command to run the program (e.g. "valgrind" or "gdb --args")
+  -gdb                       # run within GDB (-wrapper "gdb --args" -keep-temps)
+  -lldb                      # run within LLDB (-wrapper "lldb --" -keep-temps)
+  -vgdb                      # run within Valgrind+GDB (-wrapper "valgrind --vgdb=yes --vgdb-error=0" -keep-temps)
+  -map                       # display the machine on which each process rank is mapped
+  -np <numprocs>             # use that amount of processes from the hostfile.
+                             # By default, all processes of the hostfile are used.
+  -no-privatize              # Disable the globals privatization, that is activated by default
+  -tmpdir                    # Directory used to store temporary files. Defaults to system's. 
+  -trace-ti                  # activate time independent tracing (for replay, default in smpi_simgrid.txt)
+  -trace                     # activate tracing (Paje, default in smpi_simgrid.trace)
+  -trace-comment <comment>   # put a comment on the top of the trace file
+  -trace-comment-file <file> # put file contents on the top of the trace file as comment
+  -trace-grouped             # group MPI processes by location
+  -trace-resource            # trace resource utilization
+  -trace-file <tracefile>    # name of the tracefile (simgrid_smpi.trace)
+  -replay <tracefile>        # replays a trace instead of actually executing an application
+
+  -version                   # Displays the SimGrid version (human readable)
+  -git-version               # Displays the git hash of SimGrid
+
+or (deprecated usage):
+  ../../simgrid-3.28/install/bin/smpirun [-keep-temps] [-np <numprocs>] [-bandwidth <bytes/sec>] [-latency <secs>] program [program-options]
+
+Error: no program to execute!
+Usage: ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> program [program-options]
+       ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> -replay <tracefile> [program] [program-options]
+Options:
+  -analyze                   # show information about allocations and timings at the end of execution
+  -keep-temps                # don't remove the generated files after execution
+  -wrapper <command>         # use command to run the program (e.g. "valgrind" or "gdb --args")
+  -gdb                       # run within GDB (-wrapper "gdb --args" -keep-temps)
+  -lldb                      # run within LLDB (-wrapper "lldb --" -keep-temps)
+  -vgdb                      # run within Valgrind+GDB (-wrapper "valgrind --vgdb=yes --vgdb-error=0" -keep-temps)
+  -map                       # display the machine on which each process rank is mapped
+  -np <numprocs>             # use that amount of processes from the hostfile.
+                             # By default, all processes of the hostfile are used.
+  -no-privatize              # Disable the globals privatization, that is activated by default
+  -tmpdir                    # Directory used to store temporary files. Defaults to system's. 
+  -trace-ti                  # activate time independent tracing (for replay, default in smpi_simgrid.txt)
+  -trace                     # activate tracing (Paje, default in smpi_simgrid.trace)
+  -trace-comment <comment>   # put a comment on the top of the trace file
+  -trace-comment-file <file> # put file contents on the top of the trace file as comment
+  -trace-grouped             # group MPI processes by location
+  -trace-resource            # trace resource utilization
+  -trace-file <tracefile>    # name of the tracefile (simgrid_smpi.trace)
+  -replay <tracefile>        # replays a trace instead of actually executing an application
+
+  -version                   # Displays the SimGrid version (human readable)
+  -git-version               # Displays the git hash of SimGrid
+
+or (deprecated usage):
+  ../../simgrid-3.28/install/bin/smpirun [-keep-temps] [-np <numprocs>] [-bandwidth <bytes/sec>] [-latency <secs>] program [program-options]
+
+Error: no program to execute!
+Usage: ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> program [program-options]
+       ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> -replay <tracefile> [program] [program-options]
+Options:
+  -analyze                   # show information about allocations and timings at the end of execution
+  -keep-temps                # don't remove the generated files after execution
+  -wrapper <command>         # use command to run the program (e.g. "valgrind" or "gdb --args")
+  -gdb                       # run within GDB (-wrapper "gdb --args" -keep-temps)
+  -lldb                      # run within LLDB (-wrapper "lldb --" -keep-temps)
+  -vgdb                      # run within Valgrind+GDB (-wrapper "valgrind --vgdb=yes --vgdb-error=0" -keep-temps)
+  -map                       # display the machine on which each process rank is mapped
+  -np <numprocs>             # use that amount of processes from the hostfile.
+                             # By default, all processes of the hostfile are used.
+  -no-privatize              # Disable the globals privatization, that is activated by default
+  -tmpdir                    # Directory used to store temporary files. Defaults to system's. 
+  -trace-ti                  # activate time independent tracing (for replay, default in smpi_simgrid.txt)
+  -trace                     # activate tracing (Paje, default in smpi_simgrid.trace)
+  -trace-comment <comment>   # put a comment on the top of the trace file
+  -trace-comment-file <file> # put file contents on the top of the trace file as comment
+  -trace-grouped             # group MPI processes by location
+  -trace-resource            # trace resource utilization
+  -trace-file <tracefile>    # name of the tracefile (simgrid_smpi.trace)
+  -replay <tracefile>        # replays a trace instead of actually executing an application
+
+  -version                   # Displays the SimGrid version (human readable)
+  -git-version               # Displays the git hash of SimGrid
+
+or (deprecated usage):
+  ../../simgrid-3.28/install/bin/smpirun [-keep-temps] [-np <numprocs>] [-bandwidth <bytes/sec>] [-latency <secs>] program [program-options]
+
+Error: no program to execute!
+Usage: ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> program [program-options]
+       ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> -replay <tracefile> [program] [program-options]
+Options:
+  -analyze                   # show information about allocations and timings at the end of execution
+  -keep-temps                # don't remove the generated files after execution
+  -wrapper <command>         # use command to run the program (e.g. "valgrind" or "gdb --args")
+  -gdb                       # run within GDB (-wrapper "gdb --args" -keep-temps)
+  -lldb                      # run within LLDB (-wrapper "lldb --" -keep-temps)
+  -vgdb                      # run within Valgrind+GDB (-wrapper "valgrind --vgdb=yes --vgdb-error=0" -keep-temps)
+  -map                       # display the machine on which each process rank is mapped
+  -np <numprocs>             # use that amount of processes from the hostfile.
+                             # By default, all processes of the hostfile are used.
+  -no-privatize              # Disable the globals privatization, that is activated by default
+  -tmpdir                    # Directory used to store temporary files. Defaults to system's. 
+  -trace-ti                  # activate time independent tracing (for replay, default in smpi_simgrid.txt)
+  -trace                     # activate tracing (Paje, default in smpi_simgrid.trace)
+  -trace-comment <comment>   # put a comment on the top of the trace file
+  -trace-comment-file <file> # put file contents on the top of the trace file as comment
+  -trace-grouped             # group MPI processes by location
+  -trace-resource            # trace resource utilization
+  -trace-file <tracefile>    # name of the tracefile (simgrid_smpi.trace)
+  -replay <tracefile>        # replays a trace instead of actually executing an application
+
+  -version                   # Displays the SimGrid version (human readable)
+  -git-version               # Displays the git hash of SimGrid
+
+or (deprecated usage):
+  ../../simgrid-3.28/install/bin/smpirun [-keep-temps] [-np <numprocs>] [-bandwidth <bytes/sec>] [-latency <secs>] program [program-options]
+
+Error: no program to execute!
+Usage: ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> program [program-options]
+       ../../simgrid-3.28/install/bin/smpirun [OPTIONS] -platform <xmldesc|so> -hostfile <hostfile> -replay <tracefile> [program] [program-options]
+Options:
+  -analyze                   # show information about allocations and timings at the end of execution
+  -keep-temps                # don't remove the generated files after execution
+  -wrapper <command>         # use command to run the program (e.g. "valgrind" or "gdb --args")
+  -gdb                       # run within GDB (-wrapper "gdb --args" -keep-temps)
+  -lldb                      # run within LLDB (-wrapper "lldb --" -keep-temps)
+  -vgdb                      # run within Valgrind+GDB (-wrapper "valgrind --vgdb=yes --vgdb-error=0" -keep-temps)
+  -map                       # display the machine on which each process rank is mapped
+  -np <numprocs>             # use that amount of processes from the hostfile.
+                             # By default, all processes of the hostfile are used.
+  -no-privatize              # Disable the globals privatization, that is activated by default
+  -tmpdir                    # Directory used to store temporary files. Defaults to system's. 
+  -trace-ti                  # activate time independent tracing (for replay, default in smpi_simgrid.txt)
+  -trace                     # activate tracing (Paje, default in smpi_simgrid.trace)
+  -trace-comment <comment>   # put a comment on the top of the trace file
+  -trace-comment-file <file> # put file contents on the top of the trace file as comment
+  -trace-grouped             # group MPI processes by location
+  -trace-resource            # trace resource utilization
+  -trace-file <tracefile>    # name of the tracefile (simgrid_smpi.trace)
+  -replay <tracefile>        # replays a trace instead of actually executing an application
+
+  -version                   # Displays the SimGrid version (human readable)
+  -git-version               # Displays the git hash of SimGrid
+
+or (deprecated usage):
+  ../../simgrid-3.28/install/bin/smpirun [-keep-temps] [-np <numprocs>] [-bandwidth <bytes/sec>] [-latency <secs>] program [program-options]
+
+conges
+k16,0.0000200,256 rstime: 0.000009 Time for reduce: Initbuffer: 0.000000, first step: 0.000007, middlestep: 0.000000, finalstep: 0.000002
+k16,0.0000251,512 rstime: 0.000009 Time for reduce: Initbuffer: 0.000000, first step: 0.000007, middlestep: 0.000000, finalstep: 0.000003
+k16,0.0002758,1024 rstime: 0.000010 Time for reduce: Initbuffer: 0.000000, first step: 0.000006, middlestep: 0.000000, finalstep: 0.000003
+k16,0.0002984,2048 rstime: 0.000010 Time for reduce: Initbuffer: 0.000000, first step: 0.000007, middlestep: 0.000000, finalstep: 0.000003
+k16,0.0000206,4096 rstime: 0.000010 Time for reduce: Initbuffer: 0.000000, first step: 0.000007, middlestep: 0.000000, finalstep: 0.000003
+k16,0.0000191,8192 rstime: 0.000010 Time for reduce: Initbuffer: 0.000001, first step: 0.000006, middlestep: 0.000000, finalstep: 0.000002
+k16,0.0000241,16384 rstime: 0.000011 Time for reduce: Initbuffer: 0.000001, first step: 0.000008, middlestep: 0.000000, finalstep: 0.000002
+k16,0.0000261,32768 rstime: 0.000013 Time for reduce: Initbuffer: 0.000001, first step: 0.000009, middlestep: 0.000001, finalstep: 0.000003
+k16,0.0000383,65536 rstime: 0.000019 Time for reduce: Initbuffer: 0.000003, first step: 0.000010, middlestep: 0.000003, finalstep: 0.000003
+k16,0.0000368,131072 rstime: 0.000023 Time for reduce: Initbuffer: 0.000005, first step: 0.000010, middlestep: 0.000005, finalstep: 0.000003
+k16,0.0000532,262144 rstime: 0.000035 Time for reduce: Initbuffer: 0.000010, first step: 0.000012, middlestep: 0.000009, finalstep: 0.000003
+k16,0.0000784,524288 rstime: 0.000056 Time for reduce: Initbuffer: 0.000020, first step: 0.000013, middlestep: 0.000018, finalstep: 0.000006
+k16,0.0001641,1048576 rstime: 0.000118 Time for reduce: Initbuffer: 0.000039, first step: 0.000036, middlestep: 0.000034, finalstep: 0.000009
+k16,0.0003282,2097152 rstime: 0.000223 Time for reduce: Initbuffer: 0.000076, first step: 0.000069, middlestep: 0.000068, finalstep: 0.000011
+k16,0.0006226,4194304 rstime: 0.000437 Time for reduce: Initbuffer: 0.000151, first step: 0.000134, middlestep: 0.000135, finalstep: 0.000018
+k16,0.0010234,8388608 rstime: 0.000792 Time for reduce: Initbuffer: 0.000284, first step: 0.000207, middlestep: 0.000263, finalstep: 0.000038
+k16,0.0019287,16777216 rstime: 0.001502 Time for reduce: Initbuffer: 0.000520, first step: 0.000399, middlestep: 0.000518, finalstep: 0.000065
+k16,0.0034399,33554432 rstime: 0.002616 Time for reduce: Initbuffer: 0.000684, first step: 0.000792, middlestep: 0.001022, finalstep: 0.000118
+k16,0.0071961,67108864 rstime: 0.005590 Time for reduce: Initbuffer: 0.001762, first step: 0.001553, middlestep: 0.002046, finalstep: 0.000230
+k16,0.0137309,134217728 rstime: 0.010547 Time for reduce: Initbuffer: 0.002917, first step: 0.003117, middlestep: 0.004061, finalstep: 0.000453
+./allreducesmpi --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:local --cfg=smpi/shared-malloc-blocksize:644245094999 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../platforms/kautz/kautz16-2.xml
+Execution failed with code 137.
+mttree
+k16,0.0000818,256 rstime: 0.000040 Time for reduce: Initbuffer: 0.000000, first step: 0.000006, middlestep: 0.000032, finalstep: 0.000002
+k16,0.0000806,512 rstime: 0.000040 Time for reduce: Initbuffer: 0.000000, first step: 0.000006, middlestep: 0.000032, finalstep: 0.000002
+k16,0.0000814,1024 rstime: 0.000040 Time for reduce: Initbuffer: 0.000000, first step: 0.000006, middlestep: 0.000032, finalstep: 0.000002
+k16,0.0000803,2048 rstime: 0.000040 Time for reduce: Initbuffer: 0.000000, first step: 0.000007, middlestep: 0.000031, finalstep: 0.000002
+k16,0.0000812,4096 rstime: 0.000041 Time for reduce: Initbuffer: 0.000000, first step: 0.000007, middlestep: 0.000032, finalstep: 0.000002
+k16,0.0000821,8192 rstime: 0.000040 Time for reduce: Initbuffer: 0.000000, first step: 0.000007, middlestep: 0.000031, finalstep: 0.000002
+k16,0.0000804,16384 rstime: 0.000040 Time for reduce: Initbuffer: 0.000000, first step: 0.000007, middlestep: 0.000031, finalstep: 0.000002
+k16,0.0000843,32768 rstime: 0.000043 Time for reduce: Initbuffer: 0.000000, first step: 0.000006, middlestep: 0.000034, finalstep: 0.000002
+k16,0.0000902,65536 rstime: 0.000047 Time for reduce: Initbuffer: 0.000000, first step: 0.000007, middlestep: 0.000037, finalstep: 0.000002
+k16,0.0000824,131072 rstime: 0.000044 Time for reduce: Initbuffer: 0.000001, first step: 0.000007, middlestep: 0.000034, finalstep: 0.000002
+k16,0.0001017,262144 rstime: 0.000056 Time for reduce: Initbuffer: 0.000001, first step: 0.000007, middlestep: 0.000045, finalstep: 0.000003
+k16,0.0001287,524288 rstime: 0.000074 Time for reduce: Initbuffer: 0.000003, first step: 0.000008, middlestep: 0.000060, finalstep: 0.000004
+k16,0.0002357,1048576 rstime: 0.000137 Time for reduce: Initbuffer: 0.000005, first step: 0.000010, middlestep: 0.000114, finalstep: 0.000008
+k16,0.0003417,2097152 rstime: 0.000209 Time for reduce: Initbuffer: 0.000009, first step: 0.000013, middlestep: 0.000176, finalstep: 0.000012
+k16,0.0005687,4194304 rstime: 0.000369 Time for reduce: Initbuffer: 0.000018, first step: 0.000023, middlestep: 0.000308, finalstep: 0.000020
+k16,0.0010986,8388608 rstime: 0.000697 Time for reduce: Initbuffer: 0.000035, first step: 0.000037, middlestep: 0.000585, finalstep: 0.000040
+k16,0.0017725,16777216 rstime: 0.001172 Time for reduce: Initbuffer: 0.000058, first step: 0.000061, middlestep: 0.000984, finalstep: 0.000068
+k16,0.0031280,33554432 rstime: 0.002132 Time for reduce: Initbuffer: 0.000114, first step: 0.000111, middlestep: 0.001781, finalstep: 0.000126
+k16,0.0058681,67108864 rstime: 0.004086 Time for reduce: Initbuffer: 0.000250, first step: 0.000207, middlestep: 0.003380, finalstep: 0.000249
+k16,0.0112915,134217728 rstime: 0.007932 Time for reduce: Initbuffer: 0.000465, first step: 0.000401, middlestep: 0.006571, finalstep: 0.000495
+k16,0.0221259,268435456 rstime: 0.015610 Time for reduce: Initbuffer: 0.000863, first step: 0.000793, middlestep: 0.012956, finalstep: 0.000998
