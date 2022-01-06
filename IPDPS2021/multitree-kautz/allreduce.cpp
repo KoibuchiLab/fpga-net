@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-12-26 20:14:05
  * @ Modified by: Kien Pham
- * @ Modified time: 2022-01-06 16:27:42
+ * @ Modified time: 2022-01-06 16:39:53
  * @ Description:
  */
 
@@ -1099,10 +1099,8 @@ int main(int argc, char* argv[]) {
     }
     double kimrstime = rstime - start_time;
     if ((0 == rank)) {
-        fprintf(stdout, "k%d,%.7lf,%ld\n", d, kimrdtime, NUM_ITEMS_ORIGIN);
-    }
-    if (rank == 0){
-        printf("rstime: %f\n", rstime - start_time);
+        fprintf(stdout, "k%d,%.7lf,%ld ", d, kimrdtime, NUM_ITEMS_ORIGIN);
+        printf("rstime: %f ", rstime - start_time);
         printf("Time for reduce: Initbuffer: %f, first step: %f, middlestep: %f, finalstep: %f\n", \
                 initbuffer_t - start_time, firststep_t - initbuffer_t, middlestep_t - firststep_t, rstime - middlestep_t);
     }
