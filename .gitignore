@@ -542,7 +542,6 @@ IPDPS2021/hostfiles/kautz/kautz14-2.txt
 IPDPS2021/hostfiles/kautz/kautz16-2.txt
 IPDPS2021/hostfiles/kautz/kautz17-2.txt
 IPDPS2021/hostfiles/kautz/kautz20-2.txt
-IPDPS2021/hostfiles/kautz/kautz32-2.txt
 IPDPS2021/hostfiles/kautz/kautz64-2.txt
 IPDPS2021/multiport-2lvfc/allgathersmpi-b
 IPDPS2021/multitree-kautz/allgathersmpi-b
@@ -560,7 +559,6 @@ IPDPS2021/multitree-kautz/scheduleTable/kout16
 IPDPS2021/multitree-kautz/scheduleTable/kout32
 IPDPS2021/multitree-kautz/scheduleTable/kout64
 IPDPS2021/platforms/2lvfc/16x17.xml
-IPDPS2021/platforms/2lvfc/32x33.xml
 IPDPS2021/platforms/2lvfc/64x65.xml
 IPDPS2021/platforms/2lvfc/8x9.xml
 IPDPS2021/platforms/kautz/kautz16-2.xml
