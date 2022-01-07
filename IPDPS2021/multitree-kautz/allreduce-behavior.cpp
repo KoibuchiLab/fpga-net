@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-12-26 20:14:05
  * @ Modified by: Kien Pham
- * @ Modified time: 2022-01-07 00:32:20
+ * @ Modified time: 2022-01-07 10:17:38
  * @ Description:
  */
 
@@ -708,18 +708,19 @@ int main(int argc, char* argv[]) {
         //                                      REDUCE SCATTER                                     //
         MPI_Request* reqrecvs0 = (MPI_Request*)malloc(sizeof(MPI_Request) * d * d);
         MPI_Request* reqsends0 = (MPI_Request*)malloc(sizeof(MPI_Request) * d * d);
-        float* localbuf0 = data;
-        float* rsbuf = data;
-        // for (int i = 0; i < d; i++) {
-        //     memset(localbuf0, 0.0f, sizeof(float) * d * numofrsitems);
-        // }
-        // memset(rsbuf, 0.0f, sizeof(float) * d * numofrsitems);
+        float** localbuf = (float**)malloc(sizeof(float*) * d);
+        float* rsbuf = (float*)SMPI_SHARED_MALLOC(sizeof(float) * d * numofrsitems);
+        for (int i = 0; i < d; i++) {
+            localbuf[i] = (float*)malloc(sizeof(float) * d * numofrsitems);
+            memset(localbuf[i], 0.0f, sizeof(float) * d * numofrsitems);
+        }
+        memset(rsbuf, 0.0f, sizeof(float) * d * numofrsitems);
 
         // Receive data from parent
         for (int i = 1; i < d; i++) {
             int source = childParent[rank][d + i];
             // data index in rsbuf = i
-            MPI_Irecv(&localbuf0[i * numofrsitems], numofrsitems, MPI_FLOAT, source, \
+            MPI_Irecv(&localbuf[0][i * numofrsitems], numofrsitems, MPI_FLOAT, source, \
                 0, MPI_COMM_WORLD, &reqrecvs0[i]);
         }
         ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -740,7 +741,7 @@ int main(int argc, char* argv[]) {
             for (int i = 0; i < d; i++) {
                 int source = childParent[rank][d + i];
                 // index in rsbuf equal to step
-                MPI_Irecv(&localbuf0[i * numofrsitems], numofrsitems, MPI_FLOAT, source, 0, \
+                MPI_Irecv(&localbuf[step][i * numofrsitems], numofrsitems, MPI_FLOAT, source, 0, \
                     MPI_COMM_WORLD, &reqrecvs0[step * d + i]);
             }
 
@@ -770,7 +771,7 @@ int main(int argc, char* argv[]) {
         for (int i = 1; i < d; i++) {
             MPI_Wait(&reqrecvs0[i], MPI_STATUS_IGNORE);
             for (int j = 0; j < numofrsitems; j++) {
-                rsbuf[j] += localbuf0[i * numofrsitems + j];
+                rsbuf[0 * numofrsitems + j] += localbuf[0][i * numofrsitems + j];
             }
         }
         for (int i = 1; i < d; i++) {
@@ -794,7 +795,7 @@ int main(int argc, char* argv[]) {
             for (int i = 0; i < d; i++) {
                 MPI_Wait(&reqrecvs0[step * d + i], MPI_STATUS_IGNORE);
                 for (int j = 0; j < numofrsitems; j++) {
-                    rsbuf[step * numofrsitems + j] += localbuf0[i * numofrsitems + j];
+                    rsbuf[step * numofrsitems + j] += localbuf[step][i * numofrsitems + j];
                 }
             }
             for (int i = 0; i < d; i++) {
@@ -809,7 +810,7 @@ int main(int argc, char* argv[]) {
         // Receive rsbuf from parents
         for (int i = 0; i < d; i++) {
             int source = childParent[rank][d + i];
-            MPI_Irecv(&localbuf0[i * numofrsitems], numofrsitems, MPI_FLOAT, source, 0, \
+            MPI_Irecv(&localbuf[0][i * numofrsitems], numofrsitems, MPI_FLOAT, source, 0, \
                 MPI_COMM_WORLD, &reqrecvlast[i]);
         }
 
@@ -824,7 +825,7 @@ int main(int argc, char* argv[]) {
         }
 
         // allocate rsresult
-        float* rsresult = data;
+        float* rsresult = (float*)SMPI_SHARED_MALLOC(sizeof(float) * numofrsitems);
         //Copy data from current process to the result;
         memcpy(rsresult, &data[rank * numofrsitems], sizeof(float) * numofrsitems);
 #if defined(DEBUG1)
@@ -837,7 +838,7 @@ int main(int argc, char* argv[]) {
         for (int i = 0; i < d; i++) {
             MPI_Wait(&reqrecvlast[i], MPI_STATUS_IGNORE);
             for (int j = 0; j < numofrsitems; j++) {
-                rsresult[j] += localbuf0[i * numofrsitems + j];
+                rsresult[j] += localbuf[0][i * numofrsitems + j];
             }
         }
 
@@ -864,9 +865,9 @@ int main(int argc, char* argv[]) {
         //                                   END:  REDUCE SCATTER                                  //
 
         rstime = MPI_Wtime();
-        
-        MPI_Request *reqrecvs = new MPI_Request[d];
-        MPI_Request *reqsends = new MPI_Request[d];
+
+        MPI_Request* reqrecvs = new MPI_Request[d];
+        MPI_Request* reqsends = new MPI_Request[d];
 
         for (int i = 0; i < numofrsitems; i++) {
             allreduceresult[rank * numofrsitems + i] = rsresult[i];
@@ -916,7 +917,7 @@ int main(int argc, char* argv[]) {
             dblasttimer = MPI_Wtime();
         }
 #endif
-        float *sendbuf0 = data;
+        float* sendbuf0 = (float*)SMPI_SHARED_MALLOC(sizeof(float)*d * numofrsitems);
         float** recvbuf0 = new float* [d];
         for (int i = 0; i < d; i++) {
             recvbuf0[i] = new float[d * numofrsitems];
@@ -941,7 +942,7 @@ int main(int argc, char* argv[]) {
         for (int i = 0; i < d; i++) {
             source = childParent[rank][d + i];
             if (source == duplicateIdx) {
-                MPI_Irecv(recvbuf0[i], numofrsitems* (d - 1), MPI_FLOAT, source, 0, MPI_COMM_WORLD, &reqrecvs[i]);
+                MPI_Irecv(recvbuf0[i], numofrsitems * (d - 1), MPI_FLOAT, source, 0, MPI_COMM_WORLD, &reqrecvs[i]);
             }
             else {
                 MPI_Irecv(recvbuf0[i], numofrsitems * d, MPI_FLOAT, source, 0, MPI_COMM_WORLD, &reqrecvs[i]);
@@ -955,7 +956,7 @@ int main(int argc, char* argv[]) {
                 tmpi = i;
             }
         }
-        float* nsendbuf = new float[(d - 1) * numofrsitems];
+        float* nsendbuf = sendbuf0;
 
         // send the message at the duplicate index
         bool detectduplicate = false;
@@ -1023,7 +1024,7 @@ int main(int argc, char* argv[]) {
                         // for (int k = 0; k < numofrsitems; k++){
                         // 	allGatherResult[whichData[j]*numofrsitems + k] = recvbuf[i][(j)*numofrsitems + k];
                         // }
-                        memcpy(&allreduceresult[whichData[j] * numofrsitems], &recvbuf0[i][(j)*numofrsitems], sizeof(float)* numofrsitems);
+                        memcpy(&allreduceresult[whichData[j] * numofrsitems], &recvbuf0[i][(j)*numofrsitems], sizeof(float) * numofrsitems);
                     }
                     else { // copy data with adjust index
                      // for (int k = 0; k < numofrsitems; k++){
@@ -1044,7 +1045,6 @@ int main(int argc, char* argv[]) {
             dblasttimer = MPI_Wtime();
         }
 #endif
-        
         break;
     }
     }
