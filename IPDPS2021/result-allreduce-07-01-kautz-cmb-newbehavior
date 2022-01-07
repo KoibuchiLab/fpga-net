@@ -1,0 +1,31 @@
+mpic++ -o allgather allgather.cpp helper.cpp 
+mpic++ -g -o alltoall alltoall.cpp helper.cpp 
+mpic++ -g -o allreduce allreduce.cpp helper.cpp
+../../simgrid-3.28/install/bin/smpicxx -o allreducesmpi allreduce.cpp helper.cpp 
+../../simgrid-3.28/install/bin/smpicxx -o allgathersmpi allgather.cpp helper.cpp 
+../../simgrid-3.28/install/bin/smpicxx -o alltoallsmpi alltoall.cpp helper.cpp 
+../../simgrid-3.28/install/bin/smpicxx -o allgathersmpi-b allgather-behavior.cpp helper.cpp 
+../../simgrid-3.28/install/bin/smpicxx -o alltoallsmpi-b alltoall-behavior.cpp helper.cpp 
+../../simgrid-3.28/install/bin/smpicxx -o allreducesmpi-b allreduce-behavior.cpp helper.cpp
+cmb
+k16,0.0000206,256
+k16,0.0000212,512
+k16,0.0000226,1024
+k16,0.0000214,2048
+k16,0.0003473,4096
+k16,0.0000228,8192
+k16,0.0000302,16384
+k16,0.0003019,32768
+k16,0.0000385,65536
+k16,0.0000426,131072
+k16,0.0000623,262144
+k16,0.0001043,524288
+k16,0.0002023,1048576
+k16,0.0003466,2097152
+k16,0.0006947,4194304
+k16,0.0012465,8388608
+k16,0.0029196,16777216
+k16,0.0058093,33554432
+k16,0.0113545,67108864
+k16,0.0224275,134217728
+k16,0.0473004,268435456
