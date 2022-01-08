@@ -1,16 +1,15 @@
-all: allreduce
+CC = ../../simgrid-3.28/install/bin/smpicc
+CXX = ../../simgrid-3.28/install/bin/smpicxx
+vgg-df: 
+	$(CC) VGG16.c ../collective-operations/2lvfc.c -o VGG16.o
 
-allreduce: allreduce.c
-	../../SimGrid-3.21/build/bin/smpicc allreduce.c -o allreduce
-
-
-clean_log:
-	/bin/rm -f *.log*
-	rm -f log_allreduce/*
-
+vgg-mttree:
 	
-clean_all: clean clean_log
-
-clean_bin:
-	/bin/rm -f allreduce
+resnet: 
+	../../simgrid-3.28/install/bin/smpicc RESNET50.c -o RESNET50.run
+	
+clean:
+	/bin/rm -f *.run
+	/bin/rm -f *.log*
+	/bin/rm -f smpitmp*
 

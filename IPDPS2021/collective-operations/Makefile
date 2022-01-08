@@ -1,6 +1,6 @@
 
 all:
-	../../simgrid-3.28/install/bin/smpicc -g 2lvfc.c main-test.c -o test
+	../../simgrid-3.28/install/bin/smpicc 2lvfc.c main-test.c -o test
 	
 	../../simgrid-3.28/install/bin/smpirun --cfg=smpi/host-speed:1Gf -np 21 -hostfile ../hostfiles/2lvfc/7x3.txt \
 	-platform ../platforms/2lvfc/7x3.xml --log=smpi_coll.:critical ./test --num-item 21

@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-12-19 17:38:28
  * @ Modified by: Kien Pham
- * @ Modified time: 2022-01-08 21:55:02
+ * @ Modified time: 2022-01-08 23:43:04
  * @ Description:
  */
 
@@ -43,7 +43,7 @@ int main(int argc, char* argv[])
                 printf("Invalid <topology> argument\n");
             }
         }
-     }
+    }
 
     //	if (rank == 0) printf("Chunksize: %d\n", chunksize);
     float* sendbuf;
