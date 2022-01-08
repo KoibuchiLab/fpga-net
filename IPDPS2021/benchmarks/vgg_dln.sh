@@ -1,8 +1,8 @@
 make vgg-df
-DATA_SIZE=1 #1280000	# Dataset size (number of samples)
+DATA_SIZE=1280000 #1280000	# Dataset size (number of samples)
 BATCH=32 # Minibatch size per node.
 EPOCH=1 #Number of epoch;
-NODESIZE=16
+NODESIZE=272
 APP_NAME="VGG"
 LOG_DIR="./vgg"
 ARCHITECTURE="16x17" #"DLNx_8_7_w2_n2_2048" "DLNx_16_5_w2_n2_1024" #"DLNx_8_7_w2_n4_1024" "DLNx_16_5_w2_n4_512"

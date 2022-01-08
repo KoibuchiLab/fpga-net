@@ -112,8 +112,8 @@ int main(int argc, char *argv[])
 		}
 		printf("Total number of gradient %d\n",message_size);
 	}
-	float* local_sum = (float*)SMPI_SHARED_MALLOC(sizeof(float) * message_size);
-	float* global_sum = (float*)SMPI_SHARED_MALLOC(sizeof(float) * message_size);
+	float* local_sum = (float*)malloc(sizeof(float) * message_size);
+	float* global_sum = (float*)malloc(sizeof(float) * message_size);
 	MPI_Barrier(MPI_COMM_WORLD);
 	/****** Training ***********/
  	gettimeofday(&end,NULL);

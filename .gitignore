@@ -565,6 +565,9 @@ IPDPS2021/platforms/kautz/kautz16-2.xml
 IPDPS2021/platforms/kautz/kautz32-2.xml
 IPDPS2021/platforms/kautz/kautz64-2.xml
 
+IPDPS2021/benchmarks/*.o
+IPDPS2021/benchmarks/*.run
+
 IPDPS2021/multiport-2lvfc/allgather
 IPDPS2021/multiport-2lvfc/allgathersmpi
 IPDPS2021/multitree-kautz/alltoall
