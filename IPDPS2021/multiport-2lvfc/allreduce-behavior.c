@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-09-25 23:13:38
  * @ Modified by: Kien Pham
- * @ Modified time: 2022-01-06 22:32:35
+ * @ Modified time: 2022-01-07 00:14:43
  * @ Description:
  */
 
@@ -399,25 +399,6 @@ int main(int argc, char* argv[])
 			intergroupreductionresult[j] += intergroupbuffer[i][j];
 		}
 	}
-	//  tobe delete
-	//   check the correctnes with this data
-	//   for (int j = 0; j < NUM_ITEMS_ROUND; j++) {
-	// 	data[j] = j % numofnodesingroup + groupnumber;//(float)(1 + 1.0 * (random() % 9));
-	// }
-	// assert(numofitemsinsecondreduction == NUM_ITEMS_ROUND / size);
-	// float *testintergroupreduction = (float*)malloc(sizeof(float)*numofnodesingroup);
-	// for (int i = 0; i < numofnodesingroup; i++) {
-	// 	testintergroupreduction[i] = (21 + 7*i)*3;
-	// }
-	// if (rank == 0){
-	// 	for (int i = 0; i < numofitemsinsecondreduction; i++) {
-	// 		int comparevalue = intergroupreductionresult[i] - testintergroupreduction[(i % numofnodesingroup) % numofnodesingroup];
-	// 		if (comparevalue != 0) {
-	// 			printf("From rank %d Intergroupreductionresult wrong %.0f %.0f\n", rank, intergroupreductionresult[i], \
-	// 				testintergroupreduction[(i % numofnodesingroup) % numofnodesingroup]);
-	// 		}
-	// 	}
-	// }
 
 
 

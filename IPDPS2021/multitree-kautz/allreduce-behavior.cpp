@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-12-26 20:14:05
  * @ Modified by: Kien Pham
- * @ Modified time: 2022-01-07 10:17:38
+ * @ Modified time: 2022-01-08 07:17:23
  * @ Description:
  */
 
@@ -117,10 +117,6 @@ int main(int argc, char* argv[]) {
     size_t numofrsitems = NUM_ITEMS/size;
 
     float* data = (float*)SMPI_SHARED_MALLOC(sizeof(float)*NUM_ITEMS);
-    if ((data = new float[NUM_ITEMS]) == NULL) {
-        program_abort("Allocate fail!");
-    }
-    
     float* allreduceresult = data;
 
 #if defined(DEBUG1)
