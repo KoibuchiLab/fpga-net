@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-12-19 17:38:28
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-12-22 12:49:22
+ * @ Modified time: 2022-01-08 21:55:02
  * @ Description:
  */
 
@@ -10,8 +10,12 @@
 #include <stdlib.h>
 #include <mpi.h>
 #include <string.h>
-#include "kmpi.h"
 
+#ifdef __cplusplus
+#include "kmpi.hpp"
+#else
+#include "kmpi.h"
+#endif
 
 #define RAND_SEED 721311
 
@@ -24,10 +28,12 @@ int main(int argc, char* argv[])
 
 
     MPI_Init(&argc, &argv);
+    
 
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
     MPI_Get_processor_name(hostname, &hostname_len);
+    KMPI_Init(rank, size);
     NUM_ITEMS = 500; //default numitems
 
     // Topology optional argument
@@ -41,11 +47,11 @@ int main(int argc, char* argv[])
 
     //	if (rank == 0) printf("Chunksize: %d\n", chunksize);
     float* sendbuf;
-    if ((sendbuf = malloc(sizeof(float) * NUM_ITEMS)) == NULL) {
+    if ((sendbuf = (float*)malloc(sizeof(float) * NUM_ITEMS)) == NULL) {
         printf("Out of memory!");
     }
     float* recvbuf;
-    if ((recvbuf = malloc(sizeof(float) * NUM_ITEMS * size)) == NULL) {
+    if ((recvbuf = (float*)malloc(sizeof(float) * NUM_ITEMS * size)) == NULL) {
         printf("Out of memory!");
     }
 #if defined(DEBUG0)
@@ -122,6 +128,31 @@ int main(int argc, char* argv[])
         }
 
     }
+
+    float* allreducesendbuf = (float*)malloc(sizeof(float) * NUM_ITEMS);
+    float* allreducerecvbuf = (float*)malloc(sizeof(float) * NUM_ITEMS);
+    float* allreducerecvbuflib = (float*)malloc(sizeof(float) * NUM_ITEMS);
+    for (int i = 0; i < NUM_ITEMS; i++) {
+        alltoallsendbuf[i] = i;
+    }
+    printf("Test MPI_Allreduce\n");
+    MPI_Barrier(MPI_COMM_WORLD);
+    if (rank == 0) {
+        start_time = MPI_Wtime();
+    }
+    KMPI_Allreducef(allreducesendbuf, allreducerecvbuf, NUM_ITEMS, MPI_FLOAT, MPI_SUM, MPI_COMM_WORLD);
+
+    /// Stop timer
+    MPI_Barrier(MPI_COMM_WORLD);
+    kimrdtime = MPI_Wtime() - start_time;
+
+    start_time = MPI_Wtime();
+    MPI_Allreduce(allreducesendbuf, allreducerecvbuflib, NUM_ITEMS, MPI_FLOAT, MPI_SUM, MPI_COMM_WORLD);
+    MPI_Barrier(MPI_COMM_WORLD);
+    if ((0 == rank)) {
+        fprintf(stdout, "Time %.7lf,%.7lf,%d\n", kimrdtime, MPI_Wtime() - start_time, NUM_ITEMS);
+    }
+    
     free(resultlib);
     MPI_Finalize();
     return 0;

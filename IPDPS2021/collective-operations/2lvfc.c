@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-12-19 17:37:49
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-12-21 14:21:10
+ * @ Modified time: 2022-01-08 22:35:09
  * @ Description:
  */
 #include"kmpi.h"
@@ -480,7 +480,325 @@ int KMPI_Alltoallf(const float* sendbuf, int sendcount, MPI_Datatype sendtype,
 	free(sendbufinter);
 }
 
+int KMPI_Init(int rank, int size){
+	return MPI_SUCCESS;
+}
 
+//Behavior
+int KMPI_Allreducef(const float* sendbuf, float* recvbuf, int count,
+	MPI_Datatype datatype, MPI_Op op, MPI_Comm comm){
+	int size, rank;
+	char hostname[256];
+	char topo[256];//for real MPICH test
+	int hostname_len;
+
+	MPI_Comm_rank(comm, &rank);
+	MPI_Comm_size(comm, &size);
+	MPI_Get_processor_name(hostname, &hostname_len);
+	
+
+	//	if (rank == 0) printf("Chunksize: %d\n", chunksize);
+	size_t NUM_ITEMS_ROUND = ((count - 1) / size + 1)* size;
+	if (NUM_ITEMS_ROUND != count) return MPI_ERR_ASSERT;
+
+	char networkshape[256];
+	int networkshape_len;
+	if (rank == size - 1) {
+		strcpy(networkshape, hostname);
+		networkshape_len = hostname_len + 1;
+		networkshape[networkshape_len] = '\0';
+	}
+	MPI_Bcast(&networkshape_len, 1, MPI_INT, size - 1, MPI_COMM_WORLD);
+	// Send the shape of the topology to all node
+	if (MPI_SUCCESS != MPI_Bcast(networkshape, networkshape_len, MPI_CHAR, size - 1, MPI_COMM_WORLD)) {
+		program_abort("Broadcast networkshape fail\n");
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////   REDUCE - SCATTER : BEGIN  ////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////
+	int groupnumber, nodenumber; // Hostname define in xml is groupnumber_nodenumber
+	r2h(rank, networkshape, &groupnumber, &nodenumber);
+
+	if (rank != h2r(hostname, networkshape))
+		program_abort("Computed rank must equal to real rank\n");
+	int numofgroups, numofnodesingroup;
+	sscanf(networkshape, "%d_%d", &numofgroups, &numofnodesingroup);
+	numofgroups++;
+	numofnodesingroup++;
+
+	//Step 1: Intra group exchange  /////////////////////////////////////////////////////////////////
+	int numofitemsineachchunk = NUM_ITEMS_ROUND / numofnodesingroup;
+
+	//Prepare buffer to receive data
+	float** intragroupbuffer = (float**)malloc(sizeof(float*) * numofnodesingroup);
+	for (int i = 0; i < numofnodesingroup; i++) {
+		intragroupbuffer[i] = (float*)malloc(sizeof(float) * numofitemsineachchunk);
+		for (int j = 0; j < numofitemsineachchunk; j++) {
+			intragroupbuffer[i][j] = 0;
+		}
+	}
+
+	MPI_Request* reqsends = (MPI_Request*)malloc(sizeof(MPI_Request) * numofnodesingroup);
+	MPI_Request* reqrecvs = (MPI_Request*)malloc(sizeof(MPI_Request) * numofnodesingroup);
+
+
+	// Place MPI_Irecv
+	for (int i = 0; i < numofnodesingroup; i++) {
+		// Compute source
+		int source = numofnodesingroup * groupnumber + i;
+		if (source != rank) {
+			MPI_Irecv(intragroupbuffer[i], numofitemsineachchunk, MPI_FLOAT, source, 0, MPI_COMM_WORLD, &reqrecvs[i]);
+		}
+	}
+	// Place MPI_Isend
+	for (int i = 0; i < numofnodesingroup; i++) {
+		// Compute destination
+		int destination = numofnodesingroup * groupnumber + i;
+		if (destination != rank) {
+			MPI_Isend(&sendbuf[i * numofitemsineachchunk], numofitemsineachchunk, MPI_FLOAT, destination, 0, MPI_COMM_WORLD, &reqsends[i]);
+		}
+		else {
+			// copy data reduction buffer (intragroupbuffer)
+			for (int j = 0; j < numofitemsineachchunk; j++) {
+				intragroupbuffer[i][j] = sendbuf[i * numofitemsineachchunk + j];
+			}
+		}
+	}
+
+	//wait for nonblocking receive to complete
+	for (int i = 0; i < numofnodesingroup; i++) {
+		// Compute destination
+		int source = numofnodesingroup * groupnumber + i;
+		if (source != rank) {
+			MPI_Wait(&reqrecvs[i], MPI_STATUS_IGNORE);
+		}
+	}
+	//wait for nonblocking send to complete
+	for (int i = 0; i < numofnodesingroup; i++) {
+		// Compute destination
+		int destination = numofnodesingroup * groupnumber + i;
+		if (destination != rank) {
+			MPI_Wait(&reqsends[i], MPI_STATUS_IGNORE);
+		}
+	}
+
+	// execute the reduction operation
+	// Could reduce time by pipeline with receiveing data
+	float* intragroupreductionresult = (float*)malloc(sizeof(float) * numofitemsineachchunk);
+	for (int i = 0; i < numofitemsineachchunk; i++) {
+		intragroupreductionresult[i] = 0;
+	}
+	for (int i = 0; i < numofnodesingroup; i++) {
+		for (int j = 0; j < numofitemsineachchunk; j++) {
+			intragroupreductionresult[j] = intragroupreductionresult[j] + intragroupbuffer[i][j];
+		}
+	}
+
+	// free memory
+	for (int i = 0; i < numofnodesingroup; i++) {
+		free(intragroupbuffer[i]);
+	}
+	free(intragroupbuffer);
+	free(reqsends);
+	free(reqrecvs);
+
+
+	//Step 2: Inter group exchange  /////////////////////////////////////////////////////////////////
+	//Prepare buffer to receive data
+	// int numofitemsinsecondreduction = NUM_ITEMS_ROUND / size;
+	int numofitemsinsecondreduction = NUM_ITEMS_ROUND / size;
+
+	// float **intergroupbuffer = (float**)malloc(sizeof(float*)*numofgroups);
+	//intergroupbuffer[i] = (float*)malloc(sizeof(float)*numofitemsinsecondreduction);
+	float** intergroupbuffer = (float**)malloc(sizeof(float*) * numofgroups);
+	for (int i = 0; i < numofgroups; i++) {
+		intergroupbuffer[i] = (float*)malloc(sizeof(float) * numofitemsinsecondreduction);
+		for (int j = 0; j < numofitemsinsecondreduction; j++) {
+			intergroupbuffer[i][j] = 0; // should carefull for other reduce operation
+		}
+	}
+	reqsends = (MPI_Request*)malloc(sizeof(MPI_Request) * numofgroups);
+	reqrecvs = (MPI_Request*)malloc(sizeof(MPI_Request) * numofgroups);
+
+	// Receive data
+	for (int i = 0; i < numofgroups; i++) {
+		int source = i * numofnodesingroup + nodenumber;
+		MPI_Irecv(intergroupbuffer[i], numofitemsinsecondreduction, MPI_FLOAT, source, 0, MPI_COMM_WORLD, &reqrecvs[i]);
+	}
+
+
+	// Send data
+	float** sendbuf00 = (float**)malloc(sizeof(float*) * numofgroups);
+	for (int i = 0; i < numofgroups; i++) {
+		sendbuf00[i] = (float*)malloc(sizeof(float) * numofitemsinsecondreduction);
+	}
+
+	for (int i = 0; i < numofgroups; i++) {
+		int destination = i * numofnodesingroup + nodenumber;
+
+		//prepare data for sendbuf
+		for (int j = 0; j < numofitemsinsecondreduction; j++) {
+			//read data from intragroupreductionresult
+			sendbuf00[i][j] = intragroupreductionresult[j * numofgroups + i];
+		}
+		if (destination != rank) {
+			MPI_Isend(sendbuf00[i], numofitemsinsecondreduction, MPI_FLOAT, destination, 0, MPI_COMM_WORLD, &reqsends[i]);
+		}
+		else { //copy from buffer
+			for (int j = 0; j < numofitemsinsecondreduction; j++) {
+				intergroupbuffer[i][j] = sendbuf00[i][j];
+			}
+		}
+	}
+
+	for (int i = 0; i < numofgroups; i++) {
+		int source = i * numofnodesingroup + nodenumber;
+		if (rank != source) {
+			MPI_Wait(&reqrecvs[i], MPI_STATUS_IGNORE);
+		}
+	}
+	for (int i = 0; i < numofgroups; i++) {
+		int destination = i * numofnodesingroup + nodenumber;
+		if (rank != destination) {
+			MPI_Wait(&reqsends[i], MPI_STATUSES_IGNORE);
+		}
+	}
+
+	for (int i = 0; i < numofgroups; i++) {
+		free(sendbuf00[i]);
+	}
+	free(sendbuf00);
+	free(reqsends);
+	free(reqrecvs);
+
+	//Execute reduction -> change += to reduction function
+	// float* intergroupreductionresult = (float*)malloc(sizeof(float) * numofitemsinsecondreduction);
+	float* intergroupreductionresult = (float*)malloc(sizeof(float) * numofitemsinsecondreduction);
+	for (int i = 0; i < numofitemsinsecondreduction; i++) {
+		intergroupreductionresult[i] = 0;
+	}
+	for (int i = 0; i < numofgroups; i++) {
+		for (int j = 0; j < numofitemsinsecondreduction; j++) {
+			intergroupreductionresult[j] += intergroupbuffer[i][j];
+		}
+	}
+
+	//free(intergroupbuffer);
+	free(intragroupreductionresult);
+	/////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////   REDUCE - SCATTER : END	////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////	  ALLGATHER : START	  ////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////
+	// Step 1: Inter group gather  //////////////////////////////////////////////////////////////////
+	// send inter group reduction result to other groups
+	reqsends = (MPI_Request*)malloc(sizeof(MPI_Request) * numofgroups);
+	reqrecvs = (MPI_Request*)malloc(sizeof(MPI_Request) * numofgroups);
+	// float* intergroupbuffer_ = (float*)malloc(sizeof(float) * numofgroups * numofitemsinsecondreduction);
+	float* intergroupbuffer_ = (float*)malloc(sizeof(float) * numofgroups * numofitemsinsecondreduction);
+	for (int i = 0; i < numofgroups; i++) {
+		// Compute source
+		int source = numofnodesingroup * i + nodenumber;
+		if (source != rank) {
+			MPI_Irecv(&intergroupbuffer_[i * numofitemsinsecondreduction], numofitemsinsecondreduction, \
+				MPI_FLOAT, source, 1, MPI_COMM_WORLD, &reqrecvs[i]);
+		}
+	}
+
+	for (int i = 0; i < numofgroups; i++) {
+		// Compute destination
+		int destination = numofnodesingroup * i + nodenumber;
+		if (destination != rank) {
+			MPI_Isend(intergroupreductionresult, numofitemsinsecondreduction, MPI_FLOAT, destination, 1, \
+				MPI_COMM_WORLD, &reqsends[i]);
+		}
+		else {
+			//intergroupbuffer_[i] <- intergroupreductionresult (data is on a process so dont need to send)
+			for (int j = 0; j < numofitemsinsecondreduction; j++) {
+				intergroupbuffer_[i * numofitemsinsecondreduction + j] = intergroupreductionresult[j];
+			}
+		}
+	}
+
+	for (int i = 0; i < numofgroups; i++) {
+		// Compute source
+		int source = numofnodesingroup * i + nodenumber;
+		if (source != rank) {
+			MPI_Wait(&reqrecvs[i], MPI_STATUS_IGNORE);
+		}
+	}
+	for (int i = 0; i < numofgroups; i++) {
+		// Compute destination
+		int destination = numofnodesingroup * i + nodenumber;
+		if (destination != rank) {
+			MPI_Wait(&reqsends[i], MPI_STATUS_IGNORE);
+		}
+	}
+
+	free(intergroupreductionresult);
+	// Step 2: Intra group gather  //////////////////////////////////////////////////////////////////
+	//Final result
+
+	reqsends = (MPI_Request*)malloc(sizeof(MPI_Request) * numofnodesingroup);
+	reqrecvs = (MPI_Request*)malloc(sizeof(MPI_Request) * numofnodesingroup);
+
+	for (int i = 0; i < NUM_ITEMS_ROUND; i++) {
+		recvbuf[i] = 0;
+	}
+	//Allocate buffer for intra group
+	// float* bufreorder = (float*)malloc(sizeof(float) * numofgroups * numofitemsinsecondreduction);
+	float* bufreorder = (float*)malloc(sizeof(float) * numofgroups * numofitemsinsecondreduction);
+	for (int i = 0; i < numofgroups * numofitemsinsecondreduction; i++) {
+		int index = i / numofitemsinsecondreduction + numofgroups * (i % numofitemsinsecondreduction);
+		// fprintf(stdout, "%d ", index);
+		bufreorder[index] = intergroupbuffer_[i];
+	}
+	// fprintf(stdout, "\n");
+
+
+	for (int i = 0; i < numofnodesingroup; i++) {
+		int source = groupnumber * numofnodesingroup + i;
+		int m = numofitemsinsecondreduction * numofgroups;
+		if (rank != source) {
+			MPI_Irecv(&recvbuf[m * i], numofgroups * numofitemsinsecondreduction, MPI_FLOAT, \
+				source, 1, MPI_COMM_WORLD, &reqrecvs[i]);
+		}
+	}
+
+	for (int i = 0; i < numofnodesingroup; i++) {
+		int destination = groupnumber * numofnodesingroup + i;
+		if (rank != destination) {
+			MPI_Isend(bufreorder, numofgroups * numofitemsinsecondreduction, MPI_FLOAT, \
+				destination, 1, MPI_COMM_WORLD, &reqsends[i]);
+		}
+		else {
+			int m = numofitemsinsecondreduction * numofgroups;
+			memcpy(&recvbuf[m * i], bufreorder, sizeof(float) * m);
+		}
+	}
+
+	for (int i = 0; i < numofnodesingroup; i++) {
+		int source = groupnumber * numofnodesingroup + i;
+		if (rank != source) {
+			MPI_Wait(&reqrecvs[i], MPI_STATUS_IGNORE);
+		}
+	}
+	for (int i = 0; i < numofnodesingroup; i++) {
+		int destination = groupnumber * numofnodesingroup + i;
+		if (rank != destination) {
+			MPI_Wait(&reqsends[i], MPI_STATUS_IGNORE);
+		}
+	}
+
+	free(bufreorder);
+	free(intergroupbuffer_);
+	free(reqrecvs);
+	free(reqsends);
+	return MPI_SUCCESS;
+}
 
 
 static void program_abort(char* message) {
