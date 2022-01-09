@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-12-19 17:37:49
  * @ Modified by: Kien Pham
- * @ Modified time: 2022-01-08 22:35:09
+ * @ Modified time: 2022-01-09 16:57:07
  * @ Description:
  */
 #include"kmpi.h"
@@ -485,7 +485,7 @@ int KMPI_Init(int rank, int size){
 }
 
 //Behavior
-int KMPI_Allreducef(const float* sendbuf, float* recvbuf, int count,
+int KMPI_Allreducef(const float* sendbuf, float* recvbuf, size_t count,
 	MPI_Datatype datatype, MPI_Op op, MPI_Comm comm){
 	int size, rank;
 	char hostname[256];
@@ -498,8 +498,7 @@ int KMPI_Allreducef(const float* sendbuf, float* recvbuf, int count,
 	
 
 	//	if (rank == 0) printf("Chunksize: %d\n", chunksize);
-	size_t NUM_ITEMS_ROUND = ((count - 1) / size + 1)* size;
-	if (NUM_ITEMS_ROUND != count) return MPI_ERR_ASSERT;
+	size_t NUM_ITEMS_ROUND = ((count)/size)*size;
 
 	char networkshape[256];
 	int networkshape_len;

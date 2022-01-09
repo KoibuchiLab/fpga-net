@@ -166,6 +166,7 @@ int main(int argc, char *argv[])
 		for (i = 0; i < L; i++){
 			SMPI_SAMPLE_FLOPS(nw[i][1] + nw[i][0]*B) {}
 		}
+		MPI_Barrier(MPI_COMM_WORLD);
 		if (rank == 0) {
 			gettimeofday(&end,NULL);
 			printf("End Update\t%f\n",(end.tv_sec*1000000.0 + end.tv_usec -
@@ -177,7 +178,8 @@ int main(int argc, char *argv[])
 		}
 		
 		//Weight update:
-		KMPI_Allreducef(local_sum, global_sum, message_size, MPI_FLOAT, MPI_SUM,MPI_COMM_WORLD);
+		// printf("message size %d \n", message_size);
+		KMPI_Allreducef(local_sum, global_sum, message_size, MPI_FLOAT, MPI_SUM, MPI_COMM_WORLD);
 		if (rank == 0) {
 			gettimeofday(&end,NULL);
 			printf("End Communication\t%f\n",(end.tv_sec*1000000.0 + end.tv_usec -

@@ -514,7 +514,7 @@ int KMPI_Alltoallf(const float* sendbuf, int sendcount, MPI_Datatype sendtype,
     return(MPI_SUCCESS);
 }
 
-int KMPI_Allreducef(const float* sendbuf, float* recvbuf, int count,
+int KMPI_Allreducef(const float* sendbuf, float* recvbuf, size_t count,
     MPI_Datatype datatype, MPI_Op op, MPI_Comm comm){
     int rank;
     int size;
