@@ -279,12 +279,277 @@
 [0.000000] [smpi/INFO] [rank 269] -> 15_14
 [0.000000] [smpi/INFO] [rank 270] -> 15_15
 [0.000000] [smpi/INFO] [rank 271] -> 15_16
-[10.552308] [smpi_utils/INFO] Simulated time: 10.5523 seconds. 
-
-The simulation took 0.529131 seconds (after parsing and platform setup)
-22.4146 seconds were actual computation of the application
-[10.552308] [smpi_utils/INFO] More than 75% of the time was spent inside the application code.
-You may want to use sampling functions or trace replay to reduce this.
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
+message size 138344128 
 Params:Data set size	1280000
 Params:Batch per node	32
 Params:Number of node	272
@@ -292,6 +557,7 @@ Params:Mini Batch size	8704.000000
 Params:Iteration per epoch	148
 Params:Number of  epoch	1
 Params:Number of iteration	148
+message size 138344128 
 Layer 0 [3211264.000000,1728.000000,86704128.0]
 Layer 1 [3211264.000000,36864.000000,1849688064.0]
 Layer 2 [802816.000000,0.000000,205520896.0]
@@ -314,24 +580,30 @@ Layer 18 [4096.000000,102760448.000000,102760448.0]
 Layer 19 [4096.000000,16777216.000000,16777216.0]
 Layer 20 [1000.000000,4096000.000000,4096000.0]
 Total number of gradient 138344128
-Start training	0.000261
-start time_struct: 0 33
-end training time_struct: 0 294
-Start FW	0.000272
-Start FW time_struct: 0 305
-End FW	5.260707
-End FW time_struct: 5 260740
-Start BW	5.260707
-Start BW time_struct: 5 260740
-End BW	10.538827
-End BW time_struct: 10 538860
-Start Update	10.538827
-Start Update time_struct: 10 538860
-End Update	10.545124
-End Update time_struct: 10 545157
-Start Communication	10.545124
-Start communication time_struct: 10 545157
-End Communication	10.545130
-End communication time_struct: 10 545163
-End training	 10.552266
-End Training time_struct: 10 552299
+Start training	0.000102
+start time_struct: 0 17
+end training time_struct: 0 119
+Start FW	0.000106
+Start FW time_struct: 0 123
+End FW	5.241740
+End FW time_struct: 5 241757
+Start BW	5.241740
+Start BW time_struct: 5 241757
+End BW	10.494740
+End BW time_struct: 10 494757
+Start Update	10.494740
+Start Update time_struct: 10 494757
+End Update	10.500999
+End Update time_struct: 10 501016
+Sta[10.502491] [smpi_utils/INFO] Simulated time: 10.5025 seconds. 
+
+The simulation took 0.0990045 seconds (after parsing and platform setup)
+9.73524 seconds were actual computation of the application
+[10.502491] [smpi_utils/INFO] More than 75% of the time was spent inside the application code.
+You may want to use sampling functions or trace replay to reduce this.
+rt Communication	10.500999
+Start communication time_struct: 10 501016
+End Communication	10.501047
+End communication time_struct: 10 501064
+End training	 10.502468
+End Training time_struct: 10 502485

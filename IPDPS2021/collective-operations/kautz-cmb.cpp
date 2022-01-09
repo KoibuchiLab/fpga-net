@@ -539,9 +539,8 @@ int KMPI_Allreducef(const float* sendbuf, float* recvbuf, size_t count,
     if (size != d * (d + 1)) {
         program_abort("Number of process must equal to # node Kautz graph diameter 2\n");
     }
-
     // fprintf(debug, "NUM_ITEMS: %ld\n", NUM_ITEMS);
-    size_t numofrsitems = NUM_ITEMS / size;
+    size_t numofrsitems = count / size;
     NUM_ITEMS = numofrsitems*size;
 
     float* allreduceresult = recvbuf;
