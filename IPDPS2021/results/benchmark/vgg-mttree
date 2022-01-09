@@ -279,11 +279,11 @@
 [0.000000] [smpi/INFO] [rank 269] -> 16,13
 [0.000000] [smpi/INFO] [rank 270] -> 16,14
 [0.000000] [smpi/INFO] [rank 271] -> 16,15
-[11.363219] [smpi_utils/INFO] Simulated time: 11.3632 seconds. 
+[12.533916] [smpi_utils/INFO] Simulated time: 12.5339 seconds. 
 
-The simulation took 3.6453 seconds (after parsing and platform setup)
-130.65 seconds were actual computation of the application
-[11.363219] [smpi_utils/INFO] More than 75% of the time was spent inside the application code.
+The simulation took 363.289 seconds (after parsing and platform setup)
+345.548 seconds were actual computation of the application
+[12.533916] [smpi_utils/INFO] More than 75% of the time was spent inside the application code.
 You may want to use sampling functions or trace replay to reduce this.
 Params:Data set size	1280000
 Params:Batch per node	32
@@ -314,24 +314,24 @@ Layer 18 [4096.000000,102760448.000000,102760448.0]
 Layer 19 [4096.000000,16777216.000000,16777216.0]
 Layer 20 [1000.000000,4096000.000000,4096000.0]
 Total number of gradient 138344128
-Start training	0.004098
-start time_struct: 0 40
-end training time_struct: 0 4138
-Start FW	0.004119
-Start FW time_struct: 0 4159
-End FW	5.271278
-End FW time_struct: 5 271318
-Start BW	5.271278
-Start BW time_struct: 5 271318
-End BW	11.302017
-End BW time_struct: 11 302057
-Start Update	11.302017
-Start Update time_struct: 11 302057
-End Update	11.356706
-End Update time_struct: 11 356746
-Start Communication	11.356706
-Start communication time_struct: 11 356746
-End Communication	11.362998
-End communication time_struct: 11 363038
-End training	 11.363162
-End Training time_struct: 11 363202
+Start training	0.004201
+start time_struct: 0 44
+end training time_struct: 0 4245
+Start FW	0.004213
+Start FW time_struct: 0 4257
+End FW	5.271023
+End FW time_struct: 5 271067
+Start BW	5.271023
+Start BW time_struct: 5 271067
+End BW	10.557266
+End BW time_struct: 10 557310
+Start Update	10.557266
+Start Update time_struct: 10 557310
+End Update	10.572076
+End Update time_struct: 10 572120
+Start Communication	10.572076
+Start communication time_struct: 10 572120
+End Communication	11.901116
+End communication time_struct: 11 901160
+End training	 12.533861
+End Training time_struct: 12 533905
