@@ -1,8 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <mpi.h>
-#include <smpi/smpi.h>
+#include "../../simgrid-3.28/install/include/smpi/smpi.h"
 #include <math.h>
+
+#ifdef __cplusplus
+#include "../collective-operations/kmpi.hpp"
+#else
+#include "../collective-operations/kmpi.h"
+#endif
 
 int main(int argc, char *argv[])
 {
@@ -18,6 +24,7 @@ int main(int argc, char *argv[])
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 	MPI_Comm_size(MPI_COMM_WORLD, &size);
 	MPI_Get_processor_name(hostname,&hostname_len);
+	KMPI_Init(rank, size);
 
 	/***********        Parameter    ************/
 	int D =	1280000;	// Dataset size (number of samples)
@@ -167,8 +174,8 @@ int main(int argc, char *argv[])
 		}
 		printf("Total number of gradient %d\n",message_size);
 	}
-	float *local_sum = malloc(sizeof(float) * message_size);
-	float *global_sum = malloc(sizeof(float) * message_size);
+	float *local_sum = (float*)malloc(sizeof(float) * message_size);
+	float* global_sum = (float*)malloc(sizeof(float) * message_size);
 	MPI_Barrier(MPI_COMM_WORLD);
 	/****** Training ***********/
  	gettimeofday(&end,NULL);
@@ -219,7 +226,7 @@ int main(int argc, char *argv[])
 		}
 		
 		//Weight update:
-		MPI_Allreduce(local_sum, global_sum, message_size, MPI_FLOAT, MPI_SUM,MPI_COMM_WORLD);
+		KMPI_Allreducef(local_sum, global_sum, message_size, MPI_FLOAT, MPI_SUM,MPI_COMM_WORLD);
 		if (rank == 0) {
 			gettimeofday(&end,NULL);
 			printf("End Communication\t%f\n",(end.tv_sec*1000000.0 + end.tv_usec -

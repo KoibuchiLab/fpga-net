@@ -18,8 +18,23 @@ vgg-conges:
 	$(CXX) -std=c++0x -c ../collective-operations/kautz-conges.cpp
 	$(CXX) VGG16.o kautz-cmb.o -o vgg-conges.run
 
-resnet: 
-	../../simgrid-3.28/install/bin/smpicc RESNET50.c -o RESNET50.run
+resnet-df: 
+	$(CC) RESNET50.c ../collective-operations/2lvfc.c -o RESNET50.run
+
+resnet-cmb:
+	$(CXX) -c RESNET50.c
+	$(CXX) -std=c++0x -c ../collective-operations/kautz-cmb.cpp
+	$(CXX) RESNET50.o kautz-cmb.o -o RESNET50-cmb.run
+ 
+resnet-mttree:
+	$(CXX) -c RESNET50.c
+	$(CXX) -std=c++0x -c ../collective-operations/kautz-mttree.cpp
+	$(CXX) RESNET50.o kautz-cmb.o -o RESNET50-mttree.run
+
+resnet-conges:
+	$(CXX) -c RESNET50.c
+	$(CXX) -std=c++0x -c ../collective-operations/kautz-conges.cpp
+	$(CXX) RESNET50.o kautz-cmb.o -o RESNET50-conges.run
 	
 clean:
 	/bin/rm -f *.run
