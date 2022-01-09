@@ -18,9 +18,9 @@ int main(int argc, char *argv[])
 	int hostname_len;
 	int message_size = 1024 * 1024;
 	
-	gettimeofday(&start,NULL);
+	
 	MPI_Init(&argc, &argv);
-
+	gettimeofday(&start, NULL);
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 	MPI_Comm_size(MPI_COMM_WORLD, &size);
 	MPI_Get_processor_name(hostname,&hostname_len);
@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
 	E = atoi(argv[3]);
 	int totalIter = I * E;
 	if (rank == 0) {
-		gettimeofday(&end,NULL);
+		// gettimeofday(&end,NULL);
 		printf("Params:Data set size\t%d\n",D);
 		printf("Params:Batch per node\t%d\n",B);
 		printf("Params:Number of node\t%d\n",size);
@@ -120,6 +120,8 @@ int main(int argc, char *argv[])
 	if (rank == 0) {
 		printf("Start training\t%f\n",(end.tv_sec*1000000.0 + end.tv_usec -
 			start.tv_sec*1000000.0 - start.tv_usec) / 1000000.0);  
+		printf("start time_struct: %ld %ld\n", start.tv_sec, start.tv_usec);
+		printf("end training time_struct: %ld %ld\n", end.tv_sec, end.tv_usec);
 	}
 		
 	int iter;
@@ -129,6 +131,8 @@ int main(int argc, char *argv[])
 			gettimeofday(&end,NULL);
 			printf("Start FW\t%f\n",(end.tv_sec*1000000.0 + end.tv_usec -
 				start.tv_sec*1000000.0 - start.tv_usec) / 1000000.0);  
+			printf("Start FW time_struct: %ld %ld\n", end.tv_sec, end.tv_usec);
+
 		}
 		for (i = 0; i < L; i++){
 			SMPI_SAMPLE_FLOPS(nw[i][2]*B) {}
@@ -137,8 +141,10 @@ int main(int argc, char *argv[])
 			gettimeofday(&end,NULL);
 			printf("End FW\t%f\n",(end.tv_sec*1000000.0 + end.tv_usec -
 				start.tv_sec*1000000.0 - start.tv_usec) / 1000000.0); 
+			printf("End FW time_struct: %ld %ld\n", end.tv_sec, end.tv_usec);
 			printf("Start BW\t%f\n",(end.tv_sec*1000000.0 + end.tv_usec -
 				start.tv_sec*1000000.0 - start.tv_usec) / 1000000.0);  
+			printf("Start BW time_struct: %ld %ld\n", end.tv_sec, end.tv_usec);
 		}
 		// BW computation
 		for (i = L-1; i >= 0; i--){
@@ -149,8 +155,11 @@ int main(int argc, char *argv[])
 			gettimeofday(&end,NULL);
 			printf("End BW\t%f\n",(end.tv_sec*1000000.0 + end.tv_usec -
 				start.tv_sec*1000000.0 - start.tv_usec) / 1000000.0); 
+			printf("End BW time_struct: %ld %ld\n", end.tv_sec, end.tv_usec);
 			printf("Start Update\t%f\n",(end.tv_sec*1000000.0 + end.tv_usec -
 				start.tv_sec*1000000.0 - start.tv_usec) / 1000000.0);   
+
+			printf("Start Update time_struct: %ld %ld\n", end.tv_sec, end.tv_usec);
 		}
 		
 		//Activation Gradient calculation and Weight gradient
@@ -161,8 +170,10 @@ int main(int argc, char *argv[])
 			gettimeofday(&end,NULL);
 			printf("End Update\t%f\n",(end.tv_sec*1000000.0 + end.tv_usec -
 				start.tv_sec*1000000.0 - start.tv_usec) / 1000000.0); 
+			printf("End Update time_struct: %ld %ld\n", end.tv_sec, end.tv_usec);
 			printf("Start Communication\t%f\n",(end.tv_sec*1000000.0 + end.tv_usec -
 				start.tv_sec*1000000.0 - start.tv_usec) / 1000000.0);   
+			printf("Start communication time_struct: %ld %ld\n", end.tv_sec, end.tv_usec);
 		}
 		
 		//Weight update:
@@ -171,6 +182,7 @@ int main(int argc, char *argv[])
 			gettimeofday(&end,NULL);
 			printf("End Communication\t%f\n",(end.tv_sec*1000000.0 + end.tv_usec -
 				start.tv_sec*1000000.0 - start.tv_usec) / 1000000.0);  
+			printf("End communication time_struct: %ld %ld\n", end.tv_sec, end.tv_usec);
 		}		
 	}
 
@@ -179,6 +191,7 @@ int main(int argc, char *argv[])
 		gettimeofday(&end,NULL);
 		printf("End training\t %f\n",(end.tv_sec*1000000.0 + end.tv_usec -
 			start.tv_sec*1000000.0 - start.tv_usec) / 1000000.0);  
+		printf("End Training time_struct: %ld %ld\n", end.tv_sec, end.tv_usec);
 	}
 	MPI_Finalize();
 	return 0;
