@@ -7,11 +7,11 @@
 [0.000000] [xbt_cfg/INFO] Configuration change: Set 'exception/cutpath' to '1'
 [0.000000] [xbt_cfg/INFO] Configuration change: Set 'smpi/display-timing' to '1'
 [0.000000] [xbt_cfg/INFO] Configuration change: Set 'smpi/tmpdir' to '/tmp'
-[2.477765] [smpi_utils/INFO] Simulated time: 2.47777 seconds. 
+[2.560353] [smpi_utils/INFO] Simulated time: 2.56035 seconds. 
 
-The simulation took 0.158742 seconds (after parsing and platform setup)
-26.5614 seconds were actual computation of the application
-[2.477765] [smpi_utils/INFO] More than 75% of the time was spent inside the application code.
+The simulation took 0.321814 seconds (after parsing and platform setup)
+48.0459 seconds were actual computation of the application
+[2.560353] [smpi_utils/INFO] More than 75% of the time was spent inside the application code.
 You may want to use sampling functions or trace replay to reduce this.
 Params:Data set size	1280000
 Params:Batch per node	32
@@ -73,13 +73,13 @@ Layer 49 [100352.000000,1048576.000000,51380224.0]
 Layer 50 [1000.000000,0.000000,100352000.0]
 Layer 51 [1000.000000,1000000.000000,1000000.0]
 Total number of gradient 21661440
-Start training	-1641705602.818849
-Start FW	-1641705602.818846
-End FW	-1641705601.599338
-Start BW	-1641705601.599338
-End BW	-1641705600.345199
-Start Update	-1641705600.345199
-End Update	-1641705600.341888
-Start Communication	-1641705600.341888
-End Communication	-1641705600.341884
-End training	 -1641705600.341246
+Start training	-1641709707.462227
+Start FW	-1641709707.462217
+End FW	-1641709706.200953
+Start BW	-1641709706.200953
+End BW	-1641709704.914014
+Start Update	-1641709704.914014
+End Update	-1641709704.910674
+Start Communication	-1641709704.910674
+End Communication	-1641709704.910670
+End training	 -1641709704.902341

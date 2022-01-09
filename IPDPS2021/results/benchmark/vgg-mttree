@@ -279,11 +279,11 @@
 [0.000000] [smpi/INFO] [rank 269] -> 16,13
 [0.000000] [smpi/INFO] [rank 270] -> 16,14
 [0.000000] [smpi/INFO] [rank 271] -> 16,15
-[10.935406] [smpi_utils/INFO] Simulated time: 10.9354 seconds. 
+[11.342605] [smpi_utils/INFO] Simulated time: 11.3426 seconds. 
 
-The simulation took 2.12691 seconds (after parsing and platform setup)
-62.7114 seconds were actual computation of the application
-[10.935406] [smpi_utils/INFO] More than 75% of the time was spent inside the application code.
+The simulation took 3.71308 seconds (after parsing and platform setup)
+129.523 seconds were actual computation of the application
+[11.342605] [smpi_utils/INFO] More than 75% of the time was spent inside the application code.
 You may want to use sampling functions or trace replay to reduce this.
 Params:Data set size	1280000
 Params:Batch per node	32
@@ -314,13 +314,13 @@ Layer 18 [4096.000000,102760448.000000,102760448.0]
 Layer 19 [4096.000000,16777216.000000,16777216.0]
 Layer 20 [1000.000000,4096000.000000,4096000.0]
 Total number of gradient 138344128
-Start training	-1641705600.480187
-Start FW	-1641705600.480182
-End FW	-1641705595.232102
-Start BW	-1641705595.232102
-End BW	-1641705589.642558
-Start Update	-1641705589.642558
-End Update	-1641705589.549910
-Start Communication	-1641705589.549910
-End Communication	-1641705589.548686
-End training	 -1641705589.548613
+Start training	-1641709703.433336
+Start FW	-1641709703.433326
+End FW	-1641709698.166469
+Start BW	-1641709698.166469
+End BW	-1641709692.136956
+Start Update	-1641709692.136956
+End Update	-1641709692.099817
+Start Communication	-1641709692.099817
+End Communication	-1641709692.095540
+End training	 -1641709692.095444
