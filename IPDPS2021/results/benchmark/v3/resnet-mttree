@@ -1,0 +1,357 @@
+[0.000000] [xbt_cfg/INFO] Configuration change: Set 'smpi/privatization' to '1'
+[0.000000] [xbt_cfg/INFO] Configuration change: Set 'smpi/map' to '1'
+[0.000000] [xbt_cfg/INFO] Configuration change: Set 'smpi/np' to '272'
+[0.000000] [xbt_cfg/INFO] Configuration change: Set 'smpi/hostfile' to '../hostfiles/kautz/kautz16-2.txt'
+[0.000000] [xbt_cfg/INFO] Configuration change: Set 'surf/precision' to '1e-9'
+[0.000000] [xbt_cfg/INFO] Configuration change: Set 'network/model' to 'SMPI'
+[0.000000] [xbt_cfg/INFO] Configuration change: Set 'smpi/host-speed' to '100000000000f'
+[0.000000] [xbt_cfg/INFO] Configuration change: Set 'smpi/display-timing' to '1'
+[0.000000] [xbt_cfg/INFO] Configuration change: Set 'smpi/tmpdir' to '/tmp'
+[0.000000] [smpi/INFO] [rank 0] -> 0,1
+[0.000000] [smpi/INFO] [rank 1] -> 0,2
+[0.000000] [smpi/INFO] [rank 2] -> 0,3
+[0.000000] [smpi/INFO] [rank 3] -> 0,4
+[0.000000] [smpi/INFO] [rank 4] -> 0,5
+[0.000000] [smpi/INFO] [rank 5] -> 0,6
+[0.000000] [smpi/INFO] [rank 6] -> 0,7
+[0.000000] [smpi/INFO] [rank 7] -> 0,8
+[0.000000] [smpi/INFO] [rank 8] -> 0,9
+[0.000000] [smpi/INFO] [rank 9] -> 0,10
+[0.000000] [smpi/INFO] [rank 10] -> 0,11
+[0.000000] [smpi/INFO] [rank 11] -> 0,12
+[0.000000] [smpi/INFO] [rank 12] -> 0,13
+[0.000000] [smpi/INFO] [rank 13] -> 0,14
+[0.000000] [smpi/INFO] [rank 14] -> 0,15
+[0.000000] [smpi/INFO] [rank 15] -> 0,16
+[0.000000] [smpi/INFO] [rank 16] -> 1,0
+[0.000000] [smpi/INFO] [rank 17] -> 1,2
+[0.000000] [smpi/INFO] [rank 18] -> 1,3
+[0.000000] [smpi/INFO] [rank 19] -> 1,4
+[0.000000] [smpi/INFO] [rank 20] -> 1,5
+[0.000000] [smpi/INFO] [rank 21] -> 1,6
+[0.000000] [smpi/INFO] [rank 22] -> 1,7
+[0.000000] [smpi/INFO] [rank 23] -> 1,8
+[0.000000] [smpi/INFO] [rank 24] -> 1,9
+[0.000000] [smpi/INFO] [rank 25] -> 1,10
+[0.000000] [smpi/INFO] [rank 26] -> 1,11
+[0.000000] [smpi/INFO] [rank 27] -> 1,12
+[0.000000] [smpi/INFO] [rank 28] -> 1,13
+[0.000000] [smpi/INFO] [rank 29] -> 1,14
+[0.000000] [smpi/INFO] [rank 30] -> 1,15
+[0.000000] [smpi/INFO] [rank 31] -> 1,16
+[0.000000] [smpi/INFO] [rank 32] -> 2,0
+[0.000000] [smpi/INFO] [rank 33] -> 2,1
+[0.000000] [smpi/INFO] [rank 34] -> 2,3
+[0.000000] [smpi/INFO] [rank 35] -> 2,4
+[0.000000] [smpi/INFO] [rank 36] -> 2,5
+[0.000000] [smpi/INFO] [rank 37] -> 2,6
+[0.000000] [smpi/INFO] [rank 38] -> 2,7
+[0.000000] [smpi/INFO] [rank 39] -> 2,8
+[0.000000] [smpi/INFO] [rank 40] -> 2,9
+[0.000000] [smpi/INFO] [rank 41] -> 2,10
+[0.000000] [smpi/INFO] [rank 42] -> 2,11
+[0.000000] [smpi/INFO] [rank 43] -> 2,12
+[0.000000] [smpi/INFO] [rank 44] -> 2,13
+[0.000000] [smpi/INFO] [rank 45] -> 2,14
+[0.000000] [smpi/INFO] [rank 46] -> 2,15
+[0.000000] [smpi/INFO] [rank 47] -> 2,16
+[0.000000] [smpi/INFO] [rank 48] -> 3,0
+[0.000000] [smpi/INFO] [rank 49] -> 3,1
+[0.000000] [smpi/INFO] [rank 50] -> 3,2
+[0.000000] [smpi/INFO] [rank 51] -> 3,4
+[0.000000] [smpi/INFO] [rank 52] -> 3,5
+[0.000000] [smpi/INFO] [rank 53] -> 3,6
+[0.000000] [smpi/INFO] [rank 54] -> 3,7
+[0.000000] [smpi/INFO] [rank 55] -> 3,8
+[0.000000] [smpi/INFO] [rank 56] -> 3,9
+[0.000000] [smpi/INFO] [rank 57] -> 3,10
+[0.000000] [smpi/INFO] [rank 58] -> 3,11
+[0.000000] [smpi/INFO] [rank 59] -> 3,12
+[0.000000] [smpi/INFO] [rank 60] -> 3,13
+[0.000000] [smpi/INFO] [rank 61] -> 3,14
+[0.000000] [smpi/INFO] [rank 62] -> 3,15
+[0.000000] [smpi/INFO] [rank 63] -> 3,16
+[0.000000] [smpi/INFO] [rank 64] -> 4,0
+[0.000000] [smpi/INFO] [rank 65] -> 4,1
+[0.000000] [smpi/INFO] [rank 66] -> 4,2
+[0.000000] [smpi/INFO] [rank 67] -> 4,3
+[0.000000] [smpi/INFO] [rank 68] -> 4,5
+[0.000000] [smpi/INFO] [rank 69] -> 4,6
+[0.000000] [smpi/INFO] [rank 70] -> 4,7
+[0.000000] [smpi/INFO] [rank 71] -> 4,8
+[0.000000] [smpi/INFO] [rank 72] -> 4,9
+[0.000000] [smpi/INFO] [rank 73] -> 4,10
+[0.000000] [smpi/INFO] [rank 74] -> 4,11
+[0.000000] [smpi/INFO] [rank 75] -> 4,12
+[0.000000] [smpi/INFO] [rank 76] -> 4,13
+[0.000000] [smpi/INFO] [rank 77] -> 4,14
+[0.000000] [smpi/INFO] [rank 78] -> 4,15
+[0.000000] [smpi/INFO] [rank 79] -> 4,16
+[0.000000] [smpi/INFO] [rank 80] -> 5,0
+[0.000000] [smpi/INFO] [rank 81] -> 5,1
+[0.000000] [smpi/INFO] [rank 82] -> 5,2
+[0.000000] [smpi/INFO] [rank 83] -> 5,3
+[0.000000] [smpi/INFO] [rank 84] -> 5,4
+[0.000000] [smpi/INFO] [rank 85] -> 5,6
+[0.000000] [smpi/INFO] [rank 86] -> 5,7
+[0.000000] [smpi/INFO] [rank 87] -> 5,8
+[0.000000] [smpi/INFO] [rank 88] -> 5,9
+[0.000000] [smpi/INFO] [rank 89] -> 5,10
+[0.000000] [smpi/INFO] [rank 90] -> 5,11
+[0.000000] [smpi/INFO] [rank 91] -> 5,12
+[0.000000] [smpi/INFO] [rank 92] -> 5,13
+[0.000000] [smpi/INFO] [rank 93] -> 5,14
+[0.000000] [smpi/INFO] [rank 94] -> 5,15
+[0.000000] [smpi/INFO] [rank 95] -> 5,16
+[0.000000] [smpi/INFO] [rank 96] -> 6,0
+[0.000000] [smpi/INFO] [rank 97] -> 6,1
+[0.000000] [smpi/INFO] [rank 98] -> 6,2
+[0.000000] [smpi/INFO] [rank 99] -> 6,3
+[0.000000] [smpi/INFO] [rank 100] -> 6,4
+[0.000000] [smpi/INFO] [rank 101] -> 6,5
+[0.000000] [smpi/INFO] [rank 102] -> 6,7
+[0.000000] [smpi/INFO] [rank 103] -> 6,8
+[0.000000] [smpi/INFO] [rank 104] -> 6,9
+[0.000000] [smpi/INFO] [rank 105] -> 6,10
+[0.000000] [smpi/INFO] [rank 106] -> 6,11
+[0.000000] [smpi/INFO] [rank 107] -> 6,12
+[0.000000] [smpi/INFO] [rank 108] -> 6,13
+[0.000000] [smpi/INFO] [rank 109] -> 6,14
+[0.000000] [smpi/INFO] [rank 110] -> 6,15
+[0.000000] [smpi/INFO] [rank 111] -> 6,16
+[0.000000] [smpi/INFO] [rank 112] -> 7,0
+[0.000000] [smpi/INFO] [rank 113] -> 7,1
+[0.000000] [smpi/INFO] [rank 114] -> 7,2
+[0.000000] [smpi/INFO] [rank 115] -> 7,3
+[0.000000] [smpi/INFO] [rank 116] -> 7,4
+[0.000000] [smpi/INFO] [rank 117] -> 7,5
+[0.000000] [smpi/INFO] [rank 118] -> 7,6
+[0.000000] [smpi/INFO] [rank 119] -> 7,8
+[0.000000] [smpi/INFO] [rank 120] -> 7,9
+[0.000000] [smpi/INFO] [rank 121] -> 7,10
+[0.000000] [smpi/INFO] [rank 122] -> 7,11
+[0.000000] [smpi/INFO] [rank 123] -> 7,12
+[0.000000] [smpi/INFO] [rank 124] -> 7,13
+[0.000000] [smpi/INFO] [rank 125] -> 7,14
+[0.000000] [smpi/INFO] [rank 126] -> 7,15
+[0.000000] [smpi/INFO] [rank 127] -> 7,16
+[0.000000] [smpi/INFO] [rank 128] -> 8,0
+[0.000000] [smpi/INFO] [rank 129] -> 8,1
+[0.000000] [smpi/INFO] [rank 130] -> 8,2
+[0.000000] [smpi/INFO] [rank 131] -> 8,3
+[0.000000] [smpi/INFO] [rank 132] -> 8,4
+[0.000000] [smpi/INFO] [rank 133] -> 8,5
+[0.000000] [smpi/INFO] [rank 134] -> 8,6
+[0.000000] [smpi/INFO] [rank 135] -> 8,7
+[0.000000] [smpi/INFO] [rank 136] -> 8,9
+[0.000000] [smpi/INFO] [rank 137] -> 8,10
+[0.000000] [smpi/INFO] [rank 138] -> 8,11
+[0.000000] [smpi/INFO] [rank 139] -> 8,12
+[0.000000] [smpi/INFO] [rank 140] -> 8,13
+[0.000000] [smpi/INFO] [rank 141] -> 8,14
+[0.000000] [smpi/INFO] [rank 142] -> 8,15
+[0.000000] [smpi/INFO] [rank 143] -> 8,16
+[0.000000] [smpi/INFO] [rank 144] -> 9,0
+[0.000000] [smpi/INFO] [rank 145] -> 9,1
+[0.000000] [smpi/INFO] [rank 146] -> 9,2
+[0.000000] [smpi/INFO] [rank 147] -> 9,3
+[0.000000] [smpi/INFO] [rank 148] -> 9,4
+[0.000000] [smpi/INFO] [rank 149] -> 9,5
+[0.000000] [smpi/INFO] [rank 150] -> 9,6
+[0.000000] [smpi/INFO] [rank 151] -> 9,7
+[0.000000] [smpi/INFO] [rank 152] -> 9,8
+[0.000000] [smpi/INFO] [rank 153] -> 9,10
+[0.000000] [smpi/INFO] [rank 154] -> 9,11
+[0.000000] [smpi/INFO] [rank 155] -> 9,12
+[0.000000] [smpi/INFO] [rank 156] -> 9,13
+[0.000000] [smpi/INFO] [rank 157] -> 9,14
+[0.000000] [smpi/INFO] [rank 158] -> 9,15
+[0.000000] [smpi/INFO] [rank 159] -> 9,16
+[0.000000] [smpi/INFO] [rank 160] -> 10,0
+[0.000000] [smpi/INFO] [rank 161] -> 10,1
+[0.000000] [smpi/INFO] [rank 162] -> 10,2
+[0.000000] [smpi/INFO] [rank 163] -> 10,3
+[0.000000] [smpi/INFO] [rank 164] -> 10,4
+[0.000000] [smpi/INFO] [rank 165] -> 10,5
+[0.000000] [smpi/INFO] [rank 166] -> 10,6
+[0.000000] [smpi/INFO] [rank 167] -> 10,7
+[0.000000] [smpi/INFO] [rank 168] -> 10,8
+[0.000000] [smpi/INFO] [rank 169] -> 10,9
+[0.000000] [smpi/INFO] [rank 170] -> 10,11
+[0.000000] [smpi/INFO] [rank 171] -> 10,12
+[0.000000] [smpi/INFO] [rank 172] -> 10,13
+[0.000000] [smpi/INFO] [rank 173] -> 10,14
+[0.000000] [smpi/INFO] [rank 174] -> 10,15
+[0.000000] [smpi/INFO] [rank 175] -> 10,16
+[0.000000] [smpi/INFO] [rank 176] -> 11,0
+[0.000000] [smpi/INFO] [rank 177] -> 11,1
+[0.000000] [smpi/INFO] [rank 178] -> 11,2
+[0.000000] [smpi/INFO] [rank 179] -> 11,3
+[0.000000] [smpi/INFO] [rank 180] -> 11,4
+[0.000000] [smpi/INFO] [rank 181] -> 11,5
+[0.000000] [smpi/INFO] [rank 182] -> 11,6
+[0.000000] [smpi/INFO] [rank 183] -> 11,7
+[0.000000] [smpi/INFO] [rank 184] -> 11,8
+[0.000000] [smpi/INFO] [rank 185] -> 11,9
+[0.000000] [smpi/INFO] [rank 186] -> 11,10
+[0.000000] [smpi/INFO] [rank 187] -> 11,12
+[0.000000] [smpi/INFO] [rank 188] -> 11,13
+[0.000000] [smpi/INFO] [rank 189] -> 11,14
+[0.000000] [smpi/INFO] [rank 190] -> 11,15
+[0.000000] [smpi/INFO] [rank 191] -> 11,16
+[0.000000] [smpi/INFO] [rank 192] -> 12,0
+[0.000000] [smpi/INFO] [rank 193] -> 12,1
+[0.000000] [smpi/INFO] [rank 194] -> 12,2
+[0.000000] [smpi/INFO] [rank 195] -> 12,3
+[0.000000] [smpi/INFO] [rank 196] -> 12,4
+[0.000000] [smpi/INFO] [rank 197] -> 12,5
+[0.000000] [smpi/INFO] [rank 198] -> 12,6
+[0.000000] [smpi/INFO] [rank 199] -> 12,7
+[0.000000] [smpi/INFO] [rank 200] -> 12,8
+[0.000000] [smpi/INFO] [rank 201] -> 12,9
+[0.000000] [smpi/INFO] [rank 202] -> 12,10
+[0.000000] [smpi/INFO] [rank 203] -> 12,11
+[0.000000] [smpi/INFO] [rank 204] -> 12,13
+[0.000000] [smpi/INFO] [rank 205] -> 12,14
+[0.000000] [smpi/INFO] [rank 206] -> 12,15
+[0.000000] [smpi/INFO] [rank 207] -> 12,16
+[0.000000] [smpi/INFO] [rank 208] -> 13,0
+[0.000000] [smpi/INFO] [rank 209] -> 13,1
+[0.000000] [smpi/INFO] [rank 210] -> 13,2
+[0.000000] [smpi/INFO] [rank 211] -> 13,3
+[0.000000] [smpi/INFO] [rank 212] -> 13,4
+[0.000000] [smpi/INFO] [rank 213] -> 13,5
+[0.000000] [smpi/INFO] [rank 214] -> 13,6
+[0.000000] [smpi/INFO] [rank 215] -> 13,7
+[0.000000] [smpi/INFO] [rank 216] -> 13,8
+[0.000000] [smpi/INFO] [rank 217] -> 13,9
+[0.000000] [smpi/INFO] [rank 218] -> 13,10
+[0.000000] [smpi/INFO] [rank 219] -> 13,11
+[0.000000] [smpi/INFO] [rank 220] -> 13,12
+[0.000000] [smpi/INFO] [rank 221] -> 13,14
+[0.000000] [smpi/INFO] [rank 222] -> 13,15
+[0.000000] [smpi/INFO] [rank 223] -> 13,16
+[0.000000] [smpi/INFO] [rank 224] -> 14,0
+[0.000000] [smpi/INFO] [rank 225] -> 14,1
+[0.000000] [smpi/INFO] [rank 226] -> 14,2
+[0.000000] [smpi/INFO] [rank 227] -> 14,3
+[0.000000] [smpi/INFO] [rank 228] -> 14,4
+[0.000000] [smpi/INFO] [rank 229] -> 14,5
+[0.000000] [smpi/INFO] [rank 230] -> 14,6
+[0.000000] [smpi/INFO] [rank 231] -> 14,7
+[0.000000] [smpi/INFO] [rank 232] -> 14,8
+[0.000000] [smpi/INFO] [rank 233] -> 14,9
+[0.000000] [smpi/INFO] [rank 234] -> 14,10
+[0.000000] [smpi/INFO] [rank 235] -> 14,11
+[0.000000] [smpi/INFO] [rank 236] -> 14,12
+[0.000000] [smpi/INFO] [rank 237] -> 14,13
+[0.000000] [smpi/INFO] [rank 238] -> 14,15
+[0.000000] [smpi/INFO] [rank 239] -> 14,16
+[0.000000] [smpi/INFO] [rank 240] -> 15,0
+[0.000000] [smpi/INFO] [rank 241] -> 15,1
+[0.000000] [smpi/INFO] [rank 242] -> 15,2
+[0.000000] [smpi/INFO] [rank 243] -> 15,3
+[0.000000] [smpi/INFO] [rank 244] -> 15,4
+[0.000000] [smpi/INFO] [rank 245] -> 15,5
+[0.000000] [smpi/INFO] [rank 246] -> 15,6
+[0.000000] [smpi/INFO] [rank 247] -> 15,7
+[0.000000] [smpi/INFO] [rank 248] -> 15,8
+[0.000000] [smpi/INFO] [rank 249] -> 15,9
+[0.000000] [smpi/INFO] [rank 250] -> 15,10
+[0.000000] [smpi/INFO] [rank 251] -> 15,11
+[0.000000] [smpi/INFO] [rank 252] -> 15,12
+[0.000000] [smpi/INFO] [rank 253] -> 15,13
+[0.000000] [smpi/INFO] [rank 254] -> 15,14
+[0.000000] [smpi/INFO] [rank 255] -> 15,16
+[0.000000] [smpi/INFO] [rank 256] -> 16,0
+[0.000000] [smpi/INFO] [rank 257] -> 16,1
+[0.000000] [smpi/INFO] [rank 258] -> 16,2
+[0.000000] [smpi/INFO] [rank 259] -> 16,3
+[0.000000] [smpi/INFO] [rank 260] -> 16,4
+[0.000000] [smpi/INFO] [rank 261] -> 16,5
+[0.000000] [smpi/INFO] [rank 262] -> 16,6
+[0.000000] [smpi/INFO] [rank 263] -> 16,7
+[0.000000] [smpi/INFO] [rank 264] -> 16,8
+[0.000000] [smpi/INFO] [rank 265] -> 16,9
+[0.000000] [smpi/INFO] [rank 266] -> 16,10
+[0.000000] [smpi/INFO] [rank 267] -> 16,11
+[0.000000] [smpi/INFO] [rank 268] -> 16,12
+[0.000000] [smpi/INFO] [rank 269] -> 16,13
+[0.000000] [smpi/INFO] [rank 270] -> 16,14
+[0.000000] [smpi/INFO] [rank 271] -> 16,15
+[23.639206] [smpi_utils/INFO] Simulated time: 23.6392 seconds. 
+
+The simulation took 68.3951 seconds (after parsing and platform setup)
+2919.55 seconds were actual computation of the application
+[23.639206] [smpi_utils/INFO] More than 75% of the time was spent inside the application code.
+You may want to use sampling functions or trace replay to reduce this.
+Params:Data set size	1280000
+Params:Batch per node	32
+Params:Number of node	272
+Params:Mini Batch size	8704.000000
+Params:Iteration per epoch	148
+Params:Number of  epoch	1
+Params:Number of iteration	148
+Layer 0 [802816.000000,9408.000000,118013952.0]
+Layer 1 [200704.000000,0.000000,115605504.0]
+Layer 2 [200704.000000,4096.000000,12845056.0]
+Layer 3 [200704.000000,36864.000000,115605504.0]
+Layer 4 [802816.000000,16384.000000,51380224.0]
+Layer 5 [200704.000000,4096.000000,51380224.0]
+Layer 6 [200704.000000,36864.000000,115605504.0]
+Layer 7 [802816.000000,16384.000000,51380224.0]
+Layer 8 [200704.000000,4096.000000,51380224.0]
+Layer 9 [200704.000000,36864.000000,115605504.0]
+Layer 10 [802816.000000,16384.000000,51380224.0]
+Layer 11 [100352.000000,32768.000000,25690112.0]
+Layer 12 [100352.000000,147456.000000,115605504.0]
+Layer 13 [401408.000000,65536.000000,51380224.0]
+Layer 14 [100352.000000,65536.000000,51380224.0]
+Layer 15 [100352.000000,147456.000000,115605504.0]
+Layer 16 [401408.000000,65536.000000,51380224.0]
+Layer 17 [100352.000000,65536.000000,51380224.0]
+Layer 18 [100352.000000,147456.000000,115605504.0]
+Layer 19 [401408.000000,65536.000000,51380224.0]
+Layer 20 [100352.000000,65536.000000,51380224.0]
+Layer 21 [100352.000000,147456.000000,115605504.0]
+Layer 22 [401408.000000,65536.000000,51380224.0]
+Layer 23 [50176.000000,131072.000000,25690112.0]
+Layer 24 [50176.000000,589824.000000,115605504.0]
+Layer 25 [200704.000000,262144.000000,51380224.0]
+Layer 26 [50176.000000,262144.000000,51380224.0]
+Layer 27 [50176.000000,589824.000000,115605504.0]
+Layer 28 [200704.000000,262144.000000,51380224.0]
+Layer 29 [50176.000000,262144.000000,51380224.0]
+Layer 30 [50176.000000,589824.000000,115605504.0]
+Layer 31 [200704.000000,262144.000000,51380224.0]
+Layer 32 [50176.000000,262144.000000,51380224.0]
+Layer 33 [50176.000000,589824.000000,115605504.0]
+Layer 34 [200704.000000,262144.000000,51380224.0]
+Layer 35 [50176.000000,262144.000000,51380224.0]
+Layer 36 [50176.000000,589824.000000,115605504.0]
+Layer 37 [200704.000000,262144.000000,51380224.0]
+Layer 38 [50176.000000,262144.000000,51380224.0]
+Layer 39 [50176.000000,589824.000000,115605504.0]
+Layer 40 [200704.000000,262144.000000,51380224.0]
+Layer 41 [25088.000000,524288.000000,25690112.0]
+Layer 42 [25088.000000,2359296.000000,115605504.0]
+Layer 43 [100352.000000,1048576.000000,51380224.0]
+Layer 44 [25088.000000,1048576.000000,51380224.0]
+Layer 45 [25088.000000,2359296.000000,115605504.0]
+Layer 46 [100352.000000,1048576.000000,51380224.0]
+Layer 47 [25088.000000,1048576.000000,51380224.0]
+Layer 48 [25088.000000,2359296.000000,115605504.0]
+Layer 49 [100352.000000,1048576.000000,51380224.0]
+Layer 50 [1000.000000,0.000000,100352000.0]
+Layer 51 [1000.000000,1000000.000000,1000000.0]
+Total number of gradient 21661440
+Start training	0.004182
+Start FW	0.004190
+End FW	1.274498
+Start BW	1.274498
+End BW	23.188590
+Start Update	23.188590
+End Update	23.379563
+Start Communication	23.379563
+End Communication	23.579220
+End training	 23.639158
