@@ -33,9 +33,9 @@ def route_directlink(src, dest, _link):
 #            <link_ctn id="host_int_to_host_dst"/>
 #        </route>
 def route_disjoint(src, dst):  
-    src_b = src.split(',')[1]
-    dst_a = dst.split(',')[0]
-    int_node = src_b + "," + dst_a
+    src_b = src.split('.')[1]
+    dst_a = dst.split('.')[0]
+    int_node = src_b + "." + dst_a
     result =  "\t\t<route src=\"%s\" dst=\"%s\" symmetrical=\"NO\">\n \
             \t\t<link_ctn id=\"%s_to_%s\"/>\n\
             \t\t<link_ctn id=\"%s_to_%s\"/>\n\
@@ -49,16 +49,16 @@ def edge2linkname(edge):
 for i in range(d+1):
     for j in range(d+1):
         if (i != j):
-            hostname = "%s,%s" % (i, j)
+            hostname = "%s.%s" % (i, j)
             #print(hostname, "\n")
             hosts.append(hostname)
 
 for src in hosts:
-    src_a = src.split(',')[0]
-    src_b = src.split(',')[1]
+    src_a = src.split('.')[0]
+    src_b = src.split('.')[1]
     for dst in hosts:
-        dst_a = dst.split(',')[0]
-        dst_b = dst.split(',')[1]
+        dst_a = dst.split('.')[0]
+        dst_b = dst.split('.')[1]
         if (src_b == dst_a):
             edges.append((src,dst))
             #print(edges[len(edges) - 1], "\n")
@@ -71,8 +71,8 @@ for src in hosts:
 #Disjoint link
 # for src in hosts:
 #     for dst in hosts:
-#         src_b = str(src).split(",")[1]
-#         dst_a = str(dst).split(",")[0]
+#         src_b = str(src).split(".")[1]
+#         dst_a = str(dst).split(".")[0]
 #         if src_b != dst_a: # if disjoint link
 #             routelist.append(route_disjoint(src, dst))
 

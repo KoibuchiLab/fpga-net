@@ -1,2 +1,0 @@
-compute_only/actions0.txt
-compute_only/actions1.txt

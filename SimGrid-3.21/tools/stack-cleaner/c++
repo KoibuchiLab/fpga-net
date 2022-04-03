@@ -1,3 +1,0 @@
-#!/usr/bin/env sh
-path="$(dirname $0)"
-exec "$path"/compiler-wrapper c++ "$@"

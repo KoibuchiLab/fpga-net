@@ -11,7 +11,7 @@
 
 int h2r(const char *hostname, int degree){
 	int a, b;
-	sscanf(hostname, "%d,%d", &a, &b);
+	sscanf(hostname, "%d.%d", &a, &b);
 	if(b > a){
 		return degree*a + b - 1;
 	} else {
@@ -39,7 +39,7 @@ void r2h_r(int rank, int degree, char *hostname){
 	int nodenumber = rank%degree;
 
 	if (nodenumber >= groupnumber) nodenumber++;
-	sprintf(hostname, "%d,%d", groupnumber, nodenumber);
+	sprintf(hostname, "%d.%d", groupnumber, nodenumber);
 	return;
 }
 
