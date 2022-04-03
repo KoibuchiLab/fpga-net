@@ -1,0 +1,181 @@
+#This file was generated using SimGrid-3.28.0
+#[./energy --cfg=smpi/privatization:1 --cfg=smpi/np:2 --cfg=smpi/hostfile:./hostfile --cfg=tracing:yes --cfg=tracing/filename:smpi_simgrid.trace --cfg=tracing/smpi:yes --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/simulate-computation:no --cfg=smpi/tmpdir:/tmp --cfg=plugin:host_energy --log=smpi_config.thres:warning --log=xbt_cfg.thres:warning --cfg=smpi/wtime:0 --cfg=tracing/smpi/internals:1 --cfg=tracing:yes --cfg=tracing/categorized:yes --cfg=tracing/uncategorized:yes ./energy_platform.xml ]
+%EventDef PajeDefineContainerType 0
+%       Alias string
+%       Type string
+%       Name string
+%EndEventDef
+%EventDef PajeDefineVariableType 1
+%       Alias string
+%       Type string
+%       Name string
+%       Color color
+%EndEventDef
+%EventDef PajeDefineStateType 2
+%       Alias string
+%       Type string
+%       Name string
+%EndEventDef
+%EventDef PajeDefineEventType 3
+%       Alias string
+%       Type string
+%       Name string
+%EndEventDef
+%EventDef PajeDefineLinkType 4
+%       Alias string
+%       Type string
+%       StartContainerType string
+%       EndContainerType string
+%       Name string
+%EndEventDef
+%EventDef PajeDefineEntityValue 5
+%       Alias string
+%       Type string
+%       Name string
+%       Color color
+%EndEventDef
+%EventDef PajeCreateContainer 6
+%       Time date
+%       Alias string
+%       Type string
+%       Container string
+%       Name string
+%EndEventDef
+%EventDef PajeDestroyContainer 7
+%       Time date
+%       Type string
+%       Name string
+%EndEventDef
+%EventDef PajeSetVariable 8
+%       Time date
+%       Type string
+%       Container string
+%       Value double
+%EndEventDef
+%EventDef PajeAddVariable 9
+%       Time date
+%       Type string
+%       Container string
+%       Value double
+%EndEventDef
+%EventDef PajeSubVariable 10
+%       Time date
+%       Type string
+%       Container string
+%       Value double
+%EndEventDef
+%EventDef PajeSetState 11
+%       Time date
+%       Type string
+%       Container string
+%       Value string
+%EndEventDef
+%EventDef PajePushState 12
+%       Time date
+%       Type string
+%       Container string
+%       Value string
+%EndEventDef
+%EventDef PajePopState 13
+%       Time date
+%       Type string
+%       Container string
+%EndEventDef
+%EventDef PajeResetState 14
+%       Time date
+%       Type string
+%       Container string
+%EndEventDef
+%EventDef PajeStartLink 15
+%       Time date
+%       Type string
+%       Container string
+%       Value string
+%       StartContainer string
+%       Key string
+%EndEventDef
+%EventDef PajeEndLink 16
+%       Time date
+%       Type string
+%       Container string
+%       Value string
+%       EndContainer string
+%       Key string
+%EndEventDef
+%EventDef PajeNewEvent 17
+%       Time date
+%       Type string
+%       Container string
+%       Value string
+%EndEventDef
+0 1 0 MPI
+2 2 1 MPI_STATE
+4 3 0 1 1 MPI_LINK
+4 4 0 1 1 MIGRATE_LINK
+2 5 1 MIGRATE_STATE
+0 6 0 HOST
+6 0.000000 1 6 0 "MyHost1"
+1 7 6 speed "1 1 1"
+1 8 6 core_count "1 1 1"
+1 9 6 speed_used "0.5 0.5 0.5"
+6 0.000000 2 6 0 "MyHost2"
+6 0.000000 3 6 0 "MyHost3"
+0 10 0 LINK
+6 0.000000 4 10 0 "bus"
+1 11 10 bandwidth "1 1 1"
+1 12 10 latency "1 1 1"
+1 13 10 bandwidth_used "0.5 0.5 0.5"
+4 14 0 10 6 0-LINK10-HOST6
+4 15 0 6 10 0-HOST6-LINK10
+8 0.000000 7 1 100000000.000000
+8 0.000000 8 1 4.000000
+8 0.000000 7 2 100000000.000000
+8 0.000000 8 2 1.000000
+8 0.000000 7 3 100000000.000000
+8 0.000000 8 3 1.000000
+8 0.000000 11 4 100000.000000
+8 0.000000 12 4 0.000000
+15 0.000000 14 0 topology 4 0
+16 0.000000 14 0 topology 2 0
+15 0.000000 14 0 topology 4 1
+16 0.000000 14 0 topology 3 1
+15 0.000000 15 0 topology 1 2
+16 0.000000 15 0 topology 4 2
+6 0.000000 5 1 0 "rank-0"
+6 0.000000 6 1 0 "rank-1"
+5 16 2 PMPI_Init "0 1 0"
+12 0.000000 2 5 16
+13 0.000000 2 5
+12 0.000000 2 6 16
+13 0.000000 2 6
+8 0.000000 7 1 4.000000
+8 0.000000 7 2 1.000000
+8 0.000000 9 1 0.000000
+9 0.000000 9 1 100000000.000000
+8 0.000000 9 2 0.000000
+9 0.000000 9 2 100000000.000000
+5 17 2 PMPI_Finalize "0 1 0"
+10 10.000000 9 1 100000000.000000
+10 10.000000 9 2 100000000.000000
+8 10.000000 7 1 4.000000
+8 10.000000 7 2 1.000000
+9 10.000000 9 1 50000000.000000
+9 10.000000 9 2 50000000.000000
+10 30.000000 9 1 50000000.000000
+10 30.000000 9 2 50000000.000000
+8 30.000000 7 1 4.000000
+8 30.000000 7 2 1.000000
+9 30.000000 9 1 20000000.000000
+9 30.000000 9 2 20000000.000000
+10 80.000000 9 1 20000000.000000
+10 80.000000 9 2 20000000.000000
+12 80.000000 2 5 17
+13 80.000000 2 5
+7 80.000000 1 5
+12 80.000000 2 6 17
+13 80.000000 2 6
+7 80.000000 1 6
+7 80.000000 6 1
+7 80.000000 6 2
+7 80.000000 6 3
+7 80.000000 10 4
