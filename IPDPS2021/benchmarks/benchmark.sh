@@ -15,7 +15,7 @@ do
     ../../simgrid-3.28/install/bin/smpirun -np 272 -hostfile ../hostfiles/kautz/kautz16-2.txt -platform ../platforms/kautz/kautz16-2.xml  --cfg=smpi/host-speed:100000000000f --cfg=smpi/display-timing:1 --log=smpi_coll.:critical  ./vgg-mttree.run 1280000 32 1 > ../results/benchmark/v$i/vgg-mttree 2>&1
 
     make resnet-df
-    ../../simgrid-3.28/install/bin/smpirun -np 272 -hostfile ../hostfiles/2lvfc/16x17.txt -platform ../platforms/2lvfc/16x17.xml  --cfg=smpi/host-speed:100000000000f --cfg=exception/cutpath:1 --cfg=smpi/display-timing:1 ./RESNET50.run 1280000 32 1 > ../results/benchmark/v$i/resnet-df 2>&1
+    ../../simgrid-3.28/install/bin/smpirun -np 272 -hostfile ../hostfiles/2lvfc/16x17.txt -platform ../platforms/2lvfc/16x17.xml  --cfg=smpi/host-speed:100000000000f --cfg=smpi/display-timing:1 ./RESNET50.run 1280000 32 1 > ../results/benchmark/v$i/resnet-df 2>&1
 
     make resnet-cmb
     ../../simgrid-3.28/install/bin/smpirun -np 272 -hostfile ../hostfiles/kautz/kautz16-2.txt -platform ../platforms/kautz/kautz16-2.xml  --cfg=smpi/host-speed:100000000000f --cfg=smpi/display-timing:1 --log=smpi_coll.:critical ./RESNET50-cmb.run 1280000 32 1 > ../results/benchmark/v$i/resnet-cmb 2>&1
