@@ -7,6 +7,7 @@
 #  */
 
 mkdir -p traces
+mkdir -p traces/variable.csv
 cd multitree-kautz
 make
 topo=( 2 3 4 5 6 7 8 ) #9 10 11 12 13 16 32 64)
@@ -24,17 +25,30 @@ do
         hostfile="../hostfiles/kautz/kautz${d}-2.txt"
         platform="../platforms/kautz/kautz${d}-2.xml"
         algo="cmb"
+        
+        filename="allreduce-$algo-K2-$d-$numitem"
+        tracefile="../traces/$filename"
+        $exe -np $nproc $defaultconfig -hostfile $hostfile -platform $platform -trace-file $tracefile ./allreducesmpi --num-item $numitem --algorithm $algo
+        pj_dump $tracefile > "$tracefile.csv"
+        rm $tracefile
+        grep Variable $tracefile.csv > "../traces/variable.csv/$filename.variable.csv"
 
-        tracefile="-trace-file ../traces/allreduce-$algo-$numitem.trace"
-        $exe -np $nproc $defaultconfig -hostfile $hostfile -platform $platform  $tracefile ./allreducesmpi --num-item $numitem --algorithm $algo
+        filename="alltoall-$algo-K2-$d-$numitem"
+        tracefile="../traces/$filename"
+        $exe -np $nproc $defaultconfig -hostfile $hostfile -platform $platform -trace-file $tracefile ./alltoallsmpi --num-item $numitem --algorithm $algo
+        pj_dump $tracefile > "$tracefile.csv"
+        rm $tracefile
+        grep Variable $tracefile.csv > "../traces/variable.csv/$filename.variable.csv"
 
-        tracefile="-trace-file ../traces/alltoall-$algo-$numitem.trace"
-        $exe -np $nproc $defaultconfig -hostfile $hostfile -platform $platform  $tracefile ./alltoallsmpi --num-item $numitem --algorithm $algo
-
-        tracefile="-trace-file ../traces/allgather-$algo-$numitem.trace"
-        $exe -np $nproc $defaultconfig -hostfile $hostfile -platform $platform  $tracefile ./allgathersmpi --num-item $numitem --algorithm $algo
+        filename="allgather-$algo-K2-$d-$numitem"
+        tracefile="../traces/$filename"
+        $exe -np $nproc $defaultconfig -hostfile $hostfile -platform $platform -trace-file $tracefile ./allgathersmpi --num-item $numitem --algorithm $algo
+        pj_dump $tracefile > "$tracefile.csv"
+        rm $tracefile
+        grep Variable $tracefile.csv > "../traces/variable.csv/$filename.variable.csv"
     done
-done
+done 
+
 
 echo mttree
 for numitem in ${numitems[@]}
@@ -45,17 +59,29 @@ do
         hostfile="../hostfiles/kautz/kautz${d}-2.txt"
         platform="../platforms/kautz/kautz${d}-2.xml"
         algo="mttree"
+        
+        filename="allreduce-$algo-K2-$d-$numitem"
+        tracefile="../traces/$filename"
+        $exe -np $nproc $defaultconfig -hostfile $hostfile -platform $platform -trace-file $tracefile ./allreducesmpi --num-item $numitem --algorithm $algo
+        pj_dump $tracefile > "$tracefile.csv"
+        rm $tracefile
+        grep Variable $tracefile.csv > "../traces/variable.csv/$filename.variable.csv"
 
-        tracefile="-trace-file ../traces/allreduce-$algo-$numitem.trace"
-        $exe -np $nproc $defaultconfig -hostfile $hostfile -platform $platform  $tracefile ./allreducesmpi --num-item $numitem --algorithm $algo
+        filename="alltoall-$algo-K2-$d-$numitem"
+        tracefile="../traces/$filename"
+        $exe -np $nproc $defaultconfig -hostfile $hostfile -platform $platform -trace-file $tracefile ./alltoallsmpi --num-item $numitem --algorithm $algo
+        pj_dump $tracefile > "$tracefile.csv"
+        rm $tracefile
+        grep Variable $tracefile.csv > "../traces/variable.csv/$filename.variable.csv"
 
-        tracefile="-trace-file ../traces/alltoall-$algo-$numitem.trace"
-        $exe -np $nproc $defaultconfig -hostfile $hostfile -platform $platform  $tracefile ./alltoallsmpi --num-item $numitem --algorithm $algo
-
-        tracefile="-trace-file ../traces/allgather-$algo-$numitem.trace"
-        $exe -np $nproc $defaultconfig -hostfile $hostfile -platform $platform  $tracefile ./allgathersmpi --num-item $numitem --algorithm $algo
+        filename="allgather-$algo-K2-$d-$numitem"
+        tracefile="../traces/$filename"
+        $exe -np $nproc $defaultconfig -hostfile $hostfile -platform $platform -trace-file $tracefile ./allgathersmpi --num-item $numitem --algorithm $algo
+        pj_dump $tracefile > "$tracefile.csv"
+        rm $tracefile
+        grep Variable $tracefile.csv > "../traces/variable.csv/$filename.variable.csv"
     done
-done
+done 
 
 echo conges
 for numitem in ${numitems[@]}
@@ -66,14 +92,26 @@ do
         hostfile="../hostfiles/kautz/kautz${d}-2.txt"
         platform="../platforms/kautz/kautz${d}-2.xml"
         algo="conges"
+        
+        filename="allreduce-$algo-K2-$d-$numitem"
+        tracefile="../traces/$filename"
+        $exe -np $nproc $defaultconfig -hostfile $hostfile -platform $platform -trace-file $tracefile ./allreducesmpi --num-item $numitem --algorithm $algo
+        pj_dump $tracefile > "$tracefile.csv"
+        rm $tracefile
+        grep Variable $tracefile.csv > "../traces/variable.csv/$filename.variable.csv"
 
-        tracefile="-trace-file ../traces/allreduce-$algo-$numitem.trace"
-        $exe -np $nproc $defaultconfig -hostfile $hostfile -platform $platform  $tracefile ./allreducesmpi --num-item $numitem --algorithm $algo
+        filename="alltoall-$algo-K2-$d-$numitem"
+        tracefile="../traces/$filename"
+        $exe -np $nproc $defaultconfig -hostfile $hostfile -platform $platform -trace-file $tracefile ./alltoallsmpi --num-item $numitem --algorithm $algo
+        pj_dump $tracefile > "$tracefile.csv"
+        rm $tracefile
+        grep Variable $tracefile.csv > "../traces/variable.csv/$filename.variable.csv"
 
-        tracefile="-trace-file ../traces/alltoall-$algo-$numitem.trace"
-        $exe -np $nproc $defaultconfig -hostfile $hostfile -platform $platform  $tracefile ./alltoallsmpi --num-item $numitem --algorithm $algo
-
-        tracefile="-trace-file ../traces/allgather-$algo-$numitem.trace"
-        $exe -np $nproc $defaultconfig -hostfile $hostfile -platform $platform  $tracefile ./allgathersmpi --num-item $numitem --algorithm $algo
+        filename="allgather-$algo-K2-$d-$numitem"
+        tracefile="../traces/$filename"
+        $exe -np $nproc $defaultconfig -hostfile $hostfile -platform $platform -trace-file $tracefile ./allgathersmpi --num-item $numitem --algorithm $algo
+        pj_dump $tracefile > "$tracefile.csv"
+        rm $tracefile
+        grep Variable $tracefile.csv > "../traces/variable.csv/$filename.variable.csv"
     done
-done
+done 
