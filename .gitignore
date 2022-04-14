@@ -576,6 +576,8 @@ IPDPS2021/multitree-kautz/alltoallsmpi
 IPDPS2021/multiport-2lvfc/resultallgather
 IPDPS2021/multiport-2lvfc/trace/3x2
 
+IPDPS2021/traces-first-step/
+
 .metadata
 bin/
 tmp/
