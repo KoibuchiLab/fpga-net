@@ -24,7 +24,7 @@ do
     do
         nproc=$((${d}*(${d} + 1)))
         hostfile="../hostfiles/kautz/kautz${d}-2.txt"
-        platform="../platforms/3x2-routing-Full.xml"
+        platform="../platforms/2x2-routing-Full.xml"
         algo="cmb"
 
         filename="alltoall-$algo-K2-$d-$numitem"
@@ -51,7 +51,7 @@ do
     do
         nproc=$((${d}*(${d} + 1)))
         hostfile="../hostfiles/kautz/kautz${d}-2.txt"
-        platform="../platforms/3x2-routing-Full.xml"
+        platform="../platforms/2x2-routing-Full.xml"
         algo="mttree"
 
         filename="alltoall-$algo-K2-$d-$numitem"
@@ -77,7 +77,7 @@ do
     do
         nproc=$((${d}*(${d} + 1)))
         hostfile="../hostfiles/kautz/kautz${d}-2.txt"
-        platform="../platforms/3x2-routing-Full.xml"
+        platform="../platforms/2x2-routing-Full.xml"
         algo="conges"
 
         filename="alltoall-$algo-K2-$d-$numitem"
