@@ -118,7 +118,7 @@
 		
 		<route src="2.1" dst="0.1" symmetrical="NO">
 			<link_ctn id="2.1_to_1.0"/>
-			<link_ctn id="2.1_to_0.1"/>
+			<link_ctn id="1.0_to_0.1"/>
 		</route>
 		<route src="2.1" dst="0.2" symmetrical="NO">
 			<link_ctn id="2.1_to_1.0"/>
