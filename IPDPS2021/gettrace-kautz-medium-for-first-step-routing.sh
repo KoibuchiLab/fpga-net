@@ -16,7 +16,8 @@ numitems=( 256 512 1024 2048 4096 8192 16384 32768 65536 131072 262144 524288 10
 
 exe="../../simgrid-3.28/install/bin/smpirun"
 defaultconfig="--cfg=smpi/shared-malloc:global --cfg=smpi/shared-malloc-blocksize:429496729600 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical -trace -trace-resource"
-
+for k in {1..10}
+do
 echo cmb
 for numitem in ${numitems[@]}
 do
@@ -27,14 +28,14 @@ do
         platform="../platforms/2x2-routing-Full.xml"
         algo="cmb"
 
-        filename="alltoall-$algo-K2-$d-$numitem"
+        filename="alltoall-$algo-K2-$d-$numitem-$k"
         tracefile="../$outdir/$filename"
         $exe -np $nproc $defaultconfig -hostfile $hostfile -platform $platform -trace-file $tracefile ./alltoallsmpi-b --num-item $numitem --algorithm $algo
         pj_dump $tracefile > "$tracefile.csv"
         rm $tracefile
         grep Variable $tracefile.csv > "../$outdir/variable.csv/$filename.variable.csv"
 
-        filename="allgather-$algo-K2-$d-$numitem"
+        filename="allgather-$algo-K2-$d-$numitem-$k"
         tracefile="../$outdir/$filename"
         $exe -np $nproc $defaultconfig -hostfile $hostfile -platform $platform -trace-file $tracefile ./allgathersmpi-b --num-item $numitem --algorithm $algo
         pj_dump $tracefile > "$tracefile.csv"
@@ -54,14 +55,14 @@ do
         platform="../platforms/2x2-routing-Full.xml"
         algo="mttree"
 
-        filename="alltoall-$algo-K2-$d-$numitem"
+        filename="alltoall-$algo-K2-$d-$numitem-$k"
         tracefile="../$outdir/$filename"
         $exe -np $nproc $defaultconfig -hostfile $hostfile -platform $platform -trace-file $tracefile ./alltoallsmpi-b --num-item $numitem --algorithm $algo
         pj_dump $tracefile > "$tracefile.csv"
         rm $tracefile
         grep Variable $tracefile.csv > "../$outdir/variable.csv/$filename.variable.csv"
 
-        filename="allgather-$algo-K2-$d-$numitem"
+        filename="allgather-$algo-K2-$d-$numitem-$k"
         tracefile="../$outdir/$filename"
         $exe -np $nproc $defaultconfig -hostfile $hostfile -platform $platform -trace-file $tracefile ./allgathersmpi-b --num-item $numitem --algorithm $algo
         pj_dump $tracefile > "$tracefile.csv"
@@ -80,14 +81,14 @@ do
         platform="../platforms/2x2-routing-Full.xml"
         algo="conges"
 
-        filename="alltoall-$algo-K2-$d-$numitem"
+        filename="alltoall-$algo-K2-$d-$numitem-$k"
         tracefile="../$outdir/$filename"
         $exe -np $nproc $defaultconfig -hostfile $hostfile -platform $platform -trace-file $tracefile ./alltoallsmpi-b --num-item $numitem --algorithm $algo
         pj_dump $tracefile > "$tracefile.csv"
         rm $tracefile
         grep Variable $tracefile.csv > "../$outdir/variable.csv/$filename.variable.csv"
 
-        filename="allgather-$algo-K2-$d-$numitem"
+        filename="allgather-$algo-K2-$d-$numitem-$k"
         tracefile="../$outdir/$filename"
         $exe -np $nproc $defaultconfig -hostfile $hostfile -platform $platform -trace-file $tracefile ./allgathersmpi-b --num-item $numitem --algorithm $algo
         pj_dump $tracefile > "$tracefile.csv"
@@ -95,3 +96,4 @@ do
         grep Variable $tracefile.csv > "../$outdir/variable.csv/$filename.variable.csv"
     done
 done 
+done
