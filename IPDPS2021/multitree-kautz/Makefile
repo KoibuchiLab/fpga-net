@@ -55,8 +55,14 @@ alltoall:
 # ../../simgrid-3.28/install/bin/smpirun -np 12 --cfg=smpi/host-speed:1Gf -hostfile ../hostfiles/kautz/kautz3-2.txt \
 # -platform ../platforms/kautz/kautz3-2.xml --log=smpi_coll.:critical ./alltoallsmpi --num-item 1024 -- algorithm conges
 
+onetoallstress:
+	../../simgrid-3.28/install/bin/smpicc onetoall-stress.c -o onetoallstress
+	../../simgrid-3.28/install/bin/smpirun -np 6 --cfg=smpi/host-speed:1Gf -hostfile ../hostfiles/kautz/kautz2-2.txt \
+		-platform ../platforms/kautz/kautz2-2.xml --log=smpi_coll.:critical ./onetoallstress 
 
+onetoonestress: onetoonestress.c
+	../../simgrid-3.28/install/bin/smpicc onetoonestress.c -o onetoonestress
 clean:
 	rm -f allgather allgathersmpi a.out allgathersmpi allgathersmpi-b alltoall alltoallsmpi alltoallsmpi-b 
 
-.PHONY: all alltoall allgather allreduce clean
+.PHONY: all alltoall allgather allreduce clean onetoallstress
