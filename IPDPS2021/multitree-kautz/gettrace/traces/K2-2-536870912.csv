@@ -1,1 +1,7 @@
-PajeSimulationException: Illegal, trace is not time-ordered in (Line: 361, Fields: '5, Contents: '9 0.000000 13 7 341987000.000000')
+List of incomplete links in container '0':
+Link, 0, MPI_LINK, 0.000008, -1.000000, 0.000000, PTP, rank-0, NULL, 1_2_0_1
+Link, 0, MPI_LINK, 0.000008, -1.000000, 0.000000, PTP, rank-0, NULL, 1_3_0_2
+Link, 0, MPI_LINK, 0.000008, -1.000000, 0.000000, PTP, rank-0, NULL, 1_4_0_3
+Link, 0, MPI_LINK, 0.000008, -1.000000, 0.000000, PTP, rank-0, NULL, 1_5_0_4
+Link, 0, MPI_LINK, 0.000008, -1.000000, 0.000000, PTP, rank-0, NULL, 1_6_0_5
+PajeLinkException: Incomplete links at the end of container with name '0'

@@ -1,28 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include <time.h>
 #include "header.h"
 // #include "mpi.h"
 
 int main(  )
 {	
-	int arraysize = 1231231;
-	float *kimarray = (float*)malloc(sizeof(float)*arraysize);
-	
-	double startime = clock();
-	for (int i = 0; i < arraysize; i++){
-		kimarray[i] = 0;
-	}
-	double endtime = (clock() - startime) / 1000000;
-	printf("%lf ", endtime);
-	startime = clock();
-	memset(kimarray, 0.0f, sizeof(float) * arraysize);
-	endtime = (clock() - startime) / 1000000;
-	printf("%lf ", endtime);
-	printf("\n");
+	int d = 3;
+	int count  = 10; 
+	for (int i = 0; i < d; i++) {
+		// Split the data
+		size_t amount = round((1.0*count / d));
+		if (i == d - 1) amount = count - (d - 1) * amount;
 
-	int a = 10, b = 100;
-	printf("%d + %d = %d, %d - %d = %d\n", a, b, sum(a, b), a, b, sub(a, b));
+		size_t position = round(i * (1.0*count / d));
+		// Send to neighbor
+		printf("Position: %ld, amount: %ld\n", position, amount);
+	}
 	return 0;
 }

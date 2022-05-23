@@ -1,1 +1,76 @@
-PajeSimulationException: Illegal, trace is not time-ordered in (Line: 361, Fields: '5, Contents: '9 0.000000 13 7 341987000.000000')
+Container, 0, 0, 0, 0, 0, 0
+Link, 0, 0-LINK10-HOST6, 0.000000, 0.000000, 0.000000, topology, 1.0_to_0.1, 0.1, 0
+Link, 0, 0-HOST6-LINK10, 0.000000, 0.000000, 0.000000, topology, 0.1, 0.1_to_1.0, 2
+Link, 0, 0-LINK10-LINK10, 0.000000, 0.000000, 0.000000, topology, 2.0_to_0.1, 0.1_to_1.0, 3
+Container, 0, HOST, 0, 0, 0, 2.1
+Variable, 2.1, speed, 0.000000, 0.000000, 0.000000, 99999997952.000000
+Variable, 2.1, core_count, 0.000000, 0.000000, 0.000000, 1.000000
+Variable, 2.1, speed_used, 0.000000, 0.000000, 0.000000, 99999997952.000000
+Container, 0, HOST, 0, 0, 0, 2.0
+Variable, 2.0, speed, 0.000000, 0.000000, 0.000000, 99999997952.000000
+Variable, 2.0, core_count, 0.000000, 0.000000, 0.000000, 1.000000
+Variable, 2.0, speed_used, 0.000000, 0.000000, 0.000000, 99999997952.000000
+Container, 0, HOST, 0, 0, 0, 1.2
+Variable, 1.2, speed, 0.000000, 0.000000, 0.000000, 99999997952.000000
+Variable, 1.2, core_count, 0.000000, 0.000000, 0.000000, 1.000000
+Variable, 1.2, speed_used, 0.000000, 0.000000, 0.000000, 99999997952.000000
+Container, 0, HOST, 0, 0, 0, 1.0
+Variable, 1.0, speed, 0.000000, 0.000000, 0.000000, 99999997952.000000
+Variable, 1.0, core_count, 0.000000, 0.000000, 0.000000, 1.000000
+Variable, 1.0, speed_used, 0.000000, 0.000000, 0.000000, 99999997952.000000
+Container, 0, HOST, 0, 0, 0, 0.2
+Variable, 0.2, speed, 0.000000, 0.000000, 0.000000, 99999997952.000000
+Variable, 0.2, core_count, 0.000000, 0.000000, 0.000000, 1.000000
+Variable, 0.2, speed_used, 0.000000, 0.000000, 0.000000, 99999997952.000000
+Container, 0, HOST, 0, 0, 0, 0.1
+Variable, 0.1, speed, 0.000000, 0.000000, 0.000000, 99999997952.000000
+Variable, 0.1, core_count, 0.000000, 0.000000, 0.000000, 1.000000
+Variable, 0.1, speed_used, 0.000000, 0.000000, 0.000000, 99999997952.000000
+Container, 0, LINK, 0, 0, 0, 0.2_to_2.0
+Variable, 0.2_to_2.0, bandwidth, 0.000000, 0.000000, 0.000000, 1000000000.000000
+Variable, 0.2_to_2.0, latency, 0.000000, 0.000000, 0.000000, 0.000001
+Container, 0, LINK, 0, 0, 0, 0.1_to_1.2
+Variable, 0.1_to_1.2, bandwidth, 0.000000, 0.000000, 0.000000, 1000000000.000000
+Variable, 0.1_to_1.2, latency, 0.000000, 0.000000, 0.000000, 0.000001
+Container, 0, LINK, 0, 0, 0, 0.1_to_1.0
+Variable, 0.1_to_1.0, bandwidth, 0.000000, 0.000000, 0.000000, 1000000000.000000
+Variable, 0.1_to_1.0, latency, 0.000000, 0.000000, 0.000000, 0.000001
+Container, 0, LINK, 0, 0, 0, 2.1_to_1.2
+Variable, 2.1_to_1.2, bandwidth, 0.000000, 0.000000, 0.000000, 1000000000.000000
+Variable, 2.1_to_1.2, latency, 0.000000, 0.000000, 0.000000, 0.000001
+Container, 0, LINK, 0, 0, 0, 2.1_to_1.0
+Variable, 2.1_to_1.0, bandwidth, 0.000000, 0.000000, 0.000000, 1000000000.000000
+Variable, 2.1_to_1.0, latency, 0.000000, 0.000000, 0.000000, 0.000001
+Container, 0, LINK, 0, 0, 0, 2.0_to_0.2
+Variable, 2.0_to_0.2, bandwidth, 0.000000, 0.000000, 0.000000, 1000000000.000000
+Variable, 2.0_to_0.2, latency, 0.000000, 0.000000, 0.000000, 0.000001
+Container, 0, LINK, 0, 0, 0, 2.0_to_0.1
+Variable, 2.0_to_0.1, bandwidth, 0.000000, 0.000000, 0.000000, 1000000000.000000
+Variable, 2.0_to_0.1, latency, 0.000000, 0.000000, 0.000000, 0.000001
+Container, 0, LINK, 0, 0, 0, 1.2_to_2.1
+Variable, 1.2_to_2.1, bandwidth, 0.000000, 0.000000, 0.000000, 1000000000.000000
+Variable, 1.2_to_2.1, latency, 0.000000, 0.000000, 0.000000, 0.000001
+Container, 0, LINK, 0, 0, 0, 1.2_to_2.0
+Variable, 1.2_to_2.0, bandwidth, 0.000000, 0.000000, 0.000000, 1000000000.000000
+Variable, 1.2_to_2.0, latency, 0.000000, 0.000000, 0.000000, 0.000001
+Container, 0, LINK, 0, 0, 0, 1.0_to_0.2
+Variable, 1.0_to_0.2, bandwidth, 0.000000, 0.000000, 0.000000, 1000000000.000000
+Variable, 1.0_to_0.2, latency, 0.000000, 0.000000, 0.000000, 0.000001
+Container, 0, LINK, 0, 0, 0, 1.0_to_0.1
+Variable, 1.0_to_0.1, bandwidth, 0.000000, 0.000000, 0.000000, 1000000000.000000
+Variable, 1.0_to_0.1, latency, 0.000000, 0.000000, 0.000000, 0.000001
+Container, 0, LINK, 0, 0, 0, 0.2_to_2.1
+Variable, 0.2_to_2.1, bandwidth, 0.000000, 0.000000, 0.000000, 1000000000.000000
+Variable, 0.2_to_2.1, latency, 0.000000, 0.000000, 0.000000, 0.000001
+Container, 0, MPI, 0, 0, 0, rank-5
+State, rank-5, MPI_STATE, 0.000000, 0.000000, 0.000000, 0.000000, PMPI_Init
+Container, 0, MPI, 0, 0, 0, rank-4
+State, rank-4, MPI_STATE, 0.000000, 0.000000, 0.000000, 0.000000, PMPI_Init
+Container, 0, MPI, 0, 0, 0, rank-3
+State, rank-3, MPI_STATE, 0.000000, 0.000000, 0.000000, 0.000000, PMPI_Init
+Container, 0, MPI, 0, 0, 0, rank-2
+State, rank-2, MPI_STATE, 0.000000, 0.000000, 0.000000, 0.000000, PMPI_Init
+Container, 0, MPI, 0, 0, 0, rank-1
+State, rank-1, MPI_STATE, 0.000000, 0.000000, 0.000000, 0.000000, PMPI_Init
+Container, 0, MPI, 0, 0, 0, rank-0
+State, rank-0, MPI_STATE, 0.000000, 0.000000, 0.000000, 0.000000, PMPI_Init
