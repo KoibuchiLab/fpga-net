@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2022-05-24 00:25:54
+ * @ Modified time: 2022-05-24 00:45:42
  * @ Description:
  */
 
@@ -199,7 +199,7 @@ int main(int argc, char* argv[]) {
 
     double kimrdtime = MPI_Wtime() - start_time;
     if ((0 == rank)) {
-        fprintf(stdout, "k%d,%.7lf,%d\n", d, kimrdtime, NUM_ITEMS);
+        fprintf(stdout, "%d,k%d,%.7lf,%d\n",algo, d, kimrdtime, NUM_ITEMS);
     }
 #if defined(COMPARE_BUILDIN)
     start_time = MPI_Wtime();
