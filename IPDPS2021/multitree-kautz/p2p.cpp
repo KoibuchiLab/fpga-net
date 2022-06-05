@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2022-05-24 00:45:42
+ * @ Modified time: 2022-06-05 13:05:29
  * @ Description:
  */
 
@@ -115,6 +115,8 @@ int main(int argc, char* argv[]) {
     }
 
     // All rank fill the buffer with random data
+    int kim = d*(d - 1);
+    NUM_ITEMS = (NUM_ITEMS / kim) * kim;
     srandom(RAND_SEED + rank);
     for (int j = 0; j < NUM_ITEMS; j++) {
         //data[i] = (float)((rank*1000 + i));
@@ -180,13 +182,6 @@ int main(int argc, char* argv[]) {
                 }
                 KMPI_Send(data, NUM_ITEMS, MPI_FLOAT, s, ds, 0, MPI_COMM_WORLD);
                 KMPI_Recv(result, NUM_ITEMS, MPI_FLOAT, s, ds, 0, MPI_COMM_WORLD);
-                // if (rank == dest) {
-                //     for (int i = 0; i < NUM_ITEMS; i++) {
-                //         if (result[i] != data[i]) {
-                //             cout << "p2p wrong source " << s << " dest " << ds << endl;
-                //         }
-                //     }
-                // }
             }
         }
     }

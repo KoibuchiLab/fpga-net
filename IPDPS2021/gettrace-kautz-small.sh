@@ -30,21 +30,21 @@ do
         tracefile="../traces/$filename"
         $exe -np $nproc $defaultconfig -hostfile $hostfile -platform $platform -trace-file $tracefile ./allreducesmpi --num-item $numitem --algorithm $algo
         pj_dump $tracefile > "$tracefile.csv"
-        rm $tracefile
+        #rm $tracefile
         grep Variable $tracefile.csv > "../traces/variable.csv/$filename.variable.csv"
 
         filename="alltoall-$algo-K2-$d-$numitem"
         tracefile="../traces/$filename"
         $exe -np $nproc $defaultconfig -hostfile $hostfile -platform $platform -trace-file $tracefile ./alltoallsmpi --num-item $numitem --algorithm $algo
         pj_dump $tracefile > "$tracefile.csv"
-        rm $tracefile
+        #rm $tracefile
         grep Variable $tracefile.csv > "../traces/variable.csv/$filename.variable.csv"
 
         filename="allgather-$algo-K2-$d-$numitem"
         tracefile="../traces/$filename"
         $exe -np $nproc $defaultconfig -hostfile $hostfile -platform $platform -trace-file $tracefile ./allgathersmpi --num-item $numitem --algorithm $algo
         pj_dump $tracefile > "$tracefile.csv"
-        rm $tracefile
+       # rm $tracefile
         grep Variable $tracefile.csv > "../traces/variable.csv/$filename.variable.csv"
     done
 done 
