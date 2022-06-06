@@ -1,0 +1,191 @@
+make: 'p2p' is up to date.
+naive,0,k2,0.0000173,256
+multipath,../p2p --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:global --cfg=smpi/shared-malloc-blocksize:429496729600 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../../platforms/kautz/kautz2-2.xml
+Execution failed with code 134.
+naive,0,k3,0.0000262,252
+multipath,1,k3,0.0000643,252
+naive,0,k4,0.0000376,252
+multipath,1,k4,0.0001006,252
+naive,0,k8,0.0001035,224
+multipath,1,k8,0.0003296,224
+naive,multipath,naive,0,k2,0.0000158,512
+multipath,../p2p --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:global --cfg=smpi/shared-malloc-blocksize:429496729600 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../../platforms/kautz/kautz2-2.xml
+Execution failed with code 134.
+naive,0,k3,0.0000236,510
+multipath,1,k3,0.0000670,510
+naive,0,k4,0.0000332,504
+multipath,1,k4,0.0001034,504
+naive,0,k8,0.0000912,504
+multipath,1,k8,0.0003286,504
+naive,multipath,naive,0,k2,0.0000179,1024
+multipath,../p2p --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:global --cfg=smpi/shared-malloc-blocksize:429496729600 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../../platforms/kautz/kautz2-2.xml
+Execution failed with code 134.
+naive,0,k3,0.0000273,1020
+multipath,1,k3,0.0000689,1020
+naive,0,k4,0.0000391,1020
+multipath,1,k4,0.0001093,1020
+naive,0,k8,0.0001095,1008
+multipath,1,k8,0.0003381,1008
+naive,multipath,naive,0,k2,0.0000207,2048
+multipath,../p2p --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:global --cfg=smpi/shared-malloc-blocksize:429496729600 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../../platforms/kautz/kautz2-2.xml
+Execution failed with code 134.
+naive,0,k3,0.0000317,2046
+multipath,1,k3,0.0000645,2046
+naive,0,k4,0.0000460,2040
+multipath,1,k4,0.0000952,2040
+naive,0,k8,0.0001307,2016
+multipath,1,k8,0.0003565,2016
+naive,multipath,naive,0,k2,0.0000332,4096
+multipath,../p2p --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:global --cfg=smpi/shared-malloc-blocksize:429496729600 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../../platforms/kautz/kautz2-2.xml
+Execution failed with code 134.
+naive,0,k3,0.0000548,4092
+multipath,1,k3,0.0000779,4092
+naive,0,k4,0.0000820,4092
+multipath,1,k4,0.0001152,4092
+naive,0,k8,0.0002443,4088
+multipath,1,k8,0.0003082,4088
+naive,multipath,naive,0,k2,0.0000426,8192
+multipath,../p2p --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:global --cfg=smpi/shared-malloc-blocksize:429496729600 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../../platforms/kautz/kautz2-2.xml
+Execution failed with code 134.
+naive,0,k3,0.0000719,8190
+multipath,1,k3,0.0001296,8190
+naive,0,k4,0.0001084,8184
+multipath,1,k4,0.0001480,8184
+naive,0,k8,0.0003270,8176
+multipath,1,k8,0.0003755,8176
+naive,multipath,naive,0,k2,0.0001269,16384
+multipath,../p2p --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:global --cfg=smpi/shared-malloc-blocksize:429496729600 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../../platforms/kautz/kautz2-2.xml
+Execution failed with code 134.
+naive,0,k3,0.0001616,16380
+multipath,1,k3,0.0001831,16380
+naive,0,k4,0.0002480,16380
+multipath,1,k4,0.0002611,16380
+naive,0,k8,0.0004921,16352
+multipath,1,k8,0.0004528,16352
+naive,multipath,naive,0,k2,0.0001660,32768
+multipath,../p2p --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:global --cfg=smpi/shared-malloc-blocksize:429496729600 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../../platforms/kautz/kautz2-2.xml
+Execution failed with code 134.
+naive,0,k3,0.0003715,32766
+multipath,1,k3,0.0002985,32766
+naive,0,k4,0.0006226,32760
+multipath,1,k4,0.0003537,32760
+naive,0,k8,0.0023107,32760
+multipath,1,k8,0.0008638,32760
+naive,multipath,naive,0,k2,0.0002439,65536
+multipath,../p2p --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:global --cfg=smpi/shared-malloc-blocksize:429496729600 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../../platforms/kautz/kautz2-2.xml
+Execution failed with code 134.
+naive,0,k3,0.0005499,65532
+multipath,1,k3,0.0007546,65532
+naive,0,k4,0.0009235,65532
+multipath,1,k4,0.0008187,65532
+naive,0,k8,0.0034359,65520
+multipath,1,k8,0.0011685,65520
+naive,multipath,naive,0,k2,0.0004001,131072
+multipath,../p2p --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:global --cfg=smpi/shared-malloc-blocksize:429496729600 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../../platforms/kautz/kautz2-2.xml
+Execution failed with code 134.
+naive,0,k3,0.0009066,131070
+multipath,1,k3,0.0010595,131070
+naive,0,k4,0.0015254,131064
+multipath,1,k4,0.0016601,131064
+naive,0,k8,0.0056865,131040
+multipath,1,k8,0.0027508,131040
+naive,multipath,naive,0,k2,0.0007122,262144
+multipath,../p2p --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:global --cfg=smpi/shared-malloc-blocksize:429496729600 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../../platforms/kautz/kautz2-2.xml
+Execution failed with code 134.
+naive,0,k3,0.0016227,262140
+multipath,1,k3,0.0016687,262140
+naive,0,k4,0.0027322,262140
+multipath,1,k4,0.0024847,262140
+naive,0,k8,0.0101965,262136
+multipath,1,k8,0.0080204,262136
+naive,multipath,naive,0,k2,0.0013364,524288
+multipath,../p2p --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:global --cfg=smpi/shared-malloc-blocksize:429496729600 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../../platforms/kautz/kautz2-2.xml
+Execution failed with code 134.
+naive,0,k3,0.0030510,524286
+multipath,1,k3,0.0028873,524286
+naive,0,k4,0.0051409,524280
+multipath,1,k4,0.0041340,524280
+naive,0,k8,0.0192076,524272
+multipath,1,k8,0.0119544,524272
+naive,multipath,naive,0,k2,0.0025848,1048576
+multipath,../p2p --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:global --cfg=smpi/shared-malloc-blocksize:429496729600 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../../platforms/kautz/kautz2-2.xml
+Execution failed with code 134.
+naive,0,k3,0.0059063,1048572
+multipath,1,k3,0.0053272,1048572
+naive,0,k4,0.0099585,1048572
+multipath,1,k4,0.0074357,1048572
+naive,0,k8,0.0372287,1048544
+multipath,1,k8,0.0198256,1048544
+naive,multipath,naive,0,k2,0.0050817,2097152
+multipath,../p2p --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:global --cfg=smpi/shared-malloc-blocksize:429496729600 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../../platforms/kautz/kautz2-2.xml
+Execution failed with code 134.
+naive,0,k3,0.0116181,2097150
+multipath,1,k3,0.0102065,2097150
+naive,0,k4,0.0195963,2097144
+multipath,1,k4,0.0140367,2097144
+naive,0,k8,0.0732728,2097144
+multipath,1,k8,0.0355681,2097144
+naive,multipath,naive,0,k2,0.0100755,4194304
+multipath,../p2p --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:global --cfg=smpi/shared-malloc-blocksize:429496729600 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../../platforms/kautz/kautz2-2.xml
+Execution failed with code 134.
+naive,0,k3,0.0230417,4194300
+multipath,1,k3,0.0199697,4194300
+naive,0,k4,0.0388717,4194300
+multipath,1,k4,0.0272332,4194300
+naive,0,k8,0.1453546,4194288
+multipath,1,k8,0.0670482,4194288
+naive,multipath,naive,0,k2,0.0200631,8388608
+multipath,../p2p --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:global --cfg=smpi/shared-malloc-blocksize:429496729600 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../../platforms/kautz/kautz2-2.xml
+Execution failed with code 134.
+naive,0,k3,0.0459035,8388606
+multipath,1,k3,0.0394871,8388606
+naive,0,k4,0.0774437,8388600
+multipath,1,k4,0.0536317,8388600
+naive,0,k8,0.2897528,8388576
+multipath,1,k8,0.1300070,8388576
+naive,multipath,naive,0,k2,0.0400384,16777216
+multipath,../p2p --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:global --cfg=smpi/shared-malloc-blocksize:429496729600 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../../platforms/kautz/kautz2-2.xml
+Execution failed with code 134.
+naive,0,k3,0.0915827,16777212
+multipath,1,k3,0.0784685,16777212
+naive,0,k4,0.1545585,16777212
+multipath,1,k4,0.1064488,16777212
+naive,0,k8,0.5782940,16777208
+multipath,1,k8,0.2559323,16777208
+naive,multipath,naive,0,k2,0.0799885,33554432
+multipath,../p2p --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:global --cfg=smpi/shared-malloc-blocksize:429496729600 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../../platforms/kautz/kautz2-2.xml
+Execution failed with code 134.
+naive,0,k3,0.1829629,33554430
+multipath,1,k3,0.1565700,33554430
+naive,0,k4,0.3087825,33554424
+multipath,1,k4,0.2121175,33554424
+naive,0,k8,1.1553432,33554416
+multipath,1,k8,0.5077871,33554416
+naive,multipath,naive,0,k2,0.1598891,67108864
+multipath,../p2p --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:global --cfg=smpi/shared-malloc-blocksize:429496729600 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../../platforms/kautz/kautz2-2.xml
+Execution failed with code 134.
+naive,0,k3,0.3657170,67108860
+multipath,1,k3,0.3126790,67108860
+naive,0,k4,0.6172233,67108860
+multipath,1,k4,0.4233926,67108860
+naive,0,k8,2.3094784,67108832
+multipath,1,k8,1.0117772,67108832
+naive,multipath,naive,0,k2,0.3196901,134217728
+multipath,../p2p --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:global --cfg=smpi/shared-malloc-blocksize:429496729600 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../../platforms/kautz/kautz2-2.xml
+Execution failed with code 134.
+naive,0,k3,0.7312364,134217726
+multipath,1,k3,0.6248971,134217726
+naive,0,k4,1.2341081,134217720
+multipath,1,k4,0.8459315,134217720
+naive,0,k8,4.6177311,134217720
+multipath,1,k8,2.0194415,134217720
+naive,multipath,naive,0,k2,0.6392921,268435456
+multipath,../p2p --cfg=smpi/privatization:1  --cfg=surf/precision:1e-9 --cfg=network/model:SMPI --cfg=smpi/shared-malloc:global --cfg=smpi/shared-malloc-blocksize:429496729600 --cfg=smpi/host-speed:1Gf --log=smpi_coll.:critical --cfg=smpi/tmpdir:/tmp ../../platforms/kautz/kautz2-2.xml
+Execution failed with code 134.
+naive,0,k3,1.4622616,268435452
+multipath,1,k3,1.2493253,268435452
+naive,0,k4,2.4678869,268435452
+multipath,1,k4,1.6910277,268435452
+naive,0,k8,9.2342731,268435440
+multipath,1,k8,4.0347518,268435440
+naive,multipath,
