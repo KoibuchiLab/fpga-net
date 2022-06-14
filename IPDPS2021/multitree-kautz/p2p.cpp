@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2022-06-05 13:05:29
+ * @ Modified time: 2022-06-15 06:01:53
  * @ Description:
  */
 
@@ -171,21 +171,24 @@ int main(int argc, char* argv[]) {
     /////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////	       P2P  : START	     ////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////
-    int a, b;
-    int source = 0;
-    int dest = 6;
-    for (int s = 0; s < d + 1; s++){
-        for (int ds = 0; ds < d + 1; ds++){
-            if ( s != ds){
-                if (rank == 0) {
-                    // cout << "Source: " << s << ", Dest: " << ds << endl;
-                }
-                KMPI_Send(data, NUM_ITEMS, MPI_FLOAT, s, ds, 0, MPI_COMM_WORLD);
-                KMPI_Recv(result, NUM_ITEMS, MPI_FLOAT, s, ds, 0, MPI_COMM_WORLD);
-            }
-        }
-    }
-    
+    // int a, b;
+    // int source = 0;
+    // int dest = 6;
+    // for (int s = 0; s < d + 1; s++){
+    //     for (int ds = 0; ds < d + 1; ds++){
+    //         if ( s != ds){
+    //             if (rank == 0) {
+    //                 // cout << "Source: " << s << ", Dest: " << ds << endl;
+    //             }
+    //             KMPI_Send(data, NUM_ITEMS, MPI_FLOAT, s, ds, 0, MPI_COMM_WORLD);
+    //             KMPI_Recv(result, NUM_ITEMS, MPI_FLOAT, s, ds, 0, MPI_COMM_WORLD);
+    //         }
+    //     }
+    // }
+    int source = hidx2r(0, 1, d);
+    int dest = hidx2r(1, 0, d);
+    KMPI_Send(data, NUM_ITEMS, MPI_FLOAT, source, dest, 0, MPI_COMM_WORLD);
+    KMPI_Recv(result, NUM_ITEMS, MPI_FLOAT, source, dest, 0, MPI_COMM_WORLD);
     /////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////  	    P2P : END	     ////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -194,28 +197,42 @@ int main(int argc, char* argv[]) {
 
     double kimrdtime = MPI_Wtime() - start_time;
     if ((0 == rank)) {
-        fprintf(stdout, "%d,k%d,%.7lf,%d\n",algo, d, kimrdtime, NUM_ITEMS);
+        fprintf(stdout, "%d,0,k%d,%.7lf,%d\n",algo, d, kimrdtime, NUM_ITEMS);
     }
-#if defined(COMPARE_BUILDIN)
-    start_time = MPI_Wtime();
-    float* resultlib = (float*)malloc(sizeof(float) * NUM_ITEMS * size);
-    MPI_Alltoall(data, NUM_ITEMS, MPI_FLOAT, resultlib, NUM_ITEMS, MPI_FLOAT, MPI_COMM_WORLD);
+    /////////////////// egress links
     MPI_Barrier(MPI_COMM_WORLD);
+    if (rank == 0) {
+        start_time = MPI_Wtime();
+    }
+    dest = hidx2r(1, 2, d);
+    KMPI_Send(data, NUM_ITEMS, MPI_FLOAT, source, dest, 0, MPI_COMM_WORLD);
+    KMPI_Recv(result, NUM_ITEMS, MPI_FLOAT, source, dest, 0, MPI_COMM_WORLD);
+    /// Stop timer
+    MPI_Barrier(MPI_COMM_WORLD);
+
+    kimrdtime = MPI_Wtime() - start_time;
     if ((0 == rank)) {
-        fprintf(stdout, "k%d,%.7lf,%.7lf,%d\n", d, kimrdtime, MPI_Wtime() - start_time, NUM_ITEMS);
+        fprintf(stdout, "%d,1,k%d,%.7lf,%d\n", algo, d, kimrdtime, NUM_ITEMS);
+    }
+    MPI_Barrier(MPI_COMM_WORLD);
+    if (rank == 0) {
+        start_time = MPI_Wtime();
     }
 
-    // Compare the result
-    if (rank == 0) {
-        for (int i = 0; i < NUM_ITEMS * size; i++) {
-            if ((result[i]) != (resultlib[i])) {
-                cout << "Index " << i << " kim: " << result[i] << " lib " << resultlib[i] << endl;
-                fprintf(stdout, "%s\n", "Alltoall wrong");
-                break;
-            }
-        }
+    // ///////////////////////////// ingress links
+    dest = hidx2r(2, 0, d);
+    KMPI_Send(data, NUM_ITEMS, MPI_FLOAT, source, dest, 0, MPI_COMM_WORLD);
+    KMPI_Recv(result, NUM_ITEMS, MPI_FLOAT, source, dest, 0, MPI_COMM_WORLD);
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////  	    P2P : END	     ////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    /// Stop timer
+    MPI_Barrier(MPI_COMM_WORLD);
+
+    kimrdtime = MPI_Wtime() - start_time;
+    if ((0 == rank)) {
+        fprintf(stdout, "%d,2,k%d,%.7lf,%d\n", algo, d, kimrdtime, NUM_ITEMS);
     }
-#endif
     delete data;
     delete result;
     MPI_Finalize();
