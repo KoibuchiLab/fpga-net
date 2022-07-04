@@ -558,6 +558,15 @@ IPDPS2021/multitree-kautz/scheduleTable/kout1
 IPDPS2021/multitree-kautz/scheduleTable/kout16
 IPDPS2021/multitree-kautz/scheduleTable/kout32
 IPDPS2021/multitree-kautz/scheduleTable/kout64
+IPDPS2021/hostfiles/kautz/kautz15-2.txt
+IPDPS2021/multitree-kautz/scheduleTable/kcmb14
+IPDPS2021/multitree-kautz/scheduleTable/kcmb15
+IPDPS2021/multitree-kautz/scheduleTable/kin14
+IPDPS2021/multitree-kautz/scheduleTable/kin15
+IPDPS2021/multitree-kautz/scheduleTable/kout14
+IPDPS2021/multitree-kautz/scheduleTable/kout15
+IPDPS2021/platforms/kautz/kautz14-2.xml
+IPDPS2021/platforms/kautz/kautz15-2.xml
 IPDPS2021/platforms/2lvfc/16x17.xml
 IPDPS2021/platforms/2lvfc/64x65.xml
 IPDPS2021/platforms/2lvfc/8x9.xml
