@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2022-07-10 21:19:47
+ * @ Modified time: 2022-07-10 22:22:25
  * @ Description:
  */
 
@@ -185,7 +185,7 @@ int main(int argc, char* argv[]) {
     //         }
     //     }
     // }
-    double kimrdtime = MPI_Wtime() - start_time;
+    double kimrdtime;
     int source = hidx2r(0, 1, d);
     int dest = hidx2r(1, 0, d);
     
@@ -208,6 +208,7 @@ int main(int argc, char* argv[]) {
     KMPI_Send(data, NUM_ITEMS, MPI_FLOAT, source, dest, 0, MPI_COMM_WORLD);
     KMPI_Recv(result, NUM_ITEMS, MPI_FLOAT, source, dest, 0, MPI_COMM_WORLD);
     /// Stop timer
+    MPI_Barrier(MPI_COMM_WORLD);
     kimrdtime = MPI_Wtime() - start_time;
     if ((0 == rank)) {
         fprintf(stdout, "%d,1,k%d,%.7lf,%d\n", algo, d, kimrdtime, NUM_ITEMS);
@@ -225,7 +226,7 @@ int main(int argc, char* argv[]) {
     //////////////////////////////  	    P2P : END	     ////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////
     /// Stop timer
-
+    MPI_Barrier(MPI_COMM_WORLD);
     kimrdtime = MPI_Wtime() - start_time;
     if ((0 == rank)) {
         fprintf(stdout, "%d,2,k%d,%.7lf,%d\n", algo, d, kimrdtime, NUM_ITEMS);
