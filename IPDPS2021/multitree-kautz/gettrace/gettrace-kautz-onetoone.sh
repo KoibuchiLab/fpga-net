@@ -18,7 +18,7 @@ do
         
         filename="K2-$d-$numitem"
         tracefile="./traces/$filename"
-        $exe -np $nproc $defaultconfig -hostfile $hostfile -platform $platform -trace-file $tracefile ../onetoonestress --num-item $numitem --algorithm naive
+        $exe -np $nproc $defaultconfig -hostfile $hostfile -platform $platform -trace-file $tracefile ../onetoonestress --num-item $numitem
         pj_dump $tracefile > "$tracefile.csv"
         rm $tracefile
         grep Variable $tracefile.csv > "./traces/variable.csv/$filename.variable.csv"

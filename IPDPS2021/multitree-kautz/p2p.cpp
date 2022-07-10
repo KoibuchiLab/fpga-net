@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2022-06-15 06:01:53
+ * @ Modified time: 2022-07-10 20:50:13
  * @ Description:
  */
 
@@ -185,17 +185,17 @@ int main(int argc, char* argv[]) {
     //         }
     //     }
     // }
+    double kimrdtime = MPI_Wtime() - start_time;
     int source = hidx2r(0, 1, d);
     int dest = hidx2r(1, 0, d);
+    
     KMPI_Send(data, NUM_ITEMS, MPI_FLOAT, source, dest, 0, MPI_COMM_WORLD);
     KMPI_Recv(result, NUM_ITEMS, MPI_FLOAT, source, dest, 0, MPI_COMM_WORLD);
-    /////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////  	    P2P : END	     ////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////////////////
+ 
     /// Stop timer
     MPI_Barrier(MPI_COMM_WORLD);
 
-    double kimrdtime = MPI_Wtime() - start_time;
+    kimrdtime = MPI_Wtime() - start_time;
     if ((0 == rank)) {
         fprintf(stdout, "%d,0,k%d,%.7lf,%d\n",algo, d, kimrdtime, NUM_ITEMS);
     }
@@ -208,9 +208,7 @@ int main(int argc, char* argv[]) {
     KMPI_Send(data, NUM_ITEMS, MPI_FLOAT, source, dest, 0, MPI_COMM_WORLD);
     KMPI_Recv(result, NUM_ITEMS, MPI_FLOAT, source, dest, 0, MPI_COMM_WORLD);
     /// Stop timer
-    MPI_Barrier(MPI_COMM_WORLD);
-
-    kimrdtime = MPI_Wtime() - start_time;
+    double kimrdtime = MPI_Wtime() - start_time;
     if ((0 == rank)) {
         fprintf(stdout, "%d,1,k%d,%.7lf,%d\n", algo, d, kimrdtime, NUM_ITEMS);
     }
@@ -218,7 +216,7 @@ int main(int argc, char* argv[]) {
     if (rank == 0) {
         start_time = MPI_Wtime();
     }
-
+    
     // ///////////////////////////// ingress links
     dest = hidx2r(2, 0, d);
     KMPI_Send(data, NUM_ITEMS, MPI_FLOAT, source, dest, 0, MPI_COMM_WORLD);
@@ -227,7 +225,6 @@ int main(int argc, char* argv[]) {
     //////////////////////////////  	    P2P : END	     ////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////
     /// Stop timer
-    MPI_Barrier(MPI_COMM_WORLD);
 
     kimrdtime = MPI_Wtime() - start_time;
     if ((0 == rank)) {
