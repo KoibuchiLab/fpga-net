@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2022-07-11 01:54:40
+ * @ Modified time: 2022-07-11 13:38:56
  * @ Description:
  */
 
@@ -167,11 +167,11 @@ int main(int argc, char* argv[]) {
     if (rank == 0) {
         start_time = MPI_Wtime();
     }
-
+    double kimrdtime;
     /////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////	       P2P  : START	     ////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////
-    int a, b;
+    /*int a, b;
     int source = 0;
     int dest = 6;
     for (int s = 0; s < d + 1; s++){
@@ -185,12 +185,12 @@ int main(int argc, char* argv[]) {
             }
         }
     }
-    double kimrdtime;
+    
     kimrdtime = MPI_Wtime() - start_time;
     if ((0 == rank)) {
         fprintf(stdout, "%d,0,k%d,%.7lf,%d\n", algo, d, kimrdtime, NUM_ITEMS);
-    }
-    /*
+    }*/
+    
     int source = hidx2r(0, 1, d);
     int dest = hidx2r(1, 0, d);
     
@@ -236,7 +236,7 @@ int main(int argc, char* argv[]) {
     if ((0 == rank)) {
         fprintf(stdout, "%d,2,k%d,%.7lf,%d\n", algo, d, kimrdtime, NUM_ITEMS);
     }
-    */
+    //*/
     delete data;
     delete result;
     MPI_Finalize();
@@ -634,17 +634,17 @@ int KMPI_Recv(void* buf, size_t count, MPI_Datatype datatype, int source, int de
                         position = amount * (i - adjustindex);
                         if (i == d) amount = count - (d - 1) * amount;
                         // cout << "RProcess " << rank << " waits to recv the data from " << internode << " amount " << amount << endl;
-                        MPI_Recv(&tmpptr[position], amount, datatype, internode, tag, comm, MPI_STATUS_IGNORE);
-                        // MPI_Irecv(&tmpptr[position], amount, datatype, internode, tag, comm, &reqrecvs[i]);
+                        // MPI_Recv(&tmpptr[position], amount, datatype, internode, tag, comm, MPI_STATUS_IGNORE);
+                        MPI_Irecv(&tmpptr[position], amount, datatype, internode, tag, comm, &reqrecvs[i]);
                         // cout << "RProcess " << rank << " recv the data from " << internode << " begin at " << position << " amount " << amount << endl;
 
                     }
                 }
-                // for (int i = 0; i < d + 1; i++){
-                //     if (i != d_groupnumber){
-                //         MPI_Wait(&reqrecvs[i], MPI_STATUS_IGNORE);   
-                //     }
-                // }
+                for (int i = 0; i < d + 1; i++){
+                    if (i != d_groupnumber){
+                        MPI_Wait(&reqrecvs[i], MPI_STATUS_IGNORE);   
+                    }
+                }
             }
             free(reqrecvs);
             
