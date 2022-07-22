@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2022-07-22 21:15:46
+ * @ Modified time: 2022-07-22 21:33:39
  * @ Description:
  */
 
@@ -655,9 +655,6 @@ int main ( int argc, char *argv[] ){
             //     }
             //     cout << endl;
             // }
-			if (rank == 0) {
-				cp_start_time = MPI_Wtime();
-			}
 			int parent, idx;
 			for (int i = 0; i < d; i++){
 				// Copy to the final result
