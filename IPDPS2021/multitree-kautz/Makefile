@@ -34,8 +34,9 @@ allreduce: allreduce.cpp helper.cpp
 allgather: allgather-behavior.cpp helper.cpp
 	mpirun -np 6 ./allgather --topo k2
 	../../simgrid-3.28/install/bin/smpicxx -o allgathersmpi $(sourcefileallgather)
+	../../simgrid-3.28/install/bin/smpicxx -o allgathersmpi-b $(sourcefilebehavior)
 	../../simgrid-3.28/install/bin/smpirun -np 6 --cfg=smpi/host-speed:1Gf -hostfile ../hostfiles/kautz/kautz2-2.txt \
-	-platform ../platforms/kautz/kautz2-2.xml --log=smpi_coll.:critical ./allgathersmpi --num-item 2
+	-platform ../platforms/kautz/kautz2-2.xml --log=smpi_coll.:critical ./allgathersmpi-b --num-item 20000 --algorithm cmb
 
 alltoall:
 	mpic++ -g -o alltoall $(sourcefilealltoall)

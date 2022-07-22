@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-12-29 08:09:03
+ * @ Modified time: 2022-07-22 21:15:46
  * @ Description:
  */
 
@@ -157,6 +157,7 @@ int main ( int argc, char *argv[] ){
 	float* result = data;
 	// copy local data to result
 	memcpy(&result[rank*NUM_ITEMS], &data[rank*NUM_ITEMS], NUM_ITEMS*sizeof(float));
+	double sp_start_time =0;
 	
 	MPI_Barrier(MPI_COMM_WORLD);
 	if (rank == 0) {
@@ -654,7 +655,9 @@ int main ( int argc, char *argv[] ){
             //     }
             //     cout << endl;
             // }
-			
+			if (rank == 0) {
+				cp_start_time = MPI_Wtime();
+			}
 			int parent, idx;
 			for (int i = 0; i < d; i++){
 				// Copy to the final result

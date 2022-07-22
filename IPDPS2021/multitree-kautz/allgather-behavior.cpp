@@ -2,7 +2,7 @@
  * @ Author: Kien Pham
  * @ Create Time: 2021-10-05 11:33:06
  * @ Modified by: Kien Pham
- * @ Modified time: 2021-12-16 20:14:07
+ * @ Modified time: 2022-07-22 21:21:24
  * @ Description:
  */
 #include <iostream>
@@ -191,10 +191,11 @@ int main ( int argc, char *argv[] ){
 	MPI_Request *reqrecvs;
 	MPI_Request *reqsends;
 	MPI_Barrier(MPI_COMM_WORLD);
+	double cp_start_time = 0, cp_end_time;
 	if (rank == 0) {
 		start_time = MPI_Wtime();
 	}
-	double tstep0, tstep1comm, tstep1copy;
+	//double tstep0, tstep1comm, tstep1copy;
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////	  ALLGATHER : START	     ////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////
@@ -508,6 +509,9 @@ int main ( int argc, char *argv[] ){
 		dblasttimer = MPI_Wtime();
 	}
 #endif
+			if (rank == 0) {
+				cp_start_time = MPI_Wtime();
+			}
 			for (int i = 0; i < d; i++){
 				// copy buffer to final result
 				// find the data source
@@ -546,7 +550,9 @@ int main ( int argc, char *argv[] ){
 					
 				}
 			}
-
+			if (rank == 0) {
+				cp_end_time = MPI_Wtime();
+			}
 
 #if defined(TIME_FOR_EACH_STEP_C)
 	// MPI_Barrier(MPI_COMM_WORLD);
@@ -584,7 +590,7 @@ int main ( int argc, char *argv[] ){
 	
 	double kimrdtime = MPI_Wtime() - start_time;
 	if ((0 == rank)) {
-		fprintf(stdout, "k%d,%.7lf,%d,%.7lf,%.7lf,%.7lf\n", d, kimrdtime, NUM_ITEMS, tstep0, tstep1comm, tstep1copy);
+		fprintf(stdout, "k%d,%.7lf,%d,%.7lf\n", d, kimrdtime, NUM_ITEMS, cp_end_time - cp_start_time);
 	}
 #if defined(COMPARE_BUILDIN)
 	start_time = MPI_Wtime();
