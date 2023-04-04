@@ -31,3 +31,7 @@ set(PYTHON_LIBRARY /usr/lib/libpython3.so)
 # make
 # make install
 ```
+
+# Source Code
+
+There are 2 versions of communication: one for 2 level fully connected, and one for Kautz network located in multiport-2lvfc and multitree-kautz respectively. 3 collective operations (allgather, allreduce, and alltoall) and 1 onetoone operation for each version were build.
