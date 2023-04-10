@@ -1,3 +1,0 @@
-#!/usr/bin/env tesh
-
-$ ${bindir:=.}/parmap_bench 4 0.25 --log=parmap_bench.thres:warning

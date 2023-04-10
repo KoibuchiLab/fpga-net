@@ -1,3 +1,0 @@
-# This file lists the content of the python source package
-# Prepared in tools/cmake/Distrib.cmake
-@PYTHON_SOURCES@

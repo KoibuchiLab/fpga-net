@@ -1,2 +1,0 @@
-mixed/actions0.txt
-mixed/actions1.txt
