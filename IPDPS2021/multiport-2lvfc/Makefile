@@ -2,6 +2,9 @@ all: allreduce.c allgather.c alltoall.c
 	../../simgrid-3.28/install/bin/smpicc allreduce.c -o allreducesmpi
 	../../simgrid-3.28/install/bin/smpicc allgather.c -o allgathersmpi
 	../../simgrid-3.28/install/bin/smpicc alltoall.c  -o alltoallsmpi
+	../../simgrid-3.28/install/bin/smpicc allreduce-behavior.c -o allreducesmpi-b
+	../../simgrid-3.28/install/bin/smpicc allgather-behavior.c  -o allgathersmpi-b
+	../../simgrid-3.28/install/bin/smpicc alltoall-behavior.c  -o alltoallsmpi-b
 
 realmpi: allreduce.c
 	mpicc allreduce.c
