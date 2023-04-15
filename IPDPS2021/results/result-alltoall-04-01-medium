@@ -1,5 +1,0 @@
-mpicc allgather.c -o allgather
-../../simgrid-3.28/install/bin/smpicc allgather.c  -o allgathersmpi
-../../simgrid-3.28/install/bin/smpicc allgather-behavior.c  -o allgathersmpi-b
-16x17,0.3926057,8388608
-16x17,0.7847411,16777216

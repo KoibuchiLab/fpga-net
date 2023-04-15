@@ -590,7 +590,7 @@ int main ( int argc, char *argv[] ){
 	
 	double kimrdtime = MPI_Wtime() - start_time;
 	if ((0 == rank)) {
-		fprintf(stdout, "k%d,%.7lf,%d,%.7lf\n", d, kimrdtime, NUM_ITEMS, cp_end_time - cp_start_time);
+		fprintf(stdout, "k%d,%.7lf,%d\n", d, kimrdtime, NUM_ITEMS);
 	}
 #if defined(COMPARE_BUILDIN)
 	start_time = MPI_Wtime();

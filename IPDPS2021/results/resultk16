@@ -1,4 +1,0 @@
-mpic++ -o allgather allgather.cpp helper.cpp 
-../../simgrid-3.28/install/bin/smpicxx -o allgathersmpi allgather.cpp helper.cpp 
-conges
-k16,0.0017039,262144
